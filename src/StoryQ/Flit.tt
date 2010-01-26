@@ -1,0 +1,253 @@
+<#@ import namespace="Flit"#>
+<#@ import namespace="Flit"#>
+<#@ import namespace="Irony.Parsing"#>
+<#@ import namespace="System.Text.RegularExpressions"#>
+<#@ import namespace="System.Linq"#>
+<#@ import namespace="System.Collections.Generic"#>
+<#@ template language="C#v3.5" hostspecific="True" debug="True" #>
+<#@ assembly name="Flit.dll"#>
+<#@ assembly name="Irony.dll"#>
+<#@ assembly name="System.Core.dll"#>
+<#@ output extension=".g.cs" #>
+<#
+
+//This model-driven development is thanks to http://flit.codeplex.com!
+
+    var inputFile = "FluentInterface\\StoryQ.txt";
+    var nameSpace = "StoryQ";
+
+    var templateDir = new System.IO.FileInfo(Host.TemplateFile).Directory;
+    
+    var compiler = new Irony.Parsing.Parser(new FlitGrammar());
+    ParseTree tree = compiler.Parse(System.IO.File.ReadAllText(templateDir.FullName+"\\"+inputFile));
+    ParseTreeNode node = tree.Root;
+    Graph graph = node.AstNode as Graph;
+#>
+using System;
+using System.ComponentModel;
+
+namespace <#=nameSpace#>
+{
+<#
+    foreach(var state in graph.States)
+    {
+        string type = state.Label.Name;
+#>
+
+    /// <summary>
+    /// The [<#=state.Label.Name#>] story fragment.
+    /// <#=Tooltip(state)#>
+    /// <h1>Transitions:</h1><ul>
+<#    
+        foreach(var exit in state.OutgoingTransitions)
+        {
+            var target = exit.ToState;
+            string prefix = CamelCaseToSentence(exit.Label.Name);
+#>
+    /// <li><#=prefix#> [<see cref="<#=target.Label.Name#>"/>]: <see cref="<#=exit.Label.Name#>(string)"/></li>
+<#
+        }
+#>
+    /// </ul>
+    /// </summary>
+    public partial class <#=state.Label.Name#> : FragmentBase
+    {
+<#
+        if (IsEntryPoint(state))
+        {
+#>
+        /// <summary>
+        /// Starts a new StoryQ Story. 
+        /// </summary>
+        /// <param name="text">The name of the new story</param>
+        public <#=state.Label.Name#>(string text):base(new Narrative("Story is", 0, text, Narrative.DoNothing)){}
+<#
+        }
+        else
+        {
+#>
+        internal <#=state.Label.Name#>(Narrative narrative):base(narrative){}
+<#
+        }
+        foreach(var exit in state.OutgoingTransitions)
+        {
+            var target = exit.ToState;
+            string prefix = CamelCaseToSentence(exit.Label.Name);
+            if (IsExecutable(target))
+            {
+#>
+
+        /// <summary>
+        /// <em><#=prefix#> [<#=target.Label.Name#>]</em> <br/>
+        /// <#=Tooltip(exit)#>
+        /// <p>This overload uses the text that is passed in, and can execute any action</p>
+        /// </summary>
+        /// <param name="text">The text of this story fragment</param>
+        /// <param name="action">
+        /// The code that should be executed to represent this story fragment. 
+        /// Because StoryQ doesn't need to infer any text from the action, you can use lambdas and anonymous delegates here
+        /// </param>
+        [Description("<#=Tooltip(exit)#>")]
+        public <#=target.Label.Name#> <#=exit.Label.Name#>(string text, Action action)
+        {
+            Narrative n = new Narrative("<#=prefix#>", <#=Indent(exit)#>, text, action);
+            return new <#=target.Label.Name#>(n){ Parent = this };
+        }
+<#
+                for(int i = 0; i < 5; i++)
+                {
+                    var nums = Enumerable.Range(1, i);
+                    string types = Join(", ", nums.Select(x=>"T"+x));
+                    if(!string.IsNullOrEmpty(types))
+                    {
+                        types = "<"+types+">";
+                    }
+#>
+
+        /// <summary>
+        /// <em><#=prefix#> [<#=target.Label.Name#>]</em> <br/>
+        /// <#=Tooltip(exit)#>
+        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// </summary>
+        /// <param name="descriptiveAction">
+        /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+        /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
+        /// Do not use a lambda or anonymous method here, as the name will not be human readable
+        /// </param>
+<#
+                for(int j = 1; j <= i; j++)
+                {
+#>
+        /// <param name="<#= "arg"+j #>">The <#= numberths[j] #> argument to be passed to <paramref name="descriptiveAction"/></param>
+<# 
+                } 
+#>
+        /// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
+        [Description("<#=Tooltip(exit)#>")]
+        public <#=target.Label.Name#> <#=exit.Label.Name+types#>(Action<#=types#> descriptiveAction<#= Join("", nums.Select(x=>", T"+x+" arg"+x)) #>)
+        {
+            string text = MethodToText(descriptiveAction<#= Join("", nums.Select(x=>", arg"+x)) #>);
+            Narrative n = new Narrative("<#=prefix#>", <#=Indent(exit)#>, text, <# if(i==0){ #>descriptiveAction<# }else{ #>() => descriptiveAction(<#= Join(", ", nums.Select(x=>"arg"+x)) #>)<# } #>);
+            return new <#=target.Label.Name#>(n){ Parent = this };
+        }
+<#
+                }
+
+            }
+#>
+
+        /// <summary>
+        /// <em><#=prefix#> [<#=target.Label.Name#>]</em> <br/>
+        /// <#=Tooltip(exit)#>
+        /// </summary>
+        /// <param name="text">
+<# 
+        if (IsExecutable(target))
+        {
+#>
+        /// A textual description. This story fragment will 'Pend' unless you call .Pass() immediately after this method.
+<#
+        }
+        else
+        {
+#>
+        /// A textual description. This story fragment is not executable.
+<#
+        }
+#>
+        /// </param>
+        /// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
+        [Description("<#=Tooltip(exit)#>")]
+        public <#=target.Label.Name#> <#=exit.Label.Name#>(string text)
+        {
+            Narrative n = new Narrative("<#=prefix#>", <#=Indent(exit)#>, text, Narrative.<#=IsExecutable(target)?"Pend":"DoNothing"#>);
+            return new <#=target.Label.Name#>(n){ Parent = this };
+        }
+<#
+        }
+#>
+<# 
+        if (IsExecutable(state))
+        {
+#>
+
+        /// <summary>
+        /// Makes this narrative "pend". Use this when the test itself is incomplete.
+        /// This is the default for any executable narrative
+        /// </summary>
+        /// <returns>itself</returns>
+        public <#=state.Label.Name#> Pend()
+        {
+            Narrative.Action = Narrative.Pend;
+            return this;
+        }
+        
+        /// <summary>
+        /// Makes this narrative pass. Use this when you want to override the existing behaviour 
+        /// (such as pending, or running a failing peice of code)
+        /// "Pending" is the default for any executable narrative
+        /// </summary>
+        /// <returns>itself</returns>
+        public <#=state.Label.Name#> Pass()
+        {
+            Narrative.Action = () => {};
+            return this;
+        }
+<#
+        }
+#>
+    }
+<#
+    }
+#>
+}
+
+
+
+
+<#+
+    public bool IsExecutable(State state)
+    {
+        return state.GenericAttributes.ContainsKey("fillcolor") &&  state.GenericAttributes["fillcolor"]=="skyblue";
+    }
+
+    public bool IsEntryPoint(State state)
+    {
+        return state.GenericAttributes.ContainsKey("shape") &&  state.GenericAttributes["shape"]=="doublecircle";
+    }
+    
+    public string Tooltip(Transition t)
+    {
+        return Tooltip(t.GenericAttributes);
+    }
+	
+	public int Indent(Transition t)
+    {
+		Dictionary<string, string> attributes = t.GenericAttributes;
+        string s = attributes.ContainsKey("indentlevel")?attributes["indentlevel"]:"0";
+		return int.Parse(s);
+    }
+
+    public string Tooltip(State s)
+    {
+        return Tooltip(s.GenericAttributes);
+    }
+
+    public string Tooltip(Dictionary<string, string> attributes)
+    {
+        return attributes.ContainsKey("tooltip")?attributes["tooltip"]:"";
+    }
+
+    public string CamelCaseToSentence(string s)
+    {
+        return Regex.Replace(s, "[A-Z]", x => x.Index == 0 ? x.Value : " " + x.Value.ToLowerInvariant()).Trim();
+    }
+    
+    public string Join(string seperator, IEnumerable<string> strings)
+    {
+        return string.Join(seperator, strings.ToArray());
+    }
+    
+    public static readonly string[] numberths = {"zeroeth", "first", "second", "third", "fourth"};
+
+#>
