@@ -25,8 +25,13 @@ namespace StoryQ.Formatting
         public static string FormatMethod(Delegate method, params object[] arguments)
         {
             ParameterInfo[] parameterInfos = method.Method.GetParameters();
-            Debug.Assert(parameterInfos.Length == arguments.Length);
-            var argsAsStrings = arguments.Select((x, i) => FormatParameter(parameterInfos[i], x));
+            Debug.Assert(parameterInfos.Length == arguments.Length, "Wrong number of parameters supplied to FormatMethod");
+
+            var argsAsStrings = from i in Enumerable.Range(0, arguments.Length)
+                                let p = parameterInfos[i]
+                                let a = arguments[i]
+                                where !p.IsDefined(typeof (SilentAttribute), true)
+                                select FormatParameter(parameterInfos[i], a);
 
             MethodFormatAttribute formatter = GetFormatter(method);
             return formatter.Format(method.Method, argsAsStrings);
