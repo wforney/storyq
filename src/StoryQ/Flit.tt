@@ -78,10 +78,10 @@ namespace <#=nameSpace#>
 #>
 
         /// <summary>
-        /// <em><#=prefix#> [<#=target.Label.Name#>]</em> <br/>
+        /// <#=prefix#> [<#=target.Label.Name#>].
         /// <#=Tooltip(exit)#>
-        /// <p>This overload uses the text that is passed in, and can execute any action</p>
         /// </summary>
+        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
         /// <param name="text">The text of this story fragment</param>
         /// <param name="action">
         /// The code that should be executed to represent this story fragment. 
@@ -105,10 +105,10 @@ namespace <#=nameSpace#>
 #>
 
         /// <summary>
-        /// <em><#=prefix#> [<#=target.Label.Name#>]</em> <br/>
-        /// <#=Tooltip(exit)#>
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// <#=prefix#> [<#=target.Label.Name#>].
+        /// <#=Tooltip(exit)#>.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -137,7 +137,7 @@ namespace <#=nameSpace#>
 #>
 
         /// <summary>
-        /// <em><#=prefix#> [<#=target.Label.Name#>]</em> <br/>
+        /// <#=prefix#> [<#=target.Label.Name#>].
         /// <#=Tooltip(exit)#>
         /// </summary>
         /// <param name="text">
