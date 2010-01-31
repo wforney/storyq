@@ -78,6 +78,7 @@
     <Compile Include="Formatting\Parameters\ParameterFormatAttribute.cs" />
     <Compile Include="Formatting\Methods\ParametersInlineMethodFormatAttribute.cs" />
     <Compile Include="Formatting\Methods\ParameterSuffixedMethodFormatAttribute.cs" />
+    <Compile Include="Formatting\Parameters\SilentAttribute.cs" />
     <Compile Include="FragmentBase.cs" />
     <Compile Include="Narrative.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
