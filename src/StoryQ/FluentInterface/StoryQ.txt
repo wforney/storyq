@@ -27,11 +27,11 @@
     Scenario -> Condition	[label="Given",						tooltip="Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state",indentlevel="4"]
     Condition -> Condition	[label="And",						tooltip="Provide another precondition to describe our scenario's initial state",indentlevel="5"]
     
-    Condition -> Operation	[label="When",						tooltip="Describe the actions that are done <em>to</em> the system under test. '",indentlevel="4"]
+    Condition -> Operation	[label="When",						tooltip="Describe the actions that are done to the system under test. '",indentlevel="4"]
     Operation -> Operation	[label="And",						tooltip="Provide another action that is to be performed on the system, prior to our check for behaviour ('then')",indentlevel="5"]
     
     Operation -> Outcome	[label="Then",						tooltip="Describe the system's behaviour that the prior state and actions should elicit",indentlevel="4"]
     Outcome -> Outcome		[label="And",						tooltip="Provide another resultant behaviour to check for",indentlevel="5"]
     
-    Outcome -> Scenario		[label="WithScenario",				tooltip="Add another scenario to this story. StoryQ executes these scenarios one after the other, so state <em>can</em> be shared between a single story's scenarios.",indentlevel="3"]
+    Outcome -> Scenario		[label="WithScenario",				tooltip="Add another scenario to this story. StoryQ executes these scenarios one after the other, so state can be shared between a single story's scenarios.",indentlevel="3"]
 }

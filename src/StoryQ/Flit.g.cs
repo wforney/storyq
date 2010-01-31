@@ -20,7 +20,7 @@ namespace StoryQ
         public Story(string text):base(new Narrative("Story is", 0, text, Narrative.DoNothing)){}
 
         /// <summary>
-        /// <em>In order to [Benefit]</em> <br/>
+        /// In order to [Benefit].
         /// Describe the real-world value for this story. What is the business process that the user requires software support from?
         /// </summary>
         /// <param name="text">
@@ -48,7 +48,7 @@ namespace StoryQ
         internal Benefit(Narrative narrative):base(narrative){}
 
         /// <summary>
-        /// <em>And [Benefit]</em> <br/>
+        /// And [Benefit].
         /// Describe any secondary business functions that this story will support
         /// </summary>
         /// <param name="text">
@@ -63,7 +63,7 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>As a [Role]</em> <br/>
+        /// As a [Role].
         /// The role of the person who is the intended user of this feature
         /// </summary>
         /// <param name="text">
@@ -91,7 +91,7 @@ namespace StoryQ
         internal Role(Narrative narrative):base(narrative){}
 
         /// <summary>
-        /// <em>Or as a [Role]</em> <br/>
+        /// Or as a [Role].
         /// Any other roles that may use this story
         /// </summary>
         /// <param name="text">
@@ -106,7 +106,7 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>I want [Feature]</em> <br/>
+        /// I want [Feature].
         /// Describe the software process (features) that will support the business requirement
         /// </summary>
         /// <param name="text">
@@ -134,7 +134,7 @@ namespace StoryQ
         internal Feature(Narrative narrative):base(narrative){}
 
         /// <summary>
-        /// <em>And [Feature]</em> <br/>
+        /// And [Feature].
         /// Any other features that will implement the desired benefit
         /// </summary>
         /// <param name="text">
@@ -149,7 +149,7 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>With scenario [Scenario]</em> <br/>
+        /// With scenario [Scenario].
         /// Add a scenario ('given'/'when'/'then') to this story. Scenarios can be added (and will be run) in sequence. Each scenario should have a short descriptive name.
         /// </summary>
         /// <param name="text">
@@ -176,10 +176,10 @@ namespace StoryQ
         internal Scenario(Narrative narrative):base(narrative){}
 
         /// <summary>
-        /// <em>Given [Condition]</em> <br/>
+        /// Given [Condition].
         /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
-        /// <p>This overload uses the text that is passed in, and can execute any action</p>
         /// </summary>
+        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
         /// <param name="text">The text of this story fragment</param>
         /// <param name="action">
         /// The code that should be executed to represent this story fragment. 
@@ -193,10 +193,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>Given [Condition]</em> <br/>
-        /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// Given [Condition].
+        /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -212,10 +212,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>Given [Condition]</em> <br/>
-        /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// Given [Condition].
+        /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -232,10 +232,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>Given [Condition]</em> <br/>
-        /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// Given [Condition].
+        /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -253,10 +253,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>Given [Condition]</em> <br/>
-        /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// Given [Condition].
+        /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -275,10 +275,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>Given [Condition]</em> <br/>
-        /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// Given [Condition].
+        /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -298,7 +298,7 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>Given [Condition]</em> <br/>
+        /// Given [Condition].
         /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
         /// </summary>
         /// <param name="text">
@@ -326,10 +326,10 @@ namespace StoryQ
         internal Condition(Narrative narrative):base(narrative){}
 
         /// <summary>
-        /// <em>And [Condition]</em> <br/>
+        /// And [Condition].
         /// Provide another precondition to describe our scenario's initial state
-        /// <p>This overload uses the text that is passed in, and can execute any action</p>
         /// </summary>
+        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
         /// <param name="text">The text of this story fragment</param>
         /// <param name="action">
         /// The code that should be executed to represent this story fragment. 
@@ -343,10 +343,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Condition]</em> <br/>
-        /// Provide another precondition to describe our scenario's initial state
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Condition].
+        /// Provide another precondition to describe our scenario's initial state.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -362,10 +362,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Condition]</em> <br/>
-        /// Provide another precondition to describe our scenario's initial state
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Condition].
+        /// Provide another precondition to describe our scenario's initial state.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -382,10 +382,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Condition]</em> <br/>
-        /// Provide another precondition to describe our scenario's initial state
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Condition].
+        /// Provide another precondition to describe our scenario's initial state.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -403,10 +403,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Condition]</em> <br/>
-        /// Provide another precondition to describe our scenario's initial state
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Condition].
+        /// Provide another precondition to describe our scenario's initial state.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -425,10 +425,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Condition]</em> <br/>
-        /// Provide another precondition to describe our scenario's initial state
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Condition].
+        /// Provide another precondition to describe our scenario's initial state.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -448,7 +448,7 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Condition]</em> <br/>
+        /// And [Condition].
         /// Provide another precondition to describe our scenario's initial state
         /// </summary>
         /// <param name="text">
@@ -463,16 +463,16 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>When [Operation]</em> <br/>
-        /// Describe the actions that are done <em>to</em> the system under test. '
-        /// <p>This overload uses the text that is passed in, and can execute any action</p>
+        /// When [Operation].
+        /// Describe the actions that are done to the system under test. '
         /// </summary>
+        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
         /// <param name="text">The text of this story fragment</param>
         /// <param name="action">
         /// The code that should be executed to represent this story fragment. 
         /// Because StoryQ doesn't need to infer any text from the action, you can use lambdas and anonymous delegates here
         /// </param>
-        [Description("Describe the actions that are done <em>to</em> the system under test. '")]
+        [Description("Describe the actions that are done to the system under test. '")]
         public Operation When(string text, Action action)
         {
             Narrative n = new Narrative("When", 4, text, action);
@@ -480,17 +480,17 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>When [Operation]</em> <br/>
-        /// Describe the actions that are done <em>to</em> the system under test. '
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// When [Operation].
+        /// Describe the actions that are done to the system under test. '.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
         /// Do not use a lambda or anonymous method here, as the name will not be human readable
         /// </param>
         /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
-        [Description("Describe the actions that are done <em>to</em> the system under test. '")]
+        [Description("Describe the actions that are done to the system under test. '")]
         public Operation When(Action descriptiveAction)
         {
             string text = MethodToText(descriptiveAction);
@@ -499,10 +499,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>When [Operation]</em> <br/>
-        /// Describe the actions that are done <em>to</em> the system under test. '
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// When [Operation].
+        /// Describe the actions that are done to the system under test. '.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -510,7 +510,7 @@ namespace StoryQ
         /// </param>
         /// <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
         /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
-        [Description("Describe the actions that are done <em>to</em> the system under test. '")]
+        [Description("Describe the actions that are done to the system under test. '")]
         public Operation When<T1>(Action<T1> descriptiveAction, T1 arg1)
         {
             string text = MethodToText(descriptiveAction, arg1);
@@ -519,10 +519,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>When [Operation]</em> <br/>
-        /// Describe the actions that are done <em>to</em> the system under test. '
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// When [Operation].
+        /// Describe the actions that are done to the system under test. '.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -531,7 +531,7 @@ namespace StoryQ
         /// <param name="arg1">The first argument to be passed to <paramref name="descriptiveAction"/></param>
         /// <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
         /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
-        [Description("Describe the actions that are done <em>to</em> the system under test. '")]
+        [Description("Describe the actions that are done to the system under test. '")]
         public Operation When<T1, T2>(Action<T1, T2> descriptiveAction, T1 arg1, T2 arg2)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2);
@@ -540,10 +540,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>When [Operation]</em> <br/>
-        /// Describe the actions that are done <em>to</em> the system under test. '
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// When [Operation].
+        /// Describe the actions that are done to the system under test. '.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -553,7 +553,7 @@ namespace StoryQ
         /// <param name="arg2">The second argument to be passed to <paramref name="descriptiveAction"/></param>
         /// <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
         /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
-        [Description("Describe the actions that are done <em>to</em> the system under test. '")]
+        [Description("Describe the actions that are done to the system under test. '")]
         public Operation When<T1, T2, T3>(Action<T1, T2, T3> descriptiveAction, T1 arg1, T2 arg2, T3 arg3)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3);
@@ -562,10 +562,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>When [Operation]</em> <br/>
-        /// Describe the actions that are done <em>to</em> the system under test. '
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// When [Operation].
+        /// Describe the actions that are done to the system under test. '.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -576,7 +576,7 @@ namespace StoryQ
         /// <param name="arg3">The third argument to be passed to <paramref name="descriptiveAction"/></param>
         /// <param name="arg4">The fourth argument to be passed to <paramref name="descriptiveAction"/></param>
         /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
-        [Description("Describe the actions that are done <em>to</em> the system under test. '")]
+        [Description("Describe the actions that are done to the system under test. '")]
         public Operation When<T1, T2, T3, T4>(Action<T1, T2, T3, T4> descriptiveAction, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3, arg4);
@@ -585,14 +585,14 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>When [Operation]</em> <br/>
-        /// Describe the actions that are done <em>to</em> the system under test. '
+        /// When [Operation].
+        /// Describe the actions that are done to the system under test. '
         /// </summary>
         /// <param name="text">
         /// A textual description. This story fragment will 'Pend' unless you call .Pass() immediately after this method.
         /// </param>
         /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
-        [Description("Describe the actions that are done <em>to</em> the system under test. '")]
+        [Description("Describe the actions that are done to the system under test. '")]
         public Operation When(string text)
         {
             Narrative n = new Narrative("When", 4, text, Narrative.Pend);
@@ -636,10 +636,10 @@ namespace StoryQ
         internal Operation(Narrative narrative):base(narrative){}
 
         /// <summary>
-        /// <em>And [Operation]</em> <br/>
+        /// And [Operation].
         /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
-        /// <p>This overload uses the text that is passed in, and can execute any action</p>
         /// </summary>
+        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
         /// <param name="text">The text of this story fragment</param>
         /// <param name="action">
         /// The code that should be executed to represent this story fragment. 
@@ -653,10 +653,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Operation]</em> <br/>
-        /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Operation].
+        /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -672,10 +672,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Operation]</em> <br/>
-        /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Operation].
+        /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -692,10 +692,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Operation]</em> <br/>
-        /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Operation].
+        /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -713,10 +713,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Operation]</em> <br/>
-        /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Operation].
+        /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -735,10 +735,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Operation]</em> <br/>
-        /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Operation].
+        /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -758,7 +758,7 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Operation]</em> <br/>
+        /// And [Operation].
         /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
         /// </summary>
         /// <param name="text">
@@ -773,10 +773,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>Then [Outcome]</em> <br/>
+        /// Then [Outcome].
         /// Describe the system's behaviour that the prior state and actions should elicit
-        /// <p>This overload uses the text that is passed in, and can execute any action</p>
         /// </summary>
+        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
         /// <param name="text">The text of this story fragment</param>
         /// <param name="action">
         /// The code that should be executed to represent this story fragment. 
@@ -790,10 +790,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>Then [Outcome]</em> <br/>
-        /// Describe the system's behaviour that the prior state and actions should elicit
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// Then [Outcome].
+        /// Describe the system's behaviour that the prior state and actions should elicit.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -809,10 +809,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>Then [Outcome]</em> <br/>
-        /// Describe the system's behaviour that the prior state and actions should elicit
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// Then [Outcome].
+        /// Describe the system's behaviour that the prior state and actions should elicit.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -829,10 +829,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>Then [Outcome]</em> <br/>
-        /// Describe the system's behaviour that the prior state and actions should elicit
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// Then [Outcome].
+        /// Describe the system's behaviour that the prior state and actions should elicit.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -850,10 +850,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>Then [Outcome]</em> <br/>
-        /// Describe the system's behaviour that the prior state and actions should elicit
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// Then [Outcome].
+        /// Describe the system's behaviour that the prior state and actions should elicit.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -872,10 +872,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>Then [Outcome]</em> <br/>
-        /// Describe the system's behaviour that the prior state and actions should elicit
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// Then [Outcome].
+        /// Describe the system's behaviour that the prior state and actions should elicit.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -895,7 +895,7 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>Then [Outcome]</em> <br/>
+        /// Then [Outcome].
         /// Describe the system's behaviour that the prior state and actions should elicit
         /// </summary>
         /// <param name="text">
@@ -946,10 +946,10 @@ namespace StoryQ
         internal Outcome(Narrative narrative):base(narrative){}
 
         /// <summary>
-        /// <em>And [Outcome]</em> <br/>
+        /// And [Outcome].
         /// Provide another resultant behaviour to check for
-        /// <p>This overload uses the text that is passed in, and can execute any action</p>
         /// </summary>
+        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
         /// <param name="text">The text of this story fragment</param>
         /// <param name="action">
         /// The code that should be executed to represent this story fragment. 
@@ -963,10 +963,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Outcome]</em> <br/>
-        /// Provide another resultant behaviour to check for
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Outcome].
+        /// Provide another resultant behaviour to check for.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -982,10 +982,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Outcome]</em> <br/>
-        /// Provide another resultant behaviour to check for
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Outcome].
+        /// Provide another resultant behaviour to check for.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -1002,10 +1002,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Outcome]</em> <br/>
-        /// Provide another resultant behaviour to check for
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Outcome].
+        /// Provide another resultant behaviour to check for.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -1023,10 +1023,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Outcome]</em> <br/>
-        /// Provide another resultant behaviour to check for
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Outcome].
+        /// Provide another resultant behaviour to check for.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -1045,10 +1045,10 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Outcome]</em> <br/>
-        /// Provide another resultant behaviour to check for
-        /// <p>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></p>
+        /// And [Outcome].
+        /// Provide another resultant behaviour to check for.
         /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
         /// <param name="descriptiveAction">
         /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
         /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
@@ -1068,7 +1068,7 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>And [Outcome]</em> <br/>
+        /// And [Outcome].
         /// Provide another resultant behaviour to check for
         /// </summary>
         /// <param name="text">
@@ -1083,14 +1083,14 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// <em>With scenario [Scenario]</em> <br/>
-        /// Add another scenario to this story. StoryQ executes these scenarios one after the other, so state <em>can</em> be shared between a single story's scenarios.
+        /// With scenario [Scenario].
+        /// Add another scenario to this story. StoryQ executes these scenarios one after the other, so state can be shared between a single story's scenarios.
         /// </summary>
         /// <param name="text">
         /// A textual description. This story fragment is not executable.
         /// </param>
         /// <returns>The next fragment of your story, a <see cref="Scenario"/></returns>
-        [Description("Add another scenario to this story. StoryQ executes these scenarios one after the other, so state <em>can</em> be shared between a single story's scenarios.")]
+        [Description("Add another scenario to this story. StoryQ executes these scenarios one after the other, so state can be shared between a single story's scenarios.")]
         public Scenario WithScenario(string text)
         {
             Narrative n = new Narrative("With scenario", 3, text, Narrative.DoNothing);
