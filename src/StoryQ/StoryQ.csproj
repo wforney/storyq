@@ -67,10 +67,10 @@
     <Compile Include="Execution\Rendering\XmlRenderer.cs" />
     <Compile Include="Execution\Result.cs" />
     <Compile Include="Execution\ResultType.cs" />
-    <Compile Include="Flit.g.cs">
+    <Compile Include="StoryQ.flit.g.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Flit.tt</DependentUpon>
+      <DependentUpon>StoryQ.flit.tt</DependentUpon>
     </Compile>
     <Compile Include="Formatting\Parameters\BooleanParameterFormatAttribute.cs" />
     <Compile Include="Formatting\Formatter.cs" />
@@ -100,9 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Flit.tt">
+    <None Include="StoryQ.flit.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Flit.g.cs</LastGenOutput>
+      <LastGenOutput>StoryQ.flit.g.cs</LastGenOutput>
     </None>
     <None Include="FluentInterface\rundot.bat" />
     <None Include="FluentInterface\StoryQ.txt.svg" />
