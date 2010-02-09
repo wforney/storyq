@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4DF234CF-6789-4476-B73B-9879CCDA82E3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StoryQ</RootNamespace>
+    <AssemblyName>StoryQ</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\StoryQ.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\StoryQ.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Flit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\development\Flit.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Irony, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\development\Irony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExceptionHelper.cs" />
+    <Compile Include="Execution\Rendering\SimpleHtml\SimpleHtmlDependencies.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SimpleHtmlDependencies.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Execution\Rendering\SimpleHtml\SimpleHtmlFileManager.cs" />
+    <Compile Include="Execution\Rendering\TextRenderer.cs" />
+    <Compile Include="Execution\Rendering\IRenderer.cs" />
+    <Compile Include="Execution\Rendering\XmlCategoriser.cs" />
+    <Compile Include="Execution\Rendering\XmlRenderer.cs" />
+    <Compile Include="Execution\Result.cs" />
+    <Compile Include="Execution\ResultType.cs" />
+    <Compile Include="StoryQ.flit.g.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoryQ.flit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Formatting\Parameters\BooleanParameterFormatAttribute.cs" />
+    <Compile Include="Formatting\Formatter.cs" />
+    <Compile Include="Formatting\Methods\MethodFormatAttribute.cs" />
+    <Compile Include="Formatting\Parameters\ParameterFormatAttribute.cs" />
+    <Compile Include="Formatting\Methods\ParametersInlineMethodFormatAttribute.cs" />
+    <Compile Include="Formatting\Methods\ParameterSuffixedMethodFormatAttribute.cs" />
+    <Compile Include="Formatting\Parameters\SilentAttribute.cs" />
+    <Compile Include="FragmentBase.cs" />
+    <Compile Include="Narrative.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Execution\Rendering\SimpleHtml\SampleStoryQOutput.xml" />
+    <EmbeddedResource Include="Execution\Rendering\SimpleHtml\SimpleHtmlDependencies.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SimpleHtmlDependencies.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Execution\Rendering\SimpleHtml\SimpleHtml.xslt" />
+    <Content Include="FluentInterface\StoryQ.txt" />
+    <Content Include="FluentInterface\StoryQ.txt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="StoryQ.flit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>StoryQ.flit.g.cs</LastGenOutput>
+    </None>
+    <None Include="FluentInterface\rundot.bat" />
+    <None Include="FluentInterface\StoryQ.txt.svg" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
