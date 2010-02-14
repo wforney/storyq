@@ -163,6 +163,13 @@ namespace StoryQ.Execution.Rendering.Html {
             }
         }
         
+        internal static System.Drawing.Bitmap minus {
+            get {
+                object obj = ResourceManager.GetObject("minus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap passed {
             get {
                 object obj = ResourceManager.GetObject("passed", resourceCulture);
@@ -201,6 +208,13 @@ namespace StoryQ.Execution.Rendering.Html {
         internal static System.Drawing.Bitmap pendingscenario {
             get {
                 object obj = ResourceManager.GetObject("pendingscenario", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap plus {
+            get {
+                object obj = ResourceManager.GetObject("plus", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -264,6 +278,76 @@ namespace StoryQ.Execution.Rendering.Html {
         internal static string screen_treeview {
             get {
                 return ResourceManager.GetString("screen_treeview", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap treeview_black {
+            get {
+                object obj = ResourceManager.GetObject("treeview_black", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap treeview_black_line {
+            get {
+                object obj = ResourceManager.GetObject("treeview_black_line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap treeview_default {
+            get {
+                object obj = ResourceManager.GetObject("treeview_default", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap treeview_default_line {
+            get {
+                object obj = ResourceManager.GetObject("treeview_default_line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap treeview_famfamfam {
+            get {
+                object obj = ResourceManager.GetObject("treeview_famfamfam", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap treeview_famfamfam_line {
+            get {
+                object obj = ResourceManager.GetObject("treeview_famfamfam_line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap treeview_gray {
+            get {
+                object obj = ResourceManager.GetObject("treeview_gray", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap treeview_gray_line {
+            get {
+                object obj = ResourceManager.GetObject("treeview_gray_line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap treeview_red {
+            get {
+                object obj = ResourceManager.GetObject("treeview_red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap treeview_red_line {
+            get {
+                object obj = ResourceManager.GetObject("treeview_red_line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

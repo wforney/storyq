@@ -48,6 +48,19 @@ namespace StoryQ.Execution.Rendering.Html
                             SavePngImage("pending.png", HtmlDependencies.pending);
                             SavePngImage("pendingproject.png", HtmlDependencies.pendingproject);
                             SavePngImage("pendingscenario.png", HtmlDependencies.pendingscenario);
+                            //treeview images
+                            SaveGifImage("minus.gif", HtmlDependencies.minus);
+                            SaveGifImage("plus.gif", HtmlDependencies.plus);
+                            SaveGifImage("treeview-black-line.gif", HtmlDependencies.treeview_black_line);
+                            SaveGifImage("treeview-black.gif", HtmlDependencies.treeview_black);
+                            SaveGifImage("treeview-default-line.gif", HtmlDependencies.treeview_default_line);
+                            SaveGifImage("treeview-default.gif", HtmlDependencies.treeview_default);
+                            SaveGifImage("treeview-famfamfam-line.gif", HtmlDependencies.treeview_famfamfam_line);
+                            SaveGifImage("treeview-famfamfam.gif", HtmlDependencies.treeview_famfamfam);
+                            SaveGifImage("treeview-gray-line.gif", HtmlDependencies.treeview_gray_line);
+                            SaveGifImage("treeview-gray.gif", HtmlDependencies.treeview_gray);
+                            SaveGifImage("treeview-red-line.gif", HtmlDependencies.treeview_red_line);
+                            SaveGifImage("treeview-red.gif", HtmlDependencies.treeview_red);
                         };
       
                     instance = new XmlCategoriser(doc.Root);
@@ -61,6 +74,14 @@ namespace StoryQ.Execution.Rendering.Html
             using (image)
             {
                 image.Save(ImagesDirectory(fileName), System.Drawing.Imaging.ImageFormat.Png);
+            }
+        }
+
+        private static void SaveGifImage(string fileName, Image image)
+        {
+            using (image)
+            {
+                image.Save(ImagesDirectory(fileName), System.Drawing.Imaging.ImageFormat.Gif);
             }
         }
 
