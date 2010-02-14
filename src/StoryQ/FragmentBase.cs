@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-
 using StoryQ.Execution;
 using StoryQ.Execution.Rendering;
+using StoryQ.Execution.Rendering.Html;
 using StoryQ.Execution.Rendering.SimpleHtml;
 using StoryQ.Formatting;
 
@@ -71,6 +68,17 @@ namespace StoryQ
             Execute(new TextRenderer(Console.Out), SimpleHtmlFileManager.AutoSavingCategoriser.GetRenderer(currentMethod));
         }
 
+        /// <summary>
+        /// Runs the current sequence of narratives, reporting to an xml(+xslt) file augmented with jQuery.StoryQ
+        /// widget for interactive viewing of the results.  This method requires a reference to
+        /// the "current" method in order to categorise results, you should pass in "MethodBase.GetCurrentMethod()".
+        /// Reports are written to the current directory, look for an xml file beginning with "StoryQ"
+        /// </summary>
+        /// <param name="currentMethod">The current method (use "MethodBase.GetCurrentMethod()")</param>
+        public void ExecuteWithReport(MethodBase currentMethod)
+        {
+            Execute(new TextRenderer(Console.Out), HtmlFileManager.AutoSavingCategoriser.GetRenderer(currentMethod));
+        }
 
         /// <summary>
         /// Runs the current sequence of narratives against a renderer

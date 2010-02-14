@@ -1,0 +1,55 @@
+/* Reset Base Font Size
+----------------------------------*/
+html,body{height:100%;margin:0;padding:0;}
+html>body{font-size:16px;font-size:68.75%;}
+body{font-family:Verdana,helvetica,arial,sans-serif;font-size:68.75%;background:#fff;color:#333;}
+h1,h2{font-family:'trebuchet ms',verdana,arial;padding:1em;margin:0}
+h1{font-size:large}
+a img{border:none;}
+
+/* Global settings for widget
+----------------------------------*/
+#results{padding:1em;}
+#tree{border :1px solid #DDDDDD;border-bottom :5px solid #BEBEBE;padding:1em;}
+
+/* Treeview
+----------------------------------*/
+h2.results{margin-bottom:1em;}
+.failed{color:red;}
+.passed{color:green;}
+.pending{color:orange;}
+.count{color:gray;font-style:italic;}
+.storyq ul{margin-top:0;}
+.storyq li{padding:0px 0 0px 16px;}
+span.result{padding:1px 0 1px 16px;display:block;}
+span.namespace,.storyq span.project{padding:1px 0 1px 34px;display:block;}
+span.total{background:no-repeat;left:50%;position:absolute;}
+span.result:hover{cursor:pointer;}
+span.passedproject{background:url(../images/passedproject.png) 0 0 no-repeat;}
+span.pendingproject{background:url(../images/pendingproject.png) 0 0 no-repeat;}
+span.failedproject{background:url(../images/failedproject.png) 0 0 no-repeat;}
+span.passedscenario{background:url(../images/passedscenario.png) 0 0 no-repeat;}
+span.pendingscenario{background:url(../images/pendingscenario.png) 0 0 no-repeat;}
+span.failedscenario{background:url(../images/failedscenario.png) 0 0 no-repeat;}
+li>span.failed{background:url(../images/failed.png) 0 0 no-repeat;}
+li>span.pending{background:url(../images/pending.png) 0 0 no-repeat;}
+li>span.passed{background:url(../images/passed.png) 0 0 no-repeat;}
+
+/* Pane 
+----------------------------------*/
+h3.pending{background:#E6D853;color:black;}
+h3.passed{background:#8EE486;color:black;}
+h3.failed{background:#FFAABF;color:black;}
+#summary{padding:0em;}
+.summary{padding-bottom:1em;border:1px solid #DDDDDD;border-top:none;}
+result{left:60%;position:absolute;}
+.scenario{padding-top:1em;}
+code.story{font-size:12px;padding:1em;}
+story,exception,exceptions{display:block;}
+exceptions,exception{padding:1em;}
+.indent0{margin-left:20px;}
+.indent1{margin-left:40px;}
+.indent2{margin-left:60px;}
+.indent3{margin-left:80px;}
+.indent4{margin-left:100px;}
+.indent5{margin-left:120px;}
