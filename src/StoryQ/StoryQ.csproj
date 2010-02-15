@@ -48,6 +48,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -55,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExceptionHelper.cs" />
+    <Compile Include="Execution\Rendering\Html\HtmlDependencies.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HtmlDependencies.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Execution\Rendering\Html\HtmlFileManager.cs" />
     <Compile Include="Execution\Rendering\SimpleHtml\SimpleHtmlDependencies.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -89,12 +96,41 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Execution\Rendering\SimpleHtml\SampleStoryQOutput.xml" />
+    <EmbeddedResource Include="Execution\Rendering\Html\HtmlDependencies.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>HtmlDependencies.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Execution\Rendering\SimpleHtml\SimpleHtmlDependencies.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SimpleHtmlDependencies.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Execution\Rendering\SimpleHtml\SimpleHtml.xslt" />
+    <Content Include="Execution\Rendering\Html\css\screen.treeview.css" />
+    <Content Include="Execution\Rendering\Html\css\screen.storyq.css" />
+    <Content Include="Execution\Rendering\Html\Html.xslt" />
+    <Content Include="Execution\Rendering\Html\images\failed.png" />
+    <Content Include="Execution\Rendering\Html\images\failedproject.png" />
+    <Content Include="Execution\Rendering\Html\images\failedscenario.png" />
+    <Content Include="Execution\Rendering\Html\images\minus.gif" />
+    <Content Include="Execution\Rendering\Html\images\passed.png" />
+    <Content Include="Execution\Rendering\Html\images\passedproject.png" />
+    <Content Include="Execution\Rendering\Html\images\passedscenario.png" />
+    <Content Include="Execution\Rendering\Html\images\pending.png" />
+    <Content Include="Execution\Rendering\Html\images\pendingproject.png" />
+    <Content Include="Execution\Rendering\Html\images\pendingscenario.png" />
+    <Content Include="Execution\Rendering\Html\images\plus.gif" />
+    <Content Include="Execution\Rendering\Html\images\treeview-black-line.gif" />
+    <Content Include="Execution\Rendering\Html\images\treeview-black.gif" />
+    <Content Include="Execution\Rendering\Html\images\treeview-default-line.gif" />
+    <Content Include="Execution\Rendering\Html\images\treeview-default.gif" />
+    <Content Include="Execution\Rendering\Html\images\treeview-famfamfam-line.gif" />
+    <Content Include="Execution\Rendering\Html\images\treeview-famfamfam.gif" />
+    <Content Include="Execution\Rendering\Html\images\treeview-gray-line.gif" />
+    <Content Include="Execution\Rendering\Html\images\treeview-gray.gif" />
+    <Content Include="Execution\Rendering\Html\images\treeview-red-line.gif" />
+    <Content Include="Execution\Rendering\Html\images\treeview-red.gif" />
+    <Content Include="Execution\Rendering\Html\jquery.storyq.js" />
+    <Content Include="Execution\Rendering\Html\jquery.treeview.js" />
     <Content Include="FluentInterface\StoryQ.txt" />
     <Content Include="FluentInterface\StoryQ.txt.png" />
   </ItemGroup>

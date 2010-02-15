@@ -33,7 +33,7 @@ namespace StoryQ.Demo
                     .When(IClickThe_Button, "Buy")
                       .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
                     .Then(TheForm_BePostedOverHttps, true)
-                    .ExecuteWithSimpleReport(MethodBase.GetCurrentMethod());
+                    .ExecuteWithReport(MethodBase.GetCurrentMethod());
 
         }
 
@@ -63,7 +63,7 @@ namespace StoryQ.Demo
                     .When(IClickThe_Button, "Buy")
                         .And("the browser posts my credit card number over the internet")
                     .Then("the form should be posted over https")
-                .ExecuteWithSimpleReport(MethodBase.GetCurrentMethod());
+                .ExecuteWithReport(MethodBase.GetCurrentMethod());
 
         }
 
@@ -80,7 +80,7 @@ namespace StoryQ.Demo
                     .When(IClickThe_Button, "non existent")
                         .And("the browser posts my credit card number over the internet")
                     .Then("the form should be posted over https", () => { throw new Exception("Oh no again!"); })
-            .ExecuteWithSimpleReport(MethodBase.GetCurrentMethod());
+            .ExecuteWithReport(MethodBase.GetCurrentMethod());
         }
 
         private void IClickThe_Button(string buttonName)
