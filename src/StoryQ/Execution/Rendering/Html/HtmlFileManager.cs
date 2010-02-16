@@ -30,14 +30,9 @@ namespace StoryQ.Execution.Rendering.Html
                             string fileName = SubDirectory(GetFileName());
                             doc.Save(fileName);
                             //write out all the files
-                            //xslt
+                            //xslt which has combined: jquery.treeview, jquery.storyq css and js
+                            // see: jquery.storyq (http://github.com/toddb/jquery.storyq)
                             File.WriteAllText(SubDirectory(StyleSheetFileName), HtmlDependencies.Html, Encoding.UTF8);
-                            //css
-                            File.WriteAllText(CssDirectory("jquery.treeview.css"), HtmlDependencies.screen_treeview, Encoding.UTF8);
-                            File.WriteAllText(CssDirectory("screen.storyq.css"), HtmlDependencies.screen_storyq, Encoding.UTF8);
-                            //js
-                            File.WriteAllText(SubDirectory("jquery.storyq.js"), HtmlDependencies.jquery_storyq, Encoding.UTF8);
-                            File.WriteAllText(SubDirectory("jquery.treeview.js"), HtmlDependencies.jquery_treeview, Encoding.UTF8);
                             //images
                             SavePngImage("results.png", HtmlDependencies.results);
                             //treeview images
@@ -75,11 +70,6 @@ namespace StoryQ.Execution.Rendering.Html
             {
                 image.Save(ImagesDirectory(fileName), System.Drawing.Imaging.ImageFormat.Gif);
             }
-        }
-
-        private static string CssDirectory(string fileName)
-        {
-            return CreateDirectory(string.Format("{0}\\css", baseDir), fileName);
         }
 
         private static string ImagesDirectory(string fileName)
