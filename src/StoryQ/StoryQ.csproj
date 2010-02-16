@@ -105,8 +105,6 @@
       <LastGenOutput>SimpleHtmlDependencies.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Execution\Rendering\SimpleHtml\SimpleHtml.xslt" />
-    <Content Include="Execution\Rendering\Html\css\screen.treeview.css" />
-    <Content Include="Execution\Rendering\Html\css\screen.storyq.css" />
     <Content Include="Execution\Rendering\Html\Html.xslt" />
     <Content Include="Execution\Rendering\Html\images\minus.gif" />
     <Content Include="Execution\Rendering\Html\images\plus.gif" />
@@ -121,8 +119,6 @@
     <Content Include="Execution\Rendering\Html\images\treeview-gray.gif" />
     <Content Include="Execution\Rendering\Html\images\treeview-red-line.gif" />
     <Content Include="Execution\Rendering\Html\images\treeview-red.gif" />
-    <Content Include="Execution\Rendering\Html\jquery.storyq.js" />
-    <Content Include="Execution\Rendering\Html\jquery.treeview.js" />
     <Content Include="FluentInterface\StoryQ.txt" />
     <Content Include="FluentInterface\StoryQ.txt.png" />
   </ItemGroup>

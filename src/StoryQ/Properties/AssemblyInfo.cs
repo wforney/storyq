@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("StoryQ")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("BDD Framework for .Net")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("StoryQ")]
 [assembly: AssemblyTrademark("")]
@@ -30,7 +30,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: AssemblyVersion("2.0.2.0")]
+[assembly: AssemblyFileVersion("2.0.2.0")]
 
 [assembly:InternalsVisibleTo("StoryQ.Tests")]
+[assembly: AssemblyCopyrightAttribute("2010 robfe & toddb")]
