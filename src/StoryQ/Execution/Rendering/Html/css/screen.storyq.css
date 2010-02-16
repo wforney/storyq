@@ -25,15 +25,16 @@ span.result{padding:1px 0 1px 16px;display:block;}
 span.namespace,.storyq span.project{padding:1px 0 1px 34px;display:block;}
 span.total{background:no-repeat;left:50%;position:absolute;}
 span.result:hover{cursor:pointer;}
-span.passedproject{background:url(../images/passedproject.png) 0 0 no-repeat;}
-span.pendingproject{background:url(../images/pendingproject.png) 0 0 no-repeat;}
-span.failedproject{background:url(../images/failedproject.png) 0 0 no-repeat;}
-span.passedscenario{background:url(../images/passedscenario.png) 0 0 no-repeat;}
-span.pendingscenario{background:url(../images/pendingscenario.png) 0 0 no-repeat;}
-span.failedscenario{background:url(../images/failedscenario.png) 0 0 no-repeat;}
-li>span.failed{background:url(../images/failed.png) 0 0 no-repeat;}
-li>span.pending{background:url(../images/pending.png) 0 0 no-repeat;}
-li>span.passed{background:url(../images/passed.png) 0 0 no-repeat;}
+
+li>span.passed{background:url(../images/results.png) 0 0 no-repeat;}
+span.passedproject{background:url(../images/results.png) 0 -24px no-repeat;}
+span.passedscenario{background:url(../images/results.png) 0 -49px no-repeat;}
+li>span.failed{background:url(../images/results.png) 0 -72px no-repeat;}
+span.failedproject{background:url(../images/results.png) 0 -95px no-repeat;}
+span.failedscenario{background:url(../images/results.png) 0 -120px no-repeat;}
+li>span.pending{background:url(../images/results.png) 0 -143px no-repeat;}
+span.pendingproject{background:url(../images/results.png) 0 -165px no-repeat;}
+span.pendingscenario{background:url(../images/results.png) 0 -190px no-repeat;}
 
 /* Pane 
 ----------------------------------*/

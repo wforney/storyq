@@ -39,15 +39,7 @@ namespace StoryQ.Execution.Rendering.Html
                             File.WriteAllText(SubDirectory("jquery.storyq.js"), HtmlDependencies.jquery_storyq, Encoding.UTF8);
                             File.WriteAllText(SubDirectory("jquery.treeview.js"), HtmlDependencies.jquery_treeview, Encoding.UTF8);
                             //images
-                            SavePngImage("failed.png", HtmlDependencies.failed);
-                            SavePngImage("failedproject.png", HtmlDependencies.failedproject);
-                            SavePngImage("failedscenario.png", HtmlDependencies.failedscenario);
-                            SavePngImage("passed.png", HtmlDependencies.passed);
-                            SavePngImage("passedproject.png", HtmlDependencies.passedproject);
-                            SavePngImage("passedscenario.png", HtmlDependencies.passedscenario);
-                            SavePngImage("pending.png", HtmlDependencies.pending);
-                            SavePngImage("pendingproject.png", HtmlDependencies.pendingproject);
-                            SavePngImage("pendingscenario.png", HtmlDependencies.pendingscenario);
+                            SavePngImage("results.png", HtmlDependencies.failed);
                             //treeview images
                             SaveGifImage("minus.gif", HtmlDependencies.minus);
                             SaveGifImage("plus.gif", HtmlDependencies.plus);
