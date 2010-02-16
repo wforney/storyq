@@ -8,7 +8,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("StoryQ.Converter.Wpf")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Conversts plain text stories into c# code")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("StoryQ.Converter.Wpf")]
 [assembly: AssemblyTrademark("")]
@@ -51,3 +51,4 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyCopyrightAttribute("2010 - robfe")]
