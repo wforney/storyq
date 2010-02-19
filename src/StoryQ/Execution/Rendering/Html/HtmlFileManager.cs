@@ -1,96 +1,75 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
-using System.Xml.Linq;
 
 namespace StoryQ.Execution.Rendering.Html
 {
-    internal static class HtmlFileManager
+    internal class HtmlFileManager:XmlFileManagerBase
     {
-        private static XmlCategoriser instance;
-
         private const string StyleSheetFileName = "StoryQ-Html.xslt";
-        private const string baseDir = "StoryQ_Report";
 
-        public static XmlCategoriser AutoSavingCategoriser
+        private static HtmlFileManager instance;
+
+        private HtmlFileManager()
+            : base("StoryQ.xml", StyleSheetFileName)
+        {
+        }
+
+        public static HtmlFileManager Instance
         {
             get
             {
-                if (instance == null)
-                {
-                    string stylesheet = string.Format("href=\"{0}\" type=\"text/xsl\"", StyleSheetFileName);
-                    XDocument doc = new XDocument(
-                            new XProcessingInstruction("xml-stylesheet", stylesheet),
-                            new XElement("StoryQRun"/*, new XAttribute("Started", DateTime.Now.ToString())*/));
-
-                    AppDomain.CurrentDomain.DomainUnload += (sender, args) =>
-                        {
-                            //save the xml
-                            string fileName = SubDirectory(GetFileName());
-                            doc.Save(fileName);
-                            //write out all the files
-                            //xslt which has combined: jquery.treeview, jquery.storyq css and js
-                            // see: jquery.storyq (http://github.com/toddb/jquery.storyq)
-                            File.WriteAllText(SubDirectory(StyleSheetFileName), HtmlDependencies.Html, Encoding.UTF8);
-                            //images
-                            SavePngImage("results.png", HtmlDependencies.results);
-                            //treeview images
-                            SaveGifImage("minus.gif", HtmlDependencies.minus);
-                            SaveGifImage("plus.gif", HtmlDependencies.plus);
-                            SaveGifImage("treeview-black-line.gif", HtmlDependencies.treeview_black_line);
-                            SaveGifImage("treeview-black.gif", HtmlDependencies.treeview_black);
-                            SaveGifImage("treeview-default-line.gif", HtmlDependencies.treeview_default_line);
-                            SaveGifImage("treeview-default.gif", HtmlDependencies.treeview_default);
-                            SaveGifImage("treeview-famfamfam-line.gif", HtmlDependencies.treeview_famfamfam_line);
-                            SaveGifImage("treeview-famfamfam.gif", HtmlDependencies.treeview_famfamfam);
-                            SaveGifImage("treeview-gray-line.gif", HtmlDependencies.treeview_gray_line);
-                            SaveGifImage("treeview-gray.gif", HtmlDependencies.treeview_gray);
-                            SaveGifImage("treeview-red-line.gif", HtmlDependencies.treeview_red_line);
-                            SaveGifImage("treeview-red.gif", HtmlDependencies.treeview_red);
-                        };
-      
-                    instance = new XmlCategoriser(doc.Root);
-                }
-                return instance;
+                return instance ?? (instance = new HtmlFileManager());
             }
         }
 
-        private static void SavePngImage(string fileName, Image image)
+        protected override void WriteDependantFiles(string directory)
+        {
+            File.WriteAllText(Path.Combine(directory, StyleSheetFileName), HtmlDependencies.Html, Encoding.UTF8);
+            //images
+            SaveImage("results.png", HtmlDependencies.results, directory);
+            //treeview images
+            SaveImage("minus.gif", HtmlDependencies.minus, directory);
+            SaveImage("plus.gif", HtmlDependencies.plus, directory);
+            SaveImage("treeview-black-line.gif", HtmlDependencies.treeview_black_line, directory);
+            SaveImage("treeview-black.gif", HtmlDependencies.treeview_black, directory);
+            SaveImage("treeview-default-line.gif", HtmlDependencies.treeview_default_line, directory);
+            SaveImage("treeview-default.gif", HtmlDependencies.treeview_default, directory);
+            SaveImage("treeview-famfamfam-line.gif", HtmlDependencies.treeview_famfamfam_line, directory);
+            SaveImage("treeview-famfamfam.gif", HtmlDependencies.treeview_famfamfam, directory);
+            SaveImage("treeview-gray-line.gif", HtmlDependencies.treeview_gray_line, directory);
+            SaveImage("treeview-gray.gif", HtmlDependencies.treeview_gray, directory);
+            SaveImage("treeview-red-line.gif", HtmlDependencies.treeview_red_line, directory);
+            SaveImage("treeview-red.gif", HtmlDependencies.treeview_red, directory);
+        }
+
+        private static void SaveImage(string fileName, Image image, string directory)
         {
             using (image)
             {
-                image.Save(ImagesDirectory(fileName), System.Drawing.Imaging.ImageFormat.Png);
+                image.Save(ImagesDirectory(fileName, directory), GetEncoding(fileName));
             }
         }
 
-        private static void SaveGifImage(string fileName, Image image)
+        private static ImageFormat GetEncoding(string file)
         {
-            using (image)
+            switch(Path.GetExtension(file).ToLowerInvariant())
             {
-                image.Save(ImagesDirectory(fileName), System.Drawing.Imaging.ImageFormat.Gif);
+                case ".gif":
+                    return ImageFormat.Gif;
+                case ".png":
+                    return ImageFormat.Png;
             }
+            throw new ArgumentException("Couldn't get an encoding for "+file, "file");
         }
 
-        private static string ImagesDirectory(string fileName)
+        private static string ImagesDirectory(string fileName, string directory)
         {
-            return CreateDirectory(string.Format("{0}\\images", baseDir), fileName);
-        }
-
-        private static string SubDirectory(string fileName)
-        {
-            return CreateDirectory(baseDir, fileName);
-        }
-
-        private static string CreateDirectory(string dir, string fileName)
-        {
-            Directory.CreateDirectory(dir);
-            return Path.Combine(dir, fileName);           
-        }
-
-        private static string GetFileName()
-        {
-            return "StoryQ.xml";
+            string images = Path.Combine(directory, "images");
+            Directory.CreateDirectory(images);
+            return Path.Combine(images, fileName);
         }
     }
 }
