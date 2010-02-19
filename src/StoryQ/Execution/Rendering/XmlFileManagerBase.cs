@@ -28,6 +28,7 @@ namespace StoryQ.Execution.Rendering
 
             AppDomain.CurrentDomain.DomainUnload += (sender, args) =>
             {
+                Directory.CreateDirectory(fullPath);
                 doc.Save(Path.Combine(fullPath, xmlFileName));
                 WriteDependantFiles(fullPath);
             };
