@@ -62,6 +62,7 @@
       <DependentUpon>HtmlDependencies.resx</DependentUpon>
     </Compile>
     <Compile Include="Execution\Rendering\Html\HtmlFileManager.cs" />
+    <Compile Include="Execution\Rendering\XmlFileManagerBase.cs" />
     <Compile Include="Execution\Rendering\SimpleHtml\SimpleHtmlDependencies.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -106,6 +107,7 @@
     </EmbeddedResource>
     <None Include="Execution\Rendering\SimpleHtml\SimpleHtml.xslt" />
     <Content Include="Execution\Rendering\Html\Html.xslt" />
+    <Content Include="Execution\Rendering\Html\images\icons.png" />
     <Content Include="Execution\Rendering\Html\images\minus.gif" />
     <Content Include="Execution\Rendering\Html\images\plus.gif" />
     <Content Include="Execution\Rendering\Html\images\results.png" />

@@ -65,7 +65,7 @@ namespace StoryQ
         /// <param name="currentMethod">The current method (use "MethodBase.GetCurrentMethod()")</param>
         public void ExecuteWithSimpleReport(MethodBase currentMethod)
         {
-            Execute(new TextRenderer(Console.Out), SimpleHtmlFileManager.AutoSavingCategoriser.GetRenderer(currentMethod));
+            Execute(new TextRenderer(Console.Out), SimpleHtmlFileManager.Instance.Categoriser.GetRenderer(currentMethod));
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace StoryQ
         /// <param name="currentMethod">The current method (use "MethodBase.GetCurrentMethod()")</param>
         public void ExecuteWithReport(MethodBase currentMethod)
         {
-            Execute(new TextRenderer(Console.Out), HtmlFileManager.AutoSavingCategoriser.GetRenderer(currentMethod));
+            Execute(new TextRenderer(Console.Out), HtmlFileManager.Instance.Categoriser.GetRenderer(currentMethod));
         }
 
         /// <summary>
