@@ -16,13 +16,15 @@ namespace StoryQ.Execution.Rendering
             DirectoryInfo outputDir = new DirectoryInfo(OutputDirectory);
             outputDir.Create();
             string fullPath = outputDir.FullName;
-            XDocument doc = new XDocument(new XElement("StoryQRun"));
 
+            XProcessingInstruction instruction = null;
             if (styleSheetFileName != null)
             {
                 string stylesheet = string.Format("href=\"{0}\" type=\"text/xsl\"", styleSheetFileName);
-                doc.Add(new XProcessingInstruction("xml-stylesheet", stylesheet));
+                instruction = new XProcessingInstruction("xml-stylesheet", stylesheet);
             }
+
+            XDocument doc = new XDocument(instruction, new XElement("StoryQRun"));
 
             AppDomain.CurrentDomain.DomainUnload += (sender, args) =>
             {
