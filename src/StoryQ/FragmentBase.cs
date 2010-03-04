@@ -29,7 +29,7 @@ namespace StoryQ
         /// Gets or sets the Step.
         /// </summary>
         /// <value>The Step.</value>
-        public Step Step { get; private set; }
+        internal Step Step { get; private set; }
 
         /// <summary>
         /// Gets or sets the parent.
@@ -41,7 +41,7 @@ namespace StoryQ
         /// Enumerates over this and each of its ancestors. Reverse the collection to go through the story in correct order
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<FragmentBase> SelfAndAncestors()
+        internal IEnumerable<FragmentBase> SelfAndAncestors()
         {
             for (FragmentBase f = this; f != null; f = f.Parent)
             {

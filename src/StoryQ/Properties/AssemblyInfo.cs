@@ -33,5 +33,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("2.0.2.0")]
 [assembly: AssemblyFileVersion("2.0.2.0")]
 
-[assembly:InternalsVisibleTo("StoryQ.Tests")]
+[assembly: InternalsVisibleTo("StoryQ.Tests")]
+[assembly: InternalsVisibleTo("StoryQ.Converter.Wpf")]
 [assembly: AssemblyCopyrightAttribute("2010 robfe & toddb")]
