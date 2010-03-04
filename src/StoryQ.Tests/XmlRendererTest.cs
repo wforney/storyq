@@ -40,9 +40,9 @@ namespace StoryQ.Tests
             XmlCategoriser c = new XmlCategoriser(e);
             c.GetOrCreateElementForMethodInfo(MethodBase.GetCurrentMethod());
             c.GetOrCreateElementForMethodInfo(new Action(RenderSomeResults).Method);
-            c.GetOrCreateElementForMethodInfo(new Action(new NarrativeTest().ExcecuteFail).Method);
+            c.GetOrCreateElementForMethodInfo(new Action(new StepTest().ExcecuteFail).Method);
 
-            const string expected = @"<root><Project Name=""StoryQ.Tests""><Namespace Name=""StoryQ.Tests""><Class Name=""XmlRendererTest""><Method Name=""TestCategoriser"" /><Method Name=""RenderSomeResults"" /></Class><Class Name=""NarrativeTest""><Method Name=""ExcecuteFail"" /></Class></Namespace></Project></root>";
+            const string expected = @"<root><Project Name=""StoryQ.Tests""><Namespace Name=""StoryQ.Tests""><Class Name=""XmlRendererTest""><Method Name=""TestCategoriser"" /><Method Name=""RenderSomeResults"" /></Class><Class Name=""StepTest""><Method Name=""ExcecuteFail"" /></Class></Namespace></Project></root>";
             Assert.AreEqual(expected, e.ToString(SaveOptions.DisableFormatting));
         }
 
@@ -60,7 +60,7 @@ namespace StoryQ.Tests
                 .Then("something else", () => { throw new Exception("moo"); });
 
 
-            var results = v.SelfAndAncestors().Reverse().Select(x => x.Narrative.Execute());
+            var results = v.SelfAndAncestors().Reverse().Select(x => x.Step.Execute());
             new XmlRenderer(e).Render(results);
             Assert.IsTrue(e.Descendants("Result").Count()==8);
             Assert.AreEqual("Failed", (string)e.Descendants("Result").Last().Attribute("Type"));

@@ -19,23 +19,23 @@ namespace StoryQ
         /// <summary>
         /// Initializes a new instance of the <see cref="FragmentBase"/> class.
         /// </summary>
-        /// <param name="narrative">The narrative.</param>
-        protected FragmentBase(Narrative narrative)
+        /// <param name="step">The Step.</param>
+        protected FragmentBase(Step step)
         {
-            Narrative = narrative;
+            Step = step;
         }
 
         /// <summary>
-        /// Gets or sets the narrative.
+        /// Gets or sets the Step.
         /// </summary>
-        /// <value>The narrative.</value>
-        public Narrative Narrative { get; private set; }
+        /// <value>The Step.</value>
+        public Step Step { get; private set; }
 
         /// <summary>
         /// Gets or sets the parent.
         /// </summary>
         /// <value>The parent.</value>
-        public FragmentBase Parent { get; internal set; }
+        internal FragmentBase Parent { get; set; }
 
         /// <summary>
         /// Enumerates over this and each of its ancestors. Reverse the collection to go through the story in correct order
@@ -50,7 +50,7 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// Runs the current sequence of narratives, printing the results in plain text to the console. 
+        /// Runs the current sequence of steps, printing the results in plain text to the console. 
         /// </summary>
         public void Execute()
         {
@@ -58,7 +58,7 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// Runs the current sequence of narratives, reporting to an xml(+xslt) file. This method requires a reference to
+        /// Runs the current sequence of Steps, reporting to an xml(+xslt) file. This method requires a reference to
         /// the "current" method in order to categorise results, you should pass in "MethodBase.GetCurrentMethod()".
         /// Reports are written to the current directory, look for an xml file beginning with "StoryQ"
         /// </summary>
@@ -69,7 +69,7 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// Runs the current sequence of narratives, reporting to an xml(+xslt) file augmented with jQuery.StoryQ
+        /// Runs the current sequence of Steps, reporting to an xml(+xslt) file augmented with jQuery.StoryQ
         /// widget for interactive viewing of the results.  This method requires a reference to
         /// the "current" method in order to categorise results, you should pass in "MethodBase.GetCurrentMethod()".
         /// Reports are written to the current directory, look for an xml file beginning with "StoryQ"
@@ -81,12 +81,12 @@ namespace StoryQ
         }
 
         /// <summary>
-        /// Runs the current sequence of narratives against a renderer
+        /// Runs the current sequence of Steps against a renderer
         /// </summary>
         /// <param name="renderers"></param>
         internal void Execute(params IRenderer[] renderers)
         {
-            var v = SelfAndAncestors().Reverse().Select(x => x.Narrative.Execute()).ToList();
+            var v = SelfAndAncestors().Reverse().Select(x => x.Step.Execute()).ToList();
             Array.ForEach(renderers, x => x.Render(v));
 
             var exception = Exceptions(v, ResultType.Failed)

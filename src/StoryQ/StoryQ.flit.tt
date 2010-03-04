@@ -60,13 +60,13 @@ namespace <#=nameSpace#>
         /// Starts a new StoryQ Story. 
         /// </summary>
         /// <param name="text">The name of the new story</param>
-        public <#=state.Label.Name#>(string text):base(new Narrative("Story is", 0, text, Narrative.DoNothing)){}
+        public <#=state.Label.Name#>(string text):base(new Step("Story is", 0, text, Step.DoNothing)){}
 <#
         }
         else
         {
 #>
-        internal <#=state.Label.Name#>(Narrative narrative):base(narrative){}
+        internal <#=state.Label.Name#>(Step step):base(step){}
 <#
         }
         foreach(var exit in state.OutgoingTransitions)
@@ -90,8 +90,8 @@ namespace <#=nameSpace#>
         [Description("<#=Tooltip(exit)#>")]
         public <#=target.Label.Name#> <#=exit.Label.Name#>(string text, Action action)
         {
-            Narrative n = new Narrative("<#=prefix#>", <#=Indent(exit)#>, text, action);
-            return new <#=target.Label.Name#>(n){ Parent = this };
+            Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, action);
+            return new <#=target.Label.Name#>(s){ Parent = this };
         }
 <#
                 for(int i = 0; i < 5; i++)
@@ -127,8 +127,8 @@ namespace <#=nameSpace#>
         public <#=target.Label.Name#> <#=exit.Label.Name+types#>(Action<#=types#> descriptiveAction<#= Join("", nums.Select(x=>", T"+x+" arg"+x)) #>)
         {
             string text = MethodToText(descriptiveAction<#= Join("", nums.Select(x=>", arg"+x)) #>);
-            Narrative n = new Narrative("<#=prefix#>", <#=Indent(exit)#>, text, <# if(i==0){ #>descriptiveAction<# }else{ #>() => descriptiveAction(<#= Join(", ", nums.Select(x=>"arg"+x)) #>)<# } #>);
-            return new <#=target.Label.Name#>(n){ Parent = this };
+            Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, <# if(i==0){ #>descriptiveAction<# }else{ #>() => descriptiveAction(<#= Join(", ", nums.Select(x=>"arg"+x)) #>)<# } #>);
+            return new <#=target.Label.Name#>(s){ Parent = this };
         }
 <#
                 }
@@ -160,8 +160,8 @@ namespace <#=nameSpace#>
         [Description("<#=Tooltip(exit)#>")]
         public <#=target.Label.Name#> <#=exit.Label.Name#>(string text)
         {
-            Narrative n = new Narrative("<#=prefix#>", <#=Indent(exit)#>, text, Narrative.<#=IsExecutable(target)?"Pend":"DoNothing"#>);
-            return new <#=target.Label.Name#>(n){ Parent = this };
+            Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, Step.<#=IsExecutable(target)?"Pend":"DoNothing"#>);
+            return new <#=target.Label.Name#>(s){ Parent = this };
         }
 <#
         }
@@ -172,25 +172,25 @@ namespace <#=nameSpace#>
 #>
 
         /// <summary>
-        /// Makes this narrative "pend". Use this when the test itself is incomplete.
-        /// This is the default for any executable narrative
+        /// Makes this step "pend". Use this when the test itself is incomplete.
+        /// This is the default for any executable step
         /// </summary>
         /// <returns>itself</returns>
         public <#=state.Label.Name#> Pend()
         {
-            Narrative.Action = Narrative.Pend;
+            Step.Action = Step.Pend;
             return this;
         }
         
         /// <summary>
-        /// Makes this narrative pass. Use this when you want to override the existing behaviour 
+        /// Makes this step pass. Use this when you want to override the existing behaviour 
         /// (such as pending, or running a failing peice of code)
-        /// "Pending" is the default for any executable narrative
+        /// "Pending" is the default for any executable step
         /// </summary>
         /// <returns>itself</returns>
         public <#=state.Label.Name#> Pass()
         {
-            Narrative.Action = () => {};
+            Step.Action = () => {};
             return this;
         }
 <#

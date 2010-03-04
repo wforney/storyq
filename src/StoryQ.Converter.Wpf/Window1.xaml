@@ -28,7 +28,7 @@
     		<StackPanel Orientation="Horizontal" Height="28">
     			<TextBlock Margin="8,0,5,0" VerticalAlignment="Center" FontSize="12" FontWeight="Bold" Text="Output Settings"/>
     			<Rectangle Fill="#FFD0D0D1" StrokeThickness="0" Margin="5" Width="1" Stroke="#FF7E7E7E"/>
-    			<CheckBox Content="All narratives as strings" IsChecked="{Binding OutputExecutablesAsStrings, Mode=Default}" VerticalAlignment="Center" Margin="5"/>
+    			<CheckBox Content="All steps as strings" IsChecked="{Binding OutputExecutablesAsStrings, Mode=Default}" VerticalAlignment="Center" Margin="5"/>
     			<CheckBox Content="Include casts to Action" IsChecked="{Binding CastMethodsToActions, Mode=Default}" VerticalAlignment="Center" Margin="5" IsEnabled="{Binding OutputExecutablesAsStrings, Converter={StaticResource InvertConverter}, Mode=Default}"/>
     			<Rectangle Fill="#FFD0D0D1" Stroke="#FF7E7E7E" StrokeThickness="0" Margin="5" Width="1"/>
                 <CheckBox IsChecked="{Binding OutputAnyIndent}" VerticalAlignment="Center" Margin="5">

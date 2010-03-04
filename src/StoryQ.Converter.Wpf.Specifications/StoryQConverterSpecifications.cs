@@ -79,7 +79,7 @@ namespace StoryQ.Converter.Wpf.Specifications
               .IWant("to be able to not generate actions, but strings")
                   .WithScenario("converting everything into text")
                     .Given(ThatIHaveStoryAndScenarioText)
-                    .When(ISwitchNarrativesInto_Mode, true)
+                    .When(ISwitchStepsInto_Mode, true)
                     .Then(TheOutputCodeShouldAllBeText)
 
              .Execute();
@@ -93,13 +93,13 @@ namespace StoryQ.Converter.Wpf.Specifications
                 .IWant("to be able to cast all method names into actions")
              .WithScenario("forcing methods to be actions")
                 .Given(ThatIHaveStoryAndScenarioText)
-                .When(ISwitchNarrativesInto_Mode, false)
+                .When(ISwitchStepsInto_Mode, false)
                 .And(ITurnOnCastToActionMode)
                 .Then(TheOutputCodeShouldIncludeCastsToAction)
             
             .WithScenario("only forcing parameterless methods to be actions")
                 .Given(ThatIHaveStoryAndScenarioTextWithParameteredActions)
-                .When(ISwitchNarrativesInto_Mode, false)
+                .When(ISwitchStepsInto_Mode, false)
                 .And(ITurnOnCastToActionMode)
                 .Then(TheOutputCodeShouldIncludeCastsToActionButOnlyWhereExpected)
              .Execute();
@@ -155,7 +155,7 @@ namespace StoryQ.Converter.Wpf.Specifications
         }
 
 
-        private void ISwitchNarrativesInto_Mode([BooleanParameterFormat("string", "action")]bool isString)
+        private void ISwitchStepsInto_Mode([BooleanParameterFormat("string", "action")]bool isString)
         {
             converter.OutputExecutablesAsStrings = isString;
         }

@@ -196,22 +196,22 @@ h1.heading            {border-width: 0px 0px 0px 5px;}
     <xsl:attribute name="title">
       <xsl:call-template name="pluraliser">
         <xsl:with-param name="count" select="count(.//Result[@Type='Failed'])"/>
-        <xsl:with-param name="description" select="'failing narrative'"/>
+        <xsl:with-param name="description" select="'failing step'"/>
       </xsl:call-template>
       <xsl:text>, </xsl:text>
       <xsl:call-template name="pluraliser">
         <xsl:with-param name="count" select="count(.//Result[@Type='Pending'])"/>
-        <xsl:with-param name="description" select="'pending narrative'"/>
+        <xsl:with-param name="description" select="'pending step'"/>
       </xsl:call-template>
       <xsl:text>, </xsl:text>
       <xsl:call-template name="pluraliser">
         <xsl:with-param name="count" select="count(.//Result[@Type='Passed'])"/>
-        <xsl:with-param name="description" select="'passing narrative'"/>
+        <xsl:with-param name="description" select="'passing step'"/>
       </xsl:call-template>
       <xsl:text>, and </xsl:text>
       <xsl:call-template name="pluraliser">
         <xsl:with-param name="count" select="count(.//Result[@Type='NotExecutable'])"/>
-        <xsl:with-param name="description" select="'non-executable narrative'"/>
+        <xsl:with-param name="description" select="'non-executable step'"/>
       </xsl:call-template>
     </xsl:attribute>
   </xsl:template>
