@@ -4,22 +4,22 @@ using StoryQ.Execution;
 namespace StoryQ
 {
     /// <summary>
-    ///  A StoryQ infrastructure class that represents single a line of a story. Some narratives can be executed, while others are just descriptive
+    ///  A StoryQ infrastructure class that represents single a line of a story. Some steps can be executed, while others are just descriptive
     /// </summary>
-    public class Narrative
+    public class Step
     {
-        private const string NarrativePendingMessage = "Pending";
+        private const string StepPendingMessage = "Pending";
         /// <summary>
-        /// use this Action when a narrative is supposed to "pend"
+        /// use this Action when a Step is supposed to "pend"
         /// </summary>
-        public static readonly Action Pend = () => { throw new NotImplementedException(NarrativePendingMessage); };
+        public static readonly Action Pend = () => { throw new NotImplementedException(StepPendingMessage); };
 
         /// <summary>
-        /// use this Action when a narrative is supposed to be not executable
+        /// use this Action when a Step is supposed to be not executable
         /// </summary>
         public static readonly Action DoNothing = () => { };
 
-        internal Narrative(string prefix, int indentLevel, string text, Action action)
+        internal Step(string prefix, int indentLevel, string text, Action action)
         {
             Prefix = prefix;
             IndentLevel = indentLevel;
@@ -53,7 +53,7 @@ namespace StoryQ
 
 
         /// <summary>
-        /// Executes this narrative.
+        /// Executes this Step.
         /// </summary>
         /// <returns>the resulting result</returns>
         public Result Execute()
@@ -71,7 +71,7 @@ namespace StoryQ
             catch (NotImplementedException ex)
             {
                 //transform any NotImplementedException into a unit test specific "pending" exception
-                string message = ex.Message == NarrativePendingMessage
+                string message = ex.Message == StepPendingMessage
                                      ? "Pending"
                                      : "Pending due to " + Environment.NewLine + ex;
 

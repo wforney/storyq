@@ -20,12 +20,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace StoryQ.Tests
 {
     [TestClass]
-    public class NarrativeTest
+    public class StepTest
     {
         [TestMethod]
         public void ExcecutePending()
         {
-            Narrative n = new Narrative("Given", 1, "a pending narrative", Narrative.Pend);
+            Step n = new Step("Given", 1, "a pending Step", Step.Pend);
             Result e = n.Execute();
             Assert.AreEqual(ResultType.Pending, e.Type);
             Assert.IsNotNull(e.Exception);
@@ -34,7 +34,7 @@ namespace StoryQ.Tests
         [TestMethod]
         public void ExcecuteFail()
         {
-            Narrative n = new Narrative("Given", 1, "a failing narrative", () => Assert.Fail("Fail!"));
+            Step n = new Step("Given", 1, "a failing Step", () => Assert.Fail("Fail!"));
             Result e = n.Execute();
             Assert.AreEqual(ResultType.Failed, e.Type);
             Assert.IsNotNull(e.Exception);
@@ -43,7 +43,7 @@ namespace StoryQ.Tests
         [TestMethod]
         public void ExcecutePass()
         {
-            Narrative n = new Narrative("Given", 1, "a passing narrative", () => { });
+            Step n = new Step("Given", 1, "a passing Step", () => { });
             Result e = n.Execute();
             Assert.AreEqual(ResultType.Passed, e.Type);
             Assert.IsNull(e.Exception);
@@ -52,7 +52,7 @@ namespace StoryQ.Tests
         [TestMethod]
         public void ExcecuteNonExecutable()
         {
-            Narrative n = new Narrative("As a", 1, "non executable narrative", Narrative.DoNothing);
+            Step n = new Step("As a", 1, "non executable Step", Step.DoNothing);
             Result e = n.Execute();
             Assert.AreEqual(ResultType.NotExecutable, e.Type);
             Assert.IsNull(e.Exception);

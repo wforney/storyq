@@ -6,7 +6,7 @@ using System.Text;
 namespace StoryQ.Execution
 {
     /// <summary>
-    /// The result or outcome of a narrative being executed
+    /// The result or outcome of a step being executed
     /// </summary>
     public class Result
     {
@@ -35,7 +35,7 @@ namespace StoryQ.Execution
         }
 
         /// <summary>
-        /// Gets the prefix (the type of the narrative, such as "Given")
+        /// Gets the prefix (the type of the step, such as "Given")
         /// </summary>
         /// <value>The prefix.</value>
         public string Prefix
@@ -48,7 +48,7 @@ namespace StoryQ.Execution
         }
 
         /// <summary>
-        /// Gets the text (the content of the narrative)
+        /// Gets the text (the content of the step)
         /// </summary>
         /// <value>The text.</value>
         public string Text

@@ -1,22 +1,22 @@
 namespace StoryQ.Execution
 {
     /// <summary>
-    /// The different outcomes of each Narrative run
+    /// The different outcomes of each Step run
     /// </summary>
     public enum ResultType
     {
         /// <summary>
-        /// The narrative was not something that can be executed
+        /// The Step was not something that can be executed
         /// </summary>
         NotExecutable,
 
         /// <summary>
-        /// The narrative passed
+        /// The Step passed
         /// </summary>
         Passed,
 
         /// <summary>
-        /// The narrative was pending (more development required)
+        /// The Step was pending (more development required)
         /// </summary>
         Pending,
 

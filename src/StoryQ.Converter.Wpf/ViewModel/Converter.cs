@@ -146,9 +146,9 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         private string Code(FragmentBase b)
         {
-            var narratives = b.SelfAndAncestors().Select(x => x.Narrative).Reverse();
+            var steps = b.SelfAndAncestors().Select(x => x.Step).Reverse();
 
-            var v = HeadAndTail(narratives,
+            var v = HeadAndTail(steps,
                 n => Indent(InitialIndent) + string.Format("new Story({0})", CamelContent(n)),
                 n => Indent(InitialIndent + n.IndentLevel) + string.Format(".{0}({1})", camel(n.Prefix), CamelContent(n)));
 
@@ -173,7 +173,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
             }
         }
 
-        private string CamelContent(Narrative n)
+        private string CamelContent(Step n)
         {
             if (n.IsExecutable && !OutputExecutablesAsStrings)
             {
