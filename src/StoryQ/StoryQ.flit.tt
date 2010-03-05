@@ -44,7 +44,7 @@ namespace <#=nameSpace#>
             var target = exit.ToState;
             string prefix = CamelCaseToSentence(exit.Label.Name);
 #>
-    /// <li><#=prefix#> [<see cref="<#=target.Label.Name#>"/>]: <see cref="<#=exit.Label.Name#>(string)"/></li>
+    /// <li><#=prefix#> [<see cref="<#=target.Label.Name#>"/>]: <see cref="<#=exit.Label.Name#>"/></li>
 <#
         }
 #>
@@ -57,10 +57,10 @@ namespace <#=nameSpace#>
         {
 #>
         /// <summary>
-        /// Starts a new StoryQ Story. 
+        /// Starts a new StoryQ <#=state.Label.Name#>. 
         /// </summary>
-        /// <param name="text">The name of the new story</param>
-        public <#=state.Label.Name#>(string text):base(new Step("Story is", 0, text, Step.DoNothing)){}
+        /// <param name="text">The name of the new <#=state.Label.Name#></param>
+        public <#=state.Label.Name#>(string text):base(new Step("<#=state.Label.Name#> is", 0, text, Step.DoNothing)){}
 <#
         }
         else
@@ -75,25 +75,6 @@ namespace <#=nameSpace#>
             string prefix = CamelCaseToSentence(exit.Label.Name);
             if (IsExecutable(target))
             {
-#>
-
-        /// <summary>
-        /// <#=prefix#> [<#=target.Label.Name#>].
-        /// <#=Tooltip(exit)#>
-        /// </summary>
-        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
-        /// <param name="text">The text of this story fragment</param>
-        /// <param name="action">
-        /// The code that should be executed to represent this story fragment. 
-        /// Because StoryQ doesn't need to infer any text from the action, you can use lambdas and anonymous delegates here
-        /// </param>
-        [Description("<#=Tooltip(exit)#>")]
-        public <#=target.Label.Name#> <#=exit.Label.Name#>(string text, Action action)
-        {
-            Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, action);
-            return new <#=target.Label.Name#>(s){ Parent = this };
-        }
-<#
                 for(int i = 0; i < 5; i++)
                 {
                     var nums = Enumerable.Range(1, i);
@@ -136,25 +117,17 @@ namespace <#=nameSpace#>
             }
 #>
 
-        /// <summary>
+
+<# 
+			if (!IsExecutable(target))
+			{
+#>
+		/// <summary>
         /// <#=prefix#> [<#=target.Label.Name#>].
         /// <#=Tooltip(exit)#>
         /// </summary>
         /// <param name="text">
-<# 
-        if (IsExecutable(target))
-        {
-#>
-        /// A textual description. This story fragment will 'Pend' unless you call .Pass() immediately after this method.
-<#
-        }
-        else
-        {
-#>
         /// A textual description. This story fragment is not executable.
-<#
-        }
-#>
         /// </param>
         /// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
         [Description("<#=Tooltip(exit)#>")]
@@ -164,37 +137,9 @@ namespace <#=nameSpace#>
             return new <#=target.Label.Name#>(s){ Parent = this };
         }
 <#
-        }
-#>
-<# 
-        if (IsExecutable(state))
-        {
-#>
-
-        /// <summary>
-        /// Makes this step "pend". Use this when the test itself is incomplete.
-        /// This is the default for any executable step
-        /// </summary>
-        /// <returns>itself</returns>
-        public <#=state.Label.Name#> Pend()
-        {
-            Step.Action = Step.Pend;
-            return this;
-        }
         
-        /// <summary>
-        /// Makes this step pass. Use this when you want to override the existing behaviour 
-        /// (such as pending, or running a failing peice of code)
-        /// "Pending" is the default for any executable step
-        /// </summary>
-        /// <returns>itself</returns>
-        public <#=state.Label.Name#> Pass()
-        {
-            Step.Action = () => {};
-            return this;
-        }
-<#
-        }
+			}
+		}
 #>
     }
 <#

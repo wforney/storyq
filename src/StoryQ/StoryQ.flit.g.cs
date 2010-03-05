@@ -8,7 +8,7 @@ namespace StoryQ
     /// The [Story] story fragment.
     /// This is the root item of any story
     /// <h1>Transitions:</h1><ul>
-    /// <li>In order to [<see cref="Benefit"/>]: <see cref="InOrderTo(string)"/></li>
+    /// <li>In order to [<see cref="Benefit"/>]: <see cref="InOrderTo"/></li>
     /// </ul>
     /// </summary>
     public partial class Story : FragmentBase
@@ -16,10 +16,11 @@ namespace StoryQ
         /// <summary>
         /// Starts a new StoryQ Story. 
         /// </summary>
-        /// <param name="text">The name of the new story</param>
+        /// <param name="text">The name of the new Story</param>
         public Story(string text):base(new Step("Story is", 0, text, Step.DoNothing)){}
 
-        /// <summary>
+
+		/// <summary>
         /// In order to [Benefit].
         /// Describe the real-world value for this story. What is the business process that the user requires software support from?
         /// </summary>
@@ -39,15 +40,16 @@ namespace StoryQ
     /// The [Benefit] story fragment.
     /// The real-world objective (business value) of a story
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Benefit"/>]: <see cref="And(string)"/></li>
-    /// <li>As a [<see cref="Role"/>]: <see cref="AsA(string)"/></li>
+    /// <li>And [<see cref="Benefit"/>]: <see cref="And"/></li>
+    /// <li>As a [<see cref="Role"/>]: <see cref="AsA"/></li>
     /// </ul>
     /// </summary>
     public partial class Benefit : FragmentBase
     {
         internal Benefit(Step step):base(step){}
 
-        /// <summary>
+
+		/// <summary>
         /// And [Benefit].
         /// Describe any secondary business functions that this story will support
         /// </summary>
@@ -62,7 +64,8 @@ namespace StoryQ
             return new Benefit(s){ Parent = this };
         }
 
-        /// <summary>
+
+		/// <summary>
         /// As a [Role].
         /// The role of the person who is the intended user of this feature
         /// </summary>
@@ -82,15 +85,16 @@ namespace StoryQ
     /// The [Role] story fragment.
     /// The role (a category of actors/users) or roles that receive this benefit. 
     /// <h1>Transitions:</h1><ul>
-    /// <li>Or as a [<see cref="Role"/>]: <see cref="OrAsA(string)"/></li>
-    /// <li>I want [<see cref="Feature"/>]: <see cref="IWant(string)"/></li>
+    /// <li>Or as a [<see cref="Role"/>]: <see cref="OrAsA"/></li>
+    /// <li>I want [<see cref="Feature"/>]: <see cref="IWant"/></li>
     /// </ul>
     /// </summary>
     public partial class Role : FragmentBase
     {
         internal Role(Step step):base(step){}
 
-        /// <summary>
+
+		/// <summary>
         /// Or as a [Role].
         /// Any other roles that may use this story
         /// </summary>
@@ -105,7 +109,8 @@ namespace StoryQ
             return new Role(s){ Parent = this };
         }
 
-        /// <summary>
+
+		/// <summary>
         /// I want [Feature].
         /// Describe the software process (features) that will support the business requirement
         /// </summary>
@@ -125,15 +130,16 @@ namespace StoryQ
     /// The [Feature] story fragment.
     /// The software process that will implement the specified benefit.
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Feature"/>]: <see cref="And(string)"/></li>
-    /// <li>With scenario [<see cref="Scenario"/>]: <see cref="WithScenario(string)"/></li>
+    /// <li>And [<see cref="Feature"/>]: <see cref="And"/></li>
+    /// <li>With scenario [<see cref="Scenario"/>]: <see cref="WithScenario"/></li>
     /// </ul>
     /// </summary>
     public partial class Feature : FragmentBase
     {
         internal Feature(Step step):base(step){}
 
-        /// <summary>
+
+		/// <summary>
         /// And [Feature].
         /// Any other features that will implement the desired benefit
         /// </summary>
@@ -148,7 +154,8 @@ namespace StoryQ
             return new Feature(s){ Parent = this };
         }
 
-        /// <summary>
+
+		/// <summary>
         /// With scenario [Scenario].
         /// Add a scenario ('given'/'when'/'then') to this story. Scenarios can be added (and will be run) in sequence. Each scenario should have a short descriptive name.
         /// </summary>
@@ -168,29 +175,12 @@ namespace StoryQ
     /// The [Scenario] story fragment.
     /// The name of each scenario within a story. You can think of each scenario as a chapter in a book.
     /// <h1>Transitions:</h1><ul>
-    /// <li>Given [<see cref="Condition"/>]: <see cref="Given(string)"/></li>
+    /// <li>Given [<see cref="Condition"/>]: <see cref="Given"/></li>
     /// </ul>
     /// </summary>
     public partial class Scenario : FragmentBase
     {
         internal Scenario(Step step):base(step){}
-
-        /// <summary>
-        /// Given [Condition].
-        /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
-        /// </summary>
-        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
-        /// <param name="text">The text of this story fragment</param>
-        /// <param name="action">
-        /// The code that should be executed to represent this story fragment. 
-        /// Because StoryQ doesn't need to infer any text from the action, you can use lambdas and anonymous delegates here
-        /// </param>
-        [Description("Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state")]
-        public Condition Given(string text, Action action)
-        {
-            Step s = new Step("Given", 4, text, action);
-            return new Condition(s){ Parent = this };
-        }
 
         /// <summary>
         /// Given [Condition].
@@ -297,50 +287,20 @@ namespace StoryQ
             return new Condition(s){ Parent = this };
         }
 
-        /// <summary>
-        /// Given [Condition].
-        /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
-        /// </summary>
-        /// <param name="text">
-        /// A textual description. This story fragment will 'Pend' unless you call .Pass() immediately after this method.
-        /// </param>
-        /// <returns>The next fragment of your story, a <see cref="Condition"/></returns>
-        [Description("Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state")]
-        public Condition Given(string text)
-        {
-            Step s = new Step("Given", 4, text, Step.Pend);
-            return new Condition(s){ Parent = this };
-        }
+
     }
 
     /// <summary>
     /// The [Condition] story fragment.
     /// The preconditions that are meant to be present at the beginning of the scenario.
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Condition"/>]: <see cref="And(string)"/></li>
-    /// <li>When [<see cref="Operation"/>]: <see cref="When(string)"/></li>
+    /// <li>And [<see cref="Condition"/>]: <see cref="And"/></li>
+    /// <li>When [<see cref="Operation"/>]: <see cref="When"/></li>
     /// </ul>
     /// </summary>
     public partial class Condition : FragmentBase
     {
         internal Condition(Step step):base(step){}
-
-        /// <summary>
-        /// And [Condition].
-        /// Provide another precondition to describe our scenario's initial state
-        /// </summary>
-        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
-        /// <param name="text">The text of this story fragment</param>
-        /// <param name="action">
-        /// The code that should be executed to represent this story fragment. 
-        /// Because StoryQ doesn't need to infer any text from the action, you can use lambdas and anonymous delegates here
-        /// </param>
-        [Description("Provide another precondition to describe our scenario's initial state")]
-        public Condition And(string text, Action action)
-        {
-            Step s = new Step("And", 5, text, action);
-            return new Condition(s){ Parent = this };
-        }
 
         /// <summary>
         /// And [Condition].
@@ -447,37 +407,7 @@ namespace StoryQ
             return new Condition(s){ Parent = this };
         }
 
-        /// <summary>
-        /// And [Condition].
-        /// Provide another precondition to describe our scenario's initial state
-        /// </summary>
-        /// <param name="text">
-        /// A textual description. This story fragment will 'Pend' unless you call .Pass() immediately after this method.
-        /// </param>
-        /// <returns>The next fragment of your story, a <see cref="Condition"/></returns>
-        [Description("Provide another precondition to describe our scenario's initial state")]
-        public Condition And(string text)
-        {
-            Step s = new Step("And", 5, text, Step.Pend);
-            return new Condition(s){ Parent = this };
-        }
 
-        /// <summary>
-        /// When [Operation].
-        /// Describe the actions that are done to the system under test. '
-        /// </summary>
-        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
-        /// <param name="text">The text of this story fragment</param>
-        /// <param name="action">
-        /// The code that should be executed to represent this story fragment. 
-        /// Because StoryQ doesn't need to infer any text from the action, you can use lambdas and anonymous delegates here
-        /// </param>
-        [Description("Describe the actions that are done to the system under test. '")]
-        public Operation When(string text, Action action)
-        {
-            Step s = new Step("When", 4, text, action);
-            return new Operation(s){ Parent = this };
-        }
 
         /// <summary>
         /// When [Operation].
@@ -584,73 +514,20 @@ namespace StoryQ
             return new Operation(s){ Parent = this };
         }
 
-        /// <summary>
-        /// When [Operation].
-        /// Describe the actions that are done to the system under test. '
-        /// </summary>
-        /// <param name="text">
-        /// A textual description. This story fragment will 'Pend' unless you call .Pass() immediately after this method.
-        /// </param>
-        /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
-        [Description("Describe the actions that are done to the system under test. '")]
-        public Operation When(string text)
-        {
-            Step s = new Step("When", 4, text, Step.Pend);
-            return new Operation(s){ Parent = this };
-        }
 
-        /// <summary>
-        /// Makes this step "pend". Use this when the test itself is incomplete.
-        /// This is the default for any executable step
-        /// </summary>
-        /// <returns>itself</returns>
-        public Condition Pend()
-        {
-            Step.Action = Step.Pend;
-            return this;
-        }
-        
-        /// <summary>
-        /// Makes this step pass. Use this when you want to override the existing behaviour 
-        /// (such as pending, or running a failing peice of code)
-        /// "Pending" is the default for any executable step
-        /// </summary>
-        /// <returns>itself</returns>
-        public Condition Pass()
-        {
-            Step.Action = () => {};
-            return this;
-        }
     }
 
     /// <summary>
     /// The [Operation] story fragment.
     /// The action(s) that are performed upon the system under test
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Operation"/>]: <see cref="And(string)"/></li>
-    /// <li>Then [<see cref="Outcome"/>]: <see cref="Then(string)"/></li>
+    /// <li>And [<see cref="Operation"/>]: <see cref="And"/></li>
+    /// <li>Then [<see cref="Outcome"/>]: <see cref="Then"/></li>
     /// </ul>
     /// </summary>
     public partial class Operation : FragmentBase
     {
         internal Operation(Step step):base(step){}
-
-        /// <summary>
-        /// And [Operation].
-        /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
-        /// </summary>
-        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
-        /// <param name="text">The text of this story fragment</param>
-        /// <param name="action">
-        /// The code that should be executed to represent this story fragment. 
-        /// Because StoryQ doesn't need to infer any text from the action, you can use lambdas and anonymous delegates here
-        /// </param>
-        [Description("Provide another action that is to be performed on the system, prior to our check for behaviour ('then')")]
-        public Operation And(string text, Action action)
-        {
-            Step s = new Step("And", 5, text, action);
-            return new Operation(s){ Parent = this };
-        }
 
         /// <summary>
         /// And [Operation].
@@ -757,37 +634,7 @@ namespace StoryQ
             return new Operation(s){ Parent = this };
         }
 
-        /// <summary>
-        /// And [Operation].
-        /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
-        /// </summary>
-        /// <param name="text">
-        /// A textual description. This story fragment will 'Pend' unless you call .Pass() immediately after this method.
-        /// </param>
-        /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
-        [Description("Provide another action that is to be performed on the system, prior to our check for behaviour ('then')")]
-        public Operation And(string text)
-        {
-            Step s = new Step("And", 5, text, Step.Pend);
-            return new Operation(s){ Parent = this };
-        }
 
-        /// <summary>
-        /// Then [Outcome].
-        /// Describe the system's behaviour that the prior state and actions should elicit
-        /// </summary>
-        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
-        /// <param name="text">The text of this story fragment</param>
-        /// <param name="action">
-        /// The code that should be executed to represent this story fragment. 
-        /// Because StoryQ doesn't need to infer any text from the action, you can use lambdas and anonymous delegates here
-        /// </param>
-        [Description("Describe the system's behaviour that the prior state and actions should elicit")]
-        public Outcome Then(string text, Action action)
-        {
-            Step s = new Step("Then", 4, text, action);
-            return new Outcome(s){ Parent = this };
-        }
 
         /// <summary>
         /// Then [Outcome].
@@ -894,73 +741,20 @@ namespace StoryQ
             return new Outcome(s){ Parent = this };
         }
 
-        /// <summary>
-        /// Then [Outcome].
-        /// Describe the system's behaviour that the prior state and actions should elicit
-        /// </summary>
-        /// <param name="text">
-        /// A textual description. This story fragment will 'Pend' unless you call .Pass() immediately after this method.
-        /// </param>
-        /// <returns>The next fragment of your story, a <see cref="Outcome"/></returns>
-        [Description("Describe the system's behaviour that the prior state and actions should elicit")]
-        public Outcome Then(string text)
-        {
-            Step s = new Step("Then", 4, text, Step.Pend);
-            return new Outcome(s){ Parent = this };
-        }
 
-        /// <summary>
-        /// Makes this step "pend". Use this when the test itself is incomplete.
-        /// This is the default for any executable step
-        /// </summary>
-        /// <returns>itself</returns>
-        public Operation Pend()
-        {
-            Step.Action = Step.Pend;
-            return this;
-        }
-        
-        /// <summary>
-        /// Makes this step pass. Use this when you want to override the existing behaviour 
-        /// (such as pending, or running a failing peice of code)
-        /// "Pending" is the default for any executable step
-        /// </summary>
-        /// <returns>itself</returns>
-        public Operation Pass()
-        {
-            Step.Action = () => {};
-            return this;
-        }
     }
 
     /// <summary>
     /// The [Outcome] story fragment.
     /// The result that is expected from executing the specified actions on the specified initial state
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Outcome"/>]: <see cref="And(string)"/></li>
-    /// <li>With scenario [<see cref="Scenario"/>]: <see cref="WithScenario(string)"/></li>
+    /// <li>And [<see cref="Outcome"/>]: <see cref="And"/></li>
+    /// <li>With scenario [<see cref="Scenario"/>]: <see cref="WithScenario"/></li>
     /// </ul>
     /// </summary>
     public partial class Outcome : FragmentBase
     {
         internal Outcome(Step step):base(step){}
-
-        /// <summary>
-        /// And [Outcome].
-        /// Provide another resultant behaviour to check for
-        /// </summary>
-        /// <remarks>This overload uses the text that is passed in, and can execute any action</remarks>
-        /// <param name="text">The text of this story fragment</param>
-        /// <param name="action">
-        /// The code that should be executed to represent this story fragment. 
-        /// Because StoryQ doesn't need to infer any text from the action, you can use lambdas and anonymous delegates here
-        /// </param>
-        [Description("Provide another resultant behaviour to check for")]
-        public Outcome And(string text, Action action)
-        {
-            Step s = new Step("And", 5, text, action);
-            return new Outcome(s){ Parent = this };
-        }
 
         /// <summary>
         /// And [Outcome].
@@ -1067,22 +861,10 @@ namespace StoryQ
             return new Outcome(s){ Parent = this };
         }
 
-        /// <summary>
-        /// And [Outcome].
-        /// Provide another resultant behaviour to check for
-        /// </summary>
-        /// <param name="text">
-        /// A textual description. This story fragment will 'Pend' unless you call .Pass() immediately after this method.
-        /// </param>
-        /// <returns>The next fragment of your story, a <see cref="Outcome"/></returns>
-        [Description("Provide another resultant behaviour to check for")]
-        public Outcome And(string text)
-        {
-            Step s = new Step("And", 5, text, Step.Pend);
-            return new Outcome(s){ Parent = this };
-        }
 
-        /// <summary>
+
+
+		/// <summary>
         /// With scenario [Scenario].
         /// Add another scenario to this story. StoryQ executes these scenarios one after the other, so state can be shared between a single story's scenarios.
         /// </summary>
@@ -1095,29 +877,6 @@ namespace StoryQ
         {
             Step s = new Step("With scenario", 3, text, Step.DoNothing);
             return new Scenario(s){ Parent = this };
-        }
-
-        /// <summary>
-        /// Makes this step "pend". Use this when the test itself is incomplete.
-        /// This is the default for any executable step
-        /// </summary>
-        /// <returns>itself</returns>
-        public Outcome Pend()
-        {
-            Step.Action = Step.Pend;
-            return this;
-        }
-        
-        /// <summary>
-        /// Makes this step pass. Use this when you want to override the existing behaviour 
-        /// (such as pending, or running a failing peice of code)
-        /// "Pending" is the default for any executable step
-        /// </summary>
-        /// <returns>itself</returns>
-        public Outcome Pass()
-        {
-            Step.Action = () => {};
-            return this;
         }
     }
 }
