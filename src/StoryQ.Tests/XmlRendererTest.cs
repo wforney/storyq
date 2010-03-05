@@ -55,17 +55,32 @@ namespace StoryQ.Tests
                 .AsA("role")
                 .IWant("feature")
                 .WithScenario("scenario")
-                .Given("thing").Pass()
-                .When("something").Pend()
-                .Then("something else", () => { throw new Exception("moo"); });
+                .Given(Thing)
+                .When(Something)
+                .Then(SomethingElse);
 
 
             var results = v.SelfAndAncestors().Reverse().Select(x => x.Step.Execute());
             new XmlRenderer(e).Render(results);
+            
             Assert.IsTrue(e.Descendants("Result").Count()==8);
             Assert.AreEqual("Failed", (string)e.Descendants("Result").Last().Attribute("Type"));
         }
 
-       
+        private void SomethingElse()
+        {
+            throw new Exception("moo");
+        }
+
+        private void Something()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Thing()
+        {
+            
+
+        }
     }
 }

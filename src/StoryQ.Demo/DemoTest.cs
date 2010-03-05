@@ -59,12 +59,17 @@ namespace StoryQ.Demo
                 .IWant("All credit card numbers to be encrypted")
 
                 .WithScenario("submitting shopping cart")
-                    .Given("I have typed my credit card number into the checkout page")
+                    .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
                     .When(IClickThe_Button, "Buy")
-                        .And("the browser posts my credit card number over the internet")
-                    .Then("the form should be posted over https")
+                        .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
+                    .Then(TheForm_BePostedOverHttpsPending, true)
                 .ExecuteWithReport(MethodBase.GetCurrentMethod());
 
+        }
+
+        private void TheForm_BePostedOverHttpsPending(bool obj)
+        {
+            throw new NotImplementedException();
         }
 
         [TestMethod]
@@ -76,10 +81,10 @@ namespace StoryQ.Demo
                 .IWant("All credit card numbers to be encrypted")
 
                 .WithScenario("submitting shopping cart")
-                    .Given("I have typed my credit card number into the checkout page")
+                    .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
                     .When(IClickThe_Button, "non existent")
-                        .And("the browser posts my credit card number over the internet")
-                    .Then("the form should be posted over https", () => { throw new Exception("Oh no again!"); })
+                        .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
+                    .Then(TheForm_BePostedOverHttps, true)
             .ExecuteWithReport(MethodBase.GetCurrentMethod());
         }
 
