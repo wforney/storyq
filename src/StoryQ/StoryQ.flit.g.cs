@@ -19,7 +19,6 @@ namespace StoryQ
         /// <param name="text">The name of the new Story</param>
         public Story(string text):base(new Step("Story is", 0, text, Step.DoNothing)){}
 
-
 		/// <summary>
         /// In order to [Benefit].
         /// Describe the real-world value for this story. What is the business process that the user requires software support from?
@@ -48,7 +47,6 @@ namespace StoryQ
     {
         internal Benefit(Step step):base(step){}
 
-
 		/// <summary>
         /// And [Benefit].
         /// Describe any secondary business functions that this story will support
@@ -63,7 +61,6 @@ namespace StoryQ
             Step s = new Step("And", 2, text, Step.DoNothing);
             return new Benefit(s){ Parent = this };
         }
-
 
 		/// <summary>
         /// As a [Role].
@@ -93,7 +90,6 @@ namespace StoryQ
     {
         internal Role(Step step):base(step){}
 
-
 		/// <summary>
         /// Or as a [Role].
         /// Any other roles that may use this story
@@ -108,7 +104,6 @@ namespace StoryQ
             Step s = new Step("Or as a", 2, text, Step.DoNothing);
             return new Role(s){ Parent = this };
         }
-
 
 		/// <summary>
         /// I want [Feature].
@@ -138,7 +133,6 @@ namespace StoryQ
     {
         internal Feature(Step step):base(step){}
 
-
 		/// <summary>
         /// And [Feature].
         /// Any other features that will implement the desired benefit
@@ -153,7 +147,6 @@ namespace StoryQ
             Step s = new Step("And", 2, text, Step.DoNothing);
             return new Feature(s){ Parent = this };
         }
-
 
 		/// <summary>
         /// With scenario [Scenario].
@@ -287,7 +280,20 @@ namespace StoryQ
             return new Condition(s){ Parent = this };
         }
 
-
+		/// <summary>
+        /// Given [Condition].
+        /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
+        /// </summary>
+        /// <param name="text">
+        /// A textual description. This story fragment is not executable.
+        /// </param>
+        /// <returns>The next fragment of your story, a <see cref="Condition"/></returns>
+        [Description("Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state")]
+        private Condition Given(string text)
+        {
+            Step s = new Step("Given", 4, text, Step.Pend);
+            return new Condition(s){ Parent = this };
+        }
     }
 
     /// <summary>
@@ -407,7 +413,20 @@ namespace StoryQ
             return new Condition(s){ Parent = this };
         }
 
-
+		/// <summary>
+        /// And [Condition].
+        /// Provide another precondition to describe our scenario's initial state
+        /// </summary>
+        /// <param name="text">
+        /// A textual description. This story fragment is not executable.
+        /// </param>
+        /// <returns>The next fragment of your story, a <see cref="Condition"/></returns>
+        [Description("Provide another precondition to describe our scenario's initial state")]
+        private Condition And(string text)
+        {
+            Step s = new Step("And", 5, text, Step.Pend);
+            return new Condition(s){ Parent = this };
+        }
 
         /// <summary>
         /// When [Operation].
@@ -514,7 +533,20 @@ namespace StoryQ
             return new Operation(s){ Parent = this };
         }
 
-
+		/// <summary>
+        /// When [Operation].
+        /// Describe the actions that are done to the system under test. '
+        /// </summary>
+        /// <param name="text">
+        /// A textual description. This story fragment is not executable.
+        /// </param>
+        /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
+        [Description("Describe the actions that are done to the system under test. '")]
+        private Operation When(string text)
+        {
+            Step s = new Step("When", 4, text, Step.Pend);
+            return new Operation(s){ Parent = this };
+        }
     }
 
     /// <summary>
@@ -634,7 +666,20 @@ namespace StoryQ
             return new Operation(s){ Parent = this };
         }
 
-
+		/// <summary>
+        /// And [Operation].
+        /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
+        /// </summary>
+        /// <param name="text">
+        /// A textual description. This story fragment is not executable.
+        /// </param>
+        /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
+        [Description("Provide another action that is to be performed on the system, prior to our check for behaviour ('then')")]
+        private Operation And(string text)
+        {
+            Step s = new Step("And", 5, text, Step.Pend);
+            return new Operation(s){ Parent = this };
+        }
 
         /// <summary>
         /// Then [Outcome].
@@ -741,7 +786,20 @@ namespace StoryQ
             return new Outcome(s){ Parent = this };
         }
 
-
+		/// <summary>
+        /// Then [Outcome].
+        /// Describe the system's behaviour that the prior state and actions should elicit
+        /// </summary>
+        /// <param name="text">
+        /// A textual description. This story fragment is not executable.
+        /// </param>
+        /// <returns>The next fragment of your story, a <see cref="Outcome"/></returns>
+        [Description("Describe the system's behaviour that the prior state and actions should elicit")]
+        private Outcome Then(string text)
+        {
+            Step s = new Step("Then", 4, text, Step.Pend);
+            return new Outcome(s){ Parent = this };
+        }
     }
 
     /// <summary>
@@ -861,8 +919,20 @@ namespace StoryQ
             return new Outcome(s){ Parent = this };
         }
 
-
-
+		/// <summary>
+        /// And [Outcome].
+        /// Provide another resultant behaviour to check for
+        /// </summary>
+        /// <param name="text">
+        /// A textual description. This story fragment is not executable.
+        /// </param>
+        /// <returns>The next fragment of your story, a <see cref="Outcome"/></returns>
+        [Description("Provide another resultant behaviour to check for")]
+        private Outcome And(string text)
+        {
+            Step s = new Step("And", 5, text, Step.Pend);
+            return new Outcome(s){ Parent = this };
+        }
 
 		/// <summary>
         /// With scenario [Scenario].

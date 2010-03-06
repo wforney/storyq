@@ -21,14 +21,14 @@ namespace StoryQ.Converter.Wpf.Model
                 if (string.IsNullOrEmpty(line)) continue;
 
 
-                var v = from m in GetOneStringMethods(root)
+                var v = from m in GetMethods(root)
                         where line.StartsWith(UnCamel(m.Name), IgnoreCase)
                         select m;
 
                 var match = v.FirstOrDefault();
                 if (match == null)
                 {
-                    throw new ParseException(string.Format("expected one of [{1}]; but found '{0}' at line {2}", line, string.Join(", ", GetOneStringMethods(root).Select(x => UnCamel(x.Name)).ToArray()), lineNumber));
+                    throw new ParseException(string.Format("expected one of [{1}]; but found '{0}' at line {2}", line, string.Join(", ", GetMethods(root).Select(x => UnCamel(x.Name)).ToArray()), lineNumber));
                 }
 
                 string argument = line.Substring(UnCamel(match.Name).Length).Trim();
@@ -40,16 +40,13 @@ namespace StoryQ.Converter.Wpf.Model
         }
 
 
-        public static IEnumerable<MethodInfo> GetOneStringMethods(object o)
+        public static IEnumerable<MethodInfo> GetMethods(object o)
         {
-            var v = from m in o.GetType().GetMethods()
-                    where m.ReturnType != typeof(void)
-                    where m.GetParameters().Select(x => x.ParameterType).SequenceEqual(new[] { typeof(string) })
-                    select m;
-
-            //we care about the longest method names first
-            v = v.OrderByDescending(m => m.Name.Length);
-            return v;
+            return from m in o.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+                   where m.ReturnType != typeof(void)
+                   where m.GetParameters().Select(x => x.ParameterType).SequenceEqual(new[] { typeof(string) })
+                   orderby m.Name.Length descending 
+                   select m;
         }
 
         public static string UnCamel(string name)

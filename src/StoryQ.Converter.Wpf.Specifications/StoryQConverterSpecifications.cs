@@ -70,95 +70,6 @@ namespace StoryQ.Converter.Wpf.Specifications
 
              .Execute();
         }
-        [TestMethod]
-        public void CustomisingOutputType()
-        {
-            new Story("customising converter output")
-              .InOrderTo("produce storyQ code thats described by a simple string")
-              .AsA("developer")
-              .IWant("to be able to not generate actions, but strings")
-                  .WithScenario("converting everything into text")
-                    .Given(ThatIHaveStoryAndScenarioText)
-                    .When(ISwitchStepsInto_Mode, true)
-                    .Then(TheOutputCodeShouldAllBeText)
-
-             .Execute();
-        }
-        [TestMethod]
-        public void HelpingRefactoringTools()
-        {
-            new Story("customising converter output")
-                .InOrderTo("help refactoring tools offer me the options to generate method stubs")
-                .AsA("developer")
-                .IWant("to be able to cast all method names into actions")
-             .WithScenario("forcing methods to be actions")
-                .Given(ThatIHaveStoryAndScenarioText)
-                .When(ISwitchStepsInto_Mode, false)
-                .And(ITurnOnCastToActionMode)
-                .Then(TheOutputCodeShouldIncludeCastsToAction)
-            
-            .WithScenario("only forcing parameterless methods to be actions")
-                .Given(ThatIHaveStoryAndScenarioTextWithParameteredActions)
-                .When(ISwitchStepsInto_Mode, false)
-                .And(ITurnOnCastToActionMode)
-                .Then(TheOutputCodeShouldIncludeCastsToActionButOnlyWhereExpected)
-             .Execute();
-        }
-
-        private void TheOutputCodeShouldIncludeCastsToAction()
-        {
-            const string expected =
-@"new Story(""story name"")
-  .InOrderTo(""get some benefit"")
-  .AsA(""person in some role"")
-  .IWant(""to use some software function"")
-      .WithScenario(""scenario name"")
-        .Given((Action)ThatIHaveSomeInitialState)
-        .When((Action)IDoSomethingToTheSystem)
-        .Then((Action)IShouldGetAResult);";
-
-            Assert.AreEqual(expected, converter.ConvertedText);
-        }
-        private void TheOutputCodeShouldIncludeCastsToActionButOnlyWhereExpected()
-        {
-            const string expected =
-@"new Story(""story name"")
-  .InOrderTo(""get some benefit"")
-  .AsA(""person in some role"")
-  .IWant(""to use some software function"")
-      .WithScenario(""scenario name"")
-        .Given((Action)ThatIHaveSomeInitialState)
-        .When(IDoSomethingToTheSystem_Times, 1)
-        .Then(IShouldGetA_, ""result"");";
-
-            Assert.AreEqual(expected, converter.ConvertedText);
-        }
-
-        private void ITurnOnCastToActionMode()
-        {
-            converter.CastMethodsToActions = true;
-        }
-
-        private void TheOutputCodeShouldAllBeText()
-        {
-            const string expected =
-@"new Story(""story name"")
-  .InOrderTo(""get some benefit"")
-  .AsA(""person in some role"")
-  .IWant(""to use some software function"")
-      .WithScenario(""scenario name"")
-        .Given(""that I have some initial state"")
-        .When(""I do something to the system"")
-        .Then(""I should get a result"");";
-
-            Assert.AreEqual(expected, converter.ConvertedText);
-        }
-
-
-        private void ISwitchStepsInto_Mode([BooleanParameterFormat("string", "action")]bool isString)
-        {
-            converter.OutputExecutablesAsStrings = isString;
-        }
 
         private void TheOutputCodeShouldHaveTheRightAmountOfExtraWhitespace()
         {
@@ -206,14 +117,6 @@ namespace StoryQ.Converter.Wpf.Specifications
             ITypeInSomeStoryText();
             ITypeInSomeScenarioText();
         }
-
-        private void ThatIHaveStoryAndScenarioTextWithParameteredActions()
-        {
-            ThatIHaveLaunchedStoryq();
-            ITypeInSomeStoryText();
-            ITypeInSomeScenarioTextWithADollarSymbolBeforeANumberOrWord();
-        }
-
 
         private void ThatIHaveLaunchedStoryq()
         {
