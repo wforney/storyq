@@ -117,11 +117,6 @@ namespace <#=nameSpace#>
             }
 #>
 
-
-<# 
-			if (!IsExecutable(target))
-			{
-#>
 		/// <summary>
         /// <#=prefix#> [<#=target.Label.Name#>].
         /// <#=Tooltip(exit)#>
@@ -131,14 +126,12 @@ namespace <#=nameSpace#>
         /// </param>
         /// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
         [Description("<#=Tooltip(exit)#>")]
-        public <#=target.Label.Name#> <#=exit.Label.Name#>(string text)
+        <#=IsExecutable(target)?"private":"public"#> <#=target.Label.Name#> <#=exit.Label.Name#>(string text)
         {
             Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, Step.<#=IsExecutable(target)?"Pend":"DoNothing"#>);
             return new <#=target.Label.Name#>(s){ Parent = this };
         }
 <#
-        
-			}
 		}
 #>
     }

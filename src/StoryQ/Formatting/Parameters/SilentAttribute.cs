@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace StoryQ.Formatting.Parameters
+﻿namespace StoryQ.Formatting.Parameters
 {
     ///<summary>
     /// Use this attribute on a Parameter when you want StoryQ to ignore it.

@@ -15,8 +15,6 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         private string plainText = "";
         private string convertedText;
-        private bool castMethodsToActions;
-        private bool outputExecutablesAsStrings;
         private bool outputAnyIndent = true;
         private int initialIndent;
 
@@ -55,34 +53,6 @@ namespace StoryQ.Converter.Wpf.ViewModel
         }
 
         public ObservableCollection<Transition> Transitions { get; private set; }
-
-        public bool CastMethodsToActions
-        {
-            get
-            {
-                return castMethodsToActions;
-            }
-            set
-            {
-                castMethodsToActions = value;
-                FirePropertyChanged("CastMethodsToActions");
-                Convert();
-            }
-        }
-
-        public bool OutputExecutablesAsStrings
-        {
-            get
-            {
-                return outputExecutablesAsStrings;
-            }
-            set
-            {
-                outputExecutablesAsStrings = value;
-                FirePropertyChanged("OutputExecutablesAsStrings");
-                Convert();
-            }
-        }
 
         public bool OutputAnyIndent
         {
@@ -133,7 +103,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
 
                 Transitions.Clear();
-                foreach (MethodInfo info in Parser.GetOneStringMethods(parsed))
+                foreach (MethodInfo info in Parser.GetMethods(parsed))
                 {
                     Transitions.Add(new Transition(info, this));
                 }
@@ -175,7 +145,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         private string CamelContent(Step n)
         {
-            if (n.IsExecutable && !OutputExecutablesAsStrings)
+            if (n.IsExecutable)
             {
                 string s = n.Text;
                 List<string> args = new List<string>();
@@ -186,10 +156,6 @@ namespace StoryQ.Converter.Wpf.ViewModel
                                                   });
                 var v = args.Select(x => Regex.IsMatch(x, "^((true)|(false)|([0-9.]*))$") ? x : '"' + x + '"');
                 s = camel(s);
-                if (CastMethodsToActions && !args.Any())
-                {
-                    s = "(Action)" + s;
-                }
                 string[] strings = new[] { s };
                 strings = strings.Concat(v).ToArray();
 
