@@ -50,13 +50,22 @@ namespace StoryQ.Execution.Rendering
                     }
                     else if (r.Type == ResultType.Failed)
                     {
-                        output.Write("  -> ");
+                        output.Write(": \"");
                         output.Write(r.Exception.Message);
                         output.Write(" [");
                         output.Write(exceptionTable.IndexOf(r.Exception) + 1);
-                        output.Write("]");
+                        output.Write("]\"");
                     }
                 }
+
+                var tags = string.Join(", ", r.Tags.Select(x => "#" + x).ToArray());
+                if(!string.IsNullOrEmpty(tags))
+                {
+                    output.Write(" (");
+                    output.Write(tags);
+                    output.Write(")");
+                }
+
 
                 output.WriteLine();
             }

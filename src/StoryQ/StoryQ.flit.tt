@@ -117,7 +117,7 @@ namespace <#=nameSpace#>
             }
 #>
 
-		/// <summary>
+        /// <summary>
         /// <#=prefix#> [<#=target.Label.Name#>].
         /// <#=Tooltip(exit)#>
         /// </summary>
@@ -126,21 +126,36 @@ namespace <#=nameSpace#>
         /// </param>
         /// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
         [Description("<#=Tooltip(exit)#>")]
-        <#=IsExecutable(target)?"private":"public"#> <#=target.Label.Name#> <#=exit.Label.Name#>(string text)
+        <#=IsExecutable(target)?"protected":"public"#> <#=target.Label.Name#> <#=exit.Label.Name#>(string text)
         {
-            Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, Step.<#=IsExecutable(target)?"Pend":"DoNothing"#>);
+            Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, Step.DoNothing);
             return new <#=target.Label.Name#>(s){ Parent = this };
         }
+
 <#
-		}
+        }
+        if(IsExecutable(state))
+        {
+#>
+        /// <summary>
+        /// Adds a tag to this step. Tags can be used make disparate steps searchable.
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public <#=state.Label.Name#> Tag(string tag)
+        {
+            Step.Tags.Add(tag.Trim().Trim('#'));
+            return this;
+        }
+
+<#
+        }
 #>
     }
 <#
     }
 #>
 }
-
-
 
 
 <#+
@@ -153,17 +168,17 @@ namespace <#=nameSpace#>
     {
         return state.GenericAttributes.ContainsKey("shape") &&  state.GenericAttributes["shape"]=="doublecircle";
     }
-    
+
     public string Tooltip(Transition t)
     {
         return Tooltip(t.GenericAttributes);
     }
-	
-	public int Indent(Transition t)
+    
+    public int Indent(Transition t)
     {
-		Dictionary<string, string> attributes = t.GenericAttributes;
+        Dictionary<string, string> attributes = t.GenericAttributes;
         string s = attributes.ContainsKey("indentlevel")?attributes["indentlevel"]:"0";
-		return int.Parse(s);
+        return int.Parse(s);
     }
 
     public string Tooltip(State s)
@@ -180,12 +195,12 @@ namespace <#=nameSpace#>
     {
         return Regex.Replace(s, "[A-Z]", x => x.Index == 0 ? x.Value : " " + x.Value.ToLowerInvariant()).Trim();
     }
-    
+
     public string Join(string seperator, IEnumerable<string> strings)
     {
         return string.Join(seperator, strings.ToArray());
     }
-    
+
     public static readonly string[] numberths = {"zeroeth", "first", "second", "third", "fourth"};
 
 #>
