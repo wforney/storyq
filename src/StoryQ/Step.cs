@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using StoryQ.Execution;
 
 namespace StoryQ
@@ -9,15 +11,13 @@ namespace StoryQ
     public class Step
     {
         private const string StepPendingMessage = "Pending";
-        /// <summary>
-        /// use this Action when a Step is supposed to "pend"
-        /// </summary>
-        public static readonly Action Pend = () => { throw new NotImplementedException(StepPendingMessage); };
 
         /// <summary>
         /// use this Action when a Step is supposed to be not executable
         /// </summary>
         public static readonly Action DoNothing = () => { };
+
+        private List<string> tags;
 
         internal Step(string prefix, int indentLevel, string text, Action action)
         {
@@ -49,7 +49,15 @@ namespace StoryQ
         /// Gets or sets the action.
         /// </summary>
         /// <value>The action.</value>
-        public Action Action { get; internal set; }
+        public Action Action { get; private set; }
+
+        /// <summary>
+        /// Gets the list of tags that have been applied to this step
+        /// </summary>
+        public List<string> Tags
+        {
+            get { return tags ?? (tags = new List<string>()); }
+        }
 
 
         /// <summary>
@@ -58,15 +66,17 @@ namespace StoryQ
         /// <returns>the resulting result</returns>
         public Result Execute()
         {
+            IEnumerable<string> tags = this.tags ?? Enumerable.Empty<string>();
+
             if (!IsExecutable)
             {
-                return new Result(Prefix, IndentLevel, Text, ResultType.NotExecutable);
+                return new Result(Prefix, IndentLevel, Text, tags, ResultType.NotExecutable);
             }
 
             try
             {
                 Action();
-                return new Result(Prefix, IndentLevel, Text, ResultType.Passed);
+                return new Result(Prefix, IndentLevel, Text, tags, ResultType.Passed);
             }
             catch (NotImplementedException ex)
             {
@@ -76,11 +86,11 @@ namespace StoryQ
                                      : "Pending due to " + Environment.NewLine + ex;
 
                 var pex = StoryQSettings.PendingExceptionBuilder(message, ex);
-                return new Result(Prefix, IndentLevel, Text, pex, true);
+                return new Result(Prefix, IndentLevel, Text, tags, pex, true);
             }
             catch (Exception ex)
             {
-                return new Result(Prefix, IndentLevel, Text, ex, Action == Pend);
+                return new Result(Prefix, IndentLevel, Text, tags, ex, false);
             }
         }
 

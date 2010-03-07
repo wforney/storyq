@@ -63,7 +63,7 @@ namespace StoryQ.Demo
                     .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
                     .When(IClickThe_Button, "Buy")
                         .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
-                    .Then(TheForm_BePostedOverHttpsPending, true)
+                    .Then(TheForm_BePostedOverHttpsPending, true).Tag("this one ought to pend")
                 .ExecuteWithReport(MethodBase.GetCurrentMethod());
 
         }
@@ -83,9 +83,9 @@ namespace StoryQ.Demo
 
                 .WithScenario("submitting shopping cart")
                     .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
-                    .When(IClickThe_Button, "non existent")
+                    .When(IClickThe_Button, "non existent")                            .Tag("this one should fail")
                         .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
-                    .Then(TheForm_BePostedOverHttps, true)
+                    .Then(TheForm_BePostedOverHttps, true)                             .Tag("Nice formatting").Tag("sprint 1")
             .ExecuteWithReport(MethodBase.GetCurrentMethod());
         }
 

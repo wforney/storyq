@@ -23,15 +23,6 @@ namespace StoryQ.Tests
     public class StepTest
     {
         [TestMethod]
-        public void ExcecutePending()
-        {
-            Step n = new Step("Given", 1, "a pending Step", Step.Pend);
-            Result e = n.Execute();
-            Assert.AreEqual(ResultType.Pending, e.Type);
-            Assert.IsNotNull(e.Exception);
-        }
-
-        [TestMethod]
         public void ExcecuteFail()
         {
             Step n = new Step("Given", 1, "a failing Step", () => Assert.Fail("Fail!"));
