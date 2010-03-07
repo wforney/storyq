@@ -146,6 +146,10 @@ h1.heading            {border-width: 0px 0px 0px 5px;}
             <xsl:text>&#xA0;</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
+        <xsl:for-each select="Tag">
+          <xsl:text> #</xsl:text>
+          <xsl:value-of select="."/>
+        </xsl:for-each>
       </td>
 
     </tr>
