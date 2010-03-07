@@ -38,7 +38,8 @@ namespace StoryQ.Execution.Rendering
                                         new XAttribute("IndentLevel", x.IndentLevel),
                                         new XAttribute("Prefix", x.Prefix),
                                         new XAttribute("Text", x.Text),
-                                        new XAttribute("Type", x.Type));
+                                        new XAttribute("Type", x.Type),
+                                        x.Tags.Select(tag => new XElement("Tag", tag)));
 
             receptacle.Add(new XElement("Story", new XAttribute("Name", results.First().Text), v));
         }
