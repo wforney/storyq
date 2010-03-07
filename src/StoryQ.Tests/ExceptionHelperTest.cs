@@ -23,7 +23,7 @@ namespace StoryQ.Tests
         [TestMethod]
         public void BuildException()
         {
-            var exception = ExceptionHelper.PendingExceptionBuilder("foo", null);
+            var exception = StoryQSettings.PendingExceptionBuilder("foo", null);
 #if NUNIT
             //we use ignore not inconclusive for nunit (most runners turn this yellow, whereas inconclusive is red)
             Assert.IsAssignableFrom<IgnoreException>(exception);

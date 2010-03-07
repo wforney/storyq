@@ -9,30 +9,14 @@ namespace StoryQ
     /// <summary>
     /// Exception-related operations for StoryQ.
     /// </summary>
-    public static class ExceptionHelper
+    internal static class ExceptionHelper
     {
-        private static Func<string, Exception, Exception> exceptionBuilder;
-
-        /// <summary>
-        /// This Func is responsible for wrapping an exception up in a unit test framework specific "pending" exception
-        /// If you don't set the func manually, it will try to reflectively build an appropriate Func for itself. If this fails, 
-        /// you need to set the PendingExceptionBuilder manually
-        /// <example>
-        /// ExceptionHelper.PendingExceptionBuilder = (message, inner) => new PendingException(message, inner);
-        /// </example>
-        /// </summary>
-        public static Func<string, Exception, Exception> PendingExceptionBuilder
-        {
-            get { return exceptionBuilder ?? (exceptionBuilder = CreateExceptionBuilder()); }
-            set { exceptionBuilder = value; }
-        }
-
         /// <summary>
         /// Tries to build an "exception builder" by scanning through the list of configured "pending exceptions" and creating a 
         /// Func out of the constructor
         /// </summary>
         /// <returns></returns>
-        private static Func<string, Exception, Exception> CreateExceptionBuilder()
+        internal static Func<string, Exception, Exception> CreateExceptionBuilder()
         {
             foreach (string s in Settings.Default.IgnoreExceptionType)
             {

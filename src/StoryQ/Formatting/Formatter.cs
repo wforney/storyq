@@ -13,9 +13,6 @@ namespace StoryQ.Formatting
     /// </summary>
     public static class Formatter
     {
-        private static readonly ParametersInlineMethodFormatAttribute underscores = new ParametersInlineMethodFormatAttribute();
-        private static readonly ParameterSuffixedMethodFormatAttribute noUnderscores = new ParameterSuffixedMethodFormatAttribute();
-
         /// <summary>
         /// Formats a method.
         /// </summary>
@@ -48,8 +45,7 @@ namespace StoryQ.Formatting
                 return formatter;
             }
 
-            bool anyUnderscores = method.Method.Name.Contains("_");
-            return anyUnderscores ? (MethodFormatAttribute) underscores : noUnderscores;
+            return StoryQSettings.DefaultMethodFormatSelector(method.Method);
         }
 
         private static string FormatParameter(ParameterInfo info, object value)
@@ -58,7 +54,9 @@ namespace StoryQ.Formatting
                         .OfType<ParameterFormatAttribute>()
                         .FirstOrDefault();
 
-            return a == null ? "" + value : a.Format(value);
+            a = a ?? StoryQSettings.DefaultParameterFormatter(info);
+
+            return a.Format(value);
         }
     }
 }
