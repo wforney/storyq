@@ -75,7 +75,7 @@ namespace StoryQ
                                      ? "Pending"
                                      : "Pending due to " + Environment.NewLine + ex;
 
-                var pex = ExceptionHelper.PendingExceptionBuilder(message, ex);
+                var pex = StoryQSettings.PendingExceptionBuilder(message, ex);
                 return new Result(Prefix, IndentLevel, Text, pex, true);
             }
             catch (Exception ex)

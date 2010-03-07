@@ -75,6 +75,7 @@
     <Compile Include="Execution\Rendering\XmlRenderer.cs" />
     <Compile Include="Execution\Result.cs" />
     <Compile Include="Execution\ResultType.cs" />
+    <Compile Include="Formatting\Parameters\ToStringParameterFormatAttribute.cs" />
     <Compile Include="StoryQ.flit.g.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,6 +96,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="StoryQSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Execution\Rendering\Html\HtmlDependencies.resx">

@@ -6,7 +6,7 @@ namespace StoryQ.Formatting.Parameters
     /// Allows you to override the formatting of a parameter to a StoryQ method.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
-    public abstract class ParameterFormatAttribute:Attribute
+    public abstract class ParameterFormatAttribute : Attribute
     {
 
         /// <summary>
