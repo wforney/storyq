@@ -298,7 +298,7 @@ namespace StoryQ
         [Description("Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state")]
         protected Condition Given(string text)
         {
-            Step s = new Step("Given", 4, text, Step.DoNothing);
+            Step s = new Step("Given", 4, text, null);
             return new Condition(s){ Parent = this };
         }
 
@@ -432,7 +432,7 @@ namespace StoryQ
         [Description("Provide another precondition to describe our scenario's initial state")]
         protected Condition And(string text)
         {
-            Step s = new Step("And", 5, text, Step.DoNothing);
+            Step s = new Step("And", 5, text, null);
             return new Condition(s){ Parent = this };
         }
 
@@ -553,7 +553,7 @@ namespace StoryQ
         [Description("Describe the actions that are done to the system under test. '")]
         protected Operation When(string text)
         {
-            Step s = new Step("When", 4, text, Step.DoNothing);
+            Step s = new Step("When", 4, text, null);
             return new Operation(s){ Parent = this };
         }
 
@@ -698,7 +698,7 @@ namespace StoryQ
         [Description("Provide another action that is to be performed on the system, prior to our check for behaviour ('then')")]
         protected Operation And(string text)
         {
-            Step s = new Step("And", 5, text, Step.DoNothing);
+            Step s = new Step("And", 5, text, null);
             return new Operation(s){ Parent = this };
         }
 
@@ -819,7 +819,7 @@ namespace StoryQ
         [Description("Describe the system's behaviour that the prior state and actions should elicit")]
         protected Outcome Then(string text)
         {
-            Step s = new Step("Then", 4, text, Step.DoNothing);
+            Step s = new Step("Then", 4, text, null);
             return new Outcome(s){ Parent = this };
         }
 
@@ -964,7 +964,7 @@ namespace StoryQ
         [Description("Provide another resultant behaviour to check for")]
         protected Outcome And(string text)
         {
-            Step s = new Step("And", 5, text, Step.DoNothing);
+            Step s = new Step("And", 5, text, null);
             return new Outcome(s){ Parent = this };
         }
 

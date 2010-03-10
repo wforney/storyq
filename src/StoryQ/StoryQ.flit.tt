@@ -128,7 +128,7 @@ namespace <#=nameSpace#>
         [Description("<#=Tooltip(exit)#>")]
         <#=IsExecutable(target)?"protected":"public"#> <#=target.Label.Name#> <#=exit.Label.Name#>(string text)
         {
-            Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, Step.DoNothing);
+            Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, <#=IsExecutable(target)?"null":"Step.DoNothing"#>);
             return new <#=target.Label.Name#>(s){ Parent = this };
         }
 
