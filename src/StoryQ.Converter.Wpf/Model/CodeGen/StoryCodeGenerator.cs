@@ -1,48 +1,60 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
     class StoryCodeGenerator : ICodeGenerator
     {
+        private readonly bool indentSteps;
+
+        public StoryCodeGenerator(bool indentSteps)
+        {
+            this.indentSteps = indentSteps;
+        }
+
         public void Generate(FragmentBase fragment, CodeWriter writer)
         {
-            var v = fragment.SelfAndAncestors().Reverse();
-            bool first = true;
-            foreach (var f in v)
+            foreach (var f in fragment.SelfAndAncestors().Reverse())
             {
-                writer.IndentLevel += f.Step.IndentLevel;
+                bool first = f.Parent == null;
+
+                var indentLevel = indentSteps ? f.Step.IndentLevel : (first ? 0 : 1);
+
+                writer.IndentLevel += indentLevel;
                 if (first)
                 {
-                    writer.WriteLine(string.Format("new {0}({1})", f.GetType().Name, CamelContent(f.Step)));
-                    first = false;
+                    writer.WriteLine(string.Format("new {0}({1})", f.GetType().Name, CreateStepArgs(f.Step)));
                 }
                 else
                 {
-                    writer.WriteLine(string.Format(".{0}({1})", Camel(f.Step.Prefix), CamelContent(f.Step)));
+                    writer.WriteLine(string.Format(".{0}({1})", Camel(f.Step.Prefix), CreateStepArgs(f.Step)));
                 }
-                writer.IndentLevel -= f.Step.IndentLevel;
+                writer.IndentLevel -= indentLevel;
             }
         }
 
-        private static string CamelContent(Step n)
+        private static string CreateStepArgs(Step n)
         {
-            if (!n.IsExecutable)
-            {
-                return string.Format("\"{0}\"", n.Text);
-            }
+            return n.IsExecutable ? StringToMethodCall(n.Text) : '"' + n.Text + '"';
+        }
 
+        private static string StringToMethodCall(string text)
+        {
             List<string> args = new List<string>();
-            string s = Regex.Replace(n.Text, "\\$\\S*", match =>
+            string methodName = Regex.Replace(text, "\\$\\S*", match =>
                 {
                     args.Add(match.Value.Substring(1));
                     return "_";
                 });
 
-            var argLiterals = args.Select(x => Regex.IsMatch(x, "^((true)|(false)|([0-9.]*))$") ? x : '"' + x + '"');
+            var argLiterals = args
+                .Select(x => Regex.IsMatch(x, "^((true)|(false)|([0-9.]*))$") ? x : '"' + x + '"')
+                .Aggregate(new StringBuilder(), (sb, s) => sb.Append(", " + s));
 
-            return string.Join(", ", new[] { Camel(s) }.Concat(argLiterals).ToArray());
+            return Camel(methodName) + argLiterals;
         }
 
         private static string Camel(string s)

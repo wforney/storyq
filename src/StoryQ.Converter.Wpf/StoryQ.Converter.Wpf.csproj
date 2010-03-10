@@ -72,6 +72,7 @@
     <Compile Include="Model\CodeGen\CodeWriter.cs" />
     <Compile Include="Model\CodeGen\ICodeGenerator.cs" />
     <Compile Include="Model\CodeGen\StoryCodeGenerator.cs" />
+    <Compile Include="Model\CodeGen\StoryMethodGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

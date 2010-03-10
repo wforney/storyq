@@ -27,14 +27,10 @@
     		<StackPanel Orientation="Horizontal" Height="28">
     			<TextBlock Margin="8,0,5,0" VerticalAlignment="Center" FontSize="12" FontWeight="Bold" Text="Output Settings"/>
     			<Rectangle Fill="#FFD0D0D1" StrokeThickness="0" Margin="5" Width="1" Stroke="#FF7E7E7E"/>
-                <CheckBox IsChecked="{Binding OutputAnyIndent}" VerticalAlignment="Center" Margin="5">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Indentation: " />
-                        <TextBlock Text="{Binding InitialIndent}" />
-                    </StackPanel>
-
-                </CheckBox>
-                <Slider VerticalAlignment="Center" Width="80" IsEnabled="{Binding OutputAnyIndent, Mode=Default}" Maximum="8" Value="{Binding InitialIndent, Mode=Default}"/>
+                <CheckBox Content="Generate Method Declaration" IsChecked="{Binding OutputAnyIndent}" VerticalAlignment="Center" Margin="5" />
+                <CheckBox Content="Special Indentation" IsChecked="{Binding OutputAnyIndent}" VerticalAlignment="Center" Margin="5" />
+                <TextBlock VerticalAlignment="Center" Text="{Binding InitialIndent, StringFormat=Extra Indent: {0}}" Margin="5"/>
+                <Slider VerticalAlignment="Center" Width="80"  Maximum="8" Value="{Binding InitialIndent, Mode=Default}"/>
     		</StackPanel>
     	</Border>
     	<Grid>

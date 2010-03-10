@@ -117,10 +117,10 @@ namespace StoryQ.Converter.Wpf.ViewModel
             CodeWriter writer = new CodeWriter
                 {
                     IndentLevel = InitialIndent, 
-                    IndentText = OutputAnyIndent ? "    " : ""
                 };
 
-            new StoryCodeGenerator().Generate(b, writer);
+            ICodeGenerator generator = new StoryMethodGenerator(new StoryCodeGenerator(OutputAnyIndent));
+            generator.Generate(b, writer);
             return writer.ToString();
         }
 
