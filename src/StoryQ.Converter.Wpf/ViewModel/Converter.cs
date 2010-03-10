@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using StoryQ.Converter.Wpf.Model;
+using StoryQ.Converter.Wpf.Model.CodeGen;
 
 namespace StoryQ.Converter.Wpf.ViewModel
 {
     public class Converter : ViewModelBase
     {
         public event EventHandler TransitionApplied;
-
 
         private string plainText = "";
         private string convertedText;
@@ -88,8 +86,8 @@ namespace StoryQ.Converter.Wpf.ViewModel
             {
                 StoryStarter root = new StoryStarter();
                 var lines = PlainText
-                    .Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(x => x.Split(new[] {"=>"}, StringSplitOptions.RemoveEmptyEntries).First());
+                    .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => x.Split(new[] { "=>" }, StringSplitOptions.RemoveEmptyEntries).First());
 
                 object parsed = Parser.Parse(lines, root);
                 if (parsed is FragmentBase)
@@ -116,57 +114,14 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         private string Code(FragmentBase b)
         {
-            var steps = b.SelfAndAncestors().Select(x => x.Step).Reverse();
+            CodeWriter writer = new CodeWriter
+                {
+                    IndentLevel = InitialIndent, 
+                    IndentText = OutputAnyIndent ? "    " : ""
+                };
 
-            var v = HeadAndTail(steps,
-                n => Indent(InitialIndent) + string.Format("new Story({0})", CamelContent(n)),
-                n => Indent(InitialIndent + n.IndentLevel) + string.Format(".{0}({1})", camel(n.Prefix), CamelContent(n)));
-
-            return string.Join(Environment.NewLine, v.ToArray()) + ";";
-        }
-
-        private string Indent(int level)
-        {
-            return OutputAnyIndent ? new string(' ', level * 2) : "";
-        }
-
-        private static IEnumerable<TResult> HeadAndTail<TResult, TSource>(IEnumerable<TSource> e, Func<TSource, TResult> headSelector, Func<TSource, TResult> tailSelector)
-        {
-            var enumerator = e.GetEnumerator();
-            if (enumerator.MoveNext())
-            {
-                yield return headSelector(enumerator.Current);
-            }
-            while (enumerator.MoveNext())
-            {
-                yield return tailSelector(enumerator.Current);
-            }
-        }
-
-        private string CamelContent(Step n)
-        {
-            if (n.IsExecutable)
-            {
-                string s = n.Text;
-                List<string> args = new List<string>();
-                s = Regex.Replace(s, "\\$\\S*", match =>
-                                                  {
-                                                      args.Add(match.Value.Substring(1));
-                                                      return "_";
-                                                  });
-                var v = args.Select(x => Regex.IsMatch(x, "^((true)|(false)|([0-9.]*))$") ? x : '"' + x + '"');
-                s = camel(s);
-                string[] strings = new[] { s };
-                strings = strings.Concat(v).ToArray();
-
-                return string.Join(", ", strings);
-            }
-            return string.Format("\"{0}\"", n.Text);
-        }
-
-        private string camel(string s)
-        {
-            return Regex.Replace(" " + s, " \\w|_", match => match.Value.Trim().ToUpperInvariant());
+            new StoryCodeGenerator().Generate(b, writer);
+            return writer.ToString();
         }
 
         internal void ApplyTransition(MethodInfo info)
@@ -186,7 +141,10 @@ namespace StoryQ.Converter.Wpf.ViewModel
         private void InvokeTransitionApplied()
         {
             EventHandler h = TransitionApplied;
-            if (h != null) h(this, EventArgs.Empty);
+            if (h != null)
+            {
+                h(this, EventArgs.Empty);
+            }
         }
 
     }

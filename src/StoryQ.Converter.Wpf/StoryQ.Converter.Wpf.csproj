@@ -69,6 +69,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InvertConverter.cs" />
+    <Compile Include="Model\CodeGen\CodeWriter.cs" />
+    <Compile Include="Model\CodeGen\ICodeGenerator.cs" />
+    <Compile Include="Model\CodeGen\StoryCodeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -105,6 +108,12 @@
       <Project>{4DF234CF-6789-4476-B73B-9879CCDA82E3}</Project>
       <Name>StoryQ</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="Images\splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sq.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

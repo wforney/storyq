@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -44,6 +45,7 @@ namespace StoryQ.Converter.Wpf.Model
         {
             return from m in o.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
                    where m.ReturnType != typeof(void)
+                   where m.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault() != null
                    where m.GetParameters().Select(x => x.ParameterType).SequenceEqual(new[] { typeof(string) })
                    orderby m.Name.Length descending 
                    select m;
