@@ -17,6 +17,11 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
 
         public void WriteLine(string s)
         {
+            if(string.IsNullOrEmpty(s))
+            {
+                sb.AppendLine();
+                return;
+            }
             for (int i = 0; i < IndentLevel; i++)
             {
                 sb.Append(IndentText);

@@ -21,7 +21,7 @@ namespace StoryQ.Converter.Wpf.Specifications
     [TestClass]
     public class StoryQConverterSpecifications
     {
-        private ViewModel.Converter converter;
+       /* private ViewModel.Converter converter;
 
         [TestMethod]
         public void ConvertingTextIntoCode()
@@ -192,6 +192,6 @@ then I should get a $result";
         .Then(IShouldGetA_, ""result"");";
 
             Assert.AreEqual(expected, converter.ConvertedText);
-        }
+        }*/
     }
 }
