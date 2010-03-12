@@ -51,7 +51,7 @@ namespace StoryQ.Converter.Wpf.Specifications
         [TestMethod]
         public void ConvertingTextIntoTestClasses()
         {
-            new Story("converting text into code")
+            new Story("converting text into entire class files").Tag("WorkItemId=16092")
                 .InOrderTo("create StoryQ specifications from plain text")
                 .AsA("developer")
                 .IWant("to convert plain text stories into entire C# files")
@@ -65,12 +65,87 @@ namespace StoryQ.Converter.Wpf.Specifications
                 .Given(ThatIHaveStoryAndScenarioText)
                 .When(ISetTheOutputTypeTo_, GenerationLevel.TestMethodAndStepStubs)
                 .Then(IShouldHaveMyMethodAndStepsGenerated)
-                
+
                 .WithScenario("generating entire classes")
                 .Given(ThatIHaveStoryAndScenarioText)
                 .When(ISetTheOutputTypeTo_, GenerationLevel.Class)
                 .Then(IShouldHaveMyClassGenerated)
              .Execute();
+        }
+
+        [TestMethod]
+        public void GeneratingForDifferentTestFrameworks()
+        {
+            new Story("creating classes for different test frameworks").Tag("WorkItemId=16092")
+                .InOrderTo("create StoryQ specifications from plain text")
+                .AsA("developer")
+                .IWant("to convert plain text stories into entire C# files")
+
+                .WithScenario("generating classes for NUnit")
+                .Given(ThatIHaveStoryAndScenarioText)
+                .When(ISetTheOutputTypeTo_, GenerationLevel.Class)
+                .And(ISetTheTestFrameworkTo, TestFramework.NUnit)
+                .Then(IShouldHaveMyNUnitClassGenerated)
+
+                .WithScenario("generating classes for NUnit")
+                .Given(ThatIHaveStoryAndScenarioText)
+                .When(ISetTheOutputTypeTo_, GenerationLevel.Class)
+                .And(ISetTheTestFrameworkTo, TestFramework.MSTest)
+                .Then(IShouldHaveMyMSTestClassGenerated)
+              
+             .Execute();
+        }
+
+        private void IShouldHaveMyMSTestClassGenerated()
+        {
+            Expect(
+                @"using System;
+using StoryQ;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+[TestClass]
+public class StoryQTestClass
+{
+    [TestMethod]
+    public void StoryName()
+    {
+        new Story(""story name"")
+            .InOrderTo(""get some benefit"")
+            .AsA(""person in some role"")
+            .IWant(""to use some software function"")
+
+                    .WithScenario(""scenario name"")
+                        .Given(ThatIHaveSomeInitialState)
+                        .When(IDoSomethingToTheSystem)
+                        .Then(IShouldGetAResult)
+            .Execute();
+    }
+
+    private void ThatIHaveSomeInitialState()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void IDoSomethingToTheSystem()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void IShouldGetAResult()
+    {
+        throw new NotImplementedException();
+    }
+}");
+        }
+
+        private void IShouldHaveMyNUnitClassGenerated()
+        {
+            IShouldHaveMyClassGenerated();
+        }
+
+        private void ISetTheTestFrameworkTo(TestFramework testFramework)
+        {
+            converter.Settings.TargetTestFramework=testFramework;
         }
 
         private void IShouldHaveMyMethodGenerated()
