@@ -68,11 +68,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvertConverter.cs" />
+    <Compile Include="Converters\EnumToDoubleConverter.cs" />
+    <Compile Include="Converters\InvertConverter.cs" />
+    <Compile Include="Converters\UnCamelConverter.cs" />
+    <Compile Include="Model\CodeGen\AggregateCodeGenerator.cs" />
+    <Compile Include="Model\CodeGen\ClassGenerator.cs" />
     <Compile Include="Model\CodeGen\CodeWriter.cs" />
     <Compile Include="Model\CodeGen\ICodeGenerator.cs" />
+    <Compile Include="Model\CodeGen\StepMethodsGenerator.cs" />
     <Compile Include="Model\CodeGen\StoryCodeGenerator.cs" />
-    <Compile Include="Model\CodeGen\StoryMethodGenerator.cs" />
+    <Compile Include="Model\CodeGen\TestMethodGenerator.cs" />
+    <Compile Include="Model\CodeGen\TestFrameworkData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -86,6 +92,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ViewModel\ConversionSettings.cs" />
     <Compile Include="ViewModel\Converter.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="Model\Parser.cs" />

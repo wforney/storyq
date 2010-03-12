@@ -34,6 +34,9 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
                 }
                 writer.IndentLevel -= indentLevel;
             }
+            writer.IndentLevel++;
+            writer.WriteLine(".Execute();");
+            writer.IndentLevel--;
         }
 
         private static string CreateStepArgs(Step n)

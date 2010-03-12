@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
+
 using StoryQ.Converter.Wpf.Model;
 using StoryQ.Converter.Wpf.Model.CodeGen;
 
@@ -13,12 +16,13 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         private string plainText = "";
         private string convertedText;
-        private bool outputAnyIndent = true;
-        private int initialIndent;
+
+        private ConversionSettings settings;
 
         public Converter()
         {
             Transitions = new ObservableCollection<Transition>();
+            Settings = new ConversionSettings();
             Convert();
         }
 
@@ -52,44 +56,38 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         public ObservableCollection<Transition> Transitions { get; private set; }
 
-        public bool OutputAnyIndent
+        public ConversionSettings Settings
         {
             get
             {
-                return outputAnyIndent;
+                return settings;
             }
             set
             {
-                outputAnyIndent = value;
-                FirePropertyChanged("OutputAnyIndent");
+                if(settings != null)
+                {
+                    settings.PropertyChanged -= SettingsOnPropertyChanged;
+                }
+                settings = value;
+                if (settings != null)
+                {
+                    settings.PropertyChanged += SettingsOnPropertyChanged;
+                }
                 Convert();
+                FirePropertyChanged("Settings");
             }
         }
 
-        public int InitialIndent
+        private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            get
-            {
-                return initialIndent;
-            }
-            set
-            {
-                initialIndent = value;
-                FirePropertyChanged("InitialIndent");
-                Convert();
-            }
+            Convert();
         }
 
         private void Convert()
         {
             try
             {
-                StoryStarter root = new StoryStarter();
-                var lines = PlainText
-                    .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(x => x.Split(new[] { "=>" }, StringSplitOptions.RemoveEmptyEntries).First());
-
-                object parsed = Parser.Parse(lines, root);
+                object parsed = ParseText(PlainText);
                 if (parsed is FragmentBase)
                 {
                     ConvertedText = Code((FragmentBase)parsed);
@@ -112,15 +110,22 @@ namespace StoryQ.Converter.Wpf.ViewModel
             }
         }
 
+        private static object ParseText(string text)
+        {
+            //ignore anything that starts with =>
+
+            var lines = text
+                .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Split(new[] { "=>" }, StringSplitOptions.RemoveEmptyEntries).First())
+                .Select(x=>Regex.Replace(x, "\\s+", " ").Trim());
+
+            return Parser.Parse(lines, new StoryStarter());
+        }
+
         private string Code(FragmentBase b)
         {
-            CodeWriter writer = new CodeWriter
-                {
-                    IndentLevel = InitialIndent, 
-                };
-
-            ICodeGenerator generator = new StoryMethodGenerator(new StoryCodeGenerator(OutputAnyIndent));
-            generator.Generate(b, writer);
+            CodeWriter writer = new CodeWriter();
+            Settings.GetCodeGenerator().Generate(b, writer);
             return writer.ToString();
         }
 
