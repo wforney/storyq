@@ -134,8 +134,6 @@ namespace <#=nameSpace#>
 
 <#
         }
-        if(IsExecutable(state))
-        {
 #>
         /// <summary>
         /// Adds a tag to this step. Tags can be used make disparate steps searchable.
@@ -148,9 +146,6 @@ namespace <#=nameSpace#>
             return this;
         }
 
-<#
-        }
-#>
     }
 <#
     }

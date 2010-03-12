@@ -34,6 +34,17 @@ namespace StoryQ
             return new Benefit(s){ Parent = this };
         }
 
+        /// <summary>
+        /// Adds a tag to this step. Tags can be used make disparate steps searchable.
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public Story Tag(string tag)
+        {
+            Step.Tags.Add(tag.Trim().Trim('#'));
+            return this;
+        }
+
     }
 
     /// <summary>
@@ -77,6 +88,17 @@ namespace StoryQ
         {
             Step s = new Step("As a", 1, text, Step.DoNothing);
             return new Role(s){ Parent = this };
+        }
+
+        /// <summary>
+        /// Adds a tag to this step. Tags can be used make disparate steps searchable.
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public Benefit Tag(string tag)
+        {
+            Step.Tags.Add(tag.Trim().Trim('#'));
+            return this;
         }
 
     }
@@ -124,6 +146,17 @@ namespace StoryQ
             return new Feature(s){ Parent = this };
         }
 
+        /// <summary>
+        /// Adds a tag to this step. Tags can be used make disparate steps searchable.
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public Role Tag(string tag)
+        {
+            Step.Tags.Add(tag.Trim().Trim('#'));
+            return this;
+        }
+
     }
 
     /// <summary>
@@ -167,6 +200,17 @@ namespace StoryQ
         {
             Step s = new Step("With scenario", 3, text, Step.DoNothing);
             return new Scenario(s){ Parent = this };
+        }
+
+        /// <summary>
+        /// Adds a tag to this step. Tags can be used make disparate steps searchable.
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public Feature Tag(string tag)
+        {
+            Step.Tags.Add(tag.Trim().Trim('#'));
+            return this;
         }
 
     }
@@ -300,6 +344,17 @@ namespace StoryQ
         {
             Step s = new Step("Given", 4, text, null);
             return new Condition(s){ Parent = this };
+        }
+
+        /// <summary>
+        /// Adds a tag to this step. Tags can be used make disparate steps searchable.
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public Scenario Tag(string tag)
+        {
+            Step.Tags.Add(tag.Trim().Trim('#'));
+            return this;
         }
 
     }

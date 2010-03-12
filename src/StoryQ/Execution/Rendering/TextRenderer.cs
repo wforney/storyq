@@ -61,7 +61,7 @@ namespace StoryQ.Execution.Rendering
                 var tags = string.Join(", ", r.Tags.Select(x => "#" + x).ToArray());
                 if(!string.IsNullOrEmpty(tags))
                 {
-                    output.Write(" (");
+                    output.Write(" => (");
                     output.Write(tags);
                     output.Write(")");
                 }
