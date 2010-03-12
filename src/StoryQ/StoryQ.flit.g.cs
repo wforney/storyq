@@ -8,7 +8,7 @@ namespace StoryQ
     /// The [Story] story fragment.
     /// This is the root item of any story
     /// <h1>Transitions:</h1><ul>
-    /// <li>In order to [<see cref="Benefit"/>]: <see cref="InOrderTo"/></li>
+    /// <li>In order to [<see cref="Benefit"/>]: <see cref="InOrderTo(string)"/></li>
     /// </ul>
     /// </summary>
     public partial class Story : FragmentBase
@@ -51,8 +51,8 @@ namespace StoryQ
     /// The [Benefit] story fragment.
     /// The real-world objective (business value) of a story
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Benefit"/>]: <see cref="And"/></li>
-    /// <li>As a [<see cref="Role"/>]: <see cref="AsA"/></li>
+    /// <li>And [<see cref="Benefit"/>]: <see cref="And(string)"/></li>
+    /// <li>As a [<see cref="Role"/>]: <see cref="AsA(string)"/></li>
     /// </ul>
     /// </summary>
     public partial class Benefit : FragmentBase
@@ -107,8 +107,8 @@ namespace StoryQ
     /// The [Role] story fragment.
     /// The role (a category of actors/users) or roles that receive this benefit. 
     /// <h1>Transitions:</h1><ul>
-    /// <li>Or as a [<see cref="Role"/>]: <see cref="OrAsA"/></li>
-    /// <li>I want [<see cref="Feature"/>]: <see cref="IWant"/></li>
+    /// <li>Or as a [<see cref="Role"/>]: <see cref="OrAsA(string)"/></li>
+    /// <li>I want [<see cref="Feature"/>]: <see cref="IWant(string)"/></li>
     /// </ul>
     /// </summary>
     public partial class Role : FragmentBase
@@ -163,8 +163,8 @@ namespace StoryQ
     /// The [Feature] story fragment.
     /// The software process that will implement the specified benefit.
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Feature"/>]: <see cref="And"/></li>
-    /// <li>With scenario [<see cref="Scenario"/>]: <see cref="WithScenario"/></li>
+    /// <li>And [<see cref="Feature"/>]: <see cref="And(string)"/></li>
+    /// <li>With scenario [<see cref="Scenario"/>]: <see cref="WithScenario(string)"/></li>
     /// </ul>
     /// </summary>
     public partial class Feature : FragmentBase
@@ -219,7 +219,7 @@ namespace StoryQ
     /// The [Scenario] story fragment.
     /// The name of each scenario within a story. You can think of each scenario as a chapter in a book.
     /// <h1>Transitions:</h1><ul>
-    /// <li>Given [<see cref="Condition"/>]: <see cref="Given"/></li>
+    /// <li>Given [<see cref="Condition"/>]: <see cref="Given(Action)"/></li>
     /// </ul>
     /// </summary>
     public partial class Scenario : FragmentBase
@@ -363,8 +363,8 @@ namespace StoryQ
     /// The [Condition] story fragment.
     /// The preconditions that are meant to be present at the beginning of the scenario.
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Condition"/>]: <see cref="And"/></li>
-    /// <li>When [<see cref="Operation"/>]: <see cref="When"/></li>
+    /// <li>And [<see cref="Condition"/>]: <see cref="And(Action)"/></li>
+    /// <li>When [<see cref="Operation"/>]: <see cref="When(Action)"/></li>
     /// </ul>
     /// </summary>
     public partial class Condition : FragmentBase
@@ -629,8 +629,8 @@ namespace StoryQ
     /// The [Operation] story fragment.
     /// The action(s) that are performed upon the system under test
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Operation"/>]: <see cref="And"/></li>
-    /// <li>Then [<see cref="Outcome"/>]: <see cref="Then"/></li>
+    /// <li>And [<see cref="Operation"/>]: <see cref="And(Action)"/></li>
+    /// <li>Then [<see cref="Outcome"/>]: <see cref="Then(Action)"/></li>
     /// </ul>
     /// </summary>
     public partial class Operation : FragmentBase
@@ -895,8 +895,8 @@ namespace StoryQ
     /// The [Outcome] story fragment.
     /// The result that is expected from executing the specified actions on the specified initial state
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Outcome"/>]: <see cref="And"/></li>
-    /// <li>With scenario [<see cref="Scenario"/>]: <see cref="WithScenario"/></li>
+    /// <li>And [<see cref="Outcome"/>]: <see cref="And(Action)"/></li>
+    /// <li>With scenario [<see cref="Scenario"/>]: <see cref="WithScenario(string)"/></li>
     /// </ul>
     /// </summary>
     public partial class Outcome : FragmentBase

@@ -125,7 +125,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
         private string Code(FragmentBase b)
         {
             CodeWriter writer = new CodeWriter();
-            Settings.GetCodeGenerator().Generate(b, writer);
+            Settings.GetCodeGenerator().Generate(b.SelfAndAncestors().Reverse().ToList(), writer);
             return writer.ToString();
         }
 

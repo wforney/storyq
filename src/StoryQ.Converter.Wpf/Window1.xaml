@@ -49,9 +49,9 @@
       <StackPanel Orientation="Horizontal" Height="28" DataContext="{Binding Settings}">
         <TextBlock Margin="8,0,5,0" VerticalAlignment="Center" FontSize="12" FontWeight="Bold" Text="Output Settings"/>
         <Rectangle Fill="#FFD0D0D1" StrokeThickness="0" Margin="5" Width="1" Stroke="#FF7E7E7E"/>
-        <CheckBox Content="Special Indentation" IsChecked="{Binding SpecialIndentation}" VerticalAlignment="Center" Margin="5,0" />
-        <ComboBox  Margin="5,0" Width="75" VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource TestFrameworkValues}}" SelectedValue="{Binding TargetTestFramework}"></ComboBox>
-        <Slider Margin="5,0" VerticalAlignment="Center" Width="80" Minimum="1" Maximum="4" Value="{Binding Level, Converter={StaticResource e2d}}" x:Name="slider" TickFrequency="1" TickPlacement="None" IsSnapToTickEnabled="True" />
+        <CheckBox Content="Special Indentation" IsChecked="{Binding SpecialIndentation}" VerticalAlignment="Center" Margin="5,0" ToolTip="Use normal C# indentation, or Story-like indentation" />
+        <ComboBox  Margin="5,0" Width="75" VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource TestFrameworkValues}}" SelectedValue="{Binding TargetTestFramework}" ToolTip="The target test framework"/>
+        <Slider Margin="5,0" VerticalAlignment="Center" Width="80" Minimum="1" Maximum="4" Value="{Binding Level, Converter={StaticResource e2d}}" x:Name="slider" TickFrequency="1" TickPlacement="None" IsSnapToTickEnabled="True" ToolTip="The level of code to generate" />
         <TextBlock  Margin="5,0" Text="{Binding Level, Converter={StaticResource uc}}" VerticalAlignment="Center"/>
       </StackPanel>
     </Border>

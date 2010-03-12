@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
+    /// <summary>
+    /// Generates the code that constructs a StoryQ story
+    /// </summary>
     class StoryCodeGenerator : ICodeGenerator
     {
         private readonly bool indentSteps;
@@ -15,9 +18,9 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             this.indentSteps = indentSteps;
         }
 
-        public void Generate(FragmentBase fragment, CodeWriter writer)
+        public void Generate(IEnumerable<FragmentBase> fragments, CodeWriter writer)
         {
-            foreach (var f in fragment.SelfAndAncestors().Reverse())
+            foreach (var f in fragments)
             {
                 bool first = f.Parent == null;
 
@@ -28,22 +31,19 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
                     writer.WriteLine("");
                 }
 
-                writer.IndentLevel += indentLevel;
-                if (first)
+                using(writer.IncreaseIndent(indentLevel))
                 {
-                    writer.WriteLine(string.Format("new {0}({1})", f.GetType().Name, CreateStepArgs(f.Step)));
+                    string s = first
+                                   ? string.Format("new {0}({1})", f.GetType().Name, CreateStepArgs(f.Step))
+                                   : string.Format(".{0}({1})", Camel(f.Step.Prefix), CreateStepArgs(f.Step));
+                    writer.WriteLine(s);
                 }
-                else
-                {
-                    writer.WriteLine(string.Format(".{0}({1})", Camel(f.Step.Prefix), CreateStepArgs(f.Step)));
-                }
-                
-
-                writer.IndentLevel -= indentLevel;
             }
-            writer.IndentLevel++;
-            writer.WriteLine(".Execute();");
-            writer.IndentLevel--;
+
+            using (writer.IncreaseIndent(1))
+            {
+                writer.WriteLine(".Execute();");
+            }
         }
 
         private static string CreateStepArgs(Step n)

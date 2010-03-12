@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
+    /// <summary>
+    /// Generates the step methods for this story
+    /// </summary>
     class StepMethodsGenerator : ICodeGenerator
     {
         private static Dictionary<string, string> literalTypes = new Dictionary<string, string>()
@@ -15,12 +18,10 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
                 {@"[0-9.]+", "float"},
             };
 
-        public void Generate(FragmentBase fragment, CodeWriter writer)
+        public void Generate(IEnumerable<FragmentBase> fragments, CodeWriter writer)
         {
-            var methods = fragment
-                .SelfAndAncestors()
+            var methods = fragments
                 .Select(x => x.Step)
-                .Reverse()
                 .Where(x => x.IsExecutable)
                 .Select(x => GetMethodDeclaration(x))
                 .Distinct();
@@ -30,12 +31,10 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             {
                 writer.WriteLine("");
                 writer.WriteLine("private void " + step);
-                writer.WriteLine("{");
-                writer.IndentLevel++;
-                writer.WriteLine("throw new NotImplementedException();");
-                writer.IndentLevel--;
-                writer.WriteLine("}");
-
+                using(writer.CodeBlock())
+                {
+                    writer.WriteLine("throw new NotImplementedException();");
+                }
             }
         }
 
