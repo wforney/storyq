@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
+using StoryQ.Converter.Wpf.ViewModel;
 using StoryQ.Formatting.Parameters;
 using vm = StoryQ.Converter.Wpf.ViewModel;
 
@@ -21,20 +23,15 @@ namespace StoryQ.Converter.Wpf.Specifications
     [TestClass]
     public class StoryQConverterSpecifications
     {
-       /* private ViewModel.Converter converter;
+        private ViewModel.Converter converter;
 
         [TestMethod]
-        public void ConvertingTextIntoCode()
+        public void ConvertingTextIntoStoryCode()
         {
             new Story("converting text into code")
               .InOrderTo("create StoryQ specifications from plain text")
               .AsA("developer")
               .IWant("to convert plain text stories into C# StoryQ code")
-
-                  .WithScenario("converting lines into string calls")
-                    .Given(ThatIHaveLaunchedStoryq)
-                    .When(ITypeInSomeStoryText)
-                    .Then(IShouldSeeThatTextConvertedIntoStringPassingStoryqCalls)
 
                   .WithScenario("converting lines into string calls and code")
                     .Given(ThatIHaveLaunchedStoryq)
@@ -50,65 +47,129 @@ namespace StoryQ.Converter.Wpf.Specifications
              .Execute();
         }
 
+
         [TestMethod]
-        public void CustomisingConverterIndentation()
+        public void ConvertingTextIntoTestClasses()
         {
-            new Story("customising converter output")
-              .InOrderTo("handle different formatting requirements")
-              .AsA("developer")
-              .IWant("to be able to tweak the output code's indentation from the converter")
+            new Story("converting text into code")
+                .InOrderTo("create StoryQ specifications from plain text")
+                .AsA("developer")
+                .IWant("to convert plain text stories into entire C# files")
 
-                  .WithScenario("turning off indentation")
-                    .Given(ThatIHaveStoryAndScenarioText)
-                    .When(ITurnOffIndentation)
-                    .Then(TheOutputCodeShouldHaveNoIndentation)
-
-                  .WithScenario("increasing the total indent")
-                    .Given(ThatIHaveStoryAndScenarioText)
-                    .When(IIncreaseTheIntialIndent)
-                    .Then(TheOutputCodeShouldHaveTheRightAmountOfExtraWhitespace)
-
+                .WithScenario("generating test methods")
+                .Given(ThatIHaveStoryAndScenarioText)
+                .When(ISetTheOutputTypeTo_, GenerationLevel.TestMethod)
+                .Then(IShouldHaveMyMethodGenerated)
+                
+                .WithScenario("generating test methods and step stubs")
+                .Given(ThatIHaveStoryAndScenarioText)
+                .When(ISetTheOutputTypeTo_, GenerationLevel.TestMethodAndStepStubs)
+                .Then(IShouldHaveMyMethodAndStepsGenerated)
+                
+                .WithScenario("generating entire classes")
+                .Given(ThatIHaveStoryAndScenarioText)
+                .When(ISetTheOutputTypeTo_, GenerationLevel.Class)
+                .Then(IShouldHaveMyClassGenerated)
              .Execute();
         }
 
-        private void TheOutputCodeShouldHaveTheRightAmountOfExtraWhitespace()
+        private void IShouldHaveMyMethodGenerated()
         {
-            const string expected =
-@"    new Story(""story name"")
-      .InOrderTo(""get some benefit"")
-      .AsA(""person in some role"")
-      .IWant(""to use some software function"")
-          .WithScenario(""scenario name"")
-            .Given(ThatIHaveSomeInitialState)
-            .When(IDoSomethingToTheSystem)
-            .Then(IShouldGetAResult);";
+            Expect(@"[Test]
+public void StoryName()
+{
+    new Story(""story name"")
+        .InOrderTo(""get some benefit"")
+        .AsA(""person in some role"")
+        .IWant(""to use some software function"")
 
-            Assert.AreEqual(expected, converter.ConvertedText);
+                .WithScenario(""scenario name"")
+                    .Given(ThatIHaveSomeInitialState)
+                    .When(IDoSomethingToTheSystem)
+                    .Then(IShouldGetAResult)
+        .Execute();
+}");
         }
 
-        private void IIncreaseTheIntialIndent()
+        private void IShouldHaveMyMethodAndStepsGenerated()
         {
-            converter.InitialIndent = 2;
+            Expect(@"[Test]
+public void StoryName()
+{
+    new Story(""story name"")
+        .InOrderTo(""get some benefit"")
+        .AsA(""person in some role"")
+        .IWant(""to use some software function"")
+
+                .WithScenario(""scenario name"")
+                    .Given(ThatIHaveSomeInitialState)
+                    .When(IDoSomethingToTheSystem)
+                    .Then(IShouldGetAResult)
+        .Execute();
+}
+
+private void ThatIHaveSomeInitialState()
+{
+    throw new NotImplementedException();
+}
+
+private void IDoSomethingToTheSystem()
+{
+    throw new NotImplementedException();
+}
+
+private void IShouldGetAResult()
+{
+    throw new NotImplementedException();
+}
+");
         }
 
-        private void TheOutputCodeShouldHaveNoIndentation()
+        private void IShouldHaveMyClassGenerated()
         {
-            const string expected =
-@"new Story(""story name"")
-.InOrderTo(""get some benefit"")
-.AsA(""person in some role"")
-.IWant(""to use some software function"")
-.WithScenario(""scenario name"")
-.Given(ThatIHaveSomeInitialState)
-.When(IDoSomethingToTheSystem)
-.Then(IShouldGetAResult);";
+            Expect(@"using System;
+using StoryQ;
+using NUnit.Framework;
 
-            Assert.AreEqual(expected, converter.ConvertedText);
+[TestFixture]
+public class StoryQTestClass
+{
+    [Test]
+    public void StoryName()
+    {
+        new Story(""story name"")
+            .InOrderTo(""get some benefit"")
+            .AsA(""person in some role"")
+            .IWant(""to use some software function"")
+
+                    .WithScenario(""scenario name"")
+                        .Given(ThatIHaveSomeInitialState)
+                        .When(IDoSomethingToTheSystem)
+                        .Then(IShouldGetAResult)
+            .Execute();
+    }
+
+    private void ThatIHaveSomeInitialState()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void IDoSomethingToTheSystem()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void IShouldGetAResult()
+    {
+        throw new NotImplementedException();
+    }
+}
+");
         }
 
-        private void ITurnOffIndentation()
+        private void ISetTheOutputTypeTo_(GenerationLevel level)
         {
-            converter.OutputAnyIndent = false;
+            converter.Settings.Level = level;
         }
 
         private void ThatIHaveStoryAndScenarioText()
@@ -154,44 +215,39 @@ then I should get a $result";
 
         }
 
-        private void IShouldSeeThatTextConvertedIntoStringPassingStoryqCalls()
-        {
-            const string expected =
-@"new Story(""story name"")
-  .InOrderTo(""get some benefit"")
-  .AsA(""person in some role"")
-  .IWant(""to use some software function"");";
-
-            Assert.AreEqual(expected, converter.ConvertedText);
-        }
-
         private void IShouldSeeThatTextConvertedIntoMixedStoryqCalls()
         {
-            const string expected =
-@"new Story(""story name"")
-  .InOrderTo(""get some benefit"")
-  .AsA(""person in some role"")
-  .IWant(""to use some software function"")
-      .WithScenario(""scenario name"")
-        .Given(ThatIHaveSomeInitialState)
-        .When(IDoSomethingToTheSystem)
-        .Then(IShouldGetAResult);";
+            Expect(@"new Story(""story name"")
+    .InOrderTo(""get some benefit"")
+    .AsA(""person in some role"")
+    .IWant(""to use some software function"")
 
-            Assert.AreEqual(expected, converter.ConvertedText);
+            .WithScenario(""scenario name"")
+                .Given(ThatIHaveSomeInitialState)
+                .When(IDoSomethingToTheSystem)
+                .Then(IShouldGetAResult)
+    .Execute();
+");
         }
+
         private void IShouldSeeTheNumbersAndWordsPassedAsParametersToTheStoryqMethod()
         {
-            const string expected =
-@"new Story(""story name"")
-  .InOrderTo(""get some benefit"")
-  .AsA(""person in some role"")
-  .IWant(""to use some software function"")
-      .WithScenario(""scenario name"")
-        .Given(ThatIHaveSomeInitialState)
-        .When(IDoSomethingToTheSystem_Times, 1)
-        .Then(IShouldGetA_, ""result"");";
+            Expect(
+                @"new Story(""story name"")
+    .InOrderTo(""get some benefit"")
+    .AsA(""person in some role"")
+    .IWant(""to use some software function"")
 
-            Assert.AreEqual(expected, converter.ConvertedText);
-        }*/
+            .WithScenario(""scenario name"")
+                .Given(ThatIHaveSomeInitialState)
+                .When(IDoSomethingToTheSystem_Times, 1)
+                .Then(IShouldGetA_, ""result"")
+    .Execute();");
+        }
+
+        private void Expect(string expected)
+        {
+            Assert.AreEqual(expected.Trim(), converter.ConvertedText.Trim());
+        }
     }
 }
