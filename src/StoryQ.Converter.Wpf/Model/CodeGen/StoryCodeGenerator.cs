@@ -22,6 +22,11 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
                 bool first = f.Parent == null;
 
                 var indentLevel = indentSteps ? f.Step.IndentLevel : (first ? 0 : 1);
+                
+                if (indentLevel == 3)
+                {
+                    writer.WriteLine("");
+                }
 
                 writer.IndentLevel += indentLevel;
                 if (first)
@@ -32,6 +37,8 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
                 {
                     writer.WriteLine(string.Format(".{0}({1})", Camel(f.Step.Prefix), CreateStepArgs(f.Step)));
                 }
+                
+
                 writer.IndentLevel -= indentLevel;
             }
             writer.IndentLevel++;
