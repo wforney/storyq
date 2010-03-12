@@ -44,7 +44,7 @@ namespace <#=nameSpace#>
             var target = exit.ToState;
             string prefix = CamelCaseToSentence(exit.Label.Name);
 #>
-    /// <li><#=prefix#> [<see cref="<#=target.Label.Name#>"/>]: <see cref="<#=exit.Label.Name#>"/></li>
+    /// <li><#=prefix#> [<see cref="<#=target.Label.Name#>"/>]: <see cref="<#=exit.Label.Name#>(<#=IsExecutable(target)?"Action":"string"#>)"/></li>
 <#
         }
 #>

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
+    /// <summary>
+    /// Calles each child generator
+    /// </summary>
     class AggregateCodeGenerator:ICodeGenerator
     {
         readonly IEnumerable<ICodeGenerator> children;
@@ -19,11 +22,11 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             this.children = children;
         }
 
-        public void Generate(FragmentBase fragment, CodeWriter writer)
+        public void Generate(IEnumerable<FragmentBase> fragments, CodeWriter writer)
         {
             foreach (var child in children)
             {
-                child.Generate(fragment, writer);
+                child.Generate(fragments, writer);
             }
         }
     }

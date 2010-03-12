@@ -1,8 +1,12 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
+    /// <summary>
+    /// Generates the class definition
+    /// </summary>
     class ClassGenerator : ICodeGenerator
     {
         private readonly ICodeGenerator child;
@@ -14,7 +18,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             this.testFrameworkData = testFrameworkData;
         }
 
-        public void Generate(FragmentBase fragment, CodeWriter writer)
+        public void Generate(IEnumerable<FragmentBase> fragments, CodeWriter writer)
         {
             var imports = new[] { "System", "StoryQ" }.Concat(testFrameworkData.Imports);
             foreach (var import in imports)
@@ -24,11 +28,10 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             writer.WriteLine("");
             writer.WriteLine("["+testFrameworkData.TestClassAttribute+"]");
             writer.WriteLine("public class StoryQTestClass");
-            writer.WriteLine("{");
-            writer.IndentLevel++;
-            child.Generate(fragment, writer);
-            writer.IndentLevel--;
-            writer.WriteLine("}");
+            using(writer.CodeBlock())
+            {
+                child.Generate(fragments, writer);
+            }
 
         }
     }

@@ -1,8 +1,12 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
+    /// <summary>
+    /// Generates the test method
+    /// </summary>
     class TestMethodGenerator : ICodeGenerator
     {
         private readonly ICodeGenerator child;
@@ -14,17 +18,17 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             this.testFrameworkData = testFrameworkData;
         }
 
-        public void Generate(FragmentBase fragment, CodeWriter writer)
+        public void Generate(IEnumerable<FragmentBase> fragments, CodeWriter writer)
         {
-            FragmentBase first = fragment.SelfAndAncestors().Last();
+            FragmentBase first = fragments.First();
             string s = Regex.Replace(" " + first.Step.Text, " \\w|_", match => match.Value.Trim().ToUpperInvariant());
             writer.WriteLine("["+testFrameworkData.TestMethodAttribute+"]");
             writer.WriteLine("public void "+s+"()");
-            writer.WriteLine("{");
-            writer.IndentLevel++;
-            child.Generate(fragment, writer);
-            writer.IndentLevel--;
-            writer.WriteLine("}");
+            using(writer.CodeBlock())
+            {
+                child.Generate(fragments, writer);
+            }
+           
         }
     }
 }
