@@ -56,12 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExceptionHelper.cs" />
-    <Compile Include="Execution\Rendering\Html\HtmlDependencies.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HtmlDependencies.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Execution\Rendering\Html\HtmlFileManager.cs" />
     <Compile Include="Execution\Rendering\RichHtml\RichHtmlFileManager.cs" />
     <Compile Include="Execution\Rendering\RichHtml\Dependencies.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -105,10 +99,6 @@
     <Compile Include="StoryQSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Execution\Rendering\Html\HtmlDependencies.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>HtmlDependencies.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Execution\Rendering\RichHtml\Dependencies.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Dependencies.Designer.cs</LastGenOutput>
@@ -119,20 +109,6 @@
       <LastGenOutput>SimpleHtmlDependencies.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Execution\Rendering\SimpleHtml\SimpleHtml.xslt" />
-    <Content Include="Execution\Rendering\Html\Html.xslt" />
-    <Content Include="Execution\Rendering\Html\images\minus.gif" />
-    <Content Include="Execution\Rendering\Html\images\plus.gif" />
-    <Content Include="Execution\Rendering\Html\images\results.png" />
-    <Content Include="Execution\Rendering\Html\images\treeview-black-line.gif" />
-    <Content Include="Execution\Rendering\Html\images\treeview-black.gif" />
-    <Content Include="Execution\Rendering\Html\images\treeview-default-line.gif" />
-    <Content Include="Execution\Rendering\Html\images\treeview-default.gif" />
-    <Content Include="Execution\Rendering\Html\images\treeview-famfamfam-line.gif" />
-    <Content Include="Execution\Rendering\Html\images\treeview-famfamfam.gif" />
-    <Content Include="Execution\Rendering\Html\images\treeview-gray-line.gif" />
-    <Content Include="Execution\Rendering\Html\images\treeview-gray.gif" />
-    <Content Include="Execution\Rendering\Html\images\treeview-red-line.gif" />
-    <Content Include="Execution\Rendering\Html\images\treeview-red.gif" />
     <Content Include="Execution\Rendering\RichHtml\images\minus.gif" />
     <Content Include="Execution\Rendering\RichHtml\images\plus.gif" />
     <Content Include="Execution\Rendering\RichHtml\images\storyq-icons.png" />

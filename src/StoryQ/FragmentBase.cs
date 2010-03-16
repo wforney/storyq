@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using StoryQ.Execution;
 using StoryQ.Execution.Rendering;
-using StoryQ.Execution.Rendering.Html;
 using StoryQ.Execution.Rendering.RichHtml;
 using StoryQ.Execution.Rendering.SimpleHtml;
 using StoryQ.Formatting;
@@ -64,21 +63,27 @@ namespace StoryQ
         /// Reports are written to the current directory, look for an xml file beginning with "StoryQ"
         /// </summary>
         /// <param name="currentMethod">The current method (use "MethodBase.GetCurrentMethod()")</param>
+        [Obsolete("This method will be removed in a future version of StoryQ. use ExecuteWithReport instead")]
         public void ExecuteWithSimpleReport(MethodBase currentMethod)
         {
             Execute(new TextRenderer(Console.Out), SimpleHtmlFileManager.Instance.Categoriser.GetRenderer(currentMethod));
         }
 
         /// <summary>
-        /// Runs the current sequence of Steps, reporting to an xml(+xslt) file augmented with jQuery.StoryQ
+        /// Runs the current sequence of Steps, reporting to an xml(+xslt) file augmented with jQuery
         /// widget for interactive viewing of the results.  This method requires a reference to
         /// the "current" method in order to categorise results, you should pass in "MethodBase.GetCurrentMethod()".
-        /// Reports are written to the current directory, look for an xml file beginning with "StoryQ"
+        /// Reports are written to the current directory, look for an xml file beginning with "StoryQ".
+        /// If you prefer to have a non interactive report (for example if you are using a legacy browser), set "StoryQSettings.ReportSupportsLegacyBrowsers = true"
         /// </summary>
         /// <param name="currentMethod">The current method (use "MethodBase.GetCurrentMethod()")</param>
         public void ExecuteWithReport(MethodBase currentMethod)
         {
-            Execute(new TextRenderer(Console.Out), RichHtmlFileManager.Instance.Categoriser.GetRenderer(currentMethod));
+            XmlFileManagerBase manager = StoryQSettings.ReportSupportsLegacyBrowsers
+                ? (XmlFileManagerBase)SimpleHtmlFileManager.Instance
+                : RichHtmlFileManager.Instance;
+
+            Execute(new TextRenderer(Console.Out), manager.Categoriser.GetRenderer(currentMethod));
         }
 
         /// <summary>
