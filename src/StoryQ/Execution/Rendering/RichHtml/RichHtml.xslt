@@ -93,7 +93,11 @@
                                         <a>
                                             <xsl:attribute name="href">
                                                 <xsl:text>#</xsl:text>
-                                                <xsl:value-of select="."/>
+                                                <xsl:call-template name="string-replace-all">
+                                                    <xsl:with-param name="text" select="." />
+                                                    <xsl:with-param name="replace" select="' '" />
+                                                    <xsl:with-param name="by" select="'+'" />
+                                                </xsl:call-template>
                                             </xsl:attribute>
                                             <xsl:value-of select="."/>
 
@@ -144,7 +148,11 @@
                                                                             </xsl:attribute>
                                                                             <xsl:attribute name="tags">
                                                                                 <xsl:for-each select="Result/Tag">
-                                                                                    <xsl:value-of select="text()"/>
+                                                                                    <xsl:call-template name="string-replace-all">
+                                                                                        <xsl:with-param name="text" select="text()" />
+                                                                                        <xsl:with-param name="replace" select="' '" />
+                                                                                        <xsl:with-param name="by" select="'+'" />
+                                                                                    </xsl:call-template>
                                                                                     <xsl:text> </xsl:text>
                                                                                 </xsl:for-each>
                                                                             </xsl:attribute>
@@ -369,6 +377,27 @@
                 </xsl:attribute>
             </div>
         </div>
+    </xsl:template>
+
+    <xsl:template name="string-replace-all">
+        <xsl:param name="text" />
+        <xsl:param name="replace" />
+        <xsl:param name="by" />
+        <xsl:choose>
+            <xsl:when test="contains($text, $replace)">
+                <xsl:value-of select="substring-before($text,$replace)" />
+                <xsl:value-of select="$by" />
+                <xsl:call-template name="string-replace-all">
+                    <xsl:with-param name="text"
+                    select="substring-after($text,$replace)" />
+                    <xsl:with-param name="replace" select="$replace" />
+                    <xsl:with-param name="by" select="$by" />
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$text" />
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
 </xsl:stylesheet>
