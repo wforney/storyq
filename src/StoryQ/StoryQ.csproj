@@ -112,6 +112,7 @@
     <EmbeddedResource Include="Execution\Rendering\RichHtml\Dependencies.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Dependencies.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Execution\Rendering\SimpleHtml\SimpleHtmlDependencies.resx">
       <Generator>ResXFileCodeGenerator</Generator>
