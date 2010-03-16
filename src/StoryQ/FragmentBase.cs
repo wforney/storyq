@@ -5,6 +5,7 @@ using System.Reflection;
 using StoryQ.Execution;
 using StoryQ.Execution.Rendering;
 using StoryQ.Execution.Rendering.Html;
+using StoryQ.Execution.Rendering.RichHtml;
 using StoryQ.Execution.Rendering.SimpleHtml;
 using StoryQ.Formatting;
 
@@ -77,7 +78,7 @@ namespace StoryQ
         /// <param name="currentMethod">The current method (use "MethodBase.GetCurrentMethod()")</param>
         public void ExecuteWithReport(MethodBase currentMethod)
         {
-            Execute(new TextRenderer(Console.Out), HtmlFileManager.Instance.Categoriser.GetRenderer(currentMethod));
+            Execute(new TextRenderer(Console.Out), RichHtmlFileManager.Instance.Categoriser.GetRenderer(currentMethod));
         }
 
         /// <summary>
