@@ -48,6 +48,8 @@ div {
     margin-left: 5px;
     padding: 2px 4px;
     border: 1px transparent;
+    -moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
     border-radius: 5px;
 
 }
@@ -71,6 +73,8 @@ div {
     display: inline-block;
     border: 1px solid #aaa;
     padding: 2px 4px;
+    -moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
     border-radius: 5px;
     text-decoration: none;
     background-color: #aaa;

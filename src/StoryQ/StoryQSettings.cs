@@ -46,6 +46,11 @@ namespace StoryQ
         /// </example>
         /// </summary>
         public static Func<string, Exception, Exception> PendingExceptionBuilder { get; set; }
-        
+
+        /// <summary>
+        /// If you set this to true, then StoryQ's ExecuteWithReport method will generate a non-interactive html page that works 
+        /// well in older browsers like IE6. If your entire team has access to a better browser than IE6, it's best to leave this "false"
+        /// </summary>
+        public static bool ReportSupportsLegacyBrowsers { get; set; }
     }
 }

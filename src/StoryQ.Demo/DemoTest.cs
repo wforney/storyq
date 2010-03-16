@@ -25,12 +25,12 @@ namespace StoryQ.Demo
         [TestMethod]
         public void PassingExample()
         {
-            new Story("Data Safety")
+            new Story("Data Safety").Tag("Sprint 1")
               .InOrderTo("Keep my data safe")
               .AsA("User")
               .IWant("All credit card numbers to be encrypted")
                   .WithScenario("submitting shopping cart")
-                    .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
+                    .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage).Tag("sprint 1")
                     .When(IClickThe_Button, "Buy")
                       .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
                     .Then(TheForm_BePostedOverHttps, true)
@@ -54,9 +54,9 @@ namespace StoryQ.Demo
         [TestMethod]
         public void PendingExample()
         {
-            new Story("Data Safety")
+            new Story("Data Safety").Tag("this one ought to pend")
                 .InOrderTo("Keep my data safe")
-                .AsA("User")
+                .AsA("User").Tag("sprint 1")
                 .IWant("All credit card numbers to be encrypted")
 
                 .WithScenario("submitting shopping cart")
@@ -84,7 +84,7 @@ namespace StoryQ.Demo
                 .WithScenario("submitting shopping cart")
                     .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
                     .When(IClickThe_Button, "non existent")                            .Tag("this one should fail")
-                        .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
+                        .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)         .Tag("sprint 1")
                     .Then(TheForm_BePostedOverHttps, true)                             .Tag("Nice formatting").Tag("sprint 1")
             .ExecuteWithReport(MethodBase.GetCurrentMethod());
         }
