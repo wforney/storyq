@@ -34,7 +34,7 @@ namespace StoryQ.Demo
                     .When(IClickThe_Button, "Buy")
                       .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
                     .Then(TheForm_BePostedOverHttps, true)
-                    .ExecuteWithSimpleReport(MethodBase.GetCurrentMethod());
+                    .ExecuteWithReport(MethodBase.GetCurrentMethod());
 
         }
 
@@ -64,7 +64,7 @@ namespace StoryQ.Demo
                     .When(IClickThe_Button, "Buy")
                         .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
                     .Then(TheForm_BePostedOverHttpsPending, true).Tag("this one ought to pend")
-                .ExecuteWithSimpleReport(MethodBase.GetCurrentMethod());
+                .ExecuteWithReport(MethodBase.GetCurrentMethod());
 
         }
 
@@ -86,7 +86,7 @@ namespace StoryQ.Demo
                     .When(IClickThe_Button, "non existent")                            .Tag("this one should fail")
                         .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
                     .Then(TheForm_BePostedOverHttps, true)                             .Tag("Nice formatting").Tag("sprint 1")
-            .ExecuteWithSimpleReport(MethodBase.GetCurrentMethod());
+            .ExecuteWithReport(MethodBase.GetCurrentMethod());
         }
 
         private void IClickThe_Button(string buttonName)
