@@ -102,7 +102,6 @@ div {
 #stories a.itemHeading {
     display: block;
     margin: 4px;
-    font-weight: bold;
 }
 
 #stories li {
@@ -182,6 +181,18 @@ a.exception {
     right: 3px;
     top: 3px;
     color: #d00;
+    padding: 0 3px;
+    background-color: #ddd;
+    border: 1px outset #ddd;
+    -moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+    border-radius: 2px;
+    text-decoration: none;
+}
+
+#dialogHeading a:hover {
+    background-color: #d3d3d3;
+    border: 1px inset #ddd;
 }
 
 #dialogHeading a:hover {
