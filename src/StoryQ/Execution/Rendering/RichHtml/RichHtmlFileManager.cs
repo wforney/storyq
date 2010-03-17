@@ -9,7 +9,7 @@ namespace StoryQ.Execution.Rendering.RichHtml
 {
     internal class RichHtmlFileManager:XmlFileManagerBase
     {
-        private const string StyleSheetFileName = "StoryQ.xslt";
+        private const string StyleSheetFileName = "StoryQ-html.xslt";
 
         private static RichHtmlFileManager instance;
 

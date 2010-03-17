@@ -180,7 +180,7 @@
                 <div id="dialog">
                     <div id="dialogHeading">
                         Stack trace
-                        <a href="javascript:">(Close)</a>
+                        <a href="javascript:" title="Close popup">X</a>
                     </div>
                     <div id="dialogContent"/>
                 </div>
