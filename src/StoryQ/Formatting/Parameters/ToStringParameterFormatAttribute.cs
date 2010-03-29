@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Text;
+
 ﻿namespace StoryQ.Formatting.Parameters
 {
     /// <summary>
@@ -12,6 +15,17 @@
         /// <returns></returns>
         public override string Format(object value)
         {
+			var enumerable = value as IEnumerable;
+			
+			if(enumerable != null)
+			{
+				var sb = new StringBuilder("[]");
+				var enumerator = enumerable.GetEnumerator();
+				while(enumerator.MoveNext()) sb.Insert(sb.Length - 1, string.Format("{0}, ", enumerator.Current));
+				if(sb.Length > 3) sb.Remove(sb.Length - 3, 2);
+				return sb.ToString();
+			}
+			
             return value == null ? "{NULL}" : value.ToString();
         }
     }

@@ -38,6 +38,27 @@ namespace StoryQ.Tests.Formatting
             Action<int> a = SimpleCamelCaseWithArgument;
             Assert.AreEqual("simple camel case with argument(5)", Formatter.FormatMethod(a, 5));
         }
+		
+		[TestMethod]
+        public void EnumerableArgumentWithMultipleElements()
+        {
+            Action<int[]> a = EnumerableArgument;
+            Assert.AreEqual("enumerable argument([1, 2, 3])", Formatter.FormatMethod(a, new [] {1, 2, 3}));
+        }
+		
+		[TestMethod]
+        public void EnumerableArgumentWithSingleElement()
+        {
+            Action<int[]> a = EnumerableArgument;
+            Assert.AreEqual("enumerable argument([1])", Formatter.FormatMethod(a, new [] {1}));
+        }
+		
+		[TestMethod]
+        public void EnumerableArgumentWithNoElements()
+        {
+            Action<int[]> a = EnumerableArgument;
+            Assert.AreEqual("enumerable argument([])", Formatter.FormatMethod(a, new int [0]));
+        }		
 
         [TestMethod]
         public void InlineArgument()
@@ -99,6 +120,11 @@ namespace StoryQ.Tests.Formatting
 
 
         private static void SimpleCamelCaseWithArgument(int x)
+        {
+            
+        }
+		
+		private static void EnumerableArgument<T>(IEnumerable<T> enumerable)
         {
             
         }
