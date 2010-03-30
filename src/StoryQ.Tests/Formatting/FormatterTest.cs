@@ -58,6 +58,20 @@ namespace StoryQ.Tests.Formatting
         {
             Action<int[]> a = EnumerableArgument;
             Assert.AreEqual("enumerable argument([])", Formatter.FormatMethod(a, new int [0]));
+        }
+		
+		[TestMethod]
+        public void NestedEnumerable()
+        {
+		    var v = new[]
+		                {
+		                    new[] {1, 2, 3},
+		                    new[] {4, 5, 6},
+		                    new[] {7, 8, 9},
+		                };
+
+            var arguments = new object[] { v }; // because of the params argument to FormatMethod
+            Assert.AreEqual("two dimensional array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])", Formatter.FormatMethod((Action<int[][]>)TwoDimensionalArray, arguments));
         }		
 
         [TestMethod]
@@ -125,6 +139,11 @@ namespace StoryQ.Tests.Formatting
         }
 		
 		private static void EnumerableArgument<T>(IEnumerable<T> enumerable)
+        {
+            
+        }
+        
+        private static void TwoDimensionalArray(int[][] array)
         {
             
         }

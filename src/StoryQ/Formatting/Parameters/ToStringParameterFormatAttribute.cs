@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Text;
 
 ﻿namespace StoryQ.Formatting.Parameters
@@ -19,14 +20,16 @@ using System.Text;
 			
 			if(enumerable != null)
 			{
-				var sb = new StringBuilder("[]");
-				var enumerator = enumerable.GetEnumerator();
-				while(enumerator.MoveNext()) sb.Insert(sb.Length - 1, string.Format("{0}, ", enumerator.Current));
-				if(sb.Length > 3) sb.Remove(sb.Length - 3, 2);
-				return sb.ToString();
+			    var items = enumerable.Cast<object>().Select(x=>Format(x)).ToArray();
+			    return string.Format("[{0}]", string.Join(", ", items));
 			}
-			
-            return value == null ? "{NULL}" : value.ToString();
+
+            if (value == null)
+            {
+                return "{NULL}";
+            }
+            
+            return value.ToString();
         }
     }
 }
