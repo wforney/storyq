@@ -16,17 +16,29 @@ using System.Text;
         /// <returns></returns>
         public override string Format(object value)
         {
-			var enumerable = value as IEnumerable;
-			
-			if(enumerable != null)
+            if (value is IEnumerable && !(value is string))
 			{
-			    var items = enumerable.Cast<object>().Select(x=>Format(x)).ToArray();
+			    var enumerable = (IEnumerable)value;
+                var items = enumerable.Cast<object>().Select(x => Format(x)).ToArray();
 			    return string.Format("[{0}]", string.Join(", ", items));
 			}
 
             if (value == null)
             {
                 return "{NULL}";
+            }
+
+            if(value is string)
+            {
+                var s = (string) value;
+                if(s.Length == 0)
+                {
+                    return "\"\"";
+                }
+                if(s.Trim().Length == 0)
+                {
+                    return "\" \"";
+                }
             }
             
             return value.ToString();

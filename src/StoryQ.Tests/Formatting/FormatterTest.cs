@@ -72,6 +72,30 @@ namespace StoryQ.Tests.Formatting
 
             var arguments = new object[] { v }; // because of the params argument to FormatMethod
             Assert.AreEqual("two dimensional array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])", Formatter.FormatMethod((Action<int[][]>)TwoDimensionalArray, arguments));
+        }	
+	
+		[TestMethod]
+        public void StringNotEnumerable()
+        {
+            Assert.AreEqual("pass a string(blah)", Formatter.FormatMethod((Action<string>)PassAString, "blah"));
+        }	
+	
+		[TestMethod]
+        public void EmptyString()
+        {
+            Assert.AreEqual("pass a string(\"\")", Formatter.FormatMethod((Action<string>)PassAString, ""));
+        }	
+
+		[TestMethod]
+        public void WhiteSpaceString()
+        {
+            Assert.AreEqual("pass a string(\" \")", Formatter.FormatMethod((Action<string>)PassAString, "   \n\t "));
+        }	
+	
+		[TestMethod]
+        public void NullString()
+        {
+            Assert.AreEqual("pass a string({NULL})", Formatter.FormatMethod((Action<string>)PassAString, new object[]{null}));
         }		
 
         [TestMethod]
@@ -149,6 +173,11 @@ namespace StoryQ.Tests.Formatting
         }
 
         private static void AgeIs_Years(int age)
+        {
+            
+        }
+
+        private static void PassAString(string s)
         {
             
         }
