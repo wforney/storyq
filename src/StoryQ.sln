@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryQ", "StoryQ\StoryQ.csproj", "{4DF234CF-6789-4476-B73B-9879CCDA82E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryQ.Tests", "StoryQ.Tests\StoryQ.Tests.csproj", "{D9218E95-0C1C-4F30-A3EF-17405807BEC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D91658FC-18A2-4939-B43C-BACEBE12DFA1}"
+	ProjectSection(SolutionItems) = preProject
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		StoryQ.vsmdi = StoryQ.vsmdi
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryQ.Demo", "StoryQ.Demo\StoryQ.Demo.csproj", "{3AEF0977-08EA-4DB0-85E6-F10FBD9812B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryQ.Converter.Wpf", "StoryQ.Converter.Wpf\StoryQ.Converter.Wpf.csproj", "{46A93025-0EBE-43F0-8EA2-214CC01CA378}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryQ.Converter.Wpf.Specifications", "StoryQ.Converter.Wpf.Specifications\StoryQ.Converter.Wpf.Specifications.csproj", "{4C1A1DD5-5C8D-4166-9162-4AC5D8C609CF}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = StoryQ.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DF234CF-6789-4476-B73B-9879CCDA82E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DF234CF-6789-4476-B73B-9879CCDA82E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DF234CF-6789-4476-B73B-9879CCDA82E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DF234CF-6789-4476-B73B-9879CCDA82E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9218E95-0C1C-4F30-A3EF-17405807BEC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9218E95-0C1C-4F30-A3EF-17405807BEC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9218E95-0C1C-4F30-A3EF-17405807BEC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9218E95-0C1C-4F30-A3EF-17405807BEC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AEF0977-08EA-4DB0-85E6-F10FBD9812B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AEF0977-08EA-4DB0-85E6-F10FBD9812B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AEF0977-08EA-4DB0-85E6-F10FBD9812B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AEF0977-08EA-4DB0-85E6-F10FBD9812B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46A93025-0EBE-43F0-8EA2-214CC01CA378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46A93025-0EBE-43F0-8EA2-214CC01CA378}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46A93025-0EBE-43F0-8EA2-214CC01CA378}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46A93025-0EBE-43F0-8EA2-214CC01CA378}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C1A1DD5-5C8D-4166-9162-4AC5D8C609CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C1A1DD5-5C8D-4166-9162-4AC5D8C609CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C1A1DD5-5C8D-4166-9162-4AC5D8C609CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C1A1DD5-5C8D-4166-9162-4AC5D8C609CF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

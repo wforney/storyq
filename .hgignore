@@ -1,0 +1,6 @@
+glob:*\bin*
+glob:*\obj*
+glob:*_ReSharper*
+glob:*.suo
+glob:src/TestResults/*
+glob:*.user

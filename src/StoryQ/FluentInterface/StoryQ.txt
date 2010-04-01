@@ -1,0 +1,37 @@
+﻿digraph StoryQ{
+
+    //states
+    Story					[shape=doublecircle,				tooltip="This is the root item of any story"]
+    Benefit					[									tooltip="The real-world objective (business value) of a story"]
+    Role					[									tooltip="The role (a category of actors/users) or roles that receive this benefit. "]
+    Feature					[									tooltip="The software process that will implement the specified benefit."]
+    Scenario				[									tooltip="The name of each scenario within a story. You can think of each scenario as a chapter in a book."]
+    Condition				[fillcolor=skyblue, style=filled,	tooltip="The preconditions that are meant to be present at the beginning of the scenario."]
+    Operation				[fillcolor=skyblue, style=filled,	tooltip="The action(s) that are performed upon the system under test"]
+    Outcome					[fillcolor=skyblue, style=filled,	tooltip="The result that is expected from executing the specified actions on the specified initial state"]
+
+
+	//transitions
+    Story->Benefit			[label="InOrderTo",					tooltip="Describe the real-world value for this story. What is the business process that the user requires software support from?",indentlevel="1"]
+    Benefit->Benefit		[label="And",						tooltip="Describe any secondary business functions that this story will support",indentlevel="2"]
+    
+    Benefit->Role			[label="AsA",						tooltip="The role of the person who is the intended user of this feature",indentlevel="1"]
+    Role->Role				[label="OrAsA",						tooltip="Any other roles that may use this story",indentlevel="2"]
+    
+    Role->Feature			[label="IWant",						tooltip="Describe the software process (features) that will support the business requirement",indentlevel="1"]
+    Feature->Feature		[label="And",						tooltip="Any other features that will implement the desired benefit",indentlevel="2"]
+    
+    
+    Feature -> Scenario		[label="WithScenario",				tooltip="Add a scenario ('given'/'when'/'then') to this story. Scenarios can be added (and will be run) in sequence. Each scenario should have a short descriptive name.",indentlevel="3"]
+
+    Scenario -> Condition	[label="Given",						tooltip="Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state",indentlevel="4"]
+    Condition -> Condition	[label="And",						tooltip="Provide another precondition to describe our scenario's initial state",indentlevel="5"]
+    
+    Condition -> Operation	[label="When",						tooltip="Describe the actions that are done to the system under test. '",indentlevel="4"]
+    Operation -> Operation	[label="And",						tooltip="Provide another action that is to be performed on the system, prior to our check for behaviour ('then')",indentlevel="5"]
+    
+    Operation -> Outcome	[label="Then",						tooltip="Describe the system's behaviour that the prior state and actions should elicit",indentlevel="4"]
+    Outcome -> Outcome		[label="And",						tooltip="Provide another resultant behaviour to check for",indentlevel="5"]
+    
+    Outcome -> Scenario		[label="WithScenario",				tooltip="Add another scenario to this story. StoryQ executes these scenarios one after the other, so state can be shared between a single story's scenarios.",indentlevel="3"]
+}
