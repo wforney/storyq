@@ -8,7 +8,7 @@ namespace StoryQ
     /// <summary>
     ///  A StoryQ infrastructure class that represents single a line of a story. Some steps can be executed, while others are just descriptive
     /// </summary>
-    public class Step
+    internal class Step
     {
         private const string StepPendingMessage = "Pending";
 
@@ -70,13 +70,13 @@ namespace StoryQ
 
             if (!IsExecutable)
             {
-                return new Result(Prefix, IndentLevel, Text, tags, ResultType.NotExecutable);
+                return Result.ForResultType(Prefix, IndentLevel, Text, tags, ResultType.NotExecutable);
             }
 
             try
             {
                 Action();
-                return new Result(Prefix, IndentLevel, Text, tags, ResultType.Passed);
+                return Result.ForResultType(Prefix, IndentLevel, Text, tags, ResultType.Passed);
             }
             catch (NotImplementedException ex)
             {
@@ -86,11 +86,11 @@ namespace StoryQ
                                      : "Pending due to " + Environment.NewLine + ex;
 
                 var pex = StoryQSettings.PendingExceptionBuilder(message, ex);
-                return new Result(Prefix, IndentLevel, Text, tags, pex, true);
+                return Result.ForException(Prefix, IndentLevel, Text, tags, pex, true);
             }
             catch (Exception ex)
             {
-                return new Result(Prefix, IndentLevel, Text, tags, ex, false);
+                return Result.ForException(Prefix, IndentLevel, Text, tags, ex, false);
             }
         }
 

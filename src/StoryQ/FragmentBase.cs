@@ -20,7 +20,7 @@ namespace StoryQ
         /// Initializes a new instance of the <see cref="FragmentBase"/> class.
         /// </summary>
         /// <param name="step">The Step.</param>
-        protected FragmentBase(Step step)
+        internal FragmentBase(Step step)
         {
             Step = step;
         }

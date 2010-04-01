@@ -8,23 +8,24 @@ namespace StoryQ.Execution
     /// </summary>
     public class Result
     {
-        internal Result(string prefix, int indentLevel, string text, IEnumerable<string> tags, Exception exception, bool isPending)
+        internal static Result ForResultType(string prefix, int indentLevel, string text, IEnumerable<string> tags, ResultType type)
         {
-            Prefix = prefix;
-            IndentLevel = indentLevel;
-            Text = text;
-            Exception = exception;
-            Tags = tags;
-            Type = isPending ? ResultType.Pending : ResultType.Failed;
+            return new Result(prefix, indentLevel, text, type, tags, null);
         }
 
-        internal Result(string prefix, int indentLevel, string text, IEnumerable<string> tags, ResultType type)
+        internal static Result ForException(string prefix, int indentLevel, string text, IEnumerable<string> tags, Exception exception, bool isPending)
+        {
+            return new Result(prefix, indentLevel, text, isPending ? ResultType.Pending : ResultType.Failed, tags, exception);
+        }
+
+        private Result(string prefix, int indentLevel, string text, ResultType type, IEnumerable<string> tags, Exception exception)
         {
             Prefix = prefix;
-            IndentLevel = indentLevel;
             Text = text;
-            Tags = tags;
             Type = type;
+            Exception = exception;
+            IndentLevel = indentLevel;
+            Tags = tags;
         }
 
         /// <summary>
