@@ -25,7 +25,16 @@ namespace StoryQ.Converter.Wpf.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"Story is Story Name
+In order to Benefit
+As a Role
+I want Feature
+With Scenario Scenario Name
+Given Condition with a simple parameter $true
+When operation with a named parameter $id:5
+Then Outcome with with an multiword argument {multi-word string}
+And Another Outcome with a parameter thats named with spaces {endoftheworld:1999-12-31 23:59 GMT}
+And yet another Outcome with $2 parameters {string2:abc}")]
         public string InputText {
             get {
                 return ((string)(this["InputText"]));
