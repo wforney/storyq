@@ -20,7 +20,7 @@ namespace StoryQ.Formatting.Methods
         /// <returns></returns>
         public override string Format(MethodInfo method, IEnumerable<string> parameters)
         {
-            string s = String.Join(", ", parameters.ToArray());
+            string s = parameters.Join(", ");
             if (!String.IsNullOrEmpty(s))
             {
                 s = string.Format("({0})", s);

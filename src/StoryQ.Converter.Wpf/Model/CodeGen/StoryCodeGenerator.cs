@@ -53,18 +53,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
 
         private static string StringToMethodCall(string text)
         {
-            List<string> args = new List<string>();
-            string methodName = Regex.Replace(text, "\\$\\S*", match =>
-                {
-                    args.Add(match.Value.Substring(1));
-                    return "_";
-                });
-
-            var argLiterals = args
-                .Select(x => Regex.IsMatch(x, "^((true)|(false)|([0-9.]*))$") ? x : '"' + x + '"')
-                .Aggregate(new StringBuilder(), (sb, s) => sb.Append(", " + s));
-
-            return Camel(methodName) + argLiterals;
+            return MethodBuilder.ParseMethodDeclaration(text).ToStepParameters();
         }
 
         private static string Camel(string s)
