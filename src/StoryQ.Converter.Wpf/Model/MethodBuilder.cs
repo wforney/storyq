@@ -8,7 +8,7 @@ namespace StoryQ.Converter.Wpf.Model
 {
     public static class MethodBuilder
     {
-        private static Dictionary<string, string> literalTypes = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> literalTypes = new Dictionary<string, string>
             {
                 {"(true)|(false)", "bool"},
                 {@"(0x?)?\d+", "int"},
