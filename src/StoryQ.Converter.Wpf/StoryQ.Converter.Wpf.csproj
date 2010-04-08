@@ -75,6 +75,7 @@
     <Compile Include="Model\CodeGen\ClassGenerator.cs" />
     <Compile Include="Model\CodeGen\CodeWriter.cs" />
     <Compile Include="Model\CodeGen\ICodeGenerator.cs" />
+    <Compile Include="Model\MethodBuilder.cs" />
     <Compile Include="Model\CodeGen\StepMethodsGenerator.cs" />
     <Compile Include="Model\CodeGen\StoryCodeGenerator.cs" />
     <Compile Include="Model\CodeGen\TestMethodGenerator.cs" />

@@ -136,7 +136,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
             {
                 s += Environment.NewLine;
             }
-            s += Parser.UnCamel(info.Name) + " ";
+            s += info.Name.UnCamel() + " ";
             PlainText = s;
 
             Transitions.Clear();

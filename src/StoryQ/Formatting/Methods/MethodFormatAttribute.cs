@@ -28,8 +28,7 @@ namespace StoryQ.Formatting.Methods
         /// <returns></returns>
         protected static string UnCamel(string camelText)
         {
-            string s = Regex.Replace(camelText, "[A-Z_]", x => " " + x.Value.ToLowerInvariant());
-            return s.Replace(" i ", " I ").Trim();
+            return camelText.UnCamel().Replace(" i ", " I ").Trim();
         }
     }
 }

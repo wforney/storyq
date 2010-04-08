@@ -97,6 +97,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="StoryQSettings.cs" />
+    <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Execution\Rendering\RichHtml\Dependencies.resx">
