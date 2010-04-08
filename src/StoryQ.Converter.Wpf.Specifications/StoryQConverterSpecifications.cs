@@ -44,6 +44,12 @@ namespace StoryQ.Converter.Wpf.Specifications
                     .When(ITypeInSomeStoryText)
                       .And(ITypeInSomeScenarioTextWithADollarSymbolBeforeANumberOrWord)
                     .Then(IShouldSeeTheNumbersAndWordsPassedAsParametersToTheStoryqMethod)
+                    
+                    .WithScenario("converting lines with complex variables into code")
+                    .Given(ThatIHaveLaunchedStoryq)
+                    .When(ITypeInSomeStoryText)
+                      .And(ITypeInSomeScenarioTextWithDatesAndStringsInCurlyBraces)
+                    .Then(IShouldSeeTheDatesAndWordsPassedAsParametersToTheStoryqMethod)
              .Execute();
         }
 
@@ -290,6 +296,18 @@ then I should get a $result";
 
         }
 
+        private void ITypeInSomeScenarioTextWithDatesAndStringsInCurlyBraces()
+        {
+
+            converter.PlainText +=
+                @"
+with scenario scenario name
+given that I have some initial state
+when I do something to the system from $2008-4-1 to {2008-4-1 12:59 GMT}
+then I should get a {nice result}";
+
+        }
+
         private void IShouldSeeThatTextConvertedIntoMixedStoryqCalls()
         {
             Expect(@"new Story(""story name"")
@@ -317,6 +335,21 @@ then I should get a $result";
                 .Given(ThatIHaveSomeInitialState)
                 .When(IDoSomethingToTheSystem_Times, 1)
                 .Then(IShouldGetA_, ""result"")
+    .Execute();");
+        }
+
+        private void IShouldSeeTheDatesAndWordsPassedAsParametersToTheStoryqMethod()
+        {
+            Expect(
+                @"new Story(""story name"")
+    .InOrderTo(""get some benefit"")
+    .AsA(""person in some role"")
+    .IWant(""to use some software function"")
+
+            .WithScenario(""scenario name"")
+                .Given(ThatIHaveSomeInitialState)
+                .When(IDoSomethingToTheSystemFrom_To_, DateTime.Parse(""2008-4-1""), DateTime.Parse(""2008-4-1 12:59 GMT""))
+                .Then(IShouldGetA_, ""nice result"")
     .Execute();");
         }
 

@@ -19,7 +19,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
         {
             Apply = new DelegateCommand(() => parent.ApplyTransition(method));
 
-            string s = Parser.UnCamel(method.Name);
+            string s = method.Name.UnCamel();
             Text = s.Insert(GetUniqueCharIndex(s, parent.Transitions.Select(x=>x.Text)), "_");
             DescriptionAttribute attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(method, typeof(DescriptionAttribute));
             if (attribute != null)

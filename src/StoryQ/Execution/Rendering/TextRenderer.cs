@@ -58,7 +58,7 @@ namespace StoryQ.Execution.Rendering
                     }
                 }
 
-                var tags = string.Join(", ", r.Tags.Select(x => "#" + x).ToArray());
+                var tags = r.Tags.Select(x => "#" + x).Join(", ");
                 if(!string.IsNullOrEmpty(tags))
                 {
                     output.Write(" => (");
