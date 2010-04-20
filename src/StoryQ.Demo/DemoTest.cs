@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Reflection;
 using StoryQ.Formatting.Parameters;
+using StoryQ.AllowTextualSteps;
 
 #if NUNIT
 
@@ -35,7 +36,6 @@ namespace StoryQ.Demo
                       .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
                     .Then(TheForm_BePostedOverHttps, true)
                     .ExecuteWithReport(MethodBase.GetCurrentMethod());
-
         }
 
         private void TheForm_BePostedOverHttps([BooleanParameterFormat("should", "should not")]bool isHttps)
@@ -64,6 +64,23 @@ namespace StoryQ.Demo
                     .When(IClickThe_Button, "Buy")
                         .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
                     .Then(TheForm_BePostedOverHttpsPending, true).Tag("this one ought to pend")
+                .ExecuteWithReport(MethodBase.GetCurrentMethod());
+
+        }
+
+        [TestMethod]
+        public void PendingDueToPlainTextExample()
+        {
+            new Story("Data Safety").Tag("this one ought to pend")
+                .InOrderTo("Keep my data safe")
+                .AsA("User").Tag("sprint 1")
+                .IWant("All credit card numbers to be encrypted")
+
+                .WithScenario("submitting shopping cart")
+                    .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
+                    .When(IClickThe_Button, "Buy")
+                        .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
+                    .Then("The form should be posted over https").Tag("this one ought to pend")
                 .ExecuteWithReport(MethodBase.GetCurrentMethod());
 
         }

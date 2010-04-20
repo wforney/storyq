@@ -118,6 +118,7 @@ namespace <#=nameSpace#>
             }
 #>
 
+		
         /// <summary>
         /// <#=prefix#> [<#=target.Label.Name#>].
         /// <#=Tooltip(exit)#>
