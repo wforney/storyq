@@ -20,6 +20,7 @@ namespace StoryQ
         /// <param name="text">The name of the new Story</param>
         public Story(string text):base(new Step("Story is", 0, text, Step.DoNothing), null){}
 
+		
         /// <summary>
         /// In order to [Benefit].
         /// Describe the real-world value for this story. What is the business process that the user requires software support from?
@@ -60,6 +61,7 @@ namespace StoryQ
     {
         internal Benefit(Step step, IStepContainer parent):base(step, parent){}
 
+		
         /// <summary>
         /// And [Benefit].
         /// Describe any secondary business functions that this story will support
@@ -76,6 +78,7 @@ namespace StoryQ
         }
 
 
+		
         /// <summary>
         /// As a [Role].
         /// The role of the person who is the intended user of this feature
@@ -116,6 +119,7 @@ namespace StoryQ
     {
         internal Role(Step step, IStepContainer parent):base(step, parent){}
 
+		
         /// <summary>
         /// Or as a [Role].
         /// Any other roles that may use this story
@@ -132,6 +136,7 @@ namespace StoryQ
         }
 
 
+		
         /// <summary>
         /// I want [Feature].
         /// Describe the software process (features) that will support the business requirement
@@ -172,6 +177,7 @@ namespace StoryQ
     {
         internal Feature(Step step, IStepContainer parent):base(step, parent){}
 
+		
         /// <summary>
         /// And [Feature].
         /// Any other features that will implement the desired benefit
@@ -188,6 +194,7 @@ namespace StoryQ
         }
 
 
+		
         /// <summary>
         /// With scenario [Scenario].
         /// Add a scenario ('given'/'when'/'then') to this story. Scenarios can be added (and will be run) in sequence. Each scenario should have a short descriptive name.
@@ -332,6 +339,7 @@ namespace StoryQ
             return new Condition(s, this);
         }
 
+		
         /// <summary>
         /// Given [Condition].
         /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
@@ -477,6 +485,7 @@ namespace StoryQ
             return new Condition(s, this);
         }
 
+		
         /// <summary>
         /// And [Condition].
         /// Provide another precondition to describe our scenario's initial state
@@ -598,6 +607,7 @@ namespace StoryQ
             return new Operation(s, this);
         }
 
+		
         /// <summary>
         /// When [Operation].
         /// Describe the actions that are done to the system under test. '
@@ -743,6 +753,7 @@ namespace StoryQ
             return new Operation(s, this);
         }
 
+		
         /// <summary>
         /// And [Operation].
         /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
@@ -864,6 +875,7 @@ namespace StoryQ
             return new Outcome(s, this);
         }
 
+		
         /// <summary>
         /// Then [Outcome].
         /// Describe the system's behaviour that the prior state and actions should elicit
@@ -1009,6 +1021,7 @@ namespace StoryQ
             return new Outcome(s, this);
         }
 
+		
         /// <summary>
         /// And [Outcome].
         /// Provide another resultant behaviour to check for
@@ -1025,6 +1038,7 @@ namespace StoryQ
         }
 
 
+		
         /// <summary>
         /// With scenario [Scenario].
         /// Add another scenario to this story. StoryQ executes these scenarios one after the other, so state can be shared between a single story's scenarios.

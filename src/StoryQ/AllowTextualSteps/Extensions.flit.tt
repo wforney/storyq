@@ -1,0 +1,130 @@
+<#@ import namespace="Flit"#>
+<#@ import namespace="Flit"#>
+<#@ import namespace="Irony.Parsing"#>
+<#@ import namespace="System.Text.RegularExpressions"#>
+<#@ import namespace="System.Linq"#>
+<#@ import namespace="System.Collections.Generic"#>
+<#@ template language="C#v3.5" hostspecific="True" debug="True" #>
+<#@ assembly name="Flit.dll"#>
+<#@ assembly name="Irony.dll"#>
+<#@ assembly name="System.Core.dll"#>
+<#@ output extension=".g.cs" #>
+<#
+
+//This model-driven development is thanks to http://flit.codeplex.com!
+
+    var inputFile = "FluentInterface\\StoryQ.txt";
+
+    var templateDir = new System.IO.FileInfo(Host.TemplateFile).Directory;
+    var nameSpace = "StoryQ."+templateDir.Name;
+    
+    var compiler = new Irony.Parsing.Parser(new FlitGrammar());
+    ParseTree tree = compiler.Parse(System.IO.File.ReadAllText(templateDir.Parent.FullName+"\\"+inputFile));
+    ParseTreeNode node = tree.Root;
+    Graph graph = node.AstNode as Graph;
+#>
+using System;
+using System.ComponentModel;
+
+using StoryQ.Infrastructure;
+
+namespace <#=nameSpace#>
+{
+	public static class Extensions
+	{
+<#
+    foreach(var state in graph.States)
+    {
+        string type = state.Label.Name;
+        foreach(var exit in state.OutgoingTransitions)
+        {
+            var target = exit.ToState;
+            string prefix = CamelCaseToSentence(exit.Label.Name);
+            if (IsExecutable(target))
+            {
+#>
+        /// <summary>
+        /// <#=prefix#> [<#=target.Label.Name#>].
+        /// <#=Tooltip(exit)#>
+        /// </summary>
+        /// <param name="text">
+        /// A textual description. This story fragment should be executable, but you are choosing to supply a string for now. The step will Pend.
+        /// </param>
+        /// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
+        [Description("<#=Tooltip(exit)#>")]        
+        public static <#=target.Label.Name#> <#=exit.Label.Name#>(this <#=exit.FromState.Label.Name#> parent, string text)
+        {
+			string message = @"implement your textual method with:
+			
+public void "+(text.Camel())+@"()
+{
+	throw new NotImplementedException();
+}
+
+";
+            Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, ()=>{throw new StepIsTextException(message);});
+            return new <#=target.Label.Name#>(s, parent);
+        }
+
+<#
+			}
+        }
+    }
+#>
+	}
+	
+	public class StepIsTextException : NotImplementedException
+    {
+        public StepIsTextException(string message):base(message)
+        {
+        }
+    }
+}
+
+
+<#+
+    public bool IsExecutable(State state)
+    {
+        return state.GenericAttributes.ContainsKey("fillcolor") &&  state.GenericAttributes["fillcolor"]=="skyblue";
+    }
+
+    public bool IsEntryPoint(State state)
+    {
+        return state.GenericAttributes.ContainsKey("shape") &&  state.GenericAttributes["shape"]=="doublecircle";
+    }
+
+    public string Tooltip(Transition t)
+    {
+        return Tooltip(t.GenericAttributes);
+    }
+    
+    public int Indent(Transition t)
+    {
+        Dictionary<string, string> attributes = t.GenericAttributes;
+        string s = attributes.ContainsKey("indentlevel")?attributes["indentlevel"]:"0";
+        return int.Parse(s);
+    }
+
+    public string Tooltip(State s)
+    {
+        return Tooltip(s.GenericAttributes);
+    }
+
+    public string Tooltip(Dictionary<string, string> attributes)
+    {
+        return attributes.ContainsKey("tooltip")?attributes["tooltip"]:"";
+    }
+
+    public string CamelCaseToSentence(string s)
+    {
+        return Regex.Replace(s, "[A-Z]", x => x.Index == 0 ? x.Value : " " + x.Value.ToLowerInvariant()).Trim();
+    }
+
+    public string Join(string seperator, IEnumerable<string> strings)
+    {
+        return string.Join(seperator, strings.ToArray());
+    }
+
+    public static readonly string[] numberths = {"zeroeth", "first", "second", "third", "fourth"};
+
+#>
