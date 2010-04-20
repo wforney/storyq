@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace StoryQ.Execution.Rendering
 {
-    internal class XmlRenderer : IRenderer
+    public class XmlRenderer : IRenderer
     {
         private readonly XElement receptacle;
         private readonly Func<int> idSource;

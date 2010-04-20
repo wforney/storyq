@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+using StoryQ.Infrastructure;
+
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
     /// <summary>
@@ -18,9 +20,9 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             this.testFrameworkData = testFrameworkData;
         }
 
-        public void Generate(IEnumerable<FragmentBase> fragments, CodeWriter writer)
+        public void Generate(IEnumerable<IStepContainer> fragments, CodeWriter writer)
         {
-            FragmentBase first = fragments.First();
+            IStepContainer first = fragments.First();
             string s = Regex.Replace(" " + first.Step.Text, " \\w|_", match => match.Value.Trim().ToUpperInvariant());
             writer.WriteLine("["+testFrameworkData.TestMethodAttribute+"]");
             writer.WriteLine("public void "+s+"()");

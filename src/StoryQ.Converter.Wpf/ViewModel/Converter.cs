@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 
 using StoryQ.Converter.Wpf.Model;
 using StoryQ.Converter.Wpf.Model.CodeGen;
+using StoryQ.Infrastructure;
 
 namespace StoryQ.Converter.Wpf.ViewModel
 {
@@ -122,7 +123,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
             return Parser.Parse(lines, new StoryStarter());
         }
 
-        private string Code(FragmentBase b)
+        private string Code(IStepContainer b)
         {
             CodeWriter writer = new CodeWriter();
             Settings.GetCodeGenerator().Generate(b.SelfAndAncestors().Reverse().ToList(), writer);

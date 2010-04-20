@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using StoryQ.Infrastructure;
 
 namespace StoryQ
 {
@@ -17,7 +18,7 @@ namespace StoryQ
         /// Starts a new StoryQ Story. 
         /// </summary>
         /// <param name="text">The name of the new Story</param>
-        public Story(string text):base(new Step("Story is", 0, text, Step.DoNothing)){}
+        public Story(string text):base(new Step("Story is", 0, text, Step.DoNothing), null){}
 
         /// <summary>
         /// In order to [Benefit].
@@ -31,7 +32,7 @@ namespace StoryQ
         public Benefit InOrderTo(string text)
         {
             Step s = new Step("In order to", 1, text, Step.DoNothing);
-            return new Benefit(s){ Parent = this };
+            return new Benefit(s, this);
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace StoryQ
         /// <returns></returns>
         public Story Tag(string tag)
         {
-            Step.Tags.Add(tag.Trim().Trim('#'));
+            ((IStepContainer)this).Step.Tags.Add(tag.Trim().Trim('#'));
             return this;
         }
 
@@ -57,7 +58,7 @@ namespace StoryQ
     /// </summary>
     public partial class Benefit : FragmentBase
     {
-        internal Benefit(Step step):base(step){}
+        internal Benefit(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
         /// And [Benefit].
@@ -71,7 +72,7 @@ namespace StoryQ
         public Benefit And(string text)
         {
             Step s = new Step("And", 2, text, Step.DoNothing);
-            return new Benefit(s){ Parent = this };
+            return new Benefit(s, this);
         }
 
 
@@ -87,7 +88,7 @@ namespace StoryQ
         public Role AsA(string text)
         {
             Step s = new Step("As a", 1, text, Step.DoNothing);
-            return new Role(s){ Parent = this };
+            return new Role(s, this);
         }
 
         /// <summary>
@@ -97,7 +98,7 @@ namespace StoryQ
         /// <returns></returns>
         public Benefit Tag(string tag)
         {
-            Step.Tags.Add(tag.Trim().Trim('#'));
+            ((IStepContainer)this).Step.Tags.Add(tag.Trim().Trim('#'));
             return this;
         }
 
@@ -113,7 +114,7 @@ namespace StoryQ
     /// </summary>
     public partial class Role : FragmentBase
     {
-        internal Role(Step step):base(step){}
+        internal Role(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
         /// Or as a [Role].
@@ -127,7 +128,7 @@ namespace StoryQ
         public Role OrAsA(string text)
         {
             Step s = new Step("Or as a", 2, text, Step.DoNothing);
-            return new Role(s){ Parent = this };
+            return new Role(s, this);
         }
 
 
@@ -143,7 +144,7 @@ namespace StoryQ
         public Feature IWant(string text)
         {
             Step s = new Step("I want", 1, text, Step.DoNothing);
-            return new Feature(s){ Parent = this };
+            return new Feature(s, this);
         }
 
         /// <summary>
@@ -153,7 +154,7 @@ namespace StoryQ
         /// <returns></returns>
         public Role Tag(string tag)
         {
-            Step.Tags.Add(tag.Trim().Trim('#'));
+            ((IStepContainer)this).Step.Tags.Add(tag.Trim().Trim('#'));
             return this;
         }
 
@@ -169,7 +170,7 @@ namespace StoryQ
     /// </summary>
     public partial class Feature : FragmentBase
     {
-        internal Feature(Step step):base(step){}
+        internal Feature(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
         /// And [Feature].
@@ -183,7 +184,7 @@ namespace StoryQ
         public Feature And(string text)
         {
             Step s = new Step("And", 2, text, Step.DoNothing);
-            return new Feature(s){ Parent = this };
+            return new Feature(s, this);
         }
 
 
@@ -199,7 +200,7 @@ namespace StoryQ
         public Scenario WithScenario(string text)
         {
             Step s = new Step("With scenario", 3, text, Step.DoNothing);
-            return new Scenario(s){ Parent = this };
+            return new Scenario(s, this);
         }
 
         /// <summary>
@@ -209,7 +210,7 @@ namespace StoryQ
         /// <returns></returns>
         public Feature Tag(string tag)
         {
-            Step.Tags.Add(tag.Trim().Trim('#'));
+            ((IStepContainer)this).Step.Tags.Add(tag.Trim().Trim('#'));
             return this;
         }
 
@@ -224,7 +225,7 @@ namespace StoryQ
     /// </summary>
     public partial class Scenario : FragmentBase
     {
-        internal Scenario(Step step):base(step){}
+        internal Scenario(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
         /// Given [Condition].
@@ -242,7 +243,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction);
             Step s = new Step("Given", 4, text, descriptiveAction);
-            return new Condition(s){ Parent = this };
+            return new Condition(s, this);
         }
 
         /// <summary>
@@ -262,7 +263,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1);
             Step s = new Step("Given", 4, text, () => descriptiveAction(arg1));
-            return new Condition(s){ Parent = this };
+            return new Condition(s, this);
         }
 
         /// <summary>
@@ -283,7 +284,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2);
             Step s = new Step("Given", 4, text, () => descriptiveAction(arg1, arg2));
-            return new Condition(s){ Parent = this };
+            return new Condition(s, this);
         }
 
         /// <summary>
@@ -305,7 +306,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3);
             Step s = new Step("Given", 4, text, () => descriptiveAction(arg1, arg2, arg3));
-            return new Condition(s){ Parent = this };
+            return new Condition(s, this);
         }
 
         /// <summary>
@@ -328,7 +329,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3, arg4);
             Step s = new Step("Given", 4, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
-            return new Condition(s){ Parent = this };
+            return new Condition(s, this);
         }
 
         /// <summary>
@@ -343,7 +344,7 @@ namespace StoryQ
         protected Condition Given(string text)
         {
             Step s = new Step("Given", 4, text, null);
-            return new Condition(s){ Parent = this };
+            return new Condition(s, this);
         }
 
         /// <summary>
@@ -353,7 +354,7 @@ namespace StoryQ
         /// <returns></returns>
         public Scenario Tag(string tag)
         {
-            Step.Tags.Add(tag.Trim().Trim('#'));
+            ((IStepContainer)this).Step.Tags.Add(tag.Trim().Trim('#'));
             return this;
         }
 
@@ -369,7 +370,7 @@ namespace StoryQ
     /// </summary>
     public partial class Condition : FragmentBase
     {
-        internal Condition(Step step):base(step){}
+        internal Condition(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
         /// And [Condition].
@@ -387,7 +388,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction);
             Step s = new Step("And", 5, text, descriptiveAction);
-            return new Condition(s){ Parent = this };
+            return new Condition(s, this);
         }
 
         /// <summary>
@@ -407,7 +408,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1);
             Step s = new Step("And", 5, text, () => descriptiveAction(arg1));
-            return new Condition(s){ Parent = this };
+            return new Condition(s, this);
         }
 
         /// <summary>
@@ -428,7 +429,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2);
             Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2));
-            return new Condition(s){ Parent = this };
+            return new Condition(s, this);
         }
 
         /// <summary>
@@ -450,7 +451,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3);
             Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2, arg3));
-            return new Condition(s){ Parent = this };
+            return new Condition(s, this);
         }
 
         /// <summary>
@@ -473,7 +474,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3, arg4);
             Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
-            return new Condition(s){ Parent = this };
+            return new Condition(s, this);
         }
 
         /// <summary>
@@ -488,7 +489,7 @@ namespace StoryQ
         protected Condition And(string text)
         {
             Step s = new Step("And", 5, text, null);
-            return new Condition(s){ Parent = this };
+            return new Condition(s, this);
         }
 
 
@@ -508,7 +509,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction);
             Step s = new Step("When", 4, text, descriptiveAction);
-            return new Operation(s){ Parent = this };
+            return new Operation(s, this);
         }
 
         /// <summary>
@@ -528,7 +529,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1);
             Step s = new Step("When", 4, text, () => descriptiveAction(arg1));
-            return new Operation(s){ Parent = this };
+            return new Operation(s, this);
         }
 
         /// <summary>
@@ -549,7 +550,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2);
             Step s = new Step("When", 4, text, () => descriptiveAction(arg1, arg2));
-            return new Operation(s){ Parent = this };
+            return new Operation(s, this);
         }
 
         /// <summary>
@@ -571,7 +572,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3);
             Step s = new Step("When", 4, text, () => descriptiveAction(arg1, arg2, arg3));
-            return new Operation(s){ Parent = this };
+            return new Operation(s, this);
         }
 
         /// <summary>
@@ -594,7 +595,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3, arg4);
             Step s = new Step("When", 4, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
-            return new Operation(s){ Parent = this };
+            return new Operation(s, this);
         }
 
         /// <summary>
@@ -609,7 +610,7 @@ namespace StoryQ
         protected Operation When(string text)
         {
             Step s = new Step("When", 4, text, null);
-            return new Operation(s){ Parent = this };
+            return new Operation(s, this);
         }
 
         /// <summary>
@@ -619,7 +620,7 @@ namespace StoryQ
         /// <returns></returns>
         public Condition Tag(string tag)
         {
-            Step.Tags.Add(tag.Trim().Trim('#'));
+            ((IStepContainer)this).Step.Tags.Add(tag.Trim().Trim('#'));
             return this;
         }
 
@@ -635,7 +636,7 @@ namespace StoryQ
     /// </summary>
     public partial class Operation : FragmentBase
     {
-        internal Operation(Step step):base(step){}
+        internal Operation(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
         /// And [Operation].
@@ -653,7 +654,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction);
             Step s = new Step("And", 5, text, descriptiveAction);
-            return new Operation(s){ Parent = this };
+            return new Operation(s, this);
         }
 
         /// <summary>
@@ -673,7 +674,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1);
             Step s = new Step("And", 5, text, () => descriptiveAction(arg1));
-            return new Operation(s){ Parent = this };
+            return new Operation(s, this);
         }
 
         /// <summary>
@@ -694,7 +695,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2);
             Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2));
-            return new Operation(s){ Parent = this };
+            return new Operation(s, this);
         }
 
         /// <summary>
@@ -716,7 +717,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3);
             Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2, arg3));
-            return new Operation(s){ Parent = this };
+            return new Operation(s, this);
         }
 
         /// <summary>
@@ -739,7 +740,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3, arg4);
             Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
-            return new Operation(s){ Parent = this };
+            return new Operation(s, this);
         }
 
         /// <summary>
@@ -754,7 +755,7 @@ namespace StoryQ
         protected Operation And(string text)
         {
             Step s = new Step("And", 5, text, null);
-            return new Operation(s){ Parent = this };
+            return new Operation(s, this);
         }
 
 
@@ -774,7 +775,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction);
             Step s = new Step("Then", 4, text, descriptiveAction);
-            return new Outcome(s){ Parent = this };
+            return new Outcome(s, this);
         }
 
         /// <summary>
@@ -794,7 +795,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1);
             Step s = new Step("Then", 4, text, () => descriptiveAction(arg1));
-            return new Outcome(s){ Parent = this };
+            return new Outcome(s, this);
         }
 
         /// <summary>
@@ -815,7 +816,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2);
             Step s = new Step("Then", 4, text, () => descriptiveAction(arg1, arg2));
-            return new Outcome(s){ Parent = this };
+            return new Outcome(s, this);
         }
 
         /// <summary>
@@ -837,7 +838,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3);
             Step s = new Step("Then", 4, text, () => descriptiveAction(arg1, arg2, arg3));
-            return new Outcome(s){ Parent = this };
+            return new Outcome(s, this);
         }
 
         /// <summary>
@@ -860,7 +861,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3, arg4);
             Step s = new Step("Then", 4, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
-            return new Outcome(s){ Parent = this };
+            return new Outcome(s, this);
         }
 
         /// <summary>
@@ -875,7 +876,7 @@ namespace StoryQ
         protected Outcome Then(string text)
         {
             Step s = new Step("Then", 4, text, null);
-            return new Outcome(s){ Parent = this };
+            return new Outcome(s, this);
         }
 
         /// <summary>
@@ -885,7 +886,7 @@ namespace StoryQ
         /// <returns></returns>
         public Operation Tag(string tag)
         {
-            Step.Tags.Add(tag.Trim().Trim('#'));
+            ((IStepContainer)this).Step.Tags.Add(tag.Trim().Trim('#'));
             return this;
         }
 
@@ -901,7 +902,7 @@ namespace StoryQ
     /// </summary>
     public partial class Outcome : FragmentBase
     {
-        internal Outcome(Step step):base(step){}
+        internal Outcome(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
         /// And [Outcome].
@@ -919,7 +920,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction);
             Step s = new Step("And", 5, text, descriptiveAction);
-            return new Outcome(s){ Parent = this };
+            return new Outcome(s, this);
         }
 
         /// <summary>
@@ -939,7 +940,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1);
             Step s = new Step("And", 5, text, () => descriptiveAction(arg1));
-            return new Outcome(s){ Parent = this };
+            return new Outcome(s, this);
         }
 
         /// <summary>
@@ -960,7 +961,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2);
             Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2));
-            return new Outcome(s){ Parent = this };
+            return new Outcome(s, this);
         }
 
         /// <summary>
@@ -982,7 +983,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3);
             Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2, arg3));
-            return new Outcome(s){ Parent = this };
+            return new Outcome(s, this);
         }
 
         /// <summary>
@@ -1005,7 +1006,7 @@ namespace StoryQ
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3, arg4);
             Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
-            return new Outcome(s){ Parent = this };
+            return new Outcome(s, this);
         }
 
         /// <summary>
@@ -1020,7 +1021,7 @@ namespace StoryQ
         protected Outcome And(string text)
         {
             Step s = new Step("And", 5, text, null);
-            return new Outcome(s){ Parent = this };
+            return new Outcome(s, this);
         }
 
 
@@ -1036,7 +1037,7 @@ namespace StoryQ
         public Scenario WithScenario(string text)
         {
             Step s = new Step("With scenario", 3, text, Step.DoNothing);
-            return new Scenario(s){ Parent = this };
+            return new Scenario(s, this);
         }
 
         /// <summary>
@@ -1046,7 +1047,7 @@ namespace StoryQ
         /// <returns></returns>
         public Outcome Tag(string tag)
         {
-            Step.Tags.Add(tag.Trim().Trim('#'));
+            ((IStepContainer)this).Step.Tags.Add(tag.Trim().Trim('#'));
             return this;
         }
 

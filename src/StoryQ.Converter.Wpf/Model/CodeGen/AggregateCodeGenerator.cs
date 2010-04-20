@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using StoryQ.Infrastructure;
+
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
     /// <summary>
@@ -22,7 +24,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             this.children = children;
         }
 
-        public void Generate(IEnumerable<FragmentBase> fragments, CodeWriter writer)
+        public void Generate(IEnumerable<IStepContainer> fragments, CodeWriter writer)
         {
             foreach (var child in children)
             {

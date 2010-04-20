@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
+using StoryQ.Infrastructure;
+
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
     /// <summary>
@@ -18,9 +20,9 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             this.indentSteps = indentSteps;
         }
 
-        public void Generate(IEnumerable<FragmentBase> fragments, CodeWriter writer)
+        public void Generate(IEnumerable<IStepContainer> fragments, CodeWriter writer)
         {
-            foreach (var f in fragments)
+            foreach (IStepContainer f in fragments)
             {
                 bool first = f.Parent == null;
 

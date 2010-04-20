@@ -10,6 +10,9 @@ using StoryQ.Formatting.Parameters;
 using System.Collections.Generic;
 using System.Reflection;
 
+using StoryQ.Infrastructure;
+using StoryQ.Tests.Infrastructure;
+
 #if NUNIT
 using NUnit.Framework;
 using TestClass = NUnit.Framework.TestFixtureAttribute;
@@ -20,10 +23,11 @@ using ClassCleanup = NUnit.Framework.TestFixtureTearDownAttribute;
 using ClassInitialize = NUnit.Framework.TestFixtureSetUpAttribute;
 #else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+
 #endif
 
-
-namespace StoryQ.Tests
+namespace StoryQ.Tests.Execution.Rendering
 {
     /// <summary>
     /// Summary description for UnitTest1
@@ -40,9 +44,8 @@ namespace StoryQ.Tests
             XmlCategoriser c = new XmlCategoriser(e);
             c.GetOrCreateElementForMethodInfo(MethodBase.GetCurrentMethod());
             c.GetOrCreateElementForMethodInfo(new Action(RenderSomeResults).Method);
-            c.GetOrCreateElementForMethodInfo(new Action(new StepTest().ExcecuteFail).Method);
 
-            const string expected = @"<root><Project Name=""StoryQ.Tests""><Namespace Name=""StoryQ.Tests""><Class Name=""XmlRendererTest""><Method Name=""TestCategoriser"" /><Method Name=""RenderSomeResults"" /></Class><Class Name=""StepTest""><Method Name=""ExcecuteFail"" /></Class></Namespace></Project></root>";
+            const string expected = @"<root><Project Name=""StoryQ.Tests""><Namespace Name=""StoryQ.Tests.Execution.Rendering""><Class Name=""XmlRendererTest""><Method Name=""TestCategoriser"" /><Method Name=""RenderSomeResults"" /></Class></Namespace></Project></root>";
             Assert.AreEqual(expected, e.ToString(SaveOptions.DisableFormatting));
         }
 
@@ -60,7 +63,7 @@ namespace StoryQ.Tests
                 .Then(SomethingElse);
 
 
-            var results = v.SelfAndAncestors().Reverse().Select(x => x.Step.Execute());
+            var results = ((IStepContainer)v).SelfAndAncestors().Reverse().Select(x => x.Step.Execute());
             new XmlRenderer(e).Render(results);
             
             Assert.IsTrue(e.Descendants("Result").Count()==8);

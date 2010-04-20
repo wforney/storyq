@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace StoryQ
 {
-    internal static class StringExtensions
+    internal static class Utilities
     {
         public static string Camel(this string s)
         {

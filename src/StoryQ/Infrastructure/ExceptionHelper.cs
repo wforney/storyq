@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
-
-using StoryQ.Execution;
 using StoryQ.Properties;
-namespace StoryQ
+
+namespace StoryQ.Infrastructure
 {
     /// <summary>
     /// Exception-related operations for StoryQ.

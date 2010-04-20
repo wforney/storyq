@@ -68,6 +68,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\StoryQ\Utilities.cs">
+      <Link>Utilities.cs</Link>
+    </Compile>
     <Compile Include="Converters\EnumToDoubleConverter.cs" />
     <Compile Include="Converters\InvertConverter.cs" />
     <Compile Include="Converters\UnCamelConverter.cs" />

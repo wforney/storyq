@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+using StoryQ.Infrastructure;
+
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
     /// <summary>
@@ -18,7 +20,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             this.testFrameworkData = testFrameworkData;
         }
 
-        public void Generate(IEnumerable<FragmentBase> fragments, CodeWriter writer)
+        public void Generate(IEnumerable<IStepContainer> fragments, CodeWriter writer)
         {
             var imports = new[] { "System", "StoryQ" }.Concat(testFrameworkData.Imports);
             foreach (var import in imports)

@@ -15,7 +15,7 @@ using ClassInitialize = NUnit.Framework.TestFixtureSetUpAttribute;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 
-namespace StoryQ.Tests
+namespace StoryQ.Tests.Infrastructure
 {
     [TestClass]
     public class ExceptionHelperTest
@@ -25,7 +25,7 @@ namespace StoryQ.Tests
         {
             var exception = StoryQSettings.PendingExceptionBuilder("foo", null);
 #if NUNIT
-            //we use ignore not inconclusive for nunit (most runners turn this yellow, whereas inconclusive is red)
+    //we use ignore not inconclusive for nunit (most runners turn this yellow, whereas inconclusive is red)
             Assert.IsAssignableFrom<IgnoreException>(exception);
 #else
             Assert.IsTrue(exception is AssertInconclusiveException);

@@ -56,11 +56,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExceptionHelperTest.cs" />
+    <Compile Include="Infrastructure\ExceptionHelperTest.cs" />
     <Compile Include="Formatting\FormatterTest.cs" />
-    <Compile Include="NarrativeTest.cs" />
+    <Compile Include="Infrastructure\StepTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XmlRendererTest.cs" />
+    <Compile Include="Execution\Rendering\XmlRendererTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StoryQ\StoryQ.csproj">
