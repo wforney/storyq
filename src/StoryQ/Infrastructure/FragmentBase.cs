@@ -8,42 +8,56 @@ using StoryQ.Execution.Rendering.RichHtml;
 using StoryQ.Execution.Rendering.SimpleHtml;
 using StoryQ.Formatting;
 
-namespace StoryQ
+namespace StoryQ.Infrastructure
 {
     /// <summary>
     /// A StoryQ infrastructure class that is the base for all fluent interface classes 
     /// </summary>
-    public class FragmentBase
+    public class FragmentBase : IStepContainer
     {
+        private readonly Step step;
+        private readonly IStepContainer parent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FragmentBase"/> class.
         /// </summary>
-        /// <param name="step">The Step.</param>
-        internal FragmentBase(Step step)
+        public FragmentBase(Step step, IStepContainer parent)
         {
-            Step = step;
+            this.step = step;
+            this.parent = parent;
         }
 
         /// <summary>
         /// Gets or sets the Step.
         /// </summary>
         /// <value>The Step.</value>
-        internal Step Step { get; private set; }
+        Step IStepContainer.Step
+        {
+            get
+            {
+                return step;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the parent.
         /// </summary>
         /// <value>The parent.</value>
-        internal FragmentBase Parent { get; set; }
+        IStepContainer IStepContainer.Parent
+        {
+            get
+            {
+                return parent;
+            }
+        }
 
         /// <summary>
         /// Enumerates over this and each of its ancestors. Reverse the collection to go through the story in correct order
         /// </summary>
         /// <returns></returns>
-        internal IEnumerable<FragmentBase> SelfAndAncestors()
+        IEnumerable<IStepContainer> IStepContainer.SelfAndAncestors()
         {
-            for (FragmentBase f = this; f != null; f = f.Parent)
+            for (IStepContainer f = this; f != null; f = f.Parent)
             {
                 yield return f;
             }
@@ -54,19 +68,7 @@ namespace StoryQ
         /// </summary>
         public void Execute()
         {
-            Execute(new TextRenderer(Console.Out));
-        }
-
-        /// <summary>
-        /// Runs the current sequence of Steps, reporting to an xml(+xslt) file. This method requires a reference to
-        /// the "current" method in order to categorise results, you should pass in "MethodBase.GetCurrentMethod()".
-        /// Reports are written to the current directory, look for an xml file beginning with "StoryQ"
-        /// </summary>
-        /// <param name="currentMethod">The current method (use "MethodBase.GetCurrentMethod()")</param>
-        [Obsolete("This method will be removed in a future version of StoryQ. use ExecuteWithReport instead")]
-        public void ExecuteWithSimpleReport(MethodBase currentMethod)
-        {
-            Execute(new TextRenderer(Console.Out), SimpleHtmlFileManager.Instance.Categoriser.GetRenderer(currentMethod));
+            ((IStepContainer)this).Execute(new TextRenderer(Console.Out));
         }
 
         /// <summary>
@@ -83,20 +85,25 @@ namespace StoryQ
                 ? (XmlFileManagerBase)SimpleHtmlFileManager.Instance
                 : RichHtmlFileManager.Instance;
 
-            Execute(new TextRenderer(Console.Out), manager.Categoriser.GetRenderer(currentMethod));
+            ((IStepContainer)this).Execute(new TextRenderer(Console.Out), manager.Categoriser.GetRenderer(currentMethod));
         }
 
         /// <summary>
         /// Runs the current sequence of Steps against a renderer
         /// </summary>
         /// <param name="renderers"></param>
-        internal void Execute(params IRenderer[] renderers)
+        void IStepContainer.Execute(params IRenderer[] renderers)
         {
-            var v = SelfAndAncestors().Reverse().Select(x => x.Step.Execute()).ToList();
-            Array.ForEach(renderers, x => x.Render(v));
+            List<Result> results = ((IStepContainer)this)
+                                   .SelfAndAncestors()
+                                   .Reverse()
+                                   .Select(x => x.Step.Execute())
+                                   .ToList();
 
-            var exception = Exceptions(v, ResultType.Failed)
-                            .Concat(Exceptions(v, ResultType.Pending))
+            Array.ForEach(renderers, x => x.Render(results));
+
+            var exception = Exceptions(results, ResultType.Failed)
+                            .Concat(Exceptions(results, ResultType.Pending))
                             .FirstOrDefault();
 
             if (exception != null)

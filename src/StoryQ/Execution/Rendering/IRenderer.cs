@@ -5,7 +5,7 @@ namespace StoryQ.Execution.Rendering
     /// <summary>
     /// Something that can render results
     /// </summary>
-    internal interface IRenderer
+    public interface IRenderer
     {
         /// <summary>
         /// Renders the results.

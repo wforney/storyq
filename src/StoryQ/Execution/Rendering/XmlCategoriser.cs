@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace StoryQ.Execution.Rendering
 {
-    internal class XmlCategoriser
+    public class XmlCategoriser
     {
         private const string AttributeName = "Name";
 
@@ -29,7 +29,7 @@ namespace StoryQ.Execution.Rendering
             this.rootElement = rootElement;
         }
 
-        internal XElement GetOrCreateElementForMethodInfo(MethodBase categoriser)
+        public XElement GetOrCreateElementForMethodInfo(MethodBase categoriser)
         {
             XElement e = rootElement;
             foreach (var pair in chain)

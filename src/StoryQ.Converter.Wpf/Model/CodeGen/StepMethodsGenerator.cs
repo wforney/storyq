@@ -3,6 +3,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
+using StoryQ.Infrastructure;
+
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
     /// <summary>
@@ -11,8 +13,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
     class StepMethodsGenerator : ICodeGenerator
     {
         
-
-        public void Generate(IEnumerable<FragmentBase> fragments, CodeWriter writer)
+        public void Generate(IEnumerable<IStepContainer> fragments, CodeWriter writer)
         {
             var methods = fragments
                 .Select(x => x.Step)

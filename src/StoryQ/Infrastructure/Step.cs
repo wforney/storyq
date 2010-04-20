@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using StoryQ.Execution;
 
-namespace StoryQ
+namespace StoryQ.Infrastructure
 {
     /// <summary>
     ///  A StoryQ infrastructure class that represents single a line of a story. Some steps can be executed, while others are just descriptive
     /// </summary>
-    internal class Step
+    public class Step
     {
         private const string StepPendingMessage = "Pending";
 
@@ -19,7 +19,7 @@ namespace StoryQ
 
         private List<string> tags;
 
-        internal Step(string prefix, int indentLevel, string text, Action action)
+        public Step(string prefix, int indentLevel, string text, Action action)
         {
             Prefix = prefix;
             IndentLevel = indentLevel;

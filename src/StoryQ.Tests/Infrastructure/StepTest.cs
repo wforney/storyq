@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using StoryQ.Execution;
+using StoryQ.Infrastructure;
 
 #if NUNIT
 using NUnit.Framework;
@@ -16,8 +17,11 @@ using ClassCleanup = NUnit.Framework.TestFixtureTearDownAttribute;
 using ClassInitialize = NUnit.Framework.TestFixtureSetUpAttribute;
 #else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+
 #endif
-namespace StoryQ.Tests
+
+namespace StoryQ.Tests.Infrastructure
 {
     [TestClass]
     public class StepTest

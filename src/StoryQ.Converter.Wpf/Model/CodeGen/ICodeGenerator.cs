@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using StoryQ.Infrastructure;
+
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
     /// <summary>
@@ -8,6 +10,6 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
     /// </summary>
     interface ICodeGenerator
     {
-        void Generate(IEnumerable<FragmentBase> fragments, CodeWriter writer);
+        void Generate(IEnumerable<IStepContainer> fragments, CodeWriter writer);
     }
 }
