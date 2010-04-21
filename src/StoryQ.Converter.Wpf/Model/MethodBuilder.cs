@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
+using StoryQ.Infrastructure;
+
 namespace StoryQ.Converter.Wpf.Model
 {
     public static class MethodBuilder

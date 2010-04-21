@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Xml.Linq;
 
 namespace StoryQ.Execution.Rendering
 {
-    public class XmlRenderer : IRenderer
+    internal class XmlRenderer : IRenderer
     {
         private readonly XElement receptacle;
         private readonly Func<int> idSource;

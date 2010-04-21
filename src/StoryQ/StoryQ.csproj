@@ -55,11 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllowTextualSteps\Extensions.flit.g.cs">
-      <DependentUpon>Extensions.flit.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
+    <Compile Include="Formatting\Methods\OverrideMethodFormatAttribute.cs" />
     <Compile Include="Infrastructure\ExceptionHelper.cs" />
     <Compile Include="Execution\Rendering\RichHtml\RichHtmlFileManager.cs" />
     <Compile Include="Execution\Rendering\RichHtml\Dependencies.Designer.cs">
@@ -103,7 +99,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="StoryQSettings.cs" />
-    <Compile Include="Utilities.cs" />
+    <Compile Include="Infrastructure\StringBasedExecutableStepException.cs" />
+    <Compile Include="Infrastructure\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Execution\Rendering\RichHtml\Dependencies.resx">
@@ -131,10 +128,6 @@
     <Content Include="FluentInterface\StoryQ.txt.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AllowTextualSteps\Extensions.flit.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Extensions.flit.g.cs</LastGenOutput>
-    </None>
     <None Include="app.config" />
     <None Include="StoryQ.flit.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

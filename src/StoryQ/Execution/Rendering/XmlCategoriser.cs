@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Xml.Linq;
 
 namespace StoryQ.Execution.Rendering
 {
-    public class XmlCategoriser
+    internal class XmlCategoriser
     {
         private const string AttributeName = "Name";
 

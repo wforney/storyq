@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Windows.Input;
 
 using StoryQ.Converter.Wpf.Model;
+using StoryQ.Infrastructure;
 
 namespace StoryQ.Converter.Wpf.ViewModel
 {

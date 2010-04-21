@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+
+using StoryQ.Infrastructure;
 
 namespace StoryQ.Execution.Rendering
 {
