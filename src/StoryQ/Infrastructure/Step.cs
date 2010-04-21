@@ -19,6 +19,13 @@ namespace StoryQ.Infrastructure
 
         private List<string> tags;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Step"/> class.
+        /// </summary>
+        /// <param name="prefix">The prefix.</param>
+        /// <param name="indentLevel">The indent level.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="action">The action.</param>
         public Step(string prefix, int indentLevel, string text, Action action)
         {
             Prefix = prefix;

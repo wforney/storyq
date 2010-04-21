@@ -89,9 +89,9 @@ namespace StoryQ.Converter.Wpf.ViewModel
             try
             {
                 object parsed = ParseText(PlainText);
-                if (parsed is FragmentBase)
+                if (parsed is IStepContainer)
                 {
-                    ConvertedText = Code((FragmentBase)parsed);
+                    ConvertedText = Code((IStepContainer)parsed);
                 }
                 else
                 {

@@ -152,6 +152,49 @@ namespace <#=nameSpace#>
 <#
     }
 #>
+
+	namespace AllowTextualSteps
+	{
+		///<summary>
+        /// Extension methods to enable string-based executable steps. These will always Pend
+        ///</summary>
+		public static class Extensions
+		{
+<#
+    foreach(var state in graph.States)
+    {
+        string type = state.Label.Name;
+        foreach(var exit in state.OutgoingTransitions)
+        {
+            var target = exit.ToState;
+            string prefix = CamelCaseToSentence(exit.Label.Name);
+            if (IsExecutable(target))
+            {
+#>
+			/// <summary>
+			/// <#=prefix#> [<#=target.Label.Name#>].
+			/// <#=Tooltip(exit)#>
+			/// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+			/// </summary>
+			/// <param name="parent">this</param>
+			/// <param name="text">
+			/// A textual description of the step. 
+			/// </param>
+			/// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
+			[Description("<#=Tooltip(exit)#>")]        
+			public static <#=target.Label.Name#> <#=exit.Label.Name#>(this <#=exit.FromState.Label.Name#> parent, string text)
+			{				
+			    Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, () => { throw new StringBasedExecutableStepException(text); });
+				return new <#=target.Label.Name#>(s, parent);
+			}
+
+<#
+				}
+			}
+		}
+#>
+		}
+	}
 }
 
 

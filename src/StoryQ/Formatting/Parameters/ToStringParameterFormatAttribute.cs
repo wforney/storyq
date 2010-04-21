@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
-using System.Text;
+
+using StoryQ.Infrastructure;
 
 namespace StoryQ.Formatting.Parameters
 {

@@ -33,3 +33,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("2.0.3.*")]
 [assembly: AssemblyFileVersion("2.0.3.0")]
 [assembly: AssemblyCopyrightAttribute("2010 robfe & toddb")]
+
+[assembly:InternalsVisibleTo("StoryQ.Tests")]
