@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using StoryQ.Execution;
@@ -131,6 +132,31 @@ namespace StoryQ.Infrastructure
                 throw new ArgumentException("Could not generate a name from special method: " + method.Method, "method");
             }
             return Formatter.FormatMethod(method, arguments);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj)
+        {
+            throw new NotSupportedException();
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode()
+        {
+            throw new NotSupportedException();
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public new Type GetType()
+        {
+            throw new NotSupportedException();
+            
         }
     }
 }
