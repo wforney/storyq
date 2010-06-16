@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using StoryQ.Execution;
@@ -90,6 +91,19 @@ namespace StoryQ.Infrastructure
         }
 
         /// <summary>
+        /// This overload infers the current method with 'new StackFrame(1).GetMethod()'. If it doesn't work, call the overload that takes a method
+        /// Runs the current sequence of Steps, reporting to an xml(+xslt) file augmented with jQuery
+        /// widget for interactive viewing of the results.  This method requires a reference to
+        /// the "current" method in order to categorise results, you should pass in "MethodBase.GetCurrentMethod()".
+        /// Reports are written to the current directory, look for an xml file beginning with "StoryQ".
+        /// If you prefer to have a non interactive report (for example if you are using a legacy browser), set "StoryQSettings.ReportSupportsLegacyBrowsers = true"
+        /// </summary>
+        public void ExecuteWithReport()
+        {
+            ExecuteWithReport(new StackFrame(1).GetMethod());
+        }
+
+        /// <summary>
         /// Runs the current sequence of Steps against a renderer
         /// </summary>
         /// <param name="renderers"></param>
@@ -156,7 +170,7 @@ namespace StoryQ.Infrastructure
         public new Type GetType()
         {
             throw new NotSupportedException();
-            
+
         }
     }
 }
