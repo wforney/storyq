@@ -133,6 +133,13 @@ namespace StoryQ.Tests.Formatting
             Action<string, int> a = SilenceTheFirstArgument_;
             Assert.AreEqual("silence the first argument 1", Formatter.FormatMethod(a, "hellooo?", 1));
         }
+        
+        [TestMethod]
+        public void Apostrophes()
+        {
+            Action a = ThisWontFormat;
+            Assert.AreEqual("this won't format", Formatter.FormatMethod(a));
+        }
 
         [MyMethodFormat]
         private static void SomethingRandom()
@@ -150,23 +157,21 @@ namespace StoryQ.Tests.Formatting
             
         }
 
-
         private static void TheUser_BeNotified([BooleanParameterFormat("should", "should not")]bool b)
         {
 
         }
 
-
         private static void SimpleCamelCaseWithArgument(int x)
         {
             
         }
-		
-		private static void EnumerableArgument<T>(IEnumerable<T> enumerable)
+
+        private static void EnumerableArgument<T>(IEnumerable<T> enumerable)
         {
             
         }
-        
+
         private static void TwoDimensionalArray(int[][] array)
         {
             
@@ -183,6 +188,11 @@ namespace StoryQ.Tests.Formatting
         }
 
         private static void SilenceTheFirstArgument_([Silent] string s, int i)
+        {
+            
+        }
+
+        private static void ThisWontFormat()
         {
             
         }
