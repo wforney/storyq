@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 using StoryQ.Infrastructure;
@@ -14,6 +15,16 @@ namespace StoryQ.Formatting.Methods
     [AttributeUsage(AttributeTargets.Method)]
     public abstract class MethodFormatAttribute : Attribute
     {
+        static Dictionary<string, string> commonStringReplacements = new Dictionary<string, string>()
+            {
+                {" i ", " I "},
+                {" cant ", " can't "},
+                {" wont ", " won't "},
+                {" shouldnt ", " shouldn't "},
+                {" mustnt ", " mustn't "},
+            };
+
+
         /// <summary>
         /// Override this method to provide a human friendly description of a method.
         /// </summary>
@@ -29,7 +40,11 @@ namespace StoryQ.Formatting.Methods
         /// <returns></returns>
         protected static string UnCamel(string camelText)
         {
-            return camelText.UnCamel().Replace(" i ", " I ").Trim();
+            return commonStringReplacements
+                .Aggregate(
+                    " " + camelText.UnCamel() + " ", 
+                    (current, p) => current.Replace(p.Key, p.Value))
+                .Trim();
         }
     }
 }
