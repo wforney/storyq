@@ -148,29 +148,45 @@ namespace StoryQ.Infrastructure
             return Formatter.FormatMethod(method, arguments);
         }
 
+        #region Hiding Object's methods
+
+        /// <summary>
+        /// This method has been overridden to hide it from the Fluent Interface. Don't call it!
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString()
         {
             return base.ToString();
         }
 
+        /// <summary>
+        /// This method has been overridden to hide it from the Fluent Interface. Don't call it!
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
         {
             throw new NotSupportedException();
         }
 
+        /// <summary>
+        /// This method has been overridden to hide it from the Fluent Interface. Don't call it!
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode()
         {
             throw new NotSupportedException();
         }
 
+        /// <summary>
+        /// This method has been hidden to hide it from the Fluent Interface. Don't call it!
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public new Type GetType()
         {
             throw new NotSupportedException();
-
         }
+
+        #endregion
+
     }
 }

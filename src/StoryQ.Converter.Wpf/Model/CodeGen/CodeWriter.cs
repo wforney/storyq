@@ -53,7 +53,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
 
         class ActionDisposable:IDisposable
         {
-            private Action action;
+            private readonly Action action;
 
             public ActionDisposable(Action action)
             {

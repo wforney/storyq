@@ -141,6 +141,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="StoryQ.public.snk" />
     <None Include="StoryQ.snk" />
   </ItemGroup>
   <ItemGroup>

@@ -73,17 +73,17 @@ namespace StoryQ.Infrastructure
         /// <returns>the resulting result</returns>
         public Result Execute()
         {
-            IEnumerable<string> tags = this.tags ?? Enumerable.Empty<string>();
+            IEnumerable<string> t = tags ?? Enumerable.Empty<string>();
 
             if (!IsExecutable)
             {
-                return Result.ForResultType(Prefix, IndentLevel, Text, tags, ResultType.NotExecutable);
+                return Result.ForResultType(Prefix, IndentLevel, Text, t, ResultType.NotExecutable);
             }
 
             try
             {
                 Action();
-                return Result.ForResultType(Prefix, IndentLevel, Text, tags, ResultType.Passed);
+                return Result.ForResultType(Prefix, IndentLevel, Text, t, ResultType.Passed);
             }
             catch (NotImplementedException ex)
             {
@@ -93,11 +93,11 @@ namespace StoryQ.Infrastructure
                                      : "Pending due to " + Environment.NewLine + ex;
 
                 var pex = StoryQSettings.PendingExceptionBuilder(message, ex);
-                return Result.ForException(Prefix, IndentLevel, Text, tags, pex, true);
+                return Result.ForException(Prefix, IndentLevel, Text, t, pex, true);
             }
             catch (Exception ex)
             {
-                return Result.ForException(Prefix, IndentLevel, Text, tags, ex, false);
+                return Result.ForException(Prefix, IndentLevel, Text, t, ex, false);
             }
         }
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 using StoryQ.Converter.Wpf.Model.CodeGen;
 
@@ -13,7 +10,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
         private TestFramework targetTestFramework = TestFramework.NUnit;
         private bool specialIndentation = true;
 
-        private Dictionary<TestFramework, TestFrameworkData> testFrameworks = new Dictionary<TestFramework, TestFrameworkData>()
+        private readonly Dictionary<TestFramework, TestFrameworkData> testFrameworks = new Dictionary<TestFramework, TestFrameworkData>
             {
                 {TestFramework.MSTest, new TestFrameworkData
                     {
