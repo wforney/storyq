@@ -23,17 +23,13 @@ namespace StoryQ.Infrastructure
                 if (split.Length == 2)
                 {
                     Type type = Type.GetType(s);
-                    if (type != null)
-                    {
-                        var c = type.GetConstructor(new[] { typeof(string), typeof(Exception) });
-                        if (c != null)
-                        {
-                            var pm = Expression.Parameter(typeof(string), "message");
-                            var pe = Expression.Parameter(typeof(Exception), "exception");
-                            var e = Expression.New(c, pm, pe);
-                            return Expression.Lambda<Func<string, Exception, Exception>>(e, pm, pe).Compile();
-                        }
-                    }
+                    if (type == null) continue;
+                    var c = type.GetConstructor(new[] { typeof(string), typeof(Exception) });
+                    if (c == null) continue;
+                    var pm = Expression.Parameter(typeof(string), "message");
+                    var pe = Expression.Parameter(typeof(Exception), "exception");
+                    var e = Expression.New(c, pm, pe);
+                    return Expression.Lambda<Func<string, Exception, Exception>>(e, pm, pe).Compile();
                 }
             }
             return (x, y) => new NotSupportedException("You need to set StoryQ.ExceptionHelper.PendingExceptionBuilder manually in your test setup. See the property's documentation for more info");

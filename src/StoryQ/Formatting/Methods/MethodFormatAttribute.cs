@@ -15,7 +15,7 @@ namespace StoryQ.Formatting.Methods
     [AttributeUsage(AttributeTargets.Method)]
     public abstract class MethodFormatAttribute : Attribute
     {
-        static Dictionary<string, string> commonStringReplacements = new Dictionary<string, string>()
+        static readonly Dictionary<string, string> commonStringReplacements = new Dictionary<string, string>
             {
                 {" i ", " I "},
                 {" cant ", " can't "},
