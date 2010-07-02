@@ -87,7 +87,7 @@ namespace StoryQ.Converter.Wpf.Specifications
                 .And(ISetTheTestFrameworkTo, TestFramework.NUnit)
                 .Then(IShouldHaveMyNUnitClassGenerated)
 
-                .WithScenario("generating classes for NUnit")
+                .WithScenario("generating classes for MSTest")
                 .Given(ThatIHaveStoryAndScenarioText)
                 .When(ISetTheOutputTypeTo_, GenerationLevel.Class)
                 .And(ISetTheTestFrameworkTo, TestFramework.MSTest)

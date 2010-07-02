@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MethodPerScenarioDemoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DemoTest.cs" />
   </ItemGroup>
