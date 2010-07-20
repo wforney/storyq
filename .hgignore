@@ -6,3 +6,4 @@ glob:src/TestResults/*
 glob:*.user
 glob:Settings.StyleCop
 glob:*.orig
+glob:*\publish*
