@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 using NUnit.Framework;
-using StoryQ.AllowTextualSteps;
+using StoryQ.TextualSteps;
 using StoryQ.Formatting.Parameters;
 
 namespace StoryQ.Demo

@@ -13,13 +13,12 @@
 
 //This model-driven development is thanks to http://flit.codeplex.com!
 
-    var inputFile = "FluentInterface\\StoryQ.txt";
-    var nameSpace = "StoryQ";
+    var inputFile = GetParameter("inputFile", "FluentInterface\\StoryQ.txt");
+    var nameSpace = GetParameter("nameSpace", "StoryQ");
 
-    var templateDir = new System.IO.FileInfo(Host.TemplateFile).Directory;
     
     var compiler = new Irony.Parsing.Parser(new FlitGrammar());
-    ParseTree tree = compiler.Parse(System.IO.File.ReadAllText(templateDir.FullName+"\\"+inputFile));
+    ParseTree tree = compiler.Parse(System.IO.File.ReadAllText(Host.ResolvePath(inputFile)));
     ParseTreeNode node = tree.Root;
     Graph graph = node.AstNode as Graph;
 #>
@@ -153,7 +152,7 @@ namespace <#=nameSpace#>
     }
 #>
 
-	namespace AllowTextualSteps
+	namespace TextualSteps
 	{
 		///<summary>
         /// Extension methods to enable string-based executable steps. These will always Pend
@@ -240,6 +239,12 @@ namespace <#=nameSpace#>
     {
         return string.Join(seperator, strings.ToArray());
     }
+	
+	public string GetParameter(string name, string fallback)
+	{
+		var s = Host.ResolveParameterValue(" ", " ", name);    
+		return string.IsNullOrEmpty(s) ? fallback : s;
+	}
 
     public static readonly string[] numberths = {"zeroeth", "first", "second", "third", "fourth"};
 
