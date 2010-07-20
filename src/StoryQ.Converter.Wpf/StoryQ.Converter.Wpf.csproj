@@ -437,24 +437,7 @@
     <Resource Include="Images\Flags\zw.gif" />
   </ItemGroup>
   <ItemGroup>
-    <PublishFile Include="LanguagePacks\StoryQ.pt_BR.dll">
-      <Visible>False</Visible>
-      <Group>pt_BR</Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="LanguagePacks\StoryQ.sr_SP.dll">
-      <Visible>False</Visible>
-      <Group>sr_SP</Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
+    
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
