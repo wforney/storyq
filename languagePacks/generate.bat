@@ -1,3 +1,5 @@
+::TODO make this file portable (x86, c: etc)
+
 @if not exist obj mkdir obj
 @if not exist bin mkdir bin
 
