@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace StoryQ.Infrastructure
 {
-    internal class StringBasedExecutableStepException : NotImplementedException
+    public class StringBasedExecutableStepException : NotImplementedException
     {
         private readonly string stepText;
 

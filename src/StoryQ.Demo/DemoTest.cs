@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using StoryQ.Formatting.Parameters;
-using StoryQ.AllowTextualSteps;
+using StoryQ.TextualSteps;
 
 #if NUNIT
 using TestClass = NUnit.Framework.TestFixtureAttribute;

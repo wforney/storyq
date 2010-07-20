@@ -1067,7 +1067,7 @@ namespace StoryQ
 
     }
 
-	namespace AllowTextualSteps
+	namespace TextualSteps
 	{
 		///<summary>
         /// Extension methods to enable string-based executable steps. These will always Pend
