@@ -14,7 +14,7 @@
 //This model-driven development is thanks to http://flit.codeplex.com!
 
     var inputFile = GetParameter("inputFile", "FluentInterface\\StoryQ.txt");
-    var nameSpace = GetParameter("nameSpace", "StoryQ");
+    var nameSpace = GetParameter("nameSpace", "StoryQ").Replace('-', '_');
 
     
     var compiler = new Irony.Parsing.Parser(new FlitGrammar());
