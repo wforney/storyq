@@ -13,7 +13,7 @@ namespace StoryQ.Converter.Wpf.Model
             {
                 {"(true)|(false)", "bool"},
                 {@"(0x?)?\d+", "int"},
-                {@"[0-9.]+", "float"},
+                {@"[0-9.]+", "double"},
             };
 
         public static Method ParseMethodDeclaration(string text)
