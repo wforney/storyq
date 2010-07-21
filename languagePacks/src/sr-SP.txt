@@ -1,7 +1,7 @@
 digraph StoryQ{
 
    //states
-   Prica                     [shape=doublecircle,                tooltip="Ovo je root za bilo koju pricu"]
+   Prica                     [shape=doublecircle, copula=je,      tooltip="Ovo je root za bilo koju pricu"]
    Korist                    [                                    tooltip="Cilj iz realnog sveta (poslovna vrednost) price"]
    Uloga                     [                                    tooltip="Uloga (kategorija ucesnik/korisnik ili uloga koja ima korist. "]
    Opcija                    [                                    tooltip="Softverski proces koji ce implementirati navedenu korist."]
@@ -23,7 +23,7 @@ digraph StoryQ{
    
    Opcija -> Scenario        [label="SaScenariom",                tooltip="Dodaj scenario ('given'/'when'/'then') prici. Scenariji se mogu dodavati (i bice izvrseni) sekvencijalno. Svaki scenario treba da ima kratak naziv.",indentlevel="3"]
 
-   Scenario -> Uslov         [label="Dat",                        tooltip="Obezbedjuje pocetni kontekst scenariju. Pokusajte da ne opisujete ponasanje ili akcije, ovaj korak opisuje i postavlja pocetno stanje",indentlevel="4"]
+   Scenario -> Uslov         [label="Dato",                        tooltip="Obezbedjuje pocetni kontekst scenariju. Pokusajte da ne opisujete ponasanje ili akcije, ovaj korak opisuje i postavlja pocetno stanje",indentlevel="4"]
    Uslov -> Uslov            [label="I",                        tooltip="Dodaje jos jedan preduslov za opis pocetnog stanja naseg scenarija",indentlevel="5"]
    
    Uslov -> Operacija        [label="Kada",                        tooltip="Opisuje akcije koje su izvrsene nad sistemom za testiranje.'",indentlevel="4"]

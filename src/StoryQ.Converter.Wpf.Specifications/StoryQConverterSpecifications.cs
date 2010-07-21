@@ -1,4 +1,5 @@
-﻿using StoryQ.Converter.Wpf.ViewModel;
+﻿using System;
+using StoryQ.Converter.Wpf.ViewModel;
 using vm = StoryQ.Converter.Wpf.ViewModel;
 
 #if NUNIT
@@ -94,6 +95,54 @@ namespace StoryQ.Converter.Wpf.Specifications
                 .Then(IShouldHaveMyMSTestClassGenerated)
               
              .Execute();
+        }
+
+        [TestMethod]
+        public void DeployingLanguagePacksViaClickOnce()
+        {
+            new Story("creating classes for different test frameworks").Tag("WorkItemId=16100")
+                .InOrderTo("create StoryQ specifications in my native language")
+                .AsA("stakeholder")
+                .IWant("to be able to pick up language packs via clickonce via the StoryQ Converter UI")
+
+                .WithScenario("listing available language packs")
+                .Given(ThatIHaveLaunchedStoryq)
+                .When(ThereAreLanguagePacksAvailable)
+                .Then(IShouldSeeTheLanguagePacksInAList)
+
+                .WithScenario("downloading language packs")
+                .Given(ThereAreLanguagePacksInAList)
+                .When(ISelectANewLanguagePack)
+                .Then(TheConverterShouldWorkWithTheNewLanguagePack)
+              
+             .Execute();
+        }
+
+        void TheConverterShouldWorkWithTheNewLanguagePack()
+        {
+            throw new NotImplementedException();
+        }
+
+        void ISelectANewLanguagePack()
+        {
+            throw new NotImplementedException();
+        }
+
+        void ThereAreLanguagePacksInAList()
+        {
+            ThatIHaveLaunchedStoryq();
+            ThereAreLanguagePacksAvailable();
+            IShouldSeeTheLanguagePacksInAList();
+        }
+
+        void IShouldSeeTheLanguagePacksInAList()
+        {
+            throw new NotImplementedException();
+        }
+
+        void ThereAreLanguagePacksAvailable()
+        {
+            throw new NotImplementedException();
         }
 
         private void IShouldHaveMyMSTestClassGenerated()
