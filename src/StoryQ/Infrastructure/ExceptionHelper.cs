@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using StoryQ.Properties;
+using System.Linq;
 
 namespace StoryQ.Infrastructure
 {
@@ -17,20 +17,27 @@ namespace StoryQ.Infrastructure
         /// <returns></returns>
         internal static Func<string, Exception, Exception> CreateExceptionBuilder()
         {
-            foreach (string s in Settings.Default.IgnoreExceptionType)
+            //todo: add xunit and mbunit
+
+            var config = new[]
+                             {
+                                 new {Class="Microsoft.VisualStudio.TestTools.UnitTesting.AssertInconclusiveException", Assembly="Microsoft.VisualStudio.QualityTools.UnitTestFramework"},
+                                 new {Class="NUnit.Framework.IgnoreException", Assembly="nunit.framework"},
+                             };
+
+            foreach (var v in config)
             {
-                string[] split = s.Split(',');
-                if (split.Length == 2)
-                {
-                    Type type = Type.GetType(s);
-                    if (type == null) continue;
-                    var c = type.GetConstructor(new[] { typeof(string), typeof(Exception) });
-                    if (c == null) continue;
-                    var pm = Expression.Parameter(typeof(string), "message");
-                    var pe = Expression.Parameter(typeof(Exception), "exception");
-                    var e = Expression.New(c, pm, pe);
-                    return Expression.Lambda<Func<string, Exception, Exception>>(e, pm, pe).Compile();
-                }
+                var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x=>x.GetName().Name==v.Assembly);
+                if(assembly == null) continue;
+
+                Type type = assembly.GetType(v.Class);
+                if (type == null) continue;
+                var c = type.GetConstructor(new[] { typeof(string), typeof(Exception) });
+                if (c == null) continue;
+                var pm = Expression.Parameter(typeof(string), "message");
+                var pe = Expression.Parameter(typeof(Exception), "exception");
+                var e = Expression.New(c, pm, pe);
+                return Expression.Lambda<Func<string, Exception, Exception>>(e, pm, pe).Compile();
             }
             return (x, y) => new NotSupportedException("You need to set StoryQ.ExceptionHelper.PendingExceptionBuilder manually in your test setup. See the property's documentation for more info");
         }
