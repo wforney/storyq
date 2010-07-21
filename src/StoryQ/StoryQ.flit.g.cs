@@ -12,12 +12,13 @@ namespace StoryQ
     /// <li>In order to [<see cref="Benefit"/>]: <see cref="InOrderTo(string)"/></li>
     /// </ul>
     /// </summary>
-    public partial class Story : FragmentBase
+    public class Story : FragmentBase
     {
         /// <summary>
         /// Starts a new StoryQ Story. 
         /// </summary>
         /// <param name="text">The name of the new Story</param>
+        [StoryStarter("Story is")]
         public Story(string text):base(new Step("Story is", 0, text, Step.DoNothing), null){}
 
 		
@@ -57,7 +58,7 @@ namespace StoryQ
     /// <li>As a [<see cref="Role"/>]: <see cref="AsA(string)"/></li>
     /// </ul>
     /// </summary>
-    public partial class Benefit : FragmentBase
+    public class Benefit : FragmentBase
     {
         internal Benefit(Step step, IStepContainer parent):base(step, parent){}
 
@@ -115,7 +116,7 @@ namespace StoryQ
     /// <li>I want [<see cref="Feature"/>]: <see cref="IWant(string)"/></li>
     /// </ul>
     /// </summary>
-    public partial class Role : FragmentBase
+    public class Role : FragmentBase
     {
         internal Role(Step step, IStepContainer parent):base(step, parent){}
 
@@ -173,7 +174,7 @@ namespace StoryQ
     /// <li>With scenario [<see cref="Scenario"/>]: <see cref="WithScenario(string)"/></li>
     /// </ul>
     /// </summary>
-    public partial class Feature : FragmentBase
+    public class Feature : FragmentBase
     {
         internal Feature(Step step, IStepContainer parent):base(step, parent){}
 
@@ -230,7 +231,7 @@ namespace StoryQ
     /// <li>Given [<see cref="Condition"/>]: <see cref="Given(Action)"/></li>
     /// </ul>
     /// </summary>
-    public partial class Scenario : FragmentBase
+    public class Scenario : FragmentBase
     {
         internal Scenario(Step step, IStepContainer parent):base(step, parent){}
 
@@ -376,7 +377,7 @@ namespace StoryQ
     /// <li>When [<see cref="Operation"/>]: <see cref="When(Action)"/></li>
     /// </ul>
     /// </summary>
-    public partial class Condition : FragmentBase
+    public class Condition : FragmentBase
     {
         internal Condition(Step step, IStepContainer parent):base(step, parent){}
 
@@ -644,7 +645,7 @@ namespace StoryQ
     /// <li>Then [<see cref="Outcome"/>]: <see cref="Then(Action)"/></li>
     /// </ul>
     /// </summary>
-    public partial class Operation : FragmentBase
+    public class Operation : FragmentBase
     {
         internal Operation(Step step, IStepContainer parent):base(step, parent){}
 
@@ -912,7 +913,7 @@ namespace StoryQ
     /// <li>With scenario [<see cref="Scenario"/>]: <see cref="WithScenario(string)"/></li>
     /// </ul>
     /// </summary>
-    public partial class Outcome : FragmentBase
+    public class Outcome : FragmentBase
     {
         internal Outcome(Step step, IStepContainer parent):base(step, parent){}
 

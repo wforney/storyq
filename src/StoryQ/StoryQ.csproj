@@ -80,6 +80,7 @@
     <Compile Include="Execution\ResultType.cs" />
     <Compile Include="Formatting\Parameters\ToStringParameterFormatAttribute.cs" />
     <Compile Include="Infrastructure\IStepContainer.cs" />
+    <Compile Include="Infrastructure\StoryStarterAttribute.cs" />
     <Compile Include="StoryQ.flit.g.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,11 +96,6 @@
     <Compile Include="Infrastructure\FragmentBase.cs" />
     <Compile Include="Infrastructure\Step.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="StoryQSettings.cs" />
     <Compile Include="Infrastructure\StringBasedExecutableStepException.cs" />
     <Compile Include="Infrastructure\Utilities.cs" />
@@ -130,17 +126,12 @@
     <Content Include="FluentInterface\StoryQ.txt.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="StoryQ.flit.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>StoryQ.flit.g.cs</LastGenOutput>
     </None>
     <None Include="FluentInterface\rundot.bat" />
     <None Include="FluentInterface\StoryQ.txt.svg" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="StoryQ.public.snk" />
     <None Include="StoryQ.snk" />
   </ItemGroup>

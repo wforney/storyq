@@ -50,17 +50,19 @@ namespace <#=nameSpace#>
 #>
     /// </ul>
     /// </summary>
-    public partial class <#=state.Label.Name#> : FragmentBase
+    public class <#=state.Label.Name#> : FragmentBase
     {
 <#
         if (IsEntryPoint(state))
         {
+			var text = state.Label.Name+" "+GetCopula(state);
 #>
         /// <summary>
         /// Starts a new StoryQ <#=state.Label.Name#>. 
         /// </summary>
         /// <param name="text">The name of the new <#=state.Label.Name#></param>
-        public <#=state.Label.Name#>(string text):base(new Step("<#=state.Label.Name#> is", 0, text, Step.DoNothing), null){}
+        [StoryStarter("<#=text#>")]
+        public <#=state.Label.Name#>(string text):base(new Step("<#=text#>", 0, text, Step.DoNothing), null){}
 <#
         }
         else
@@ -205,7 +207,12 @@ namespace <#=nameSpace#>
 
     public bool IsEntryPoint(State state)
     {
-        return state.GenericAttributes.ContainsKey("shape") &&  state.GenericAttributes["shape"]=="doublecircle";
+        return state.GenericAttributes.ContainsKey("copula");
+    }
+	
+    public string GetCopula(State state)
+    {
+        return state.GenericAttributes.ContainsKey("copula")?state.GenericAttributes["copula"]:"";
     }
 
     public string Tooltip(Transition t)
