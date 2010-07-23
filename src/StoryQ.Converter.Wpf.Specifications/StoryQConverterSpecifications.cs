@@ -1,4 +1,6 @@
 ﻿using System;
+using Moq;
+using StoryQ.Converter.Wpf.Services;
 using StoryQ.Converter.Wpf.ViewModel;
 using vm = StoryQ.Converter.Wpf.ViewModel;
 
@@ -18,9 +20,7 @@ namespace StoryQ.Converter.Wpf.Specifications
     [TestClass]
     public class StoryQConverterSpecifications
     {
-        private ViewModel.Converter converter;
-
-        [TestMethod]
+       [TestMethod]
         public void ConvertingTextIntoStoryCode()
         {
             new Story("converting text into code")
@@ -98,6 +98,21 @@ namespace StoryQ.Converter.Wpf.Specifications
         }
 
         [TestMethod]
+        public void SavingTheStoryQDllFromTheConverter()
+        {
+            new Story("creating classes for different test frameworks")
+                .InOrderTo("be able to write storyq test specifications")
+                .AsA("clickonce user")
+                .IWant("to be able to save the storyq dll directly from the converter ui")
+
+                .WithScenario("Saving Language packs")
+                .Given(ThatIHaveLaunchedStoryq)
+                .When(IClickTheSaveLibrariesButton)
+                .Then(TheStoryQDllShouldBeSavedIntoTheDirectoryIChoose)
+             .Execute();
+        }
+        
+        [TestMethod]
         public void DeployingLanguagePacksViaClickOnce()
         {
             new Story("creating classes for different test frameworks").Tag("WorkItemId=16100")
@@ -114,8 +129,39 @@ namespace StoryQ.Converter.Wpf.Specifications
                 .Given(ThereAreLanguagePacksInAList)
                 .When(ISelectANewLanguagePack)
                 .Then(TheConverterShouldWorkWithTheNewLanguagePack)
-              
+
+                .WithScenario("Saving Language packs")
+                .Given(IHaveDownloadedSomeLanguagePacks)
+                .When(IClickTheSaveLibrariesButton)
+                .Then(TheStoryQDllShouldBeSavedIntoTheDirectoryIChoose)
+                .And(AllTheLanguagePacksShouldBeSavedIntoTheDirectoryIChoose)
              .Execute();
+        }
+
+        private ViewModel.Converter converter;
+        Mock<IFileSavingService> fileSavingService;
+
+
+        void AllTheLanguagePacksShouldBeSavedIntoTheDirectoryIChoose()
+        {
+            throw new NotImplementedException();
+        }
+
+        void TheStoryQDllShouldBeSavedIntoTheDirectoryIChoose()
+        {
+            fileSavingService.Verify(x=>x.CopyLibFiles("directory"));
+        }
+
+        void IClickTheSaveLibrariesButton()
+        {
+            fileSavingService.Setup(x => x.PromptForDirectory(It.IsAny<string>())).Returns("directory");
+
+            this.converter.SaveLibrariesCommand.Execute(null);
+        }
+
+        void IHaveDownloadedSomeLanguagePacks()
+        {
+            throw new NotImplementedException();
         }
 
         void TheConverterShouldWorkWithTheNewLanguagePack()
@@ -303,9 +349,11 @@ public class StoryQTestClass
             ITypeInSomeScenarioText();
         }
 
+
         private void ThatIHaveLaunchedStoryq()
         {
-            converter = new vm.Converter();
+            fileSavingService = new Mock<IFileSavingService>();
+            converter = new vm.Converter(fileSavingService.Object);
         }
 
         private void ITypeInSomeStoryText()
