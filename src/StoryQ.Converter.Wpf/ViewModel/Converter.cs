@@ -4,15 +4,17 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-
+using System.Windows.Input;
 using StoryQ.Converter.Wpf.Model;
 using StoryQ.Converter.Wpf.Model.CodeGen;
+using StoryQ.Converter.Wpf.Services;
 using StoryQ.Infrastructure;
 
 namespace StoryQ.Converter.Wpf.ViewModel
 {
     public class Converter : ViewModelBase
     {
+        readonly IFileSavingService fileSavingService;
         public event EventHandler TransitionApplied;
 
         private string plainText = "";
@@ -20,11 +22,24 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         private ConversionSettings settings;
 
-        public Converter()
+        public Converter():this(ServiceLocator.Resolve<IFileSavingService>()){}
+
+        public Converter(IFileSavingService fileSavingService)
         {
+            this.fileSavingService = fileSavingService;
             Transitions = new ObservableCollection<Transition>();
             Settings = new ConversionSettings();
+            SaveLibrariesCommand = new DelegateCommand(SaveLibraries);
             Convert();
+        }
+
+        void SaveLibraries()
+        {
+            string directory = fileSavingService.PromptForDirectory("Where you would like to save the StoryQ files?");
+            if (directory != null)
+            {
+                fileSavingService.CopyLibFiles(directory);
+            }
         }
 
         public string PlainText
@@ -78,6 +93,8 @@ namespace StoryQ.Converter.Wpf.ViewModel
                 FirePropertyChanged("Settings");
             }
         }
+
+        public ICommand SaveLibrariesCommand { get; private set; }
 
         private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
