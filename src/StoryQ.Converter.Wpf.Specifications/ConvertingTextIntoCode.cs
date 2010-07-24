@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Moq;
+﻿using Moq;
 using StoryQ.Converter.Wpf.Services;
 using StoryQ.Converter.Wpf.ViewModel;
 using vm = StoryQ.Converter.Wpf.ViewModel;
@@ -20,60 +17,79 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace StoryQ.Converter.Wpf.Specifications
 {
     [TestClass]
-    public class StoryQConverterSpecifications
+    public class ConvertingTextIntoCode : SpecificationBase
     {
-       [TestMethod]
-        public void ConvertingTextIntoStoryCode()
+        protected override Feature DescribeStory(Story story)
         {
-            new Story("converting text into code")
-              .InOrderTo("create StoryQ specifications from plain text")
-              .AsA("developer")
-              .IWant("to convert plain text stories into C# StoryQ code")
-
-                  .WithScenario("converting lines into string calls and code")
-                    .Given(ThatIHaveLaunchedStoryq)
-                    .When(ITypeInSomeStoryText)
-                      .And(ITypeInSomeScenarioText)
-                    .Then(IShouldSeeThatTextConvertedIntoMixedStoryqCalls)
-
-                  .WithScenario("converting lines with variables into code")
-                    .Given(ThatIHaveLaunchedStoryq)
-                    .When(ITypeInSomeStoryText)
-                      .And(ITypeInSomeScenarioTextWithADollarSymbolBeforeANumberOrWord)
-                    .Then(IShouldSeeTheNumbersAndWordsPassedAsParametersToTheStoryqMethod)
-                    
-                    .WithScenario("converting lines with complex variables into code")
-                    .Given(ThatIHaveLaunchedStoryq)
-                    .When(ITypeInSomeStoryText)
-                      .And(ITypeInSomeScenarioTextWithDatesAndStringsInCurlyBraces)
-                    .Then(IShouldSeeTheDatesAndWordsPassedAsParametersToTheStoryqMethod)
-             .Execute();
+            return story
+                .InOrderTo("create executable tests from plain text")
+                .AsA("developer")
+                .IWant("to use the converter to change text stories into C# StoryQ code");
         }
 
 
         [TestMethod]
-        public void ConvertingTextIntoTestClasses()
+        public void ConvertingLinesIntoStringCallsAndCode()
         {
-            new Story("converting text into entire class files").Tag("WorkItemId=16092")
-                .InOrderTo("create StoryQ specifications from plain text")
-                .AsA("developer")
-                .IWant("to convert plain text stories into entire C# files")
+            Scenario
+                    .Given(ThatIHaveLaunchedStoryq)
+                    .When(ITypeInSomeStoryText)
+                    .And(ITypeInSomeScenarioText)
+                    .Then(IShouldSeeThatTextConvertedIntoMixedStoryqCalls)
+                    .ExecuteWithReport();
+        }
 
-                .WithScenario("generating test methods")
+        [TestMethod]
+        public void ConvertingLinesAndVariablesIntoCode()
+        {
+            Scenario
+                    .Given(ThatIHaveLaunchedStoryq)
+                    .When(ITypeInSomeStoryText)
+                    .And(ITypeInSomeScenarioTextWithADollarSymbolBeforeANumberOrWord)
+                    .Then(IShouldSeeTheNumbersAndWordsPassedAsParametersToTheStoryqMethod)
+                    .ExecuteWithReport();
+        }
+
+        [TestMethod]
+        public void ConvertingLinesWithComplexVariablesIntoCode()
+        {
+            Scenario
+                    .Given(ThatIHaveLaunchedStoryq)
+                    .When(ITypeInSomeStoryText)
+                    .And(ITypeInSomeScenarioTextWithDatesAndStringsInCurlyBraces)
+                    .Then(IShouldSeeTheDatesAndWordsPassedAsParametersToTheStoryqMethod)
+                    .ExecuteWithReport();
+        }
+
+
+        [TestMethod]
+        public void GeneratingTestMethods()
+        {
+            Scenario
                 .Given(ThatIHaveStoryAndScenarioText)
                 .When(ISetTheOutputTypeTo_, GenerationLevel.TestMethod)
                 .Then(IShouldHaveMyMethodGenerated)
-                
-                .WithScenario("generating test methods and step stubs")
+                .ExecuteWithReport();
+        }
+
+        [TestMethod]
+        public void GeneratingTestMethodsAndStepStubs()
+        {
+            Scenario
                 .Given(ThatIHaveStoryAndScenarioText)
                 .When(ISetTheOutputTypeTo_, GenerationLevel.TestMethodAndStepStubs)
                 .Then(IShouldHaveMyMethodAndStepsGenerated)
+                .ExecuteWithReport();
+        }
 
-                .WithScenario("generating entire classes")
+        [TestMethod]
+        public void GeneratingEntireClasses()
+        {
+            Scenario
                 .Given(ThatIHaveStoryAndScenarioText)
                 .When(ISetTheOutputTypeTo_, GenerationLevel.Class)
                 .Then(IShouldHaveMyClassGenerated)
-             .Execute();
+                .ExecuteWithReport();
         }
 
         [TestMethod]
@@ -95,128 +111,13 @@ namespace StoryQ.Converter.Wpf.Specifications
                 .When(ISetTheOutputTypeTo_, GenerationLevel.Class)
                 .And(ISetTheTestFrameworkTo, TestFramework.MSTest)
                 .Then(IShouldHaveMyMSTestClassGenerated)
-              
-             .Execute();
-        }
 
-        [TestMethod]
-        public void SavingTheStoryQDllFromTheConverter()
-        {
-            new Story("creating classes for different test frameworks")
-                .InOrderTo("be able to write storyq test specifications")
-                .AsA("clickonce user")
-                .IWant("to be able to save the storyq dll directly from the converter ui")
-
-                .WithScenario("Saving Language packs")
-                .Given(ThatIHaveLaunchedStoryq)
-                .When(IClickTheSaveLibrariesButton)
-                .Then(TheStoryQDllShouldBeSavedIntoTheDirectoryIChoose)
-             .Execute();
-        }
-        
-        [TestMethod]
-        public void DeployingLanguagePacksViaClickOnce()
-        {
-            new Story("creating classes for different test frameworks").Tag("WorkItemId=16100")
-                .InOrderTo("create StoryQ specifications in my native language")
-                .AsA("stakeholder")
-                .IWant("to be able to pick up language packs via clickonce via the StoryQ Converter UI")
-
-                .WithScenario("listing available language packs")
-                .Given(ThatIHaveLaunchedStoryq)
-                .When(ThereAreLanguagePacksAvailable)
-                .Then(IShouldSeeTheLanguagePacksInAList)
-
-                .WithScenario("downloading language packs")
-                .Given(ThereAreLanguagePacksInAList)
-                .When(ISelectANewLanguagePack)
-                .Then(TheConverterShouldWorkWithTheNewLanguagePack)
-
-                .WithScenario("Saving Language packs")
-                .Given(IHaveDownloadedSomeLanguagePacks)
-                .When(IClickTheSaveLibrariesButton)
-                .Then(TheStoryQDllShouldBeSavedIntoTheDirectoryIChoose)
-                .And(AllTheLanguagePacksShouldBeSavedIntoTheDirectoryIChoose)
-             .Execute();
+             .ExecuteWithReport();
         }
 
         private ViewModel.Converter converter;
         Mock<IFileSavingService> fileSavingService;
         Mock<ILanguagePackProvider> languagePackProvider;
-        List<Mock<ILocalLanguagePack>> localLanguagePacks;
-        List<Mock<IRemoteLanguagePack>> remoteLanguagePacks;
-
-
-        void AllTheLanguagePacksShouldBeSavedIntoTheDirectoryIChoose()
-        {
-            throw new NotImplementedException();
-        }
-
-        void TheStoryQDllShouldBeSavedIntoTheDirectoryIChoose()
-        {
-            fileSavingService.Verify(x=>x.CopyLibFiles("directory"));
-        }
-
-        void IClickTheSaveLibrariesButton()
-        {
-            fileSavingService.Setup(x => x.PromptForDirectory(It.IsAny<string>())).Returns("directory");
-
-            this.converter.SaveLibrariesCommand.Execute(null);
-        }
-
-        void IHaveDownloadedSomeLanguagePacks()
-        {
-            throw new NotImplementedException();
-        }
-
-        void TheConverterShouldWorkWithTheNewLanguagePack()
-        {
-            throw new NotImplementedException();
-        }
-
-        void ISelectANewLanguagePack()
-        {
-            throw new NotImplementedException();
-        }
-
-        void ThereAreLanguagePacksInAList()
-        {
-            ThatIHaveLaunchedStoryq();
-            ThereAreLanguagePacksAvailable();
-            IShouldSeeTheLanguagePacksInAList();
-        }
-
-        void IShouldSeeTheLanguagePacksInAList()
-        {
-            Assert.AreEqual(6, converter.LanguagePacks.Count);
-            Assert.AreEqual("pack 1", converter.LanguagePacks.First().Text);
-            Assert.IsTrue(converter.LanguagePacks.First().IsDownloaded);
-            Assert.AreEqual("pack 4", converter.LanguagePacks.ElementAt(4).Text);
-            Assert.IsFalse(converter.LanguagePacks.First().IsDownloaded);
-        }
-
-        void ThereAreLanguagePacksAvailable()
-        {
-            localLanguagePacks = new List<Mock<ILocalLanguagePack>>()
-                                {
-                                    new Mock<ILocalLanguagePack>(),
-                                    new Mock<ILocalLanguagePack>(),
-                                    new Mock<ILocalLanguagePack>()
-                                };
-            localLanguagePacks.First().Setup(x => x.Name).Returns("pack 1");
-
-            remoteLanguagePacks = new List<Mock<IRemoteLanguagePack>>()
-                                {
-                                    new Mock<IRemoteLanguagePack>(),
-                                    new Mock<IRemoteLanguagePack>(),
-                                    new Mock<IRemoteLanguagePack>()
-                                };
-            remoteLanguagePacks.First().Setup(x => x.Name).Returns("pack 4");
-
-
-            languagePackProvider.Setup(x => x.GetLocalLanguagePacks()).Returns(localLanguagePacks.Select(x => x.Object));
-            languagePackProvider.Setup(x => x.GetRemoteLanguagePacks()).Returns(remoteLanguagePacks.Select(x => x.Object));
-        }
 
         private void IShouldHaveMyMSTestClassGenerated()
         {
@@ -267,7 +168,7 @@ public class StoryQTestClass
 
         private void ISetTheTestFrameworkTo(TestFramework testFramework)
         {
-            converter.Settings.TargetTestFramework=testFramework;
+            converter.Settings.TargetTestFramework = testFramework;
         }
 
         private void IShouldHaveMyMethodGenerated()
@@ -476,5 +377,6 @@ then I should get a {nice result}";
         {
             Assert.AreEqual(expected.Trim(), converter.ConvertedText.Trim());
         }
+
     }
 }
