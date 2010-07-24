@@ -98,11 +98,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         public ICommand SaveLibrariesCommand { get; private set; }
 
-        public ObservableCollection<LanguagePack> LanguagePacks
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
+        public ObservableCollection<LanguagePack> LanguagePacks { get; set; }
 
         private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
