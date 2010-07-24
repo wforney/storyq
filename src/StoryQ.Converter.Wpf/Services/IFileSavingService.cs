@@ -2,6 +2,12 @@
 {
     public interface IFileSavingService
     {
+
+        /// <summary>
+        /// asks the user for a directory
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         string PromptForDirectory(string message);
 
         /// <summary>

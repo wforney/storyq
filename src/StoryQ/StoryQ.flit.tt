@@ -16,15 +16,18 @@
     var inputFile = GetParameter("inputFile", "FluentInterface\\StoryQ.txt");
     var nameSpace = GetParameter("nameSpace", "StoryQ").Replace('-', '_');
 
-    
     var compiler = new Irony.Parsing.Parser(new FlitGrammar());
     ParseTree tree = compiler.Parse(System.IO.File.ReadAllText(Host.ResolvePath(inputFile)));
     ParseTreeNode node = tree.Root;
     Graph graph = node.AstNode as Graph;
+    
 #>
 using System;
 using System.ComponentModel;
 using StoryQ.Infrastructure;
+
+// tells the parser what our entry points are:
+[assembly:ParserEntryPointAttribute(typeof(<#=nameSpace#>.Infrastructure.StoryQEntryPoints))]
 
 namespace <#=nameSpace#>
 {
@@ -38,7 +41,7 @@ namespace <#=nameSpace#>
     /// The [<#=state.Label.Name#>] story fragment.
     /// <#=Tooltip(state)#>
     /// <h1>Transitions:</h1><ul>
-<#    
+<#
         foreach(var exit in state.OutgoingTransitions)
         {
             var target = exit.ToState;
@@ -55,14 +58,14 @@ namespace <#=nameSpace#>
 <#
         if (IsEntryPoint(state))
         {
-			var text = state.Label.Name+" "+GetCopula(state);
+            var text = state.Label.Name+GetCopula(state);
 #>
         /// <summary>
         /// Starts a new StoryQ <#=state.Label.Name#>. 
         /// </summary>
         /// <param name="text">The name of the new <#=state.Label.Name#></param>
-        [StoryStarter("<#=text#>")]
-        public <#=state.Label.Name#>(string text):base(new Step("<#=text#>", 0, text, Step.DoNothing), null){}
+
+        public <#=state.Label.Name#>(string text):base(new Step("<#= CamelCaseToSentence(text)#>", 0, text, Step.DoNothing), null){}
 <#
         }
         else
@@ -119,7 +122,6 @@ namespace <#=nameSpace#>
             }
 #>
 
-		
         /// <summary>
         /// <#=prefix#> [<#=target.Label.Name#>].
         /// <#=Tooltip(exit)#>
@@ -154,13 +156,13 @@ namespace <#=nameSpace#>
     }
 #>
 
-	namespace TextualSteps
-	{
-		///<summary>
+    namespace TextualSteps
+    {
+        ///<summary>
         /// Extension methods to enable string-based executable steps. These will always Pend
         ///</summary>
-		public static class Extensions
-		{
+        public static class Extensions
+        {
 <#
     foreach(var state in graph.States)
     {
@@ -172,32 +174,60 @@ namespace <#=nameSpace#>
             if (IsExecutable(target))
             {
 #>
-			/// <summary>
-			/// <#=prefix#> [<#=target.Label.Name#>].
-			/// <#=Tooltip(exit)#>
-			/// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
-			/// </summary>
-			/// <param name="parent">this</param>
-			/// <param name="text">
-			/// A textual description of the step. 
-			/// </param>
-			/// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
-			[Description("<#=Tooltip(exit)#>")]        
-			public static <#=target.Label.Name#> <#=exit.Label.Name#>(this <#=exit.FromState.Label.Name#> parent, string text)
-			{				
-			    Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, () => { throw new StringBasedExecutableStepException(text); });
-				return new <#=target.Label.Name#>(s, parent);
-			}
+            /// <summary>
+            /// <#=prefix#> [<#=target.Label.Name#>].
+            /// <#=Tooltip(exit)#>
+            /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            /// </summary>
+            /// <param name="parent">this</param>
+            /// <param name="text">
+            /// A textual description of the step. 
+            /// </param>
+            /// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
+            [Description("<#=Tooltip(exit)#>")]        
+            public static <#=target.Label.Name#> <#=exit.Label.Name#>(this <#=exit.FromState.Label.Name#> parent, string text)
+            {				
+                Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, () => { throw new StringBasedExecutableStepException(text); });
+                return new <#=target.Label.Name#>(s, parent);
+            }
 
 <#
-				}
-			}
-		}
+                }
+            }
+        }
 #>
-		}
-	}
-}
+        }
+    }
 
+    namespace Infrastructure
+    {
+        /// <summary>
+        /// Entry points for the StoryQ converter's parser
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public class StoryQEntryPoints
+        {
+<#
+        foreach(var state in graph.States.Where(IsEntryPoint))
+        {
+            var text = state.Label.Name+GetCopula(state);
+            var prefix = CamelCaseToSentence(text);
+#>
+            /// <summary>
+            /// For infrastructure use only
+            /// </summary>
+            [Description("<#=Tooltip(state)#>")]
+            protected <#=state.Label.Name#> <#=text#>(string text)
+            {
+                return new <#=state.Label.Name#>(text);
+            }
+
+<#
+        }
+#>
+        }
+    }
+}
 
 <#+
     public bool IsExecutable(State state)
@@ -207,12 +237,12 @@ namespace <#=nameSpace#>
 
     public bool IsEntryPoint(State state)
     {
-        return state.GenericAttributes.ContainsKey("copula");
+        return state.GenericAttributes.ContainsKey("shape") &&  state.GenericAttributes["shape"]=="doublecircle";
     }
-	
+    
     public string GetCopula(State state)
     {
-        return state.GenericAttributes.ContainsKey("copula")?state.GenericAttributes["copula"]:"";
+        return state.GenericAttributes.ContainsKey("copula") ? state.GenericAttributes["copula"] : "";
     }
 
     public string Tooltip(Transition t)
@@ -246,12 +276,12 @@ namespace <#=nameSpace#>
     {
         return string.Join(seperator, strings.ToArray());
     }
-	
-	public string GetParameter(string name, string fallback)
-	{
-		var s = Host.ResolveParameterValue(" ", " ", name);    
-		return string.IsNullOrEmpty(s) ? fallback : s;
-	}
+    
+    public string GetParameter(string name, string fallback)
+    {
+        var s = Host.ResolveParameterValue(" ", " ", name);    
+        return string.IsNullOrEmpty(s) ? fallback : s;
+    }
 
     public static readonly string[] numberths = {"zeroeth", "first", "second", "third", "fourth"};
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -81,7 +81,7 @@
     <Compile Include="Execution\ResultType.cs" />
     <Compile Include="Formatting\Parameters\ToStringParameterFormatAttribute.cs" />
     <Compile Include="Infrastructure\IStepContainer.cs" />
-    <Compile Include="Infrastructure\StoryStarterAttribute.cs" />
+    <Compile Include="Infrastructure\ParserEntryPointAttribute.cs" />
     <Compile Include="StoryQ.flit.g.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

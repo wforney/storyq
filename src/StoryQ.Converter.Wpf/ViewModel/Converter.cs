@@ -137,7 +137,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
                 .Select(x => x.Split(new[] { "=>" }, StringSplitOptions.RemoveEmptyEntries).First())
                 .Select(x=>Regex.Replace(x, "\\s+", " ").Trim());
 
-            return Parser.Parse(lines, new StoryStarter());
+            return Parser.Parse(lines, new StoryQEntryPoints());
         }
 
         private string Code(IStepContainer b)
