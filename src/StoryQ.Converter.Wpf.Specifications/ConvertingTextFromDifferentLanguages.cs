@@ -34,30 +34,30 @@ namespace StoryQ.Converter.Wpf.Specifications
         public void ListingAvailableLanguages()
         {
             Scenario
-                .Given(ThereAreLanguagePacksAvailable)
-                .When(ILaunchStoryQ)
+                .Given(ThatIHaveLaunchedStoryq)
+                .When(ThereAreLanguagePacksAvailable)
                 .Then(IShouldSeeTheLanguagePacksInAList)
                 .ExecuteWithReport();
         }
 
         [Test]
-        public void DownloadingLanguagePacks()
+        public void SelectingALocalLanguagePack()
         {
             Scenario
                 .Given(ThereAreLanguagePacksInAList)
-                .When(ISelectANewLanguagePack)
+                .When(ISelectANewLocalLanguagePack)
                 .Then(TheConverterShouldWorkWithTheNewLanguagePack)
                 .ExecuteWithReport();
         }
 
         [Test]
-        public void SavingLanguagePacks()
+        public void SelectingARemoteLanguagePack()
         {
             Scenario
-                .Given(IHaveDownloadedSomeLanguagePacks)
-                .When(IClickTheSaveLibrariesButton)
-                .Then(TheStoryQDllShouldBeSavedIntoTheDirectoryIChoose)
-                .And(AllTheLanguagePacksShouldBeSavedIntoTheDirectoryIChoose)
+                .Given(ThereAreLanguagePacksInAList)
+                .When(ISelectANewRemoteLanguagePack)
+                .Then(TheConverterShouldDownloadTheNewLanguagePack)
+                .And(TheConverterShouldWorkWithTheNewLanguagePack)
                 .ExecuteWithReport();
         }
 
@@ -66,22 +66,14 @@ namespace StoryQ.Converter.Wpf.Specifications
         Mock<ILanguagePackProvider> languagePackProvider;
         List<Mock<ILocalLanguagePack>> localLanguagePacks;
         List<Mock<IRemoteLanguagePack>> remoteLanguagePacks;
+        string expectedEntryPoint;
 
         private void ThatIHaveLaunchedStoryq()
         {
             fileSavingService = new Mock<IFileSavingService>();
             languagePackProvider = new Mock<ILanguagePackProvider>();
+            languagePackProvider.Setup(x => x.GetLocalLanguagePacks()).Returns(new[] { new Mock<ILocalLanguagePack>().Object });
             converter = new ViewModel.Converter(fileSavingService.Object, languagePackProvider.Object);
-        }
-
-        void ILaunchStoryQ()
-        {
-            ThatIHaveLaunchedStoryq();
-        }
-
-        void AllTheLanguagePacksShouldBeSavedIntoTheDirectoryIChoose()
-        {
-            throw new NotImplementedException();
         }
 
         void TheStoryQDllShouldBeSavedIntoTheDirectoryIChoose()
@@ -93,22 +85,40 @@ namespace StoryQ.Converter.Wpf.Specifications
         {
             fileSavingService.Setup(x => x.PromptForDirectory(It.IsAny<string>())).Returns("directory");
 
-            this.converter.SaveLibrariesCommand.Execute(null);
+            converter.SaveLibrariesCommand.Execute(null);
         }
 
-        void IHaveDownloadedSomeLanguagePacks()
+        void TheConverterShouldDownloadTheNewLanguagePack()
         {
-            throw new NotImplementedException();
+            remoteLanguagePacks[0].Verify(x => x.BeginDownloadAsync(It.IsAny<Action<double>>(), It.IsAny<Action<ILocalLanguagePack>>()));
+        }
+
+        void ISelectANewRemoteLanguagePack()
+        {
+            var newLocal = new Mock<ILocalLanguagePack>();
+            newLocal.Setup(x => x.ParserEntryPoint).Returns("newLocal");
+            expectedEntryPoint = "newLocal";
+
+            Action<Action<double>, Action<ILocalLanguagePack>> callback = (action1, action2) => action2(newLocal.Object);
+
+            remoteLanguagePacks[0]
+                .Setup(x => x.BeginDownloadAsync(It.IsAny<Action<double>>(), It.IsAny<Action<ILocalLanguagePack>>()))
+                .Callback(callback);
+
+
+
+            converter.CurrentLanguagePack = converter.LanguagePacks[3];
         }
 
         void TheConverterShouldWorkWithTheNewLanguagePack()
         {
-            throw new NotImplementedException();
+            Assert.AreEqual(expectedEntryPoint, converter.CurrentParserEntryPoint);
         }
 
-        void ISelectANewLanguagePack()
+        void ISelectANewLocalLanguagePack()
         {
-            throw new NotImplementedException();
+            converter.CurrentLanguagePack = converter.LanguagePacks[1];
+            expectedEntryPoint = "pack 2";
         }
 
         void ThereAreLanguagePacksInAList()
@@ -123,34 +133,44 @@ namespace StoryQ.Converter.Wpf.Specifications
             Assert.AreEqual(6, converter.LanguagePacks.Count);
             Assert.AreEqual("pack 1", converter.LanguagePacks.First().Text);
             Assert.IsTrue(converter.LanguagePacks.First().IsDownloaded);
-            Assert.AreEqual("pack 4", converter.LanguagePacks.ElementAt(4).Text);
-            Assert.IsFalse(converter.LanguagePacks.First().IsDownloaded);
+            Assert.AreEqual("pack 4", converter.LanguagePacks.ElementAt(3).Text);
+            Assert.IsFalse(converter.LanguagePacks.ElementAt(3).IsDownloaded);
         }
 
         void ThereAreLanguagePacksAvailable()
         {
-            localLanguagePacks = new List<Mock<ILocalLanguagePack>>()
+
+            localLanguagePacks = new List<Mock<ILocalLanguagePack>>
                                      {
                                          new Mock<ILocalLanguagePack>(),
                                          new Mock<ILocalLanguagePack>(),
                                          new Mock<ILocalLanguagePack>()
                                      };
-            localLanguagePacks.First().Setup(x => x.Name).Returns("pack 1");
 
-            remoteLanguagePacks = new List<Mock<IRemoteLanguagePack>>()
+            Mock<ILocalLanguagePack> first = localLanguagePacks[0];
+            first.Setup(x => x.Name).Returns("pack 1");
+            first.Setup(x => x.ParserEntryPoint).Returns("pack 1");
+
+            Mock<ILocalLanguagePack> second = localLanguagePacks[1];
+            second.Setup(x => x.Name).Returns("pack 2");
+            second.Setup(x => x.ParserEntryPoint).Returns("pack 2");
+
+            remoteLanguagePacks = new List<Mock<IRemoteLanguagePack>>
                                       {
                                           new Mock<IRemoteLanguagePack>(),
                                           new Mock<IRemoteLanguagePack>(),
                                           new Mock<IRemoteLanguagePack>()
                                       };
-            remoteLanguagePacks.First().Setup(x => x.Name).Returns("pack 4");
+            remoteLanguagePacks[0].Setup(x => x.Name).Returns("pack 4");
 
 
             languagePackProvider.Setup(x => x.GetLocalLanguagePacks()).Returns(localLanguagePacks.Select(x => x.Object));
             languagePackProvider.Setup(x => x.GetRemoteLanguagePacks()).Returns(remoteLanguagePacks.Select(x => x.Object));
+
+            converter = new ViewModel.Converter(fileSavingService.Object, languagePackProvider.Object);
         }
 
 
-      
+
     }
 }
