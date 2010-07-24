@@ -126,6 +126,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Services\Designtime\DesignTimeLanguagePackProvider.cs" />
+    <Compile Include="Services\Runtime\AssemblyFileLanguagePack.cs" />
     <Compile Include="Services\Runtime\ClickOnceLanguagePackProvider.cs" />
     <Compile Include="Services\ILanguagePackProvider.cs" />
     <Compile Include="Services\Runtime\EnglishLanguagePack.cs" />

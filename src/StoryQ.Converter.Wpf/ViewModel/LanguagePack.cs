@@ -60,6 +60,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
             else
             {
                 remoteLanguagePack.BeginDownloadAsync(x => DownloadProgress=x, DownloadComplete);
+                converter.CurrentParserEntryPoint = null;
             }
         }
 
