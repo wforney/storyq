@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Forms;
@@ -10,20 +11,22 @@ namespace StoryQ.Converter.Wpf.Services.Runtime
     class FileSavingService : IFileSavingService
     {
         readonly IErrorhandler errorhandler;
+        FolderBrowserDialog dialog;
 
         public FileSavingService(IErrorhandler errorhandler)
         {
             this.errorhandler = errorhandler;
+
+            dialog = new FolderBrowserDialog
+            {
+                SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                ShowNewFolderButton = true
+            };
         }
 
         public string PromptForDirectory(string message)
         {
-            var dialog = new FolderBrowserDialog
-                             {
-                                 Description = message,
-                                 SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                                 ShowNewFolderButton = true
-                             };
+            dialog.Description = message;
 
             var hwndSource = (System.Windows.Interop.HwndSource)PresentationSource.FromVisual(System.Windows.Application.Current.MainWindow);
             DialogResult result = hwndSource == null ? dialog.ShowDialog() : dialog.ShowDialog(new OldWindow(hwndSource.Handle));
@@ -41,6 +44,7 @@ namespace StoryQ.Converter.Wpf.Services.Runtime
                     string destFileName = Path.Combine(targetDirectory, Path.GetFileName(file));
                     File.Copy(file, destFileName, true);
                 }
+                Process.Start(targetDirectory);
             }
             catch (IOException e)
             {
@@ -50,7 +54,7 @@ namespace StoryQ.Converter.Wpf.Services.Runtime
 
         static IEnumerable<string> SearchForFiles(string searchPattern)
         {
-            return Directory.GetFiles(Environment.CurrentDirectory, searchPattern);
+            return Directory.GetFiles(Environment.CurrentDirectory, searchPattern, SearchOption.AllDirectories);
         }
 
         class OldWindow : IWin32Window

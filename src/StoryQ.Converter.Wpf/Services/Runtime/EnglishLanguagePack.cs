@@ -12,7 +12,7 @@ namespace StoryQ.Converter.Wpf.Services.Runtime
 
         public IEnumerable<string> CountryCodes
         {
-            get { return "AU,CA,IE,GB,PH,NZ,TT,US,ZA".Split(','); }
+            get { return "GB,US,NZ,AU,CA,IE,PH,TT,ZA".Split(','); }
         }
 
         public object ParserEntryPoint
