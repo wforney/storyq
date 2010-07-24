@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using StoryQ.Converter.Wpf.Services;
 
 namespace StoryQ.Converter.Wpf.ViewModel
@@ -15,6 +16,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
             this.converter = converter;
             this.localLanguagePack = localLanguagePack;
             Text = localLanguagePack.Name;
+            CountryCodes = localLanguagePack.CountryCodes;
             downloadProgress = 1;
         }
 
@@ -23,8 +25,11 @@ namespace StoryQ.Converter.Wpf.ViewModel
             this.converter = converter;
             this.remoteLanguagePack = remoteLanguagePack;
             Text = remoteLanguagePack.Name;
+            CountryCodes = remoteLanguagePack.CountryCodes;
             downloadProgress = 0;
         }
+
+        public IEnumerable<string> CountryCodes { get; private set; }
 
         public string Text { get; private set; }
 

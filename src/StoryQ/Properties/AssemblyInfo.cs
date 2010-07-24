@@ -30,8 +30,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.4.*")]
-[assembly: AssemblyFileVersion("2.0.4.0")]
+[assembly: AssemblyVersion("2.0.4.1")]
+[assembly: AssemblyFileVersion("2.0.4.1")]
 [assembly: AssemblyCopyrightAttribute("2010 robfe & toddb")]
 
 [assembly: InternalsVisibleTo("StoryQ.Tests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100b3a7a4e54518692e9a86630c5efcee687e25736f89aec61105100da217a6c5673b79dc4c5773571401e03889e9514c903987956130243be5f24bc6a7da1123f39c866d773c4980fef71b1e92e731e3a2eeca85252f5f3421eb338e586ffc7a84915d2a7f47c2a32ddf22fd4ccf97d4786f31aea7838bbf4646a86568734402ed")]

@@ -98,8 +98,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\ConverterChain.cs" />
     <Compile Include="Converters\EnumToDoubleConverter.cs" />
     <Compile Include="Converters\InvertConverter.cs" />
+    <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\UnCamelConverter.cs" />
     <Compile Include="Model\CodeGen\AggregateCodeGenerator.cs" />
     <Compile Include="Model\CodeGen\ClassGenerator.cs" />
@@ -450,6 +452,80 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\save.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LanguagePacks\readme.txt" />
+    <Resource Include="Images\Flags\sp.gif" />
+    <Content Include="LanguagePacks\StoryQ.pt-BR.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LanguagePacks\StoryQ.pt-BR.XML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LanguagePacks\StoryQ.sr-SP.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LanguagePacks\StoryQ.sr-SP.XML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="LanguagePacks\StoryQ.pt-BR.dll">
+      <Visible>False</Visible>
+      <Group>pt-BR</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="LanguagePacks\StoryQ.pt-BR.XML">
+      <Visible>False</Visible>
+      <Group>pt-BR</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="LanguagePacks\StoryQ.sr-SP.dll">
+      <Visible>False</Visible>
+      <Group>pt-SP</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="LanguagePacks\StoryQ.sr-SP.XML">
+      <Visible>False</Visible>
+      <Group>pt-SP</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="StoryQ.Converter.Wpf.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="StoryQ.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

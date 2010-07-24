@@ -1,1 +1,5 @@
-﻿Files in this directory must be marked as "Copy to bin" and setup as valid clickonce filegroups (in project settings)
+﻿Files in this directory must be:
+  marked as buildAction=content
+  marked as Copy to output directory=always
+  
+  setup as valid clickonce filegroups (in project settings)
