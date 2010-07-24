@@ -32,17 +32,15 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://storyq.codeplex.com/releases/clickonce/</InstallUrl>
-    <UpdateUrl>http://storyq.codeplex.com/releases/clickonce/</UpdateUrl>
     <SupportUrl>http://storyq.codeplex.com</SupportUrl>
     <ErrorReportUrl>http://storyq.codeplex.com</ErrorReportUrl>
     <ProductName>StoryQ</ProductName>
     <PublisherName>StoryQ</PublisherName>
     <SuiteName>StoryQ</SuiteName>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>2.0.4.0</ApplicationVersion>
+    <ApplicationVersion>2.0.5.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -469,6 +467,9 @@
     <Content Include="LanguagePacks\StoryQ.sr-SP.XML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="StoryQ.XML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PublishFile Include="LanguagePacks\StoryQ.pt-BR.dll">
@@ -491,7 +492,7 @@
     </PublishFile>
     <PublishFile Include="LanguagePacks\StoryQ.sr-SP.dll">
       <Visible>False</Visible>
-      <Group>pt-SP</Group>
+      <Group>sr-SP</Group>
       <TargetPath>
       </TargetPath>
       <PublishState>Include</PublishState>
@@ -500,24 +501,14 @@
     </PublishFile>
     <PublishFile Include="LanguagePacks\StoryQ.sr-SP.XML">
       <Visible>False</Visible>
-      <Group>pt-SP</Group>
+      <Group>sr-SP</Group>
       <TargetPath>
       </TargetPath>
       <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
-    <PublishFile Include="StoryQ.Converter.Wpf.pdb">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="StoryQ.pdb">
+    <PublishFile Include="StoryQ.XML">
       <Visible>False</Visible>
       <Group>
       </Group>

@@ -18,7 +18,8 @@ namespace StoryQ.Converter.Wpf.Services.Runtime
 
             var doc = XDocument.Load(Assembly.GetEntryAssembly().Location + ".manifest");
             var ns = XNamespace.Get("urn:schemas-microsoft-com:asm.v2");
-            var groups = doc.Root.Descendants(ns + "file").Select(x => x.Attribute("group").Value).Distinct().OrderBy(x=>x.ToLowerInvariant());
+            var files = doc.Root.Descendants(ns + "file");
+            var groups = files.Where(x=>x.Attribute("group") != null).Select(x => x.Attribute("group").Value).Distinct().OrderBy(x => x.ToLowerInvariant());
 
             foreach (var g in groups)
             {
@@ -40,7 +41,6 @@ namespace StoryQ.Converter.Wpf.Services.Runtime
 
         public IEnumerable<ILocalLanguagePack> GetLocalLanguagePacks()
         {
-            //var target = typeof(ParserEntryPointAttribute).Assembly.GetCustomAttribute<ParserEntryPointAttribute>().Target;
             yield return new EnglishLanguagePack();
             foreach (var localProvider in locals)
             {
@@ -50,8 +50,7 @@ namespace StoryQ.Converter.Wpf.Services.Runtime
 
         public IEnumerable<IRemoteLanguagePack> GetRemoteLanguagePacks()
         {
-            //var target = typeof(ParserEntryPointAttribute).Assembly.GetCustomAttribute<ParserEntryPointAttribute>().Target;
-            yield break;
+            return remotes.Cast<IRemoteLanguagePack>();
         }
 
         
