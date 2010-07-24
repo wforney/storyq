@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Deployment.Application;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using StoryQ.Converter.Wpf.Services.Designtime;
 using StoryQ.Converter.Wpf.Services.Runtime;
 
 namespace StoryQ.Converter.Wpf.Services
@@ -17,14 +19,30 @@ namespace StoryQ.Converter.Wpf.Services
 
         static ServiceLocator()
         {
+            container = new Container();
+
+            
+            container.Register<IErrorhandler, PromptingErrorhandler>().AsSingleton();
+            container.Register<IFileSavingService, FileSavingService>().AsSingleton();
+
             // Configure our services:
             if (DesignerProperties.GetIsInDesignMode(Application.Current.MainWindow))
             {
-                //todo: add different behaviour if required here
+                container.Register<ILanguagePackProvider, DesigntimeLanguagePackProvider>();
+                
             }
-            container = new Container();
-            container.Register<IErrorhandler, PromptingErrorhandler>().AsSingleton();
-            container.Register<IFileSavingService, FileSavingService>().AsSingleton();
+            else
+            {
+                if (ApplicationDeployment.IsNetworkDeployed)
+                {
+                    container.Register<ILanguagePackProvider, ClickOnceLanguagePackProvider>();
+                }
+                else
+                {
+                    container.Register<ILanguagePackProvider, LocalLanguagePackProvider>();
+                }
+            }
+           
         }
 
         public static T Resolve<T>() where T : class

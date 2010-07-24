@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using StoryQ.Formatting.Methods;
 using StoryQ.Formatting.Parameters;
+using StoryQ.Infrastructure;
 
 namespace StoryQ.Formatting
 {
@@ -36,25 +37,12 @@ namespace StoryQ.Formatting
 
         private static MethodFormatAttribute GetFormatter(Delegate method)
         {
-            var formatter = method.Method.GetCustomAttributes(true)
-                .OfType<MethodFormatAttribute>()
-                .FirstOrDefault();
-
-            if (formatter != null)
-            {
-                return formatter;
-            }
-
-            return StoryQSettings.DefaultMethodFormatSelector(method.Method);
+            return method.Method.GetCustomAttribute<MethodFormatAttribute>() ?? StoryQSettings.DefaultMethodFormatSelector(method.Method);
         }
 
         private static string FormatParameter(ParameterInfo info, object value)
         {
-            var a = info.GetCustomAttributes(true)
-                        .OfType<ParameterFormatAttribute>()
-                        .FirstOrDefault();
-
-            a = a ?? StoryQSettings.DefaultParameterFormatter(info);
+            var a = info.GetCustomAttribute<ParameterFormatAttribute>() ?? StoryQSettings.DefaultParameterFormatter(info);
 
             return a.Format(value);
         }
