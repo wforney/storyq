@@ -137,6 +137,7 @@
     <Compile Include="ViewModel\Converter.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="Model\Parser.cs" />
+    <Compile Include="ViewModel\LanguagePack.cs" />
     <Compile Include="ViewModel\Transition.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

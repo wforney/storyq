@@ -22,6 +22,8 @@ namespace StoryQ.Converter.Wpf.ViewModel
         private string convertedText;
 
         private ConversionSettings settings;
+        LanguagePack currentLanguagePack;
+        object currentParserEntryPoint;
 
         public Converter() : this(ServiceLocator.Resolve<IFileSavingService>(), ServiceLocator.Resolve<ILanguagePackProvider>()) { }
 
@@ -32,7 +34,37 @@ namespace StoryQ.Converter.Wpf.ViewModel
             Transitions = new ObservableCollection<Transition>();
             Settings = new ConversionSettings();
             SaveLibrariesCommand = new DelegateCommand(SaveLibraries);
+
+            LanguagePacks = new ObservableCollection<LanguagePack>();
+
+            foreach (var pack in languagePackProvider.GetLocalLanguagePacks())
+            {
+                LanguagePacks.Add(new LanguagePack(this, pack));
+            }
+
+            CurrentLanguagePack = LanguagePacks.First();
+
+            foreach (var pack in languagePackProvider.GetRemoteLanguagePacks())
+            {
+                LanguagePacks.Add(new LanguagePack(this, pack));
+            }
+
+
             Convert();
+        }
+
+        public LanguagePack CurrentLanguagePack
+        {
+            get
+            {
+                return currentLanguagePack;
+            }
+            set
+            {
+                currentLanguagePack = value;
+                currentLanguagePack.SetCurrent();
+                FirePropertyChanged("CurrentLanguagePack");
+            }
         }
 
         void SaveLibraries()
@@ -82,7 +114,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
             }
             set
             {
-                if(settings != null)
+                if (settings != null)
                 {
                     settings.PropertyChanged -= SettingsOnPropertyChanged;
                 }
@@ -100,6 +132,19 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         public ObservableCollection<LanguagePack> LanguagePacks { get; set; }
 
+        public object CurrentParserEntryPoint
+        {
+            get
+            {
+                return currentParserEntryPoint;
+            }
+            internal set
+            {
+                currentParserEntryPoint = value;
+                Convert();
+            }
+        }
+
         private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
             Convert();
@@ -107,9 +152,25 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         private void Convert()
         {
+            Transitions.Clear();
+
+            if (CurrentParserEntryPoint == null)
+            {
+                ConvertedText = "Please wait while your language pack is retrieved";
+                return;
+            }
+
             try
             {
-                object parsed = ParseText(PlainText);
+                //ignore anything after "=>", make all whitespace a single space
+                var lines = PlainText
+                    .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => x.Split(new[] { "=>" }, StringSplitOptions.RemoveEmptyEntries).First())
+                    .Select(x => Regex.Replace(x, "\\s+", " ").Trim());
+
+                //todo
+
+                object parsed = Parser.Parse(lines, CurrentParserEntryPoint);
                 if (parsed is IStepContainer)
                 {
                     ConvertedText = Code((IStepContainer)parsed);
@@ -120,7 +181,6 @@ namespace StoryQ.Converter.Wpf.ViewModel
                 }
 
 
-                Transitions.Clear();
                 foreach (MethodInfo info in Parser.GetMethods(parsed))
                 {
                     Transitions.Add(new Transition(info, this));
@@ -130,20 +190,6 @@ namespace StoryQ.Converter.Wpf.ViewModel
             {
                 ConvertedText = ex.Message;
             }
-        }
-
-        private static object ParseText(string text)
-        {
-            //ignore anything that starts with =>
-
-            var lines = text
-                .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => x.Split(new[] { "=>" }, StringSplitOptions.RemoveEmptyEntries).First())
-                .Select(x=>Regex.Replace(x, "\\s+", " ").Trim());
-
-            var target = typeof(ParserEntryPointAttribute).Assembly.GetCustomAttribute<ParserEntryPointAttribute>().Target;
-
-            return Parser.Parse(lines, Activator.CreateInstance(target));
         }
 
         private string Code(IStepContainer b)
@@ -176,12 +222,5 @@ namespace StoryQ.Converter.Wpf.ViewModel
             }
         }
 
-    }
-
-    public class LanguagePack:ViewModelBase
-    {
-        public string Text { get; private set; }
-
-        public bool IsDownloaded { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Moq;
 using StoryQ.Converter.Wpf.Services;
 using StoryQ.Converter.Wpf.ViewModel;
+using StoryQ.Infrastructure;
 using vm = StoryQ.Converter.Wpf.ViewModel;
 
 #if NUNIT
@@ -118,6 +119,17 @@ namespace StoryQ.Converter.Wpf.Specifications
         private ViewModel.Converter converter;
         Mock<IFileSavingService> fileSavingService;
         Mock<ILanguagePackProvider> languagePackProvider;
+
+        private void ThatIHaveLaunchedStoryq()
+        {
+            fileSavingService = new Mock<IFileSavingService>();
+            languagePackProvider = new Mock<ILanguagePackProvider>();
+            var languagePack = new Mock<ILocalLanguagePack>();
+            languagePack.Setup(x => x.ParserEntryPoint).Returns(new StoryQEntryPoints());
+            languagePackProvider.Setup(x => x.GetLocalLanguagePacks()).Returns(new[] { languagePack.Object });
+            converter = new vm.Converter(fileSavingService.Object, languagePackProvider.Object);
+        }
+
 
         private void IShouldHaveMyMSTestClassGenerated()
         {
@@ -278,13 +290,7 @@ public class StoryQTestClass
         }
 
 
-        private void ThatIHaveLaunchedStoryq()
-        {
-            fileSavingService = new Mock<IFileSavingService>();
-            languagePackProvider = new Mock<ILanguagePackProvider>();
-            converter = new vm.Converter(fileSavingService.Object, languagePackProvider.Object);
-        }
-
+       
         private void ITypeInSomeStoryText()
         {
             converter.PlainText +=

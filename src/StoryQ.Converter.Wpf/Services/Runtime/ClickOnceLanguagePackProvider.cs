@@ -7,11 +7,13 @@ namespace StoryQ.Converter.Wpf.Services.Runtime
     {
         public IEnumerable<ILocalLanguagePack> GetLocalLanguagePacks()
         {
+            //var target = typeof(ParserEntryPointAttribute).Assembly.GetCustomAttribute<ParserEntryPointAttribute>().Target;
             yield return new EnglishLanguagePack();
         }
 
         public IEnumerable<IRemoteLanguagePack> GetRemoteLanguagePacks()
         {
+            //var target = typeof(ParserEntryPointAttribute).Assembly.GetCustomAttribute<ParserEntryPointAttribute>().Target;
             yield break;
         }
     }
