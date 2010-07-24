@@ -3,15 +3,25 @@ using System.Text.RegularExpressions;
 
 namespace StoryQ.Infrastructure
 {
+    /// <summary>
+    /// Thrown from a string based executable step
+    /// </summary>
     public class StringBasedExecutableStepException : NotImplementedException
     {
         private readonly string stepText;
 
+        /// <summary>
+        /// Creates a StringBasedExecutableStepException
+        /// </summary>
         public StringBasedExecutableStepException(string stepText)
         {
             this.stepText = stepText;
         }
 
+        /// <summary>
+        /// Gives you the correct
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             const string Template = @"(string used for executable step)

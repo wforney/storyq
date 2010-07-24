@@ -1,7 +1,7 @@
 ﻿digraph StoryQ{
 
     //states
-    Story					[shape=doublecircle, copula=is,     tooltip="This is the root item of any story"]
+    Story					[shape=doublecircle, copula=Is,     tooltip="This is the root item of any story"]
     Benefit					[									tooltip="The real-world objective (business value) of a story"]
     Role					[									tooltip="The role (a category of actors/users) or roles that receive this benefit. "]
     Feature					[									tooltip="The software process that will implement the specified benefit."]

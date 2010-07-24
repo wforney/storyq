@@ -1,7 +1,7 @@
 digraph StoryQ{
 
     //states
-    Historia						[shape=doublecircle, copula=is,				tooltip="This is the root item of any story"]
+    Historia						[shape=doublecircle, copula=E,				tooltip="This is the root item of any story"]
     Beneficio						[									tooltip="The real-world objective (business value) of a story"]
     Papel							[									tooltip="The role (a category of actors/users) or roles that receive this benefit. "]
     Funcionalidade					[									tooltip="The software process that will implement the specified benefit."]

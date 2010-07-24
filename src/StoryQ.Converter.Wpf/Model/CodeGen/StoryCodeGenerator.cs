@@ -34,7 +34,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
                 {
                     string s = first
                                    ? string.Format("new {0}({1})", f.GetType().Name, CreateStepArgs(f.Step))
-                                   : string.Format(".{0}({1})", Camel(f.Step.Prefix), CreateStepArgs(f.Step));
+                                   : string.Format(".{0}({1})", f.Step.Prefix.Camel(), CreateStepArgs(f.Step));
                     writer.WriteLine(s);
                 }
             }
@@ -53,11 +53,6 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
         private static string StringToMethodCall(string text)
         {
             return MethodBuilder.ParseMethodDeclaration(text).ToStepParameters();
-        }
-
-        private static string Camel(string s)
-        {
-            return Regex.Replace(" " + s, " \\w|_", match => match.Value.Trim().ToUpperInvariant());
         }
     }
 }

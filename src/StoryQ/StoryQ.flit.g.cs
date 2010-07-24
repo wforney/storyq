@@ -2,6 +2,9 @@ using System;
 using System.ComponentModel;
 using StoryQ.Infrastructure;
 
+// tells the parser what our entry points are:
+[assembly:ParserEntryPointAttribute(typeof(StoryQ.Infrastructure.StoryQEntryPoints))]
+
 namespace StoryQ
 {
 
@@ -18,10 +21,9 @@ namespace StoryQ
         /// Starts a new StoryQ Story. 
         /// </summary>
         /// <param name="text">The name of the new Story</param>
-        [StoryStarter("Story is")]
+
         public Story(string text):base(new Step("Story is", 0, text, Step.DoNothing), null){}
 
-		
         /// <summary>
         /// In order to [Benefit].
         /// Describe the real-world value for this story. What is the business process that the user requires software support from?
@@ -62,7 +64,6 @@ namespace StoryQ
     {
         internal Benefit(Step step, IStepContainer parent):base(step, parent){}
 
-		
         /// <summary>
         /// And [Benefit].
         /// Describe any secondary business functions that this story will support
@@ -79,7 +80,6 @@ namespace StoryQ
         }
 
 
-		
         /// <summary>
         /// As a [Role].
         /// The role of the person who is the intended user of this feature
@@ -120,7 +120,6 @@ namespace StoryQ
     {
         internal Role(Step step, IStepContainer parent):base(step, parent){}
 
-		
         /// <summary>
         /// Or as a [Role].
         /// Any other roles that may use this story
@@ -137,7 +136,6 @@ namespace StoryQ
         }
 
 
-		
         /// <summary>
         /// I want [Feature].
         /// Describe the software process (features) that will support the business requirement
@@ -178,7 +176,6 @@ namespace StoryQ
     {
         internal Feature(Step step, IStepContainer parent):base(step, parent){}
 
-		
         /// <summary>
         /// And [Feature].
         /// Any other features that will implement the desired benefit
@@ -195,7 +192,6 @@ namespace StoryQ
         }
 
 
-		
         /// <summary>
         /// With scenario [Scenario].
         /// Add a scenario ('given'/'when'/'then') to this story. Scenarios can be added (and will be run) in sequence. Each scenario should have a short descriptive name.
@@ -340,7 +336,6 @@ namespace StoryQ
             return new Condition(s, this);
         }
 
-		
         /// <summary>
         /// Given [Condition].
         /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
@@ -486,7 +481,6 @@ namespace StoryQ
             return new Condition(s, this);
         }
 
-		
         /// <summary>
         /// And [Condition].
         /// Provide another precondition to describe our scenario's initial state
@@ -608,7 +602,6 @@ namespace StoryQ
             return new Operation(s, this);
         }
 
-		
         /// <summary>
         /// When [Operation].
         /// Describe the actions that are done to the system under test. '
@@ -754,7 +747,6 @@ namespace StoryQ
             return new Operation(s, this);
         }
 
-		
         /// <summary>
         /// And [Operation].
         /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
@@ -876,7 +868,6 @@ namespace StoryQ
             return new Outcome(s, this);
         }
 
-		
         /// <summary>
         /// Then [Outcome].
         /// Describe the system's behaviour that the prior state and actions should elicit
@@ -1022,7 +1013,6 @@ namespace StoryQ
             return new Outcome(s, this);
         }
 
-		
         /// <summary>
         /// And [Outcome].
         /// Provide another resultant behaviour to check for
@@ -1039,7 +1029,6 @@ namespace StoryQ
         }
 
 
-		
         /// <summary>
         /// With scenario [Scenario].
         /// Add another scenario to this story. StoryQ executes these scenarios one after the other, so state can be shared between a single story's scenarios.
@@ -1068,117 +1057,136 @@ namespace StoryQ
 
     }
 
-	namespace TextualSteps
-	{
-		///<summary>
+    namespace TextualSteps
+    {
+        ///<summary>
         /// Extension methods to enable string-based executable steps. These will always Pend
         ///</summary>
-		public static class Extensions
-		{
-			/// <summary>
-			/// Given [Condition].
-			/// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
-			/// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
-			/// </summary>
-			/// <param name="parent">this</param>
-			/// <param name="text">
-			/// A textual description of the step. 
-			/// </param>
-			/// <returns>The next fragment of your story, a <see cref="Condition"/></returns>
-			[Description("Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state")]        
-			public static Condition Given(this Scenario parent, string text)
-			{				
-			    Step s = new Step("Given", 4, text, () => { throw new StringBasedExecutableStepException(text); });
-				return new Condition(s, parent);
-			}
+        public static class Extensions
+        {
+            /// <summary>
+            /// Given [Condition].
+            /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
+            /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            /// </summary>
+            /// <param name="parent">this</param>
+            /// <param name="text">
+            /// A textual description of the step. 
+            /// </param>
+            /// <returns>The next fragment of your story, a <see cref="Condition"/></returns>
+            [Description("Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state")]        
+            public static Condition Given(this Scenario parent, string text)
+            {				
+                Step s = new Step("Given", 4, text, () => { throw new StringBasedExecutableStepException(text); });
+                return new Condition(s, parent);
+            }
 
-			/// <summary>
-			/// And [Condition].
-			/// Provide another precondition to describe our scenario's initial state
-			/// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
-			/// </summary>
-			/// <param name="parent">this</param>
-			/// <param name="text">
-			/// A textual description of the step. 
-			/// </param>
-			/// <returns>The next fragment of your story, a <see cref="Condition"/></returns>
-			[Description("Provide another precondition to describe our scenario's initial state")]        
-			public static Condition And(this Condition parent, string text)
-			{				
-			    Step s = new Step("And", 5, text, () => { throw new StringBasedExecutableStepException(text); });
-				return new Condition(s, parent);
-			}
+            /// <summary>
+            /// And [Condition].
+            /// Provide another precondition to describe our scenario's initial state
+            /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            /// </summary>
+            /// <param name="parent">this</param>
+            /// <param name="text">
+            /// A textual description of the step. 
+            /// </param>
+            /// <returns>The next fragment of your story, a <see cref="Condition"/></returns>
+            [Description("Provide another precondition to describe our scenario's initial state")]        
+            public static Condition And(this Condition parent, string text)
+            {				
+                Step s = new Step("And", 5, text, () => { throw new StringBasedExecutableStepException(text); });
+                return new Condition(s, parent);
+            }
 
-			/// <summary>
-			/// When [Operation].
-			/// Describe the actions that are done to the system under test. '
-			/// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
-			/// </summary>
-			/// <param name="parent">this</param>
-			/// <param name="text">
-			/// A textual description of the step. 
-			/// </param>
-			/// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
-			[Description("Describe the actions that are done to the system under test. '")]        
-			public static Operation When(this Condition parent, string text)
-			{				
-			    Step s = new Step("When", 4, text, () => { throw new StringBasedExecutableStepException(text); });
-				return new Operation(s, parent);
-			}
+            /// <summary>
+            /// When [Operation].
+            /// Describe the actions that are done to the system under test. '
+            /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            /// </summary>
+            /// <param name="parent">this</param>
+            /// <param name="text">
+            /// A textual description of the step. 
+            /// </param>
+            /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
+            [Description("Describe the actions that are done to the system under test. '")]        
+            public static Operation When(this Condition parent, string text)
+            {				
+                Step s = new Step("When", 4, text, () => { throw new StringBasedExecutableStepException(text); });
+                return new Operation(s, parent);
+            }
 
-			/// <summary>
-			/// And [Operation].
-			/// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
-			/// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
-			/// </summary>
-			/// <param name="parent">this</param>
-			/// <param name="text">
-			/// A textual description of the step. 
-			/// </param>
-			/// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
-			[Description("Provide another action that is to be performed on the system, prior to our check for behaviour ('then')")]        
-			public static Operation And(this Operation parent, string text)
-			{				
-			    Step s = new Step("And", 5, text, () => { throw new StringBasedExecutableStepException(text); });
-				return new Operation(s, parent);
-			}
+            /// <summary>
+            /// And [Operation].
+            /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
+            /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            /// </summary>
+            /// <param name="parent">this</param>
+            /// <param name="text">
+            /// A textual description of the step. 
+            /// </param>
+            /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
+            [Description("Provide another action that is to be performed on the system, prior to our check for behaviour ('then')")]        
+            public static Operation And(this Operation parent, string text)
+            {				
+                Step s = new Step("And", 5, text, () => { throw new StringBasedExecutableStepException(text); });
+                return new Operation(s, parent);
+            }
 
-			/// <summary>
-			/// Then [Outcome].
-			/// Describe the system's behaviour that the prior state and actions should elicit
-			/// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
-			/// </summary>
-			/// <param name="parent">this</param>
-			/// <param name="text">
-			/// A textual description of the step. 
-			/// </param>
-			/// <returns>The next fragment of your story, a <see cref="Outcome"/></returns>
-			[Description("Describe the system's behaviour that the prior state and actions should elicit")]        
-			public static Outcome Then(this Operation parent, string text)
-			{				
-			    Step s = new Step("Then", 4, text, () => { throw new StringBasedExecutableStepException(text); });
-				return new Outcome(s, parent);
-			}
+            /// <summary>
+            /// Then [Outcome].
+            /// Describe the system's behaviour that the prior state and actions should elicit
+            /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            /// </summary>
+            /// <param name="parent">this</param>
+            /// <param name="text">
+            /// A textual description of the step. 
+            /// </param>
+            /// <returns>The next fragment of your story, a <see cref="Outcome"/></returns>
+            [Description("Describe the system's behaviour that the prior state and actions should elicit")]        
+            public static Outcome Then(this Operation parent, string text)
+            {				
+                Step s = new Step("Then", 4, text, () => { throw new StringBasedExecutableStepException(text); });
+                return new Outcome(s, parent);
+            }
 
-			/// <summary>
-			/// And [Outcome].
-			/// Provide another resultant behaviour to check for
-			/// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
-			/// </summary>
-			/// <param name="parent">this</param>
-			/// <param name="text">
-			/// A textual description of the step. 
-			/// </param>
-			/// <returns>The next fragment of your story, a <see cref="Outcome"/></returns>
-			[Description("Provide another resultant behaviour to check for")]        
-			public static Outcome And(this Outcome parent, string text)
-			{				
-			    Step s = new Step("And", 5, text, () => { throw new StringBasedExecutableStepException(text); });
-				return new Outcome(s, parent);
-			}
+            /// <summary>
+            /// And [Outcome].
+            /// Provide another resultant behaviour to check for
+            /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            /// </summary>
+            /// <param name="parent">this</param>
+            /// <param name="text">
+            /// A textual description of the step. 
+            /// </param>
+            /// <returns>The next fragment of your story, a <see cref="Outcome"/></returns>
+            [Description("Provide another resultant behaviour to check for")]        
+            public static Outcome And(this Outcome parent, string text)
+            {				
+                Step s = new Step("And", 5, text, () => { throw new StringBasedExecutableStepException(text); });
+                return new Outcome(s, parent);
+            }
 
-		}
-	}
+        }
+    }
+
+    namespace Infrastructure
+    {
+        /// <summary>
+        /// Entry points for the StoryQ converter's parser
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public class StoryQEntryPoints
+        {
+            /// <summary>
+            /// For infrastructure use only
+            /// </summary>
+            [Description("This is the root item of any story")]
+            protected Story StoryIs(string text)
+            {
+                return new Story(text);
+            }
+
+        }
+    }
 }
-
 
