@@ -15,6 +15,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
     public class Converter : ViewModelBase
     {
         readonly IFileSavingService fileSavingService;
+        readonly ILanguagePackProvider languagePackProvider;
         public event EventHandler TransitionApplied;
 
         private string plainText = "";
@@ -22,11 +23,12 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         private ConversionSettings settings;
 
-        public Converter():this(ServiceLocator.Resolve<IFileSavingService>()){}
+        public Converter() : this(ServiceLocator.Resolve<IFileSavingService>(), ServiceLocator.Resolve<ILanguagePackProvider>()) { }
 
-        public Converter(IFileSavingService fileSavingService)
+        public Converter(IFileSavingService fileSavingService, ILanguagePackProvider languagePackProvider)
         {
             this.fileSavingService = fileSavingService;
+            this.languagePackProvider = languagePackProvider;
             Transitions = new ObservableCollection<Transition>();
             Settings = new ConversionSettings();
             SaveLibrariesCommand = new DelegateCommand(SaveLibraries);
@@ -96,6 +98,12 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         public ICommand SaveLibrariesCommand { get; private set; }
 
+        public ObservableCollection<LanguagePack> LanguagePacks
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
         private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
             Convert();
@@ -137,7 +145,9 @@ namespace StoryQ.Converter.Wpf.ViewModel
                 .Select(x => x.Split(new[] { "=>" }, StringSplitOptions.RemoveEmptyEntries).First())
                 .Select(x=>Regex.Replace(x, "\\s+", " ").Trim());
 
-            return Parser.Parse(lines, new StoryQEntryPoints());
+            var target = typeof(ParserEntryPointAttribute).Assembly.GetCustomAttribute<ParserEntryPointAttribute>().Target;
+
+            return Parser.Parse(lines, Activator.CreateInstance(target));
         }
 
         private string Code(IStepContainer b)
@@ -170,5 +180,12 @@ namespace StoryQ.Converter.Wpf.ViewModel
             }
         }
 
+    }
+
+    public class LanguagePack:ViewModelBase
+    {
+        public string Text { get; private set; }
+
+        public bool IsDownloaded { get; set; }
     }
 }

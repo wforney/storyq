@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Moq;
 using StoryQ.Converter.Wpf.Services;
 using StoryQ.Converter.Wpf.ViewModel;
@@ -140,6 +142,9 @@ namespace StoryQ.Converter.Wpf.Specifications
 
         private ViewModel.Converter converter;
         Mock<IFileSavingService> fileSavingService;
+        Mock<ILanguagePackProvider> languagePackProvider;
+        List<Mock<ILocalLanguagePack>> localLanguagePacks;
+        List<Mock<IRemoteLanguagePack>> remoteLanguagePacks;
 
 
         void AllTheLanguagePacksShouldBeSavedIntoTheDirectoryIChoose()
@@ -183,12 +188,34 @@ namespace StoryQ.Converter.Wpf.Specifications
 
         void IShouldSeeTheLanguagePacksInAList()
         {
-            throw new NotImplementedException();
+            Assert.AreEqual(6, converter.LanguagePacks.Count);
+            Assert.AreEqual("pack 1", converter.LanguagePacks.First().Text);
+            Assert.IsTrue(converter.LanguagePacks.First().IsDownloaded);
+            Assert.AreEqual("pack 4", converter.LanguagePacks.ElementAt(4).Text);
+            Assert.IsFalse(converter.LanguagePacks.First().IsDownloaded);
         }
 
         void ThereAreLanguagePacksAvailable()
         {
-            throw new NotImplementedException();
+            localLanguagePacks = new List<Mock<ILocalLanguagePack>>()
+                                {
+                                    new Mock<ILocalLanguagePack>(),
+                                    new Mock<ILocalLanguagePack>(),
+                                    new Mock<ILocalLanguagePack>()
+                                };
+            localLanguagePacks.First().Setup(x => x.Name).Returns("pack 1");
+
+            remoteLanguagePacks = new List<Mock<IRemoteLanguagePack>>()
+                                {
+                                    new Mock<IRemoteLanguagePack>(),
+                                    new Mock<IRemoteLanguagePack>(),
+                                    new Mock<IRemoteLanguagePack>()
+                                };
+            remoteLanguagePacks.First().Setup(x => x.Name).Returns("pack 4");
+
+
+            languagePackProvider.Setup(x => x.GetLocalLanguagePacks()).Returns(localLanguagePacks.Select(x => x.Object));
+            languagePackProvider.Setup(x => x.GetRemoteLanguagePacks()).Returns(remoteLanguagePacks.Select(x => x.Object));
         }
 
         private void IShouldHaveMyMSTestClassGenerated()
@@ -353,7 +380,8 @@ public class StoryQTestClass
         private void ThatIHaveLaunchedStoryq()
         {
             fileSavingService = new Mock<IFileSavingService>();
-            converter = new vm.Converter(fileSavingService.Object);
+            languagePackProvider = new Mock<ILanguagePackProvider>();
+            converter = new vm.Converter(fileSavingService.Object, languagePackProvider.Object);
         }
 
         private void ITypeInSomeStoryText()

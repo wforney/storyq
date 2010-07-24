@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace StoryQ.Infrastructure
@@ -40,5 +42,13 @@ namespace StoryQ.Infrastructure
             return string.Join(seperator, strings.ToArray());
         }
 
+        /// <summary>
+        /// Finds and returns an attribute on a MemberInfo, Type or Assembly
+        /// </summary>
+        public static T GetCustomAttribute<T>(this ICustomAttributeProvider attributeProvider) where T : Attribute
+        {
+            // this technique allows for subclasses of T, whereas the overload of GetCustomAttributes doesn't
+            return attributeProvider.GetCustomAttributes(true).OfType<T>().FirstOrDefault();
+        }
     }
 }
