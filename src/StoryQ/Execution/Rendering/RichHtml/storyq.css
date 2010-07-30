@@ -1,0 +1,358 @@
+/*Global*/
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, serif;
+    font-size: 85%;
+    background-color: #ddd;
+    overflow-y: scroll;
+}
+
+h1 {
+    padding: 5px 5px 5px 15px;
+
+    margin: 0;
+}
+
+div {
+    padding: 0;
+    margin: 0;
+}
+
+/*Layout*/
+#filters {
+    height: 260px;
+    background-color: #bbb;
+    border-bottom: 1px solid #999;
+}
+
+.halfPanel {
+    width: 50%;
+    float: left;
+}
+
+.halfPanel .border {
+    height: 260px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/*Tree*/
+#tree a {
+    text-decoration: none;
+    color: black;
+
+}
+
+#tree a span {
+    margin-left: 5px;
+    padding: 2px 4px;
+    border: 1px transparent;
+    -moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+    border-radius: 5px;
+
+}
+
+#tree a:hover {
+    color: #02d;
+}
+
+#tree a.selected:hover {
+    color: black;
+}
+
+#tree a.selected span {
+    background-color: #eee;
+    border: 1px solid #fff;
+}
+
+/*Tags*/
+
+#tags a {
+    display: inline-block;
+    border: 1px solid #aaa;
+    padding: 2px 4px;
+    -moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #aaa;
+}
+
+#tags a:hover {
+    color: #02d !important;
+}
+
+#tags a.tagged {
+    background-color: #eee;
+    border: 1px solid #fff;
+}
+
+/*Stories*/
+
+#stories {
+    clear: both;
+    margin: 15px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding-bottom: 80px;
+}
+
+#stories a.itemHeading {
+    display: block;
+    margin: 4px;
+}
+
+#stories li {
+    list-style-type: none;
+}
+
+#stories ul {
+    padding-left: 25px;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid #bbb;
+    margin: 20px 10px;
+}
+
+td {
+    padding: 1px 10px;
+}
+
+.prefix {
+    color: #656565;
+}
+
+.result {
+    font-style: italic;
+    background-color: #f3f3f3;
+}
+
+tr.Failed .result {
+    background-color: #f4aaaa;
+}
+
+tr.Pending .result {
+    background-color: #f4f4aa;
+}
+
+tr.Passed .result {
+    background-color: #aaf4aa;
+}
+
+a.exception {
+    position: relative;
+}
+
+/*Exception dialog*/
+
+#mask {
+    background-color: black;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+
+}
+
+#dialog {
+    position: absolute;
+    top: 400px;
+    left: 15%;
+    right: 15%;
+    background-color: white;
+    border: 1px solid black;
+    display: none;
+}
+
+#dialogHeading {
+    padding: 5px;
+    font-weight: bold;
+    border-bottom: 1px solid #d3d3d3;
+    position: relative;
+}
+
+#dialogHeading a {
+    display: block;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    color: #d00;
+    padding: 0 3px;
+    background-color: #ddd;
+    border: 1px outset #ddd;
+    -moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+    border-radius: 2px;
+    text-decoration: none;
+}
+
+#dialogHeading a:hover {
+    background-color: #d3d3d3;
+    border: 1px inset #ddd;
+}
+
+#dialogHeading a:hover {
+    color: #f00;
+}
+
+#dialogContent {
+    padding: 5px;
+    font-family: Monaco, Consolas, monospace;
+}
+
+/*Progress Bars*/
+
+div.progressBar {
+    background-color: #ddd;
+    position: relative;
+    height: 2px;
+    left: 0;
+    bottom: 0
+}
+
+div.progressBar {
+    background-color: #ddd;
+    position: relative;
+    height: 2px;
+    left: 0;
+    bottom: 0
+}
+
+div.progressBar div {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0
+}
+
+div.progressBar div.pending {
+    background-color: yellow;
+}
+
+div.progressBar div.failed {
+    background-color: red;
+}
+
+div.progressBar div.passed {
+    background-color: #4e6;
+}
+
+/*Icons*/
+
+div.icon {
+    width: 16px;
+    height: 16px;
+    background: url('images/storyq-icons.png') no-repeat 16px 16px;
+    float: left;
+}
+
+#stories div.icon.auto {
+    margin-right: 3px;
+    margin-top: 2px;
+}
+
+div.icon.passed {
+    background-position: 0 0
+}
+
+div.icon.pending {
+    background-position: 0 -16px
+}
+
+div.icon.failed {
+    background-position: 0 -32px
+}
+
+div.icon.project, .project div.icon.auto {
+    background-position: 0 -48px
+}
+
+div.icon.namespace, .namespace div.icon.auto {
+    background-position: 0 -64px
+}
+
+div.icon.class, .class div.icon.auto {
+    background-position: 0 -80px
+}
+
+div.icon.method, .method div.icon.auto {
+    background-position: 0 -96px
+}
+
+/*JQuery Treeview Plugin*/
+.treeview, .treeview ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.treeview ul {
+
+    margin-top: 4px;
+}
+
+.treeview .hitarea {
+    background: url(images/treeview-default.gif) -64px -25px no-repeat;
+    height: 16px;
+    width: 16px;
+    margin-left: -16px;
+    float: left;
+    cursor: pointer;
+}
+
+/* fix for IE6 */
+* html .hitarea {
+    display: inline;
+    float: none;
+}
+
+.treeview li {
+    margin: 0;
+    padding: 1px 0pt 1px 16px;
+}
+
+#treecontrol {
+    margin: 1em 0;
+    display: none;
+}
+
+.treeview .hover {
+    color: red;
+    cursor: pointer;
+}
+
+.treeview li {
+    background: url(images/treeview-default-line.gif) 0 0 no-repeat;
+}
+
+.treeview li.collapsable, .treeview li.expandable {
+    background-position: 0 -176px;
+}
+
+.treeview .expandable-hitarea {
+    background-position: -80px -3px;
+}
+
+.treeview li.last {
+    background-position: 0 -1766px
+}
+
+.treeview li.lastCollapsable, .treeview li.lastExpandable {
+    background-image: url(images/treeview-default.gif);
+}
+
+.treeview li.lastCollapsable {
+    background-position: 0 -111px
+}
+
+.treeview li.lastExpandable {
+    background-position: -32px -67px
+}
+
+.treeview div.lastCollapsable-hitarea, .treeview div.lastExpandable-hitarea {
+    background-position: 0;
+}
