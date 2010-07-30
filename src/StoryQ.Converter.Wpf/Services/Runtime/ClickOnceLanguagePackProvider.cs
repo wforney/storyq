@@ -106,6 +106,9 @@ namespace StoryQ.Converter.Wpf.Services.Runtime
                     {
                         downloadComplete(new AssemblyFileLanguagePack(GroupNameToDllLocation(groupName)));
                     }
+                    var d = ApplicationDeployment.CurrentDeployment;
+                    d.DownloadFileGroupProgressChanged -= CurrentDeploymentOnDownloadFileGroupProgressChanged;
+                    d.DownloadFileGroupCompleted -= CurrentDeploymentOnDownloadFileGroupCompleted;
                 }
 
                 void CurrentDeploymentOnDownloadFileGroupProgressChanged(object sender, DeploymentProgressChangedEventArgs args)
