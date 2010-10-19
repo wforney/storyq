@@ -12,8 +12,8 @@ namespace StoryQ.Converter.Wpf.Model
         private static readonly Dictionary<string, string> literalTypes = new Dictionary<string, string>
             {
                 {"(true)|(false)", "bool"},
-                {@"(0x?)?\d+", "int"},
-                {@"[0-9.]+", "double"},
+                {@"(-)?(0x?)?\d+", "int"},
+                {@"(-)?[0-9.]+", "double"},
             };
 
         public static Method ParseMethodDeclaration(string text)
