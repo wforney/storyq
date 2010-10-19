@@ -37,8 +37,23 @@ namespace StoryQ.Tests.Execution.Rendering
             XmlCategoriser c = new XmlCategoriser(e);
             c.GetOrCreateElementForMethodInfo(MethodBase.GetCurrentMethod());
             c.GetOrCreateElementForMethodInfo(new Action(RenderSomeResults).Method);
+            c.GetOrCreateElementForMethodInfo(new Action(new NoNamespace().FooFoo).Method);
 
-            const string expected = @"<root><Project Name=""StoryQ.Tests""><Namespace Name=""StoryQ.Tests.Execution.Rendering""><Class Name=""XmlRendererTest""><Method Name=""TestCategoriser"" /><Method Name=""RenderSomeResults"" /></Class></Namespace></Project></root>";
+            string expected = @"<root>
+<Project Name=""StoryQ.Tests"">
+<Namespace Name=""StoryQ.Tests.Execution.Rendering"">
+<Class Name=""XmlRendererTest"">
+<Method Name=""TestCategoriser"" />
+<Method Name=""RenderSomeResults"" />
+</Class>
+</Namespace>
+<Namespace Name="""">
+<Class Name=""NoNamespace"">
+<Method Name=""FooFoo"" />
+</Class>
+</Namespace>
+</Project>
+</root>".Replace("\r\n", "");
             Assert.AreEqual(expected, e.ToString(SaveOptions.DisableFormatting));
         }
 
@@ -58,8 +73,8 @@ namespace StoryQ.Tests.Execution.Rendering
 
             var results = ((IStepContainer)v).SelfAndAncestors().Reverse().Select(x => x.Step.Execute());
             new XmlRenderer(e).Render(results);
-            
-            Assert.IsTrue(e.Descendants("Result").Count()==8);
+
+            Assert.IsTrue(e.Descendants("Result").Count() == 8);
             Assert.AreEqual("Failed", (string)e.Descendants("Result").Last().Attribute("Type"));
         }
 
@@ -75,8 +90,13 @@ namespace StoryQ.Tests.Execution.Rendering
 
         private void Thing()
         {
-            
+
 
         }
     }
+}
+
+class NoNamespace
+{
+    public void FooFoo() { }
 }
