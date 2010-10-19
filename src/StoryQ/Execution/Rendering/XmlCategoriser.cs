@@ -37,7 +37,7 @@ namespace StoryQ.Execution.Rendering
                 XElement match = e.Elements(pair.Key).SingleOrDefault(x => value == (string)x.Attribute(AttributeName));
                 if (match == null)
                 {
-                    match = new XElement(pair.Key, new XAttribute(AttributeName, value));
+                    match = new XElement(pair.Key, new XAttribute(AttributeName, value ?? ""));
                     e.Add(match);
                 }
                 e = match;
