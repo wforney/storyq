@@ -28,7 +28,7 @@ namespace StoryQ.Infrastructure
         /// <returns>CamelCase => camel case</returns>
         public static string UnCamel(this string input)
         {
-            return Regex.Replace(input, "[A-Z_]", x => " " + x.Value.ToLowerInvariant()).Trim();
+            return Regex.Replace(input, @"[\p{Lu}_]", x => " " + x.Value.ToLowerInvariant()).Trim();
         }
 
         /// <summary>
