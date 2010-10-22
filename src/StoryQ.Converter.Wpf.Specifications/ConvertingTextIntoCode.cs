@@ -50,6 +50,29 @@ namespace StoryQ.Converter.Wpf.Specifications
                     .Then(IShouldSeeTheNumbersAndWordsPassedAsParametersToTheStoryqMethod)
                     .ExecuteWithReport();
         }
+	
+	 [TestMethod]
+        public void ConvertingNegativeIntegerIntoCode()
+        {
+            Scenario
+                    .Given(ThatIHaveLaunchedStoryq)
+                    .When(ITypeInSomeStoryText)
+                    .And(ITypeInSomeScenarioTextWithANegativeInteger)
+                    .Then(IShouldSeeTheIntegerPassedAsAIntegerParameterToTheStoryqMethod)
+                    .ExecuteWithReport();
+        }
+	
+	 [TestMethod]
+        public void ConvertingNegativeDoubleIntoCode()
+        {
+            Scenario
+                    .Given(ThatIHaveLaunchedStoryq)
+                    .When(ITypeInSomeStoryText)
+                    .And(ITypeInSomeScenarioTextWithANegativeDouble)
+                    .Then(IShouldSeeTheDoublePassedAsADoubleParameterToTheStoryqMethod)
+                    .ExecuteWithReport();
+        }
+	
 
         [TestMethod]
         public void ConvertingLinesWithComplexVariablesIntoCode()
@@ -321,6 +344,30 @@ when I do something to the system $1 times
 then I should get a $result";
 
         }
+	
+	private void ITypeInSomeScenarioTextWithANegativeInteger()
+        {
+
+            converter.PlainText +=
+                @"
+with scenario scenario name
+given that I have some initial state
+when I do something to the system $-1 times
+then I should get a {-1}";
+
+        }
+	
+	private void ITypeInSomeScenarioTextWithANegativeDouble()
+        {
+
+            converter.PlainText +=
+                @"
+with scenario scenario name
+given that I have some initial state
+when I do something to the system $-1.5 times
+then I should get a {-1.5}";
+
+        }
 
         private void ITypeInSomeScenarioTextWithDatesAndStringsInCurlyBraces()
         {
@@ -363,7 +410,36 @@ then I should get a {nice result}";
                 .Then(IShouldGetA_, ""result"")
     .Execute();");
         }
+	
+        private void IShouldSeeTheIntegerPassedAsAIntegerParameterToTheStoryqMethod()
+        {
+            Expect(
+                @"new Story(""story name"")
+    .InOrderTo(""get some benefit"")
+    .AsA(""person in some role"")
+    .IWant(""to use some software function"")
 
+            .WithScenario(""scenario name"")
+                .Given(ThatIHaveSomeInitialState)
+                .When(IDoSomethingToTheSystem_Times, -1)
+                .Then(IShouldGetA_, -1)
+    .Execute();");
+        }	
+
+	private void IShouldSeeTheDoublePassedAsADoubleParameterToTheStoryqMethod()
+        {
+            Expect(
+                @"new Story(""story name"")
+    .InOrderTo(""get some benefit"")
+    .AsA(""person in some role"")
+    .IWant(""to use some software function"")
+
+            .WithScenario(""scenario name"")
+                .Given(ThatIHaveSomeInitialState)
+                .When(IDoSomethingToTheSystem_Times, -1.5)
+                .Then(IShouldGetA_, -1.5)
+    .Execute();");
+        }
         private void IShouldSeeTheDatesAndWordsPassedAsParametersToTheStoryqMethod()
         {
             Expect(
