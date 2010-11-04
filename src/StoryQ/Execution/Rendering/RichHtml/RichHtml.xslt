@@ -71,6 +71,7 @@
                             <h1>Tags</h1>
                             <ul id="tags">
                                 <xsl:for-each select="//Tag[generate-id(.)=generate-id(key('tag-key',text()))]/text()">
+									<xsl:sort select="."/>
                                     <xsl:variable name="tag" select="."/>
                                     <xsl:variable name="pending" select="count(//Tag[text()=$tag and ../@Type='Pending'])"/>
                                     <xsl:variable name="failed" select="count(//Tag[text()=$tag and ../@Type='Failed'])"/>
