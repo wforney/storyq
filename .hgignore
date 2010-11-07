@@ -7,3 +7,6 @@ glob:*.user
 glob:Settings.StyleCop
 glob:*.orig
 glob:*\publish*
+glob:build\
+glob:*.vs10x
+glob:*.sln.cache
