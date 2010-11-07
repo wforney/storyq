@@ -5,8 +5,8 @@
 <#@ import namespace="System.Linq"#>
 <#@ import namespace="System.Collections.Generic"#>
 <#@ template language="C#v3.5" hostspecific="True" debug="True" #>
-<#@ assembly name="Flit.dll"#>
-<#@ assembly name="Irony.dll"#>
+<#@ assembly name="$(SolutionDir)..\lib\development\Flit.dll"#>
+<#@ assembly name="$(SolutionDir)..\lib\development\Irony.dll"#>
 <#@ assembly name="System.Core.dll"#>
 <#@ output extension=".g.cs" #>
 <#

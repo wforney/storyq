@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<TestRunConfiguration name="Local Test Run" id="c49c870d-35e8-4f5a-b9f4-fa2b5920c457" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRunConfiguration name="Local Test Run" id="c49c870d-35e8-4f5a-b9f4-fa2b5920c457" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <Description>This is a default test run configuration for a local test run.</Description>
   <CodeCoverage enabled="true" keyFile="StoryQ\StoryQ.snk">
     <Regular>
