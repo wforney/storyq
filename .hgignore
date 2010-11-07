@@ -1,0 +1,12 @@
+glob:*\bin*
+glob:*\obj*
+glob:*_ReSharper*
+glob:*.suo
+glob:src/TestResults/*
+glob:*.user
+glob:Settings.StyleCop
+glob:*.orig
+glob:*\publish*
+glob:build\
+glob:*.vs10x
+glob:*.sln.cache

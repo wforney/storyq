@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{46A93025-0EBE-43F0-8EA2-214CC01CA378}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StoryQ.Converter.Wpf</RootNamespace>
+    <AssemblyName>StoryQ.Converter.Wpf</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <ManifestCertificateThumbprint>66428C521570D5599F91E623BC4595F16C7B8D81</ManifestCertificateThumbprint>
+    <ManifestKeyFile>StoryQ.Converter.Wpf_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>true</SignManifests>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <ExpressionBlendVersion>4.0.20421.0</ExpressionBlendVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://storyq.codeplex.com/releases/clickonce/</InstallUrl>
+    <SupportUrl>http://storyq.codeplex.com</SupportUrl>
+    <ErrorReportUrl>http://storyq.codeplex.com</ErrorReportUrl>
+    <ProductName>StoryQ</ProductName>
+    <PublisherName>StoryQ</PublisherName>
+    <SuiteName>StoryQ</SuiteName>
+    <WebPage>publish.htm</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>2.0.5.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Window1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Converters\ConverterChain.cs" />
+    <Compile Include="Converters\EnumToDoubleConverter.cs" />
+    <Compile Include="Converters\InvertConverter.cs" />
+    <Compile Include="Converters\StringFormatConverter.cs" />
+    <Compile Include="Converters\UnCamelConverter.cs" />
+    <Compile Include="Model\CodeGen\AggregateCodeGenerator.cs" />
+    <Compile Include="Model\CodeGen\ClassGenerator.cs" />
+    <Compile Include="Model\CodeGen\CodeWriter.cs" />
+    <Compile Include="Model\CodeGen\ICodeGenerator.cs" />
+    <Compile Include="Model\MethodBuilder.cs" />
+    <Compile Include="Model\CodeGen\StepMethodsGenerator.cs" />
+    <Compile Include="Model\CodeGen\StoryCodeGenerator.cs" />
+    <Compile Include="Model\CodeGen\TestMethodGenerator.cs" />
+    <Compile Include="Model\CodeGen\TestFrameworkData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Services\Designtime\DesignTimeLanguagePackProvider.cs" />
+    <Compile Include="Services\Runtime\AssemblyFileLanguagePack.cs" />
+    <Compile Include="Services\Runtime\ClickOnceLanguagePackProvider.cs" />
+    <Compile Include="Services\ILanguagePackProvider.cs" />
+    <Compile Include="Services\Runtime\EnglishLanguagePack.cs" />
+    <Compile Include="Services\Runtime\FileSavingService.cs" />
+    <Compile Include="Services\IErrorhandler.cs" />
+    <Compile Include="Services\IFileSavingService.cs" />
+    <Compile Include="Services\Runtime\LocalLanguagePackProvider.cs" />
+    <Compile Include="Services\Runtime\PromptingErrorhandler.cs" />
+    <Compile Include="Services\ServiceLocator.cs" />
+    <Compile Include="ViewModel\ConversionSettings.cs" />
+    <Compile Include="ViewModel\Converter.cs" />
+    <Compile Include="ViewModel\DelegateCommand.cs" />
+    <Compile Include="Model\Parser.cs" />
+    <Compile Include="ViewModel\LanguagePack.cs" />
+    <Compile Include="ViewModel\Transition.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="StoryQ.Converter.Wpf_TemporaryKey.pfx" />
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StoryQ\StoryQ.csproj">
+      <Project>{4DF234CF-6789-4476-B73B-9879CCDA82E3}</Project>
+      <Name>StoryQ</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="Images\splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sq.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Flags\ad.gif" />
+    <Resource Include="Images\Flags\ae.gif" />
+    <Resource Include="Images\Flags\af.gif" />
+    <Resource Include="Images\Flags\ag.gif" />
+    <Resource Include="Images\Flags\ai.gif" />
+    <Resource Include="Images\Flags\al.gif" />
+    <Resource Include="Images\Flags\am.gif" />
+    <Resource Include="Images\Flags\an.gif" />
+    <Resource Include="Images\Flags\ao.gif" />
+    <Resource Include="Images\Flags\ar.gif" />
+    <Resource Include="Images\Flags\as.gif" />
+    <Resource Include="Images\Flags\at.gif" />
+    <Resource Include="Images\Flags\au.gif" />
+    <Resource Include="Images\Flags\aw.gif" />
+    <Resource Include="Images\Flags\ax.gif" />
+    <Resource Include="Images\Flags\az.gif" />
+    <Resource Include="Images\Flags\ba.gif" />
+    <Resource Include="Images\Flags\bb.gif" />
+    <Resource Include="Images\Flags\bd.gif" />
+    <Resource Include="Images\Flags\be.gif" />
+    <Resource Include="Images\Flags\bf.gif" />
+    <Resource Include="Images\Flags\bg.gif" />
+    <Resource Include="Images\Flags\bh.gif" />
+    <Resource Include="Images\Flags\bi.gif" />
+    <Resource Include="Images\Flags\bj.gif" />
+    <Resource Include="Images\Flags\bm.gif" />
+    <Resource Include="Images\Flags\bn.gif" />
+    <Resource Include="Images\Flags\bo.gif" />
+    <Resource Include="Images\Flags\br.gif" />
+    <Resource Include="Images\Flags\bs.gif" />
+    <Resource Include="Images\Flags\bt.gif" />
+    <Resource Include="Images\Flags\bv.gif" />
+    <Resource Include="Images\Flags\bw.gif" />
+    <Resource Include="Images\Flags\by.gif" />
+    <Resource Include="Images\Flags\bz.gif" />
+    <Resource Include="Images\Flags\ca.gif" />
+    <Resource Include="Images\Flags\catalonia.gif" />
+    <Resource Include="Images\Flags\cc.gif" />
+    <Resource Include="Images\Flags\cd.gif" />
+    <Resource Include="Images\Flags\cf.gif" />
+    <Resource Include="Images\Flags\cg.gif" />
+    <Resource Include="Images\Flags\ch.gif" />
+    <Resource Include="Images\Flags\ci.gif" />
+    <Resource Include="Images\Flags\ck.gif" />
+    <Resource Include="Images\Flags\cl.gif" />
+    <Resource Include="Images\Flags\cm.gif" />
+    <Resource Include="Images\Flags\cn.gif" />
+    <Resource Include="Images\Flags\co.gif" />
+    <Resource Include="Images\Flags\cr.gif" />
+    <Resource Include="Images\Flags\cs.gif" />
+    <Resource Include="Images\Flags\cu.gif" />
+    <Resource Include="Images\Flags\cv.gif" />
+    <Resource Include="Images\Flags\cx.gif" />
+    <Resource Include="Images\Flags\cy.gif" />
+    <Resource Include="Images\Flags\cz.gif" />
+    <Resource Include="Images\Flags\de.gif" />
+    <Resource Include="Images\Flags\dj.gif" />
+    <Resource Include="Images\Flags\dk.gif" />
+    <Resource Include="Images\Flags\dm.gif" />
+    <Resource Include="Images\Flags\do.gif" />
+    <Resource Include="Images\Flags\dz.gif" />
+    <Resource Include="Images\Flags\ec.gif" />
+    <Resource Include="Images\Flags\ee.gif" />
+    <Resource Include="Images\Flags\eg.gif" />
+    <Resource Include="Images\Flags\eh.gif" />
+    <Resource Include="Images\Flags\england.gif" />
+    <Resource Include="Images\Flags\er.gif" />
+    <Resource Include="Images\Flags\es.gif" />
+    <Resource Include="Images\Flags\et.gif" />
+    <Resource Include="Images\Flags\europeanunion.gif" />
+    <Resource Include="Images\Flags\fam.gif" />
+    <Resource Include="Images\Flags\fi.gif" />
+    <Resource Include="Images\Flags\fj.gif" />
+    <Resource Include="Images\Flags\fk.gif" />
+    <Resource Include="Images\Flags\fm.gif" />
+    <Resource Include="Images\Flags\fo.gif" />
+    <Resource Include="Images\Flags\fr.gif" />
+    <Resource Include="Images\Flags\ga.gif" />
+    <Resource Include="Images\Flags\gb.gif" />
+    <Resource Include="Images\Flags\gd.gif" />
+    <Resource Include="Images\Flags\ge.gif" />
+    <Resource Include="Images\Flags\gf.gif" />
+    <Resource Include="Images\Flags\gh.gif" />
+    <Resource Include="Images\Flags\gi.gif" />
+    <Resource Include="Images\Flags\gl.gif" />
+    <Resource Include="Images\Flags\gm.gif" />
+    <Resource Include="Images\Flags\gn.gif" />
+    <Resource Include="Images\Flags\gp.gif" />
+    <Resource Include="Images\Flags\gq.gif" />
+    <Resource Include="Images\Flags\gr.gif" />
+    <Resource Include="Images\Flags\gs.gif" />
+    <Resource Include="Images\Flags\gt.gif" />
+    <Resource Include="Images\Flags\gu.gif" />
+    <Resource Include="Images\Flags\gw.gif" />
+    <Resource Include="Images\Flags\gy.gif" />
+    <Resource Include="Images\Flags\hk.gif" />
+    <Resource Include="Images\Flags\hm.gif" />
+    <Resource Include="Images\Flags\hn.gif" />
+    <Resource Include="Images\Flags\hr.gif" />
+    <Resource Include="Images\Flags\ht.gif" />
+    <Resource Include="Images\Flags\hu.gif" />
+    <Resource Include="Images\Flags\id.gif" />
+    <Resource Include="Images\Flags\ie.gif" />
+    <Resource Include="Images\Flags\il.gif" />
+    <Resource Include="Images\Flags\in.gif" />
+    <Resource Include="Images\Flags\io.gif" />
+    <Resource Include="Images\Flags\iq.gif" />
+    <Resource Include="Images\Flags\ir.gif" />
+    <Resource Include="Images\Flags\is.gif" />
+    <Resource Include="Images\Flags\it.gif" />
+    <Resource Include="Images\Flags\jm.gif" />
+    <Resource Include="Images\Flags\jo.gif" />
+    <Resource Include="Images\Flags\jp.gif" />
+    <Resource Include="Images\Flags\ke.gif" />
+    <Resource Include="Images\Flags\kg.gif" />
+    <Resource Include="Images\Flags\kh.gif" />
+    <Resource Include="Images\Flags\ki.gif" />
+    <Resource Include="Images\Flags\km.gif" />
+    <Resource Include="Images\Flags\kn.gif" />
+    <Resource Include="Images\Flags\kp.gif" />
+    <Resource Include="Images\Flags\kr.gif" />
+    <Resource Include="Images\Flags\kw.gif" />
+    <Resource Include="Images\Flags\ky.gif" />
+    <Resource Include="Images\Flags\kz.gif" />
+    <Resource Include="Images\Flags\la.gif" />
+    <Resource Include="Images\Flags\lb.gif" />
+    <Resource Include="Images\Flags\lc.gif" />
+    <Resource Include="Images\Flags\li.gif" />
+    <Resource Include="Images\Flags\lk.gif" />
+    <Resource Include="Images\Flags\lr.gif" />
+    <Resource Include="Images\Flags\ls.gif" />
+    <Resource Include="Images\Flags\lt.gif" />
+    <Resource Include="Images\Flags\lu.gif" />
+    <Resource Include="Images\Flags\lv.gif" />
+    <Resource Include="Images\Flags\ly.gif" />
+    <Resource Include="Images\Flags\ma.gif" />
+    <Resource Include="Images\Flags\mc.gif" />
+    <Resource Include="Images\Flags\md.gif" />
+    <Resource Include="Images\Flags\me.gif" />
+    <Resource Include="Images\Flags\mg.gif" />
+    <Resource Include="Images\Flags\mh.gif" />
+    <Resource Include="Images\Flags\mk.gif" />
+    <Resource Include="Images\Flags\ml.gif" />
+    <Resource Include="Images\Flags\mm.gif" />
+    <Resource Include="Images\Flags\mn.gif" />
+    <Resource Include="Images\Flags\mo.gif" />
+    <Resource Include="Images\Flags\mp.gif" />
+    <Resource Include="Images\Flags\mq.gif" />
+    <Resource Include="Images\Flags\mr.gif" />
+    <Resource Include="Images\Flags\ms.gif" />
+    <Resource Include="Images\Flags\mt.gif" />
+    <Resource Include="Images\Flags\mu.gif" />
+    <Resource Include="Images\Flags\mv.gif" />
+    <Resource Include="Images\Flags\mw.gif" />
+    <Resource Include="Images\Flags\mx.gif" />
+    <Resource Include="Images\Flags\my.gif" />
+    <Resource Include="Images\Flags\mz.gif" />
+    <Resource Include="Images\Flags\na.gif" />
+    <Resource Include="Images\Flags\nc.gif" />
+    <Resource Include="Images\Flags\ne.gif" />
+    <Resource Include="Images\Flags\nf.gif" />
+    <Resource Include="Images\Flags\ng.gif" />
+    <Resource Include="Images\Flags\ni.gif" />
+    <Resource Include="Images\Flags\nl.gif" />
+    <Resource Include="Images\Flags\no.gif" />
+    <Resource Include="Images\Flags\np.gif" />
+    <Resource Include="Images\Flags\nr.gif" />
+    <Resource Include="Images\Flags\nu.gif" />
+    <Resource Include="Images\Flags\nz.gif" />
+    <Resource Include="Images\Flags\om.gif" />
+    <Resource Include="Images\Flags\pa.gif" />
+    <Resource Include="Images\Flags\pe.gif" />
+    <Resource Include="Images\Flags\pf.gif" />
+    <Resource Include="Images\Flags\pg.gif" />
+    <Resource Include="Images\Flags\ph.gif" />
+    <Resource Include="Images\Flags\pk.gif" />
+    <Resource Include="Images\Flags\pl.gif" />
+    <Resource Include="Images\Flags\pm.gif" />
+    <Resource Include="Images\Flags\pn.gif" />
+    <Resource Include="Images\Flags\pr.gif" />
+    <Resource Include="Images\Flags\ps.gif" />
+    <Resource Include="Images\Flags\pt.gif" />
+    <Resource Include="Images\Flags\pw.gif" />
+    <Resource Include="Images\Flags\py.gif" />
+    <Resource Include="Images\Flags\qa.gif" />
+    <Resource Include="Images\Flags\re.gif" />
+    <Resource Include="Images\Flags\ro.gif" />
+    <Resource Include="Images\Flags\rs.gif" />
+    <Resource Include="Images\Flags\ru.gif" />
+    <Resource Include="Images\Flags\rw.gif" />
+    <Resource Include="Images\Flags\sa.gif" />
+    <Resource Include="Images\Flags\sb.gif" />
+    <Resource Include="Images\Flags\sc.gif" />
+    <Resource Include="Images\Flags\scotland.gif" />
+    <Resource Include="Images\Flags\sd.gif" />
+    <Resource Include="Images\Flags\se.gif" />
+    <Resource Include="Images\Flags\sg.gif" />
+    <Resource Include="Images\Flags\sh.gif" />
+    <Resource Include="Images\Flags\si.gif" />
+    <Resource Include="Images\Flags\sj.gif" />
+    <Resource Include="Images\Flags\sk.gif" />
+    <Resource Include="Images\Flags\sl.gif" />
+    <Resource Include="Images\Flags\sm.gif" />
+    <Resource Include="Images\Flags\sn.gif" />
+    <Resource Include="Images\Flags\so.gif" />
+    <Resource Include="Images\Flags\sr.gif" />
+    <Resource Include="Images\Flags\st.gif" />
+    <Resource Include="Images\Flags\sv.gif" />
+    <Resource Include="Images\Flags\sy.gif" />
+    <Resource Include="Images\Flags\sz.gif" />
+    <Resource Include="Images\Flags\tc.gif" />
+    <Resource Include="Images\Flags\td.gif" />
+    <Resource Include="Images\Flags\tf.gif" />
+    <Resource Include="Images\Flags\tg.gif" />
+    <Resource Include="Images\Flags\th.gif" />
+    <Resource Include="Images\Flags\tj.gif" />
+    <Resource Include="Images\Flags\tk.gif" />
+    <Resource Include="Images\Flags\tl.gif" />
+    <Resource Include="Images\Flags\tm.gif" />
+    <Resource Include="Images\Flags\tn.gif" />
+    <Resource Include="Images\Flags\to.gif" />
+    <Resource Include="Images\Flags\tr.gif" />
+    <Resource Include="Images\Flags\tt.gif" />
+    <Resource Include="Images\Flags\tv.gif" />
+    <Resource Include="Images\Flags\tw.gif" />
+    <Resource Include="Images\Flags\tz.gif" />
+    <Resource Include="Images\Flags\ua.gif" />
+    <Resource Include="Images\Flags\ug.gif" />
+    <Resource Include="Images\Flags\um.gif" />
+    <Resource Include="Images\Flags\us.gif" />
+    <Resource Include="Images\Flags\uy.gif" />
+    <Resource Include="Images\Flags\uz.gif" />
+    <Resource Include="Images\Flags\va.gif" />
+    <Resource Include="Images\Flags\vc.gif" />
+    <Resource Include="Images\Flags\ve.gif" />
+    <Resource Include="Images\Flags\vg.gif" />
+    <Resource Include="Images\Flags\vi.gif" />
+    <Resource Include="Images\Flags\vn.gif" />
+    <Resource Include="Images\Flags\vu.gif" />
+    <Resource Include="Images\Flags\wales.gif" />
+    <Resource Include="Images\Flags\wf.gif" />
+    <Resource Include="Images\Flags\ws.gif" />
+    <Resource Include="Images\Flags\ye.gif" />
+    <Resource Include="Images\Flags\yt.gif" />
+    <Resource Include="Images\Flags\za.gif" />
+    <Resource Include="Images\Flags\zm.gif" />
+    <Resource Include="Images\Flags\zw.gif" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\save.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LanguagePacks\readme.txt" />
+    <Resource Include="Images\Flags\sp.gif" />
+    <Content Include="LanguagePacks\StoryQ.pt-BR.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LanguagePacks\StoryQ.pt-BR.XML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LanguagePacks\StoryQ.sr-SP.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LanguagePacks\StoryQ.sr-SP.XML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="StoryQ.XML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="LanguagePacks\StoryQ.pt-BR.dll">
+      <Visible>False</Visible>
+      <Group>pt-BR</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="LanguagePacks\StoryQ.pt-BR.XML">
+      <Visible>False</Visible>
+      <Group>pt-BR</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="LanguagePacks\StoryQ.sr-SP.dll">
+      <Visible>False</Visible>
+      <Group>sr-SP</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="LanguagePacks\StoryQ.sr-SP.XML">
+      <Visible>False</Visible>
+      <Group>sr-SP</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="StoryQ.XML">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

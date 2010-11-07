@@ -1,0 +1,288 @@
+<#@ import namespace="Flit"#>
+<#@ import namespace="Flit"#>
+<#@ import namespace="Irony.Parsing"#>
+<#@ import namespace="System.Text.RegularExpressions"#>
+<#@ import namespace="System.Linq"#>
+<#@ import namespace="System.Collections.Generic"#>
+<#@ template language="C#v3.5" hostspecific="True" debug="True" #>
+<#@ assembly name="$(SolutionDir)..\lib\development\Flit.dll"#>
+<#@ assembly name="$(SolutionDir)..\lib\development\Irony.dll"#>
+<#@ assembly name="System.Core.dll"#>
+<#@ output extension=".g.cs" #>
+<#
+
+//This model-driven development is thanks to http://flit.codeplex.com!
+
+    var inputFile = GetParameter("inputFile", "FluentInterface\\StoryQ.txt");
+    var nameSpace = GetParameter("nameSpace", "StoryQ").Replace('-', '_');
+
+    var compiler = new Irony.Parsing.Parser(new FlitGrammar());
+    ParseTree tree = compiler.Parse(System.IO.File.ReadAllText(Host.ResolvePath(inputFile)));
+    ParseTreeNode node = tree.Root;
+    Graph graph = node.AstNode as Graph;
+    
+#>
+using System;
+using System.ComponentModel;
+using StoryQ.Infrastructure;
+
+// tells the parser what our entry points are:
+[assembly:ParserEntryPointAttribute(typeof(<#=nameSpace#>.Infrastructure.StoryQEntryPoints))]
+
+namespace <#=nameSpace#>
+{
+<#
+    foreach(var state in graph.States)
+    {
+        string type = state.Label.Name;
+#>
+
+    /// <summary>
+    /// The [<#=state.Label.Name#>] story fragment.
+    /// <#=Tooltip(state)#>
+    /// <h1>Transitions:</h1><ul>
+<#
+        foreach(var exit in state.OutgoingTransitions)
+        {
+            var target = exit.ToState;
+            string prefix = CamelCaseToSentence(exit.Label.Name);
+#>
+    /// <li><#=prefix#> [<see cref="<#=target.Label.Name#>"/>]: <see cref="<#=exit.Label.Name#>(<#=IsExecutable(target)?"Action":"string"#>)"/></li>
+<#
+        }
+#>
+    /// </ul>
+    /// </summary>
+    public class <#=state.Label.Name#> : FragmentBase
+    {
+<#
+        if (IsEntryPoint(state))
+        {
+            var text = state.Label.Name+GetCopula(state);
+#>
+        /// <summary>
+        /// Starts a new StoryQ <#=state.Label.Name#>. 
+        /// </summary>
+        /// <param name="text">The name of the new <#=state.Label.Name#></param>
+
+        public <#=state.Label.Name#>(string text):base(new Step("<#= CamelCaseToSentence(text)#>", 0, text, Step.DoNothing), null){}
+<#
+        }
+        else
+        {
+#>
+        internal <#=state.Label.Name#>(Step step, IStepContainer parent):base(step, parent){}
+<#
+        }
+        foreach(var exit in state.OutgoingTransitions)
+        {
+            var target = exit.ToState;
+            string prefix = CamelCaseToSentence(exit.Label.Name);
+            if (IsExecutable(target))
+            {
+                for(int i = 0; i < 5; i++)
+                {
+                    var nums = Enumerable.Range(1, i);
+                    string types = Join(", ", nums.Select(x=>"T"+x));
+                    if(!string.IsNullOrEmpty(types))
+                    {
+                        types = "<"+types+">";
+                    }
+#>
+
+        /// <summary>
+        /// <#=prefix#> [<#=target.Label.Name#>].
+        /// <#=Tooltip(exit)#>.
+        /// </summary>
+        /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
+        /// <param name="descriptiveAction">
+        /// A descriptively named method that should be run to fulfil this story fragment. The method's name will be used as the description for this fragment, once converted from CamelCase
+        /// Any underscores in the method's name will be used as placeholders and will be replaced with the <see cref="object.ToString"/> of each respective argument.
+        /// Do not use a lambda or anonymous method here, as the name will not be human readable
+        /// </param>
+<#
+                for(int j = 1; j <= i; j++)
+                {
+#>
+        /// <param name="<#= "arg"+j #>">The <#= numberths[j] #> argument to be passed to <paramref name="descriptiveAction"/></param>
+<# 
+                } 
+#>
+        /// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
+        [Description("<#=Tooltip(exit)#>")]
+        public <#=target.Label.Name#> <#=exit.Label.Name+types#>(Action<#=types#> descriptiveAction<#= Join("", nums.Select(x=>", T"+x+" arg"+x)) #>)
+        {
+            string text = MethodToText(descriptiveAction<#= Join("", nums.Select(x=>", arg"+x)) #>);
+            Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, <# if(i==0){ #>descriptiveAction<# }else{ #>() => descriptiveAction(<#= Join(", ", nums.Select(x=>"arg"+x)) #>)<# } #>);
+            return new <#=target.Label.Name#>(s, this);
+        }
+<#
+                }
+
+            }
+#>
+
+        /// <summary>
+        /// <#=prefix#> [<#=target.Label.Name#>].
+        /// <#=Tooltip(exit)#>
+        /// </summary>
+        /// <param name="text">
+        /// A textual description. This story fragment is not executable.
+        /// </param>
+        /// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
+        [Description("<#=Tooltip(exit)#>")]
+        <#=IsExecutable(target)?"protected":"public"#> <#=target.Label.Name#> <#=exit.Label.Name#>(string text)
+        {
+            Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, <#=IsExecutable(target)?"null":"Step.DoNothing"#>);
+            return new <#=target.Label.Name#>(s, this);
+        }
+
+<#
+        }
+#>
+        /// <summary>
+        /// Adds a tag to this step. Tags can be used make disparate steps searchable.
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public <#=state.Label.Name#> Tag(string tag)
+        {
+            ((IStepContainer)this).Step.Tags.Add(tag.Trim().Trim('#'));
+            return this;
+        }
+
+    }
+<#
+    }
+#>
+
+    namespace TextualSteps
+    {
+        ///<summary>
+        /// Extension methods to enable string-based executable steps. These will always Pend
+        ///</summary>
+        public static class Extensions
+        {
+<#
+    foreach(var state in graph.States)
+    {
+        string type = state.Label.Name;
+        foreach(var exit in state.OutgoingTransitions)
+        {
+            var target = exit.ToState;
+            string prefix = CamelCaseToSentence(exit.Label.Name);
+            if (IsExecutable(target))
+            {
+#>
+            /// <summary>
+            /// <#=prefix#> [<#=target.Label.Name#>].
+            /// <#=Tooltip(exit)#>
+            /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
+            /// </summary>
+            /// <param name="parent">this</param>
+            /// <param name="text">
+            /// A textual description of the step. 
+            /// </param>
+            /// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
+            [Description("<#=Tooltip(exit)#>")]        
+            public static <#=target.Label.Name#> <#=exit.Label.Name#>(this <#=exit.FromState.Label.Name#> parent, string text)
+            {				
+                Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, () => { throw new StringBasedExecutableStepException(text); });
+                return new <#=target.Label.Name#>(s, parent);
+            }
+
+<#
+                }
+            }
+        }
+#>
+        }
+    }
+
+    namespace Infrastructure
+    {
+        /// <summary>
+        /// Entry points for the StoryQ converter's parser
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public class StoryQEntryPoints
+        {
+<#
+        foreach(var state in graph.States.Where(IsEntryPoint))
+        {
+            var text = state.Label.Name+GetCopula(state);
+            var prefix = CamelCaseToSentence(text);
+#>
+            /// <summary>
+            /// For infrastructure use only
+            /// </summary>
+            [Description("<#=Tooltip(state)#>")]
+            protected <#=state.Label.Name#> <#=text#>(string text)
+            {
+                return new <#=state.Label.Name#>(text);
+            }
+
+<#
+        }
+#>
+        }
+    }
+}
+
+<#+
+    public bool IsExecutable(State state)
+    {
+        return state.GenericAttributes.ContainsKey("fillcolor") &&  state.GenericAttributes["fillcolor"]=="skyblue";
+    }
+
+    public bool IsEntryPoint(State state)
+    {
+        return state.GenericAttributes.ContainsKey("shape") &&  state.GenericAttributes["shape"]=="doublecircle";
+    }
+    
+    public string GetCopula(State state)
+    {
+        return state.GenericAttributes.ContainsKey("copula") ? state.GenericAttributes["copula"] : "";
+    }
+
+    public string Tooltip(Transition t)
+    {
+        return Tooltip(t.GenericAttributes);
+    }
+    
+    public int Indent(Transition t)
+    {
+        Dictionary<string, string> attributes = t.GenericAttributes;
+        string s = attributes.ContainsKey("indentlevel")?attributes["indentlevel"]:"0";
+        return int.Parse(s);
+    }
+
+    public string Tooltip(State s)
+    {
+        return Tooltip(s.GenericAttributes);
+    }
+
+    public string Tooltip(Dictionary<string, string> attributes)
+    {
+        return attributes.ContainsKey("tooltip")?attributes["tooltip"]:"";
+    }
+
+    public string CamelCaseToSentence(string s)
+    {
+        return Regex.Replace(s, "[A-Z]", x => x.Index == 0 ? x.Value : " " + x.Value.ToLowerInvariant()).Trim();
+    }
+
+    public string Join(string seperator, IEnumerable<string> strings)
+    {
+        return string.Join(seperator, strings.ToArray());
+    }
+    
+    public string GetParameter(string name, string fallback)
+    {
+        var s = Host.ResolveParameterValue(" ", " ", name);    
+        return string.IsNullOrEmpty(s) ? fallback : s;
+    }
+
+    public static readonly string[] numberths = {"zeroeth", "first", "second", "third", "fourth"};
+
+#>
