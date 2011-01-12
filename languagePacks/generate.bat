@@ -8,7 +8,7 @@ if not exist bin mkdir bin
 for %%I in (src\*.txt) DO (
 
 	echo - Generating obj\StoryQ.flit.%%~nI.g.cs code from %%I       
-	"%ProgramFiles(x86)%\Common Files\Microsoft Shared\TextTemplating\10\TextTransform.exe" -P ..\lib\development -a !!nameSpace!StoryQ.%%~nI -a !!inputFile!%%I -out obj\StoryQ.flit.%%~nI.g.cs ..\src\StoryQ\StoryQ.flit.tt 
+	"C:\Program Files\Common Files\Microsoft Shared\TextTemplating\10.0\TextTransform.exe" -P ..\lib\development -a !!nameSpace!StoryQ.%%~nI -a !!inputFile!%%I -out obj\StoryQ.flit.%%~nI.g.cs ..\src\StoryQ\StoryQ.flit.tt 
 
 	echo - Generating PNG and SVG from %%I - if dot is installed - www.graphviz.org
 	where /Q dot
