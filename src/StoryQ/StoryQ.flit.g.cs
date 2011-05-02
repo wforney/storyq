@@ -12,7 +12,7 @@ namespace StoryQ
     /// The [Story] story fragment.
     /// This is the root item of any story
     /// <h1>Transitions:</h1><ul>
-    /// <li>In order to [<see cref="Benefit"/>]: <see cref="InOrderTo(string)"/></li>
+    /// <li>in order to [<see cref="Benefit"/>]: <see cref="InOrderTo(string)"/></li>
     /// </ul>
     /// </summary>
     public class Story : FragmentBase
@@ -22,10 +22,10 @@ namespace StoryQ
         /// </summary>
         /// <param name="text">The name of the new Story</param>
 
-        public Story(string text):base(new Step("Story is", 0, text, Step.DoNothing), null){}
+        public Story(string text):base(new Step("story is", 0, text, Step.DoNothing), null){}
 
         /// <summary>
-        /// In order to [Benefit].
+        /// in order to [Benefit].
         /// Describe the real-world value for this story. What is the business process that the user requires software support from?
         /// </summary>
         /// <param name="text">
@@ -35,7 +35,7 @@ namespace StoryQ
         [Description("Describe the real-world value for this story. What is the business process that the user requires software support from?")]
         public Benefit InOrderTo(string text)
         {
-            Step s = new Step("In order to", 1, text, Step.DoNothing);
+            Step s = new Step("in order to", 1, text, Step.DoNothing);
             return new Benefit(s, this);
         }
 
@@ -56,8 +56,8 @@ namespace StoryQ
     /// The [Benefit] story fragment.
     /// The real-world objective (business value) of a story
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Benefit"/>]: <see cref="And(string)"/></li>
-    /// <li>As a [<see cref="Role"/>]: <see cref="AsA(string)"/></li>
+    /// <li>and [<see cref="Benefit"/>]: <see cref="And(string)"/></li>
+    /// <li>as a [<see cref="Role"/>]: <see cref="AsA(string)"/></li>
     /// </ul>
     /// </summary>
     public class Benefit : FragmentBase
@@ -65,7 +65,7 @@ namespace StoryQ
         internal Benefit(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
-        /// And [Benefit].
+        /// and [Benefit].
         /// Describe any secondary business functions that this story will support
         /// </summary>
         /// <param name="text">
@@ -75,13 +75,13 @@ namespace StoryQ
         [Description("Describe any secondary business functions that this story will support")]
         public Benefit And(string text)
         {
-            Step s = new Step("And", 2, text, Step.DoNothing);
+            Step s = new Step("and", 2, text, Step.DoNothing);
             return new Benefit(s, this);
         }
 
 
         /// <summary>
-        /// As a [Role].
+        /// as a [Role].
         /// The role of the person who is the intended user of this feature
         /// </summary>
         /// <param name="text">
@@ -91,7 +91,7 @@ namespace StoryQ
         [Description("The role of the person who is the intended user of this feature")]
         public Role AsA(string text)
         {
-            Step s = new Step("As a", 1, text, Step.DoNothing);
+            Step s = new Step("as a", 1, text, Step.DoNothing);
             return new Role(s, this);
         }
 
@@ -112,8 +112,8 @@ namespace StoryQ
     /// The [Role] story fragment.
     /// The role (a category of actors/users) or roles that receive this benefit. 
     /// <h1>Transitions:</h1><ul>
-    /// <li>Or as a [<see cref="Role"/>]: <see cref="OrAsA(string)"/></li>
-    /// <li>I want [<see cref="Feature"/>]: <see cref="IWant(string)"/></li>
+    /// <li>or as a [<see cref="Role"/>]: <see cref="OrAsA(string)"/></li>
+    /// <li>i want [<see cref="Feature"/>]: <see cref="IWant(string)"/></li>
     /// </ul>
     /// </summary>
     public class Role : FragmentBase
@@ -121,7 +121,7 @@ namespace StoryQ
         internal Role(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
-        /// Or as a [Role].
+        /// or as a [Role].
         /// Any other roles that may use this story
         /// </summary>
         /// <param name="text">
@@ -131,13 +131,13 @@ namespace StoryQ
         [Description("Any other roles that may use this story")]
         public Role OrAsA(string text)
         {
-            Step s = new Step("Or as a", 2, text, Step.DoNothing);
+            Step s = new Step("or as a", 2, text, Step.DoNothing);
             return new Role(s, this);
         }
 
 
         /// <summary>
-        /// I want [Feature].
+        /// i want [Feature].
         /// Describe the software process (features) that will support the business requirement
         /// </summary>
         /// <param name="text">
@@ -147,7 +147,7 @@ namespace StoryQ
         [Description("Describe the software process (features) that will support the business requirement")]
         public Feature IWant(string text)
         {
-            Step s = new Step("I want", 1, text, Step.DoNothing);
+            Step s = new Step("i want", 1, text, Step.DoNothing);
             return new Feature(s, this);
         }
 
@@ -168,8 +168,8 @@ namespace StoryQ
     /// The [Feature] story fragment.
     /// The software process that will implement the specified benefit.
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Feature"/>]: <see cref="And(string)"/></li>
-    /// <li>With scenario [<see cref="Scenario"/>]: <see cref="WithScenario(string)"/></li>
+    /// <li>and [<see cref="Feature"/>]: <see cref="And(string)"/></li>
+    /// <li>with scenario [<see cref="Scenario"/>]: <see cref="WithScenario(string)"/></li>
     /// </ul>
     /// </summary>
     public class Feature : FragmentBase
@@ -177,7 +177,7 @@ namespace StoryQ
         internal Feature(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
-        /// And [Feature].
+        /// and [Feature].
         /// Any other features that will implement the desired benefit
         /// </summary>
         /// <param name="text">
@@ -187,13 +187,13 @@ namespace StoryQ
         [Description("Any other features that will implement the desired benefit")]
         public Feature And(string text)
         {
-            Step s = new Step("And", 2, text, Step.DoNothing);
+            Step s = new Step("and", 2, text, Step.DoNothing);
             return new Feature(s, this);
         }
 
 
         /// <summary>
-        /// With scenario [Scenario].
+        /// with scenario [Scenario].
         /// Add a scenario ('given'/'when'/'then') to this story. Scenarios can be added (and will be run) in sequence. Each scenario should have a short descriptive name.
         /// </summary>
         /// <param name="text">
@@ -201,9 +201,10 @@ namespace StoryQ
         /// </param>
         /// <returns>The next fragment of your story, a <see cref="Scenario"/></returns>
         [Description("Add a scenario ('given'/'when'/'then') to this story. Scenarios can be added (and will be run) in sequence. Each scenario should have a short descriptive name.")]
+        [Alias("Scenario:")]
         public Scenario WithScenario(string text)
         {
-            Step s = new Step("With scenario", 3, text, Step.DoNothing);
+            Step s = new Step("with scenario", 3, text, Step.DoNothing);
             return new Scenario(s, this);
         }
 
@@ -224,7 +225,7 @@ namespace StoryQ
     /// The [Scenario] story fragment.
     /// The name of each scenario within a story. You can think of each scenario as a chapter in a book.
     /// <h1>Transitions:</h1><ul>
-    /// <li>Given [<see cref="Condition"/>]: <see cref="Given(Action)"/></li>
+    /// <li>given [<see cref="Condition"/>]: <see cref="Given(Action)"/></li>
     /// </ul>
     /// </summary>
     public class Scenario : FragmentBase
@@ -232,7 +233,7 @@ namespace StoryQ
         internal Scenario(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
-        /// Given [Condition].
+        /// given [Condition].
         /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -246,12 +247,12 @@ namespace StoryQ
         public Condition Given(Action descriptiveAction)
         {
             string text = MethodToText(descriptiveAction);
-            Step s = new Step("Given", 4, text, descriptiveAction);
+            Step s = new Step("given", 4, text, descriptiveAction);
             return new Condition(s, this);
         }
 
         /// <summary>
-        /// Given [Condition].
+        /// given [Condition].
         /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -266,12 +267,12 @@ namespace StoryQ
         public Condition Given<T1>(Action<T1> descriptiveAction, T1 arg1)
         {
             string text = MethodToText(descriptiveAction, arg1);
-            Step s = new Step("Given", 4, text, () => descriptiveAction(arg1));
+            Step s = new Step("given", 4, text, () => descriptiveAction(arg1));
             return new Condition(s, this);
         }
 
         /// <summary>
-        /// Given [Condition].
+        /// given [Condition].
         /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -287,12 +288,12 @@ namespace StoryQ
         public Condition Given<T1, T2>(Action<T1, T2> descriptiveAction, T1 arg1, T2 arg2)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2);
-            Step s = new Step("Given", 4, text, () => descriptiveAction(arg1, arg2));
+            Step s = new Step("given", 4, text, () => descriptiveAction(arg1, arg2));
             return new Condition(s, this);
         }
 
         /// <summary>
-        /// Given [Condition].
+        /// given [Condition].
         /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -309,12 +310,12 @@ namespace StoryQ
         public Condition Given<T1, T2, T3>(Action<T1, T2, T3> descriptiveAction, T1 arg1, T2 arg2, T3 arg3)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3);
-            Step s = new Step("Given", 4, text, () => descriptiveAction(arg1, arg2, arg3));
+            Step s = new Step("given", 4, text, () => descriptiveAction(arg1, arg2, arg3));
             return new Condition(s, this);
         }
 
         /// <summary>
-        /// Given [Condition].
+        /// given [Condition].
         /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -332,12 +333,12 @@ namespace StoryQ
         public Condition Given<T1, T2, T3, T4>(Action<T1, T2, T3, T4> descriptiveAction, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3, arg4);
-            Step s = new Step("Given", 4, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
+            Step s = new Step("given", 4, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
             return new Condition(s, this);
         }
 
         /// <summary>
-        /// Given [Condition].
+        /// given [Condition].
         /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
         /// </summary>
         /// <param name="text">
@@ -347,7 +348,7 @@ namespace StoryQ
         [Description("Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state")]
         protected Condition Given(string text)
         {
-            Step s = new Step("Given", 4, text, null);
+            Step s = new Step("given", 4, text, null);
             return new Condition(s, this);
         }
 
@@ -368,8 +369,8 @@ namespace StoryQ
     /// The [Condition] story fragment.
     /// The preconditions that are meant to be present at the beginning of the scenario.
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Condition"/>]: <see cref="And(Action)"/></li>
-    /// <li>When [<see cref="Operation"/>]: <see cref="When(Action)"/></li>
+    /// <li>and [<see cref="Condition"/>]: <see cref="And(Action)"/></li>
+    /// <li>when [<see cref="Operation"/>]: <see cref="When(Action)"/></li>
     /// </ul>
     /// </summary>
     public class Condition : FragmentBase
@@ -377,7 +378,7 @@ namespace StoryQ
         internal Condition(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
-        /// And [Condition].
+        /// and [Condition].
         /// Provide another precondition to describe our scenario's initial state.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -391,12 +392,12 @@ namespace StoryQ
         public Condition And(Action descriptiveAction)
         {
             string text = MethodToText(descriptiveAction);
-            Step s = new Step("And", 5, text, descriptiveAction);
+            Step s = new Step("and", 5, text, descriptiveAction);
             return new Condition(s, this);
         }
 
         /// <summary>
-        /// And [Condition].
+        /// and [Condition].
         /// Provide another precondition to describe our scenario's initial state.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -411,12 +412,12 @@ namespace StoryQ
         public Condition And<T1>(Action<T1> descriptiveAction, T1 arg1)
         {
             string text = MethodToText(descriptiveAction, arg1);
-            Step s = new Step("And", 5, text, () => descriptiveAction(arg1));
+            Step s = new Step("and", 5, text, () => descriptiveAction(arg1));
             return new Condition(s, this);
         }
 
         /// <summary>
-        /// And [Condition].
+        /// and [Condition].
         /// Provide another precondition to describe our scenario's initial state.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -432,12 +433,12 @@ namespace StoryQ
         public Condition And<T1, T2>(Action<T1, T2> descriptiveAction, T1 arg1, T2 arg2)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2);
-            Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2));
+            Step s = new Step("and", 5, text, () => descriptiveAction(arg1, arg2));
             return new Condition(s, this);
         }
 
         /// <summary>
-        /// And [Condition].
+        /// and [Condition].
         /// Provide another precondition to describe our scenario's initial state.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -454,12 +455,12 @@ namespace StoryQ
         public Condition And<T1, T2, T3>(Action<T1, T2, T3> descriptiveAction, T1 arg1, T2 arg2, T3 arg3)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3);
-            Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2, arg3));
+            Step s = new Step("and", 5, text, () => descriptiveAction(arg1, arg2, arg3));
             return new Condition(s, this);
         }
 
         /// <summary>
-        /// And [Condition].
+        /// and [Condition].
         /// Provide another precondition to describe our scenario's initial state.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -477,12 +478,12 @@ namespace StoryQ
         public Condition And<T1, T2, T3, T4>(Action<T1, T2, T3, T4> descriptiveAction, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3, arg4);
-            Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
+            Step s = new Step("and", 5, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
             return new Condition(s, this);
         }
 
         /// <summary>
-        /// And [Condition].
+        /// and [Condition].
         /// Provide another precondition to describe our scenario's initial state
         /// </summary>
         /// <param name="text">
@@ -492,13 +493,13 @@ namespace StoryQ
         [Description("Provide another precondition to describe our scenario's initial state")]
         protected Condition And(string text)
         {
-            Step s = new Step("And", 5, text, null);
+            Step s = new Step("and", 5, text, null);
             return new Condition(s, this);
         }
 
 
         /// <summary>
-        /// When [Operation].
+        /// when [Operation].
         /// Describe the actions that are done to the system under test. '.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -512,12 +513,12 @@ namespace StoryQ
         public Operation When(Action descriptiveAction)
         {
             string text = MethodToText(descriptiveAction);
-            Step s = new Step("When", 4, text, descriptiveAction);
+            Step s = new Step("when", 4, text, descriptiveAction);
             return new Operation(s, this);
         }
 
         /// <summary>
-        /// When [Operation].
+        /// when [Operation].
         /// Describe the actions that are done to the system under test. '.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -532,12 +533,12 @@ namespace StoryQ
         public Operation When<T1>(Action<T1> descriptiveAction, T1 arg1)
         {
             string text = MethodToText(descriptiveAction, arg1);
-            Step s = new Step("When", 4, text, () => descriptiveAction(arg1));
+            Step s = new Step("when", 4, text, () => descriptiveAction(arg1));
             return new Operation(s, this);
         }
 
         /// <summary>
-        /// When [Operation].
+        /// when [Operation].
         /// Describe the actions that are done to the system under test. '.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -553,12 +554,12 @@ namespace StoryQ
         public Operation When<T1, T2>(Action<T1, T2> descriptiveAction, T1 arg1, T2 arg2)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2);
-            Step s = new Step("When", 4, text, () => descriptiveAction(arg1, arg2));
+            Step s = new Step("when", 4, text, () => descriptiveAction(arg1, arg2));
             return new Operation(s, this);
         }
 
         /// <summary>
-        /// When [Operation].
+        /// when [Operation].
         /// Describe the actions that are done to the system under test. '.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -575,12 +576,12 @@ namespace StoryQ
         public Operation When<T1, T2, T3>(Action<T1, T2, T3> descriptiveAction, T1 arg1, T2 arg2, T3 arg3)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3);
-            Step s = new Step("When", 4, text, () => descriptiveAction(arg1, arg2, arg3));
+            Step s = new Step("when", 4, text, () => descriptiveAction(arg1, arg2, arg3));
             return new Operation(s, this);
         }
 
         /// <summary>
-        /// When [Operation].
+        /// when [Operation].
         /// Describe the actions that are done to the system under test. '.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -598,12 +599,12 @@ namespace StoryQ
         public Operation When<T1, T2, T3, T4>(Action<T1, T2, T3, T4> descriptiveAction, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3, arg4);
-            Step s = new Step("When", 4, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
+            Step s = new Step("when", 4, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
             return new Operation(s, this);
         }
 
         /// <summary>
-        /// When [Operation].
+        /// when [Operation].
         /// Describe the actions that are done to the system under test. '
         /// </summary>
         /// <param name="text">
@@ -613,7 +614,7 @@ namespace StoryQ
         [Description("Describe the actions that are done to the system under test. '")]
         protected Operation When(string text)
         {
-            Step s = new Step("When", 4, text, null);
+            Step s = new Step("when", 4, text, null);
             return new Operation(s, this);
         }
 
@@ -634,8 +635,8 @@ namespace StoryQ
     /// The [Operation] story fragment.
     /// The action(s) that are performed upon the system under test
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Operation"/>]: <see cref="And(Action)"/></li>
-    /// <li>Then [<see cref="Outcome"/>]: <see cref="Then(Action)"/></li>
+    /// <li>and [<see cref="Operation"/>]: <see cref="And(Action)"/></li>
+    /// <li>then [<see cref="Outcome"/>]: <see cref="Then(Action)"/></li>
     /// </ul>
     /// </summary>
     public class Operation : FragmentBase
@@ -643,7 +644,7 @@ namespace StoryQ
         internal Operation(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
-        /// And [Operation].
+        /// and [Operation].
         /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -657,12 +658,12 @@ namespace StoryQ
         public Operation And(Action descriptiveAction)
         {
             string text = MethodToText(descriptiveAction);
-            Step s = new Step("And", 5, text, descriptiveAction);
+            Step s = new Step("and", 5, text, descriptiveAction);
             return new Operation(s, this);
         }
 
         /// <summary>
-        /// And [Operation].
+        /// and [Operation].
         /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -677,12 +678,12 @@ namespace StoryQ
         public Operation And<T1>(Action<T1> descriptiveAction, T1 arg1)
         {
             string text = MethodToText(descriptiveAction, arg1);
-            Step s = new Step("And", 5, text, () => descriptiveAction(arg1));
+            Step s = new Step("and", 5, text, () => descriptiveAction(arg1));
             return new Operation(s, this);
         }
 
         /// <summary>
-        /// And [Operation].
+        /// and [Operation].
         /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -698,12 +699,12 @@ namespace StoryQ
         public Operation And<T1, T2>(Action<T1, T2> descriptiveAction, T1 arg1, T2 arg2)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2);
-            Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2));
+            Step s = new Step("and", 5, text, () => descriptiveAction(arg1, arg2));
             return new Operation(s, this);
         }
 
         /// <summary>
-        /// And [Operation].
+        /// and [Operation].
         /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -720,12 +721,12 @@ namespace StoryQ
         public Operation And<T1, T2, T3>(Action<T1, T2, T3> descriptiveAction, T1 arg1, T2 arg2, T3 arg3)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3);
-            Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2, arg3));
+            Step s = new Step("and", 5, text, () => descriptiveAction(arg1, arg2, arg3));
             return new Operation(s, this);
         }
 
         /// <summary>
-        /// And [Operation].
+        /// and [Operation].
         /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then').
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -743,12 +744,12 @@ namespace StoryQ
         public Operation And<T1, T2, T3, T4>(Action<T1, T2, T3, T4> descriptiveAction, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3, arg4);
-            Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
+            Step s = new Step("and", 5, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
             return new Operation(s, this);
         }
 
         /// <summary>
-        /// And [Operation].
+        /// and [Operation].
         /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
         /// </summary>
         /// <param name="text">
@@ -758,13 +759,13 @@ namespace StoryQ
         [Description("Provide another action that is to be performed on the system, prior to our check for behaviour ('then')")]
         protected Operation And(string text)
         {
-            Step s = new Step("And", 5, text, null);
+            Step s = new Step("and", 5, text, null);
             return new Operation(s, this);
         }
 
 
         /// <summary>
-        /// Then [Outcome].
+        /// then [Outcome].
         /// Describe the system's behaviour that the prior state and actions should elicit.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -778,12 +779,12 @@ namespace StoryQ
         public Outcome Then(Action descriptiveAction)
         {
             string text = MethodToText(descriptiveAction);
-            Step s = new Step("Then", 4, text, descriptiveAction);
+            Step s = new Step("then", 4, text, descriptiveAction);
             return new Outcome(s, this);
         }
 
         /// <summary>
-        /// Then [Outcome].
+        /// then [Outcome].
         /// Describe the system's behaviour that the prior state and actions should elicit.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -798,12 +799,12 @@ namespace StoryQ
         public Outcome Then<T1>(Action<T1> descriptiveAction, T1 arg1)
         {
             string text = MethodToText(descriptiveAction, arg1);
-            Step s = new Step("Then", 4, text, () => descriptiveAction(arg1));
+            Step s = new Step("then", 4, text, () => descriptiveAction(arg1));
             return new Outcome(s, this);
         }
 
         /// <summary>
-        /// Then [Outcome].
+        /// then [Outcome].
         /// Describe the system's behaviour that the prior state and actions should elicit.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -819,12 +820,12 @@ namespace StoryQ
         public Outcome Then<T1, T2>(Action<T1, T2> descriptiveAction, T1 arg1, T2 arg2)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2);
-            Step s = new Step("Then", 4, text, () => descriptiveAction(arg1, arg2));
+            Step s = new Step("then", 4, text, () => descriptiveAction(arg1, arg2));
             return new Outcome(s, this);
         }
 
         /// <summary>
-        /// Then [Outcome].
+        /// then [Outcome].
         /// Describe the system's behaviour that the prior state and actions should elicit.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -841,12 +842,12 @@ namespace StoryQ
         public Outcome Then<T1, T2, T3>(Action<T1, T2, T3> descriptiveAction, T1 arg1, T2 arg2, T3 arg3)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3);
-            Step s = new Step("Then", 4, text, () => descriptiveAction(arg1, arg2, arg3));
+            Step s = new Step("then", 4, text, () => descriptiveAction(arg1, arg2, arg3));
             return new Outcome(s, this);
         }
 
         /// <summary>
-        /// Then [Outcome].
+        /// then [Outcome].
         /// Describe the system's behaviour that the prior state and actions should elicit.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -864,12 +865,12 @@ namespace StoryQ
         public Outcome Then<T1, T2, T3, T4>(Action<T1, T2, T3, T4> descriptiveAction, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3, arg4);
-            Step s = new Step("Then", 4, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
+            Step s = new Step("then", 4, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
             return new Outcome(s, this);
         }
 
         /// <summary>
-        /// Then [Outcome].
+        /// then [Outcome].
         /// Describe the system's behaviour that the prior state and actions should elicit
         /// </summary>
         /// <param name="text">
@@ -879,7 +880,7 @@ namespace StoryQ
         [Description("Describe the system's behaviour that the prior state and actions should elicit")]
         protected Outcome Then(string text)
         {
-            Step s = new Step("Then", 4, text, null);
+            Step s = new Step("then", 4, text, null);
             return new Outcome(s, this);
         }
 
@@ -900,8 +901,8 @@ namespace StoryQ
     /// The [Outcome] story fragment.
     /// The result that is expected from executing the specified actions on the specified initial state
     /// <h1>Transitions:</h1><ul>
-    /// <li>And [<see cref="Outcome"/>]: <see cref="And(Action)"/></li>
-    /// <li>With scenario [<see cref="Scenario"/>]: <see cref="WithScenario(string)"/></li>
+    /// <li>and [<see cref="Outcome"/>]: <see cref="And(Action)"/></li>
+    /// <li>with scenario [<see cref="Scenario"/>]: <see cref="WithScenario(string)"/></li>
     /// </ul>
     /// </summary>
     public class Outcome : FragmentBase
@@ -909,7 +910,7 @@ namespace StoryQ
         internal Outcome(Step step, IStepContainer parent):base(step, parent){}
 
         /// <summary>
-        /// And [Outcome].
+        /// and [Outcome].
         /// Provide another resultant behaviour to check for.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -923,12 +924,12 @@ namespace StoryQ
         public Outcome And(Action descriptiveAction)
         {
             string text = MethodToText(descriptiveAction);
-            Step s = new Step("And", 5, text, descriptiveAction);
+            Step s = new Step("and", 5, text, descriptiveAction);
             return new Outcome(s, this);
         }
 
         /// <summary>
-        /// And [Outcome].
+        /// and [Outcome].
         /// Provide another resultant behaviour to check for.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -943,12 +944,12 @@ namespace StoryQ
         public Outcome And<T1>(Action<T1> descriptiveAction, T1 arg1)
         {
             string text = MethodToText(descriptiveAction, arg1);
-            Step s = new Step("And", 5, text, () => descriptiveAction(arg1));
+            Step s = new Step("and", 5, text, () => descriptiveAction(arg1));
             return new Outcome(s, this);
         }
 
         /// <summary>
-        /// And [Outcome].
+        /// and [Outcome].
         /// Provide another resultant behaviour to check for.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -964,12 +965,12 @@ namespace StoryQ
         public Outcome And<T1, T2>(Action<T1, T2> descriptiveAction, T1 arg1, T2 arg2)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2);
-            Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2));
+            Step s = new Step("and", 5, text, () => descriptiveAction(arg1, arg2));
             return new Outcome(s, this);
         }
 
         /// <summary>
-        /// And [Outcome].
+        /// and [Outcome].
         /// Provide another resultant behaviour to check for.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -986,12 +987,12 @@ namespace StoryQ
         public Outcome And<T1, T2, T3>(Action<T1, T2, T3> descriptiveAction, T1 arg1, T2 arg2, T3 arg3)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3);
-            Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2, arg3));
+            Step s = new Step("and", 5, text, () => descriptiveAction(arg1, arg2, arg3));
             return new Outcome(s, this);
         }
 
         /// <summary>
-        /// And [Outcome].
+        /// and [Outcome].
         /// Provide another resultant behaviour to check for.
         /// </summary>
         /// <remarks>This overload infers its text from the name of the parameter <paramref name="descriptiveAction"/></remarks>
@@ -1009,12 +1010,12 @@ namespace StoryQ
         public Outcome And<T1, T2, T3, T4>(Action<T1, T2, T3, T4> descriptiveAction, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
             string text = MethodToText(descriptiveAction, arg1, arg2, arg3, arg4);
-            Step s = new Step("And", 5, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
+            Step s = new Step("and", 5, text, () => descriptiveAction(arg1, arg2, arg3, arg4));
             return new Outcome(s, this);
         }
 
         /// <summary>
-        /// And [Outcome].
+        /// and [Outcome].
         /// Provide another resultant behaviour to check for
         /// </summary>
         /// <param name="text">
@@ -1024,13 +1025,13 @@ namespace StoryQ
         [Description("Provide another resultant behaviour to check for")]
         protected Outcome And(string text)
         {
-            Step s = new Step("And", 5, text, null);
+            Step s = new Step("and", 5, text, null);
             return new Outcome(s, this);
         }
 
 
         /// <summary>
-        /// With scenario [Scenario].
+        /// with scenario [Scenario].
         /// Add another scenario to this story. StoryQ executes these scenarios one after the other, so state can be shared between a single story's scenarios.
         /// </summary>
         /// <param name="text">
@@ -1038,9 +1039,10 @@ namespace StoryQ
         /// </param>
         /// <returns>The next fragment of your story, a <see cref="Scenario"/></returns>
         [Description("Add another scenario to this story. StoryQ executes these scenarios one after the other, so state can be shared between a single story's scenarios.")]
+        [Alias("Scenario:")]
         public Scenario WithScenario(string text)
         {
-            Step s = new Step("With scenario", 3, text, Step.DoNothing);
+            Step s = new Step("with scenario", 3, text, Step.DoNothing);
             return new Scenario(s, this);
         }
 
@@ -1065,7 +1067,7 @@ namespace StoryQ
         public static class Extensions
         {
             /// <summary>
-            /// Given [Condition].
+            /// given [Condition].
             /// Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state
             /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
             /// </summary>
@@ -1077,12 +1079,12 @@ namespace StoryQ
             [Description("Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state")]        
             public static Condition Given(this Scenario parent, string text)
             {				
-                Step s = new Step("Given", 4, text, () => { throw new StringBasedExecutableStepException(text); });
+                Step s = new Step("given", 4, text, () => { throw new StringBasedExecutableStepException(text); });
                 return new Condition(s, parent);
             }
 
             /// <summary>
-            /// And [Condition].
+            /// and [Condition].
             /// Provide another precondition to describe our scenario's initial state
             /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
             /// </summary>
@@ -1094,12 +1096,12 @@ namespace StoryQ
             [Description("Provide another precondition to describe our scenario's initial state")]        
             public static Condition And(this Condition parent, string text)
             {				
-                Step s = new Step("And", 5, text, () => { throw new StringBasedExecutableStepException(text); });
+                Step s = new Step("and", 5, text, () => { throw new StringBasedExecutableStepException(text); });
                 return new Condition(s, parent);
             }
 
             /// <summary>
-            /// When [Operation].
+            /// when [Operation].
             /// Describe the actions that are done to the system under test. '
             /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
             /// </summary>
@@ -1111,12 +1113,12 @@ namespace StoryQ
             [Description("Describe the actions that are done to the system under test. '")]        
             public static Operation When(this Condition parent, string text)
             {				
-                Step s = new Step("When", 4, text, () => { throw new StringBasedExecutableStepException(text); });
+                Step s = new Step("when", 4, text, () => { throw new StringBasedExecutableStepException(text); });
                 return new Operation(s, parent);
             }
 
             /// <summary>
-            /// And [Operation].
+            /// and [Operation].
             /// Provide another action that is to be performed on the system, prior to our check for behaviour ('then')
             /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
             /// </summary>
@@ -1128,12 +1130,12 @@ namespace StoryQ
             [Description("Provide another action that is to be performed on the system, prior to our check for behaviour ('then')")]        
             public static Operation And(this Operation parent, string text)
             {				
-                Step s = new Step("And", 5, text, () => { throw new StringBasedExecutableStepException(text); });
+                Step s = new Step("and", 5, text, () => { throw new StringBasedExecutableStepException(text); });
                 return new Operation(s, parent);
             }
 
             /// <summary>
-            /// Then [Outcome].
+            /// then [Outcome].
             /// Describe the system's behaviour that the prior state and actions should elicit
             /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
             /// </summary>
@@ -1145,12 +1147,12 @@ namespace StoryQ
             [Description("Describe the system's behaviour that the prior state and actions should elicit")]        
             public static Outcome Then(this Operation parent, string text)
             {				
-                Step s = new Step("Then", 4, text, () => { throw new StringBasedExecutableStepException(text); });
+                Step s = new Step("then", 4, text, () => { throw new StringBasedExecutableStepException(text); });
                 return new Outcome(s, parent);
             }
 
             /// <summary>
-            /// And [Outcome].
+            /// and [Outcome].
             /// Provide another resultant behaviour to check for
             /// This story fragment should be executable, so a method is the preferred argument, but you can supply a string in the meantime. The step will Pend.
             /// </summary>
@@ -1162,7 +1164,7 @@ namespace StoryQ
             [Description("Provide another resultant behaviour to check for")]        
             public static Outcome And(this Outcome parent, string text)
             {				
-                Step s = new Step("And", 5, text, () => { throw new StringBasedExecutableStepException(text); });
+                Step s = new Step("and", 5, text, () => { throw new StringBasedExecutableStepException(text); });
                 return new Outcome(s, parent);
             }
 
@@ -1181,7 +1183,9 @@ namespace StoryQ
             /// For infrastructure use only
             /// </summary>
             [Description("This is the root item of any story")]
-            protected Story StoryIs(string text)
+            [Alias("Story is")]
+            [Alias("Feature:")]
+            protected Story Story(string text)
             {
                 return new Story(text);
             }

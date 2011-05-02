@@ -1,7 +1,7 @@
 ﻿digraph StoryQ{
 
     //states
-    Story					[shape=doublecircle, copula=Is,     tooltip="This is the root item of any story"]
+    Story					[shape=doublecircle,                tooltip="This is the root item of any story", aliases="Story is, Feature:"]
     Benefit					[									tooltip="The real-world objective (business value) of a story"]
     Role					[									tooltip="The role (a category of actors/users) or roles that receive this benefit. "]
     Feature					[									tooltip="The software process that will implement the specified benefit."]
@@ -22,7 +22,7 @@
     Feature->Feature		[label="And",						tooltip="Any other features that will implement the desired benefit",indentlevel="2"]
     
     
-    Feature -> Scenario		[label="WithScenario",				tooltip="Add a scenario ('given'/'when'/'then') to this story. Scenarios can be added (and will be run) in sequence. Each scenario should have a short descriptive name.",indentlevel="3"]
+    Feature -> Scenario		[label="WithScenario",				tooltip="Add a scenario ('given'/'when'/'then') to this story. Scenarios can be added (and will be run) in sequence. Each scenario should have a short descriptive name.",indentlevel="3", aliases="Scenario:"]
 
     Scenario -> Condition	[label="Given",						tooltip="Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state",indentlevel="4"]
     Condition -> Condition	[label="And",						tooltip="Provide another precondition to describe our scenario's initial state",indentlevel="5"]
@@ -33,5 +33,5 @@
     Operation -> Outcome	[label="Then",						tooltip="Describe the system's behaviour that the prior state and actions should elicit",indentlevel="4"]
     Outcome -> Outcome		[label="And",						tooltip="Provide another resultant behaviour to check for",indentlevel="5"]
     
-    Outcome -> Scenario		[label="WithScenario",				tooltip="Add another scenario to this story. StoryQ executes these scenarios one after the other, so state can be shared between a single story's scenarios.",indentlevel="3"]
+    Outcome -> Scenario		[label="WithScenario",				tooltip="Add another scenario to this story. StoryQ executes these scenarios one after the other, so state can be shared between a single story's scenarios.",indentlevel="3", aliases="Scenario:"]
 }
