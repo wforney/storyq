@@ -41,6 +41,17 @@ namespace StoryQ.Converter.Wpf.Specifications
         }
 
         [TestMethod]
+        public void ConvertingLinesIntoStringCallsAndCodeWithAliases()
+        {
+            Scenario
+                    .Given(ThatIHaveLaunchedStoryq)
+                    .When(ITypeInSomeStoryTextWithAliases)
+                    .And(ITypeInSomeScenarioTextWithAliases)
+                    .Then(IShouldSeeThatTextConvertedIntoMixedStoryqCalls)
+                    .ExecuteWithReport();
+        }
+
+        [TestMethod]
         public void ConvertingLinesAndVariablesIntoCode()
         {
             Scenario
@@ -323,11 +334,30 @@ as a person in some role
 i want to use some software function";
         }
 
+        private void ITypeInSomeStoryTextWithAliases()
+        {
+            converter.PlainText +=
+@"feature:story name
+in order to get some benefit
+as a person in some role
+i want to use some software function";
+        }
+
         private void ITypeInSomeScenarioText()
         {
             converter.PlainText +=
 @"
 with scenario scenario name
+given that I have some initial state
+when I do something to the system
+then I should get a result";
+        }
+
+        private void ITypeInSomeScenarioTextWithAliases()
+        {
+            converter.PlainText +=
+@"
+scenario: scenario name
 given that I have some initial state
 when I do something to the system
 then I should get a result";

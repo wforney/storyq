@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Formatting\Methods\OverrideMethodFormatAttribute.cs" />
+    <Compile Include="Infrastructure\AliasAttribute.cs" />
     <Compile Include="Infrastructure\ExceptionHelper.cs" />
     <Compile Include="Execution\Rendering\RichHtml\RichHtmlFileManager.cs" />
     <Compile Include="Execution\Rendering\RichHtml\Dependencies.Designer.cs">
