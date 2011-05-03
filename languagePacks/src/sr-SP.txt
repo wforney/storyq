@@ -1,7 +1,7 @@
 digraph StoryQ{
 
    //states
-   Prica                     [shape=doublecircle, copula=Je,      tooltip="Ovo je root za bilo koju pricu"]
+   Prica                     [shape=doublecircle,		  tooltip="Ovo je root za bilo koju pricu", aliases="Prica je"]
    Korist                    [                                    tooltip="Cilj iz realnog sveta (poslovna vrednost) price"]
    Uloga                     [                                    tooltip="Uloga (kategorija ucesnik/korisnik ili uloga koja ima korist. "]
    Opcija                    [                                    tooltip="Softverski proces koji ce implementirati navedenu korist."]
