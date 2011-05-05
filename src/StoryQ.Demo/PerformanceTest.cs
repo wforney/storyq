@@ -11,7 +11,7 @@ using TestCleanup = NUnit.Framework.TearDownAttribute;
 using TestInitialize = NUnit.Framework.SetUpAttribute;
 using ClassCleanup = NUnit.Framework.TestFixtureTearDownAttribute;
 using ClassInitialize = NUnit.Framework.TestFixtureSetUpAttribute;
-using Category = NUnit.Framework.CategoryAttribute;
+using TestCategory = NUnit.Framework.CategoryAttribute;
 #else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
@@ -22,7 +22,7 @@ namespace StoryQ.Demo
     public class PerformanceTest
     {
         [TestMethod]
-        [Category("Performance")]
+        [TestCategory("Performance")]
         public void Test1()
         {
 
