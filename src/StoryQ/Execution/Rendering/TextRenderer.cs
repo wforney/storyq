@@ -14,12 +14,13 @@ namespace StoryQ.Execution.Rendering
         public TextRenderer(TextWriter output)
         {
             this.output = output;
+
         }
 
         public void Render(IEnumerable<Result> results)
         {
+            StringWriter buffer = new StringWriter();
             List<Exception> exceptionTable = results.Where(x => x.Type == ResultType.Failed).Select(x => x.Exception).ToList();
-
             var messages = results.Select(r => new
                             {
                                 Result = r,
@@ -34,56 +35,58 @@ namespace StoryQ.Execution.Rendering
 
                 if (shouldPutNewlineBefore(r))
                 {
-                    output.WriteLine();
+                    buffer.WriteLine();
                 }
 
-                output.Write(m.Description);
+                buffer.Write(m.Description);
 
                 if (r.Type != ResultType.NotExecutable)
                 {
                     //padding
-                    output.Write(new string(' ', messageLength - m.Description.Length));
-                    output.Write(" => ");
-                    output.Write(r.Type);
+                    buffer.Write(new string(' ', messageLength - m.Description.Length));
+                    buffer.Write(" => ");
+                    buffer.Write(r.Type);
                     if(r.Type == ResultType.Pending)
                     {
-                        output.Write(" !!");
+                        buffer.Write(" !!");
                     }
                     else if (r.Type == ResultType.Failed)
                     {
-                        output.Write(": \"");
-                        output.Write(r.Exception.Message);
-                        output.Write(" [");
-                        output.Write(exceptionTable.IndexOf(r.Exception) + 1);
-                        output.Write("]\"");
+                        buffer.Write(": \"");
+                        buffer.Write(r.Exception.Message);
+                        buffer.Write(" [");
+                        buffer.Write(exceptionTable.IndexOf(r.Exception) + 1);
+                        buffer.Write("]\"");
                     }
                 }
 
                 var tags = r.Tags.Select(x => "#" + x).Join(", ");
                 if(!string.IsNullOrEmpty(tags))
                 {
-                    output.Write(" => (");
-                    output.Write(tags);
-                    output.Write(")");
+                    buffer.Write(" => (");
+                    buffer.Write(tags);
+                    buffer.Write(")");
                 }
 
 
-                output.WriteLine();
+                buffer.WriteLine();
             }
 
             if (exceptionTable.Count > 0)
             {
-                output.WriteLine();
-                output.WriteLine("_______________________");
-                output.WriteLine("Full exception details:");
-                output.WriteLine("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
+                buffer.WriteLine();
+                buffer.WriteLine("_______________________");
+                buffer.WriteLine("Full exception details:");
+                buffer.WriteLine("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
 
                 for (int i = 0; i < exceptionTable.Count; i++)
                 {
-                    output.WriteLine("[{0}]: {1}", (i + 1), exceptionTable[i]);
-                    output.WriteLine();
+                    buffer.WriteLine("[{0}]: {1}", (i + 1), exceptionTable[i]);
+                    buffer.WriteLine();
                 }
             }
+
+            output.Write(buffer.ToString());
         }
 
         protected virtual bool shouldPutNewlineBefore(Result r)
