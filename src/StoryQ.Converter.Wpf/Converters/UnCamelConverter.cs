@@ -6,7 +6,7 @@ namespace StoryQ.Converter.Wpf.Converters
     using System.Windows.Data;
 
     [ValueConversion(typeof(string), typeof(string))]
-    public class UnCamelConverter:IValueConverter
+    public class UnCamelConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => Regex.Replace("" + value, "(?<!^)[A-Z]", match => " " + match.Value.ToLowerInvariant());
 

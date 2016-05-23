@@ -17,8 +17,8 @@
 
         public Window1()
         {
-            InitializeComponent();
-            ViewModel.Converter vm = (ViewModel.Converter)FindResource("vm");
+            this.InitializeComponent();
+            ViewModel.Converter vm = (ViewModel.Converter)this.FindResource("vm");
             vm.PlainText = Settings.Default.InputText;
 
             try
@@ -40,13 +40,13 @@
 
         private void FocusLastChar(object sender, EventArgs e)
         {
-            src.Focus();
-            src.CaretIndex = src.Text.Length;
+            this.src.Focus();
+            this.src.CaretIndex = this.src.Text.Length;
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            ViewModel.Converter vm = (ViewModel.Converter)FindResource("vm");
+            ViewModel.Converter vm = (ViewModel.Converter)this.FindResource("vm");
             Settings.Default.InputText = vm.PlainText;
             Settings.Default.SettingsXml = SettingsAsXml(vm.Settings);
             Settings.Default.Save();

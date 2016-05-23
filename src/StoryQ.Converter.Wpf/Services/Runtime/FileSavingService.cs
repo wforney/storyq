@@ -17,7 +17,7 @@
         {
             this.errorhandler = errorhandler;
 
-            dialog = new FolderBrowserDialog
+            this.dialog = new FolderBrowserDialog
             {
                 SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 ShowNewFolderButton = true
@@ -26,12 +26,12 @@
 
         public string PromptForDirectory(string message)
         {
-            dialog.Description = message;
+            this.dialog.Description = message;
 
             var hwndSource = (System.Windows.Interop.HwndSource)PresentationSource.FromVisual(System.Windows.Application.Current.MainWindow);
-            DialogResult result = hwndSource == null ? dialog.ShowDialog() : dialog.ShowDialog(new OldWindow(hwndSource.Handle));
+            DialogResult result = hwndSource == null ? this.dialog.ShowDialog() : this.dialog.ShowDialog(new OldWindow(hwndSource.Handle));
 
-            return result == DialogResult.OK ? dialog.SelectedPath : null;
+            return result == DialogResult.OK ? this.dialog.SelectedPath : null;
         }
 
         public void CopyLibFiles(string targetDirectory)
@@ -48,7 +48,7 @@
             }
             catch (IOException e)
             {
-                errorhandler.HandleExpectedError(e);
+                this.errorhandler.HandleExpectedError(e);
             }
         }
 
@@ -58,7 +58,7 @@
         {
             public OldWindow(IntPtr handle)
             {
-                Handle = handle;
+                this.Handle = handle;
             }
 
             public IntPtr Handle { get; private set; }

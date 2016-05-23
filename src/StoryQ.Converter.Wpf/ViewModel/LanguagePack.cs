@@ -15,58 +15,58 @@
         {
             this.converter = converter;
             this.localLanguagePack = localLanguagePack;
-            Text = localLanguagePack.Name;
-            CountryCodes = localLanguagePack.CountryCodes;
-            downloadProgress = 1;
+            this.Text = localLanguagePack.Name;
+            this.CountryCodes = localLanguagePack.CountryCodes;
+            this.downloadProgress = 1;
         }
 
         public LanguagePack(Converter converter, IRemoteLanguagePack remoteLanguagePack)
         {
             this.converter = converter;
             this.remoteLanguagePack = remoteLanguagePack;
-            Text = remoteLanguagePack.Name;
-            CountryCodes = remoteLanguagePack.CountryCodes;
-            downloadProgress = 0;
+            this.Text = remoteLanguagePack.Name;
+            this.CountryCodes = remoteLanguagePack.CountryCodes;
+            this.downloadProgress = 0;
         }
 
         public IEnumerable<string> CountryCodes { get; private set; }
 
         public string Text { get; private set; }
 
-        public bool IsDownloaded => localLanguagePack != null;
+        public bool IsDownloaded => this.localLanguagePack != null;
 
         public double DownloadProgress
         {
-            get { return downloadProgress; }
+            get { return this.downloadProgress; }
             set
             {
-                downloadProgress = value;
-                FirePropertyChanged("DownloadProgress");
+                this.downloadProgress = value;
+                this.FirePropertyChanged("DownloadProgress");
             }
         }
 
         public void SetCurrent()
         {
-            if (localLanguagePack != null)
+            if (this.localLanguagePack != null)
             {
-                converter.CurrentParserEntryPoint = localLanguagePack.ParserEntryPoint;
+                this.converter.CurrentParserEntryPoint = this.localLanguagePack.ParserEntryPoint;
             }
             else
             {
-                converter.CurrentParserEntryPoint = null;
-                remoteLanguagePack.BeginDownloadAsync(x => DownloadProgress = x, DownloadComplete);
+                this.converter.CurrentParserEntryPoint = null;
+                this.remoteLanguagePack.BeginDownloadAsync(x => this.DownloadProgress = x, this.DownloadComplete);
             }
         }
 
         private void DownloadComplete(ILocalLanguagePack download)
         {
-            localLanguagePack = download;
-            if (converter.CurrentLanguagePack == this)
+            this.localLanguagePack = download;
+            if (this.converter.CurrentLanguagePack == this)
             {
-                converter.CurrentParserEntryPoint = download.ParserEntryPoint;
+                this.converter.CurrentParserEntryPoint = download.ParserEntryPoint;
             }
-            DownloadProgress = 1;
-            FirePropertyChanged("IsDownloaded");
+            this.DownloadProgress = 1;
+            this.FirePropertyChanged("IsDownloaded");
             
         }
     }

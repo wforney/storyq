@@ -32,18 +32,18 @@ namespace StoryQ.Demo
                 .AsA("Blah")
                 .IWant("Blah")
                 .WithScenario("Blah")
-                .Given(TheMethodToCall)
-                .When(TheMethodToCall)
-                .Then(TheMethodToCall);
+                .Given(this.TheMethodToCall)
+                .When(this.TheMethodToCall)
+                .Then(this.TheMethodToCall);
 
             using (new CodeTimer("creating 1000 scenarios"))
             {
                 for (int i = 0; i < 1000; i++)
                 {
                     outcome = outcome.WithScenario("Blah " + i)
-                        .Given(TheMethodToCall)
-                        .When(TheMethodToCall)
-                        .Then(TheMethodToCall);
+                        .Given(this.TheMethodToCall)
+                        .When(this.TheMethodToCall)
+                        .Then(this.TheMethodToCall);
                 }
             }
             using (new CodeTimer("running 1000 scenarios"))
@@ -64,14 +64,14 @@ namespace StoryQ.Demo
         private readonly Stopwatch _sw = new Stopwatch();
         public CodeTimer(string message)
         {
-            _message = message;
-            _sw.Start();
+            this._message = message;
+            this._sw.Start();
         }
 
         public void Dispose()
         {
-            _sw.Stop();
-            Console.Out.WriteLine("{0} took {1} msec", _message, _sw.ElapsedMilliseconds);
+            this._sw.Stop();
+            Console.Out.WriteLine("{0} took {1} msec", this._message, this._sw.ElapsedMilliseconds);
         }
     }
 

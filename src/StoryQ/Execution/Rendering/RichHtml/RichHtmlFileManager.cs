@@ -20,7 +20,7 @@ namespace StoryQ.Execution.Rendering.RichHtml
     /// Class RichHtmlFileManager.
     /// </summary>
     /// <seealso cref="StoryQ.Execution.Rendering.XmlFileManagerBase" />
-    internal class RichHtmlFileManager:XmlFileManagerBase
+    internal class RichHtmlFileManager : XmlFileManagerBase
     {
         /// <summary>
         /// The style sheet file name

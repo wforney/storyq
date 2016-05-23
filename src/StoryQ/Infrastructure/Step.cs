@@ -84,7 +84,7 @@
             }
             catch (NotImplementedException ex)
             {
-                //transform any NotImplementedException into a unit test specific "pending" exception
+                // transform any NotImplementedException into a unit test specific "pending" exception
                 var message = ex.Message == StepPendingMessage
                                      ? "Pending"
                                      : "Pending due to " + Environment.NewLine + ex;

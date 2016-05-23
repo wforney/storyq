@@ -57,22 +57,22 @@
             private readonly Dictionary<string, Func<object>> services = new Dictionary<string, Func<object>>();
             private readonly Dictionary<Type, string> serviceNames = new Dictionary<Type, string>();
 
-            public DependencyManager RegisterSelf<T>() => Register<T, T>();
+            public DependencyManager RegisterSelf<T>() => this.Register<T, T>();
 
-            public DependencyManager Register<S, C>() where C : S => Register<S, C>(Guid.NewGuid().ToString());
+            public DependencyManager Register<S, C>() where C : S => this.Register<S, C>(Guid.NewGuid().ToString());
 
             public DependencyManager Register<S, C>(string name) where C : S
             {
-                if (!serviceNames.ContainsKey(typeof(S)))
+                if (!this.serviceNames.ContainsKey(typeof(S)))
                 {
-                    serviceNames[typeof(S)] = name;
+                    this.serviceNames[typeof(S)] = name;
                 }
                 return new DependencyManager(this, name, typeof(C));
             }
 
-            public T Resolve<T>(string name) where T : class => (T)services[name]();
+            public T Resolve<T>(string name) where T : class => (T)this.services[name]();
 
-            public T Resolve<T>() where T : class => Resolve<T>(serviceNames[typeof(T)]);
+            public T Resolve<T>() where T : class => this.Resolve<T>(this.serviceNames[typeof(T)]);
 
             public class DependencyManager
             {
@@ -86,32 +86,32 @@
                     this.name = name;
 
                     ConstructorInfo c = type.GetConstructors().First();
-                    args = c.GetParameters()
+                    this.args = c.GetParameters()
                         .ToDictionary<ParameterInfo, string, Func<object>>(
                             x => x.Name,
                             x => (() => container.services[container.serviceNames[x.ParameterType]]())
                         );
 
-                    container.services[name] = () => c.Invoke(args.Values.Select(x => x()).ToArray());
+                    container.services[name] = () => c.Invoke(this.args.Values.Select(x => x()).ToArray());
                 }
 
                 public DependencyManager AsSingleton()
                 {
                     object value = null;
-                    Func<object> service = container.services[name];
-                    container.services[name] = () => value ?? (value = service());
+                    Func<object> service = this.container.services[this.name];
+                    this.container.services[this.name] = () => value ?? (value = service());
                     return this;
                 }
 
                 public DependencyManager WithDependency(string parameter, string component)
                 {
-                    args[parameter] = () => container.services[component]();
+                    this.args[parameter] = () => this.container.services[component]();
                     return this;
                 }
 
                 public DependencyManager WithValue(string parameter, object value)
                 {
-                    args[parameter] = () => value;
+                    this.args[parameter] = () => value;
                     return this;
                 }
             }

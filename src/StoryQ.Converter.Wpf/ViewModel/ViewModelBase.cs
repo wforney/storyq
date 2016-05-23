@@ -8,7 +8,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         protected void FirePropertyChanged(string s)
         {
-            PropertyChangedEventHandler changed = PropertyChanged;
+            PropertyChangedEventHandler changed = this.PropertyChanged;
             if (changed != null)
             {
                 changed(this, new PropertyChangedEventArgs(s));

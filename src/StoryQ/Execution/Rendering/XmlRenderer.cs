@@ -20,7 +20,6 @@ namespace StoryQ.Execution.Rendering
     /// <seealso cref="StoryQ.Execution.Rendering.IRenderer" />
     internal class XmlRenderer : IRenderer
     {
-
         /// <summary>
         /// The identifier source
         /// </summary>

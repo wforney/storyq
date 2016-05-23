@@ -33,5 +33,4 @@ namespace StoryQ.Infrastructure
         /// <value>The alias.</value>
         public string Alias { get; private set; }
     }
-
 }

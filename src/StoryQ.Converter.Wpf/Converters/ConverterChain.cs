@@ -12,12 +12,12 @@ namespace StoryQ.Converter.Wpf.Converters
     {
         public ConverterChain()
         {
-            Converters = new List<IValueConverter>();
+            this.Converters = new List<IValueConverter>();
         }
 
         public List<IValueConverter> Converters { get; private set; }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => Converters.Aggregate(value, (v, c) => c.Convert(v, targetType, parameter, culture));
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => this.Converters.Aggregate(value, (v, c) => c.Convert(v, targetType, parameter, culture));
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
     }

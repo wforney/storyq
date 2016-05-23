@@ -57,25 +57,25 @@
         {
             public Method(string name, IEnumerable<Parameter> parameters)
             {
-                Name = name;
-                Parameters = parameters;
+                this.Name = name;
+                this.Parameters = parameters;
             }
 
             public string Name { get; private set; }
             public IEnumerable<Parameter> Parameters { get; private set; }
 
-            public string ToMethodDeclaration() => Name.Camel() + "(" + Parameters.Select(x => x.Type + " " + x.Name).Join(", ") + ")";
+            public string ToMethodDeclaration() => this.Name.Camel() + "(" + this.Parameters.Select(x => x.Type + " " + x.Name).Join(", ") + ")";
 
-            public string ToStepParameters() => Name.Camel() + Parameters.Select(x => ", " + x.LiteralValue).Join("");
+            public string ToStepParameters() => this.Name.Camel() + this.Parameters.Select(x => ", " + x.LiteralValue).Join("");
         }
 
         public class Parameter
         {
             public Parameter(string type, string name, string literalValue)
             {
-                Type = type;
-                Name = name;
-                LiteralValue = literalValue;
+                this.Type = type;
+                this.Name = name;
+                this.LiteralValue = literalValue;
             }
 
             public string Type { get; private set; }

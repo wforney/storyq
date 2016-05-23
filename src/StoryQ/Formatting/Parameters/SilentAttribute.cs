@@ -1,8 +1,8 @@
 ﻿namespace StoryQ.Formatting.Parameters
 {
-    ///<summary>
+    /// <summary>
     /// Use this attribute on a Parameter when you want StoryQ to ignore it.
-    ///</summary>
+    /// </summary>
     public class SilentAttribute : ParameterFormatAttribute
     {
         /// <summary>

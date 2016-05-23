@@ -23,7 +23,7 @@
 
         public void Generate(IEnumerable<IStepContainer> fragments, CodeWriter writer)
         {
-            foreach (ICodeGenerator child in children)
+            foreach (ICodeGenerator child in this.children)
             {
                 child.Generate(fragments, writer);
             }

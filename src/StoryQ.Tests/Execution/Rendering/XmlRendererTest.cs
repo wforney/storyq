@@ -36,7 +36,7 @@ namespace StoryQ.Tests.Execution.Rendering
             XElement e = new XElement("root");
             XmlCategoriser c = new XmlCategoriser(e);
             c.GetOrCreateElementForMethodInfo(MethodBase.GetCurrentMethod());
-            c.GetOrCreateElementForMethodInfo(new Action(RenderSomeResults).Method);
+            c.GetOrCreateElementForMethodInfo(new Action(this.RenderSomeResults).Method);
             c.GetOrCreateElementForMethodInfo(new Action(new NoNamespace().FooFoo).Method);
 
             string expected = @"<root>
@@ -66,9 +66,9 @@ namespace StoryQ.Tests.Execution.Rendering
                 .AsA("role")
                 .IWant("feature")
                 .WithScenario("scenario")
-                .Given(Thing)
-                .When(Something)
-                .Then(SomethingElse);
+                .Given(this.Thing)
+                .When(this.Something)
+                .Then(this.SomethingElse);
 
 
             var results = ((IStepContainer)v).SelfAndAncestors().Reverse().Select(x => x.Step.Execute());

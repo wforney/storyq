@@ -16,14 +16,14 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         public Transition(MethodInfo method, Converter parent)
         {
-            Apply = new DelegateCommand(() => parent.ApplyTransition(method));
+            this.Apply = new DelegateCommand(() => parent.ApplyTransition(method));
 
             string s = method.Name.UnCamel();
-            Text = s.Insert(GetUniqueCharIndex(s, parent.Transitions.Select(x => x.Text)), "_");
+            this.Text = s.Insert(GetUniqueCharIndex(s, parent.Transitions.Select(x => x.Text)), "_");
             DescriptionAttribute attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(method, typeof(DescriptionAttribute));
             if (attribute != null)
             {
-                Description = attribute.Description;
+                this.Description = attribute.Description;
             }
         }
 
@@ -41,12 +41,12 @@ namespace StoryQ.Converter.Wpf.ViewModel
         {
             get
             {
-                return text;
+                return this.text;
             }
             set
             {
-                text = value;
-                FirePropertyChanged("Text");
+                this.text = value;
+                this.FirePropertyChanged("Text");
             }
         }
 
@@ -54,12 +54,12 @@ namespace StoryQ.Converter.Wpf.ViewModel
         {
             get
             {
-                return description;
+                return this.description;
             }
             set
             {
-                description = value;
-                FirePropertyChanged("Description");
+                this.description = value;
+                this.FirePropertyChanged("Description");
             }
         }
     }

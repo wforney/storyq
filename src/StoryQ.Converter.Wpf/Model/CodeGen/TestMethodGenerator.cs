@@ -23,11 +23,11 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
         {
             IStepContainer first = fragments.First();
             string s = Regex.Replace(" " + first.Step.Text, " \\w|_", match => match.Value.Trim().ToUpperInvariant());
-            writer.WriteLine("[" + testFrameworkData.TestMethodAttribute + "]");
+            writer.WriteLine("[" + this.testFrameworkData.TestMethodAttribute + "]");
             writer.WriteLine("public void " + s + "()");
             using (writer.CodeBlock())
             {
-                child.Generate(fragments, writer);
+                this.child.Generate(fragments, writer);
             }
            
         }

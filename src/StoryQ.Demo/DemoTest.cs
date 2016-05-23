@@ -25,18 +25,18 @@ namespace StoryQ.Demo
         [TestMethod]
         public void PassingExample()
         {
-            //these steps all take strings because they are NEVER for execution
+            // these steps all take strings because they are NEVER for execution
             new Story("Data Safety").Tag("Sprint 1")
                 .InOrderTo("Keep my data safe")
                 .AsA("User")
                 .IWant("All credit card numbers to be encrypted")
                 .WithScenario("submitting shopping cart")
 
-                //these steps all take Methods because they are meant to be exectuable. Steps that don't throw exceptions will pass
-                .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
-                .When(IClickThe_Button, "Buy")
-                .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
-                .Then(TheForm_BePostedOverHttps, true).Tag("sprint 1")
+                // these steps all take Methods because they are meant to be exectuable. Steps that don't throw exceptions will pass
+                .Given(this.IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
+                .When(this.IClickThe_Button, "Buy")
+                .And(this.TheBrowserPostsMyCreditCardNumberOverTheInternet)
+                .Then(this.TheForm_BePostedOverHttps, true).Tag("sprint 1")
                 .ExecuteWithReport(MethodBase.GetCurrentMethod());
         }
 
@@ -48,12 +48,12 @@ namespace StoryQ.Demo
                 .AsA("User").Tag("sprint 1")
                 .IWant("All credit card numbers to be encrypted")
                 .WithScenario("submitting shopping cart")
-                .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
-                .When(IClickThe_Button, "Buy")
-                .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
+                .Given(this.IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
+                .When(this.IClickThe_Button, "Buy")
+                .And(this.TheBrowserPostsMyCreditCardNumberOverTheInternet)
 
                 // because the following method throws NotImplementedException, this step counts as pending:
-                .Then(TheForm_BePostedOverHttpsPending, true).Tag("this one ought to pend")
+                .Then(this.TheForm_BePostedOverHttpsPending, true).Tag("this one ought to pend")
                 .ExecuteWithReport(MethodBase.GetCurrentMethod());
 
         }
@@ -66,9 +66,9 @@ namespace StoryQ.Demo
                 .AsA("User").Tag("sprint 1")
                 .IWant("All credit card numbers to be encrypted")
                 .WithScenario("submitting shopping cart")
-                .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
-                .When(IClickThe_Button, "Buy")
-                .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
+                .Given(this.IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
+                .When(this.IClickThe_Button, "Buy")
+                .And(this.TheBrowserPostsMyCreditCardNumberOverTheInternet)
 
                 // because it's passing a string into an excecutable step (which normallly expects a method is expected), this step counts as pending:
                 .Then("The form should be posted over https").Tag("this one ought to pend")
@@ -84,12 +84,12 @@ namespace StoryQ.Demo
                 .AsA("User")
                 .IWant("All credit card numbers to be encrypted")
                 .WithScenario("submitting shopping cart")
-                .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
+                .Given(this.IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
 
                 // because it throws an exception, this step counts as a failure
-                .When(IClickThe_Button, "non existent").Tag("this one should fail")
-                .And(TheBrowserPostsMyCreditCardNumberOverTheInternet).Tag("sprint 1")
-                .Then(TheForm_BePostedOverHttps, true).Tag("Nice formatting").Tag("sprint 1")
+                .When(this.IClickThe_Button, "non existent").Tag("this one should fail")
+                .And(this.TheBrowserPostsMyCreditCardNumberOverTheInternet).Tag("sprint 1")
+                .Then(this.TheForm_BePostedOverHttps, true).Tag("Nice formatting").Tag("sprint 1")
                 .ExecuteWithReport(MethodBase.GetCurrentMethod());
         }
 

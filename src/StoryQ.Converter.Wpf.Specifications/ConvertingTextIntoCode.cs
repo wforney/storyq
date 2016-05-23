@@ -29,55 +29,55 @@ namespace StoryQ.Converter.Wpf.Specifications
         [TestMethod]
         public void ConvertingLinesIntoStringCallsAndCode()
         {
-            Scenario
-                    .Given(ThatIHaveLaunchedStoryq)
-                    .When(ITypeInSomeStoryText)
-                    .And(ITypeInSomeScenarioText)
-                    .Then(IShouldSeeThatTextConvertedIntoMixedStoryqCalls)
+            this.Scenario
+                    .Given(this.ThatIHaveLaunchedStoryq)
+                    .When(this.ITypeInSomeStoryText)
+                    .And(this.ITypeInSomeScenarioText)
+                    .Then(this.IShouldSeeThatTextConvertedIntoMixedStoryqCalls)
                     .ExecuteWithReport();
         }
 
         [TestMethod]
         public void ConvertingLinesIntoStringCallsAndCodeWithAliases()
         {
-            Scenario
-                    .Given(ThatIHaveLaunchedStoryq)
-                    .When(ITypeInSomeStoryTextWithAliases)
-                    .And(ITypeInSomeScenarioTextWithAliases)
-                    .Then(IShouldSeeThatTextConvertedIntoMixedStoryqCalls)
+            this.Scenario
+                    .Given(this.ThatIHaveLaunchedStoryq)
+                    .When(this.ITypeInSomeStoryTextWithAliases)
+                    .And(this.ITypeInSomeScenarioTextWithAliases)
+                    .Then(this.IShouldSeeThatTextConvertedIntoMixedStoryqCalls)
                     .ExecuteWithReport();
         }
 
         [TestMethod]
         public void ConvertingLinesAndVariablesIntoCode()
         {
-            Scenario
-                    .Given(ThatIHaveLaunchedStoryq)
-                    .When(ITypeInSomeStoryText)
-                    .And(ITypeInSomeScenarioTextWithADollarSymbolBeforeANumberOrWord)
-                    .Then(IShouldSeeTheNumbersAndWordsPassedAsParametersToTheStoryqMethod)
+            this.Scenario
+                    .Given(this.ThatIHaveLaunchedStoryq)
+                    .When(this.ITypeInSomeStoryText)
+                    .And(this.ITypeInSomeScenarioTextWithADollarSymbolBeforeANumberOrWord)
+                    .Then(this.IShouldSeeTheNumbersAndWordsPassedAsParametersToTheStoryqMethod)
                     .ExecuteWithReport();
         }
 	
 	 [TestMethod]
         public void ConvertingNegativeIntegerIntoCode()
         {
-            Scenario
-                    .Given(ThatIHaveLaunchedStoryq)
-                    .When(ITypeInSomeStoryText)
-                    .And(ITypeInSomeScenarioTextWithANegativeInteger)
-                    .Then(IShouldSeeTheIntegerPassedAsAIntegerParameterToTheStoryqMethod)
+            this.Scenario
+                    .Given(this.ThatIHaveLaunchedStoryq)
+                    .When(this.ITypeInSomeStoryText)
+                    .And(this.ITypeInSomeScenarioTextWithANegativeInteger)
+                    .Then(this.IShouldSeeTheIntegerPassedAsAIntegerParameterToTheStoryqMethod)
                     .ExecuteWithReport();
         }
 	
 	 [TestMethod]
         public void ConvertingNegativeDoubleIntoCode()
         {
-            Scenario
-                    .Given(ThatIHaveLaunchedStoryq)
-                    .When(ITypeInSomeStoryText)
-                    .And(ITypeInSomeScenarioTextWithANegativeDouble)
-                    .Then(IShouldSeeTheDoublePassedAsADoubleParameterToTheStoryqMethod)
+            this.Scenario
+                    .Given(this.ThatIHaveLaunchedStoryq)
+                    .When(this.ITypeInSomeStoryText)
+                    .And(this.ITypeInSomeScenarioTextWithANegativeDouble)
+                    .Then(this.IShouldSeeTheDoublePassedAsADoubleParameterToTheStoryqMethod)
                     .ExecuteWithReport();
         }
 	
@@ -85,11 +85,11 @@ namespace StoryQ.Converter.Wpf.Specifications
         [TestMethod]
         public void ConvertingLinesWithComplexVariablesIntoCode()
         {
-            Scenario
-                    .Given(ThatIHaveLaunchedStoryq)
-                    .When(ITypeInSomeStoryText)
-                    .And(ITypeInSomeScenarioTextWithDatesAndStringsInCurlyBraces)
-                    .Then(IShouldSeeTheDatesAndWordsPassedAsParametersToTheStoryqMethod)
+            this.Scenario
+                    .Given(this.ThatIHaveLaunchedStoryq)
+                    .When(this.ITypeInSomeStoryText)
+                    .And(this.ITypeInSomeScenarioTextWithDatesAndStringsInCurlyBraces)
+                    .Then(this.IShouldSeeTheDatesAndWordsPassedAsParametersToTheStoryqMethod)
                     .ExecuteWithReport();
         }
 
@@ -97,30 +97,30 @@ namespace StoryQ.Converter.Wpf.Specifications
         [TestMethod]
         public void GeneratingTestMethods()
         {
-            Scenario
-                .Given(ThatIHaveStoryAndScenarioText)
-                .When(ISetTheOutputTypeTo_, GenerationLevel.TestMethod)
-                .Then(IShouldHaveMyMethodGenerated)
+            this.Scenario
+                .Given(this.ThatIHaveStoryAndScenarioText)
+                .When(this.ISetTheOutputTypeTo_, GenerationLevel.TestMethod)
+                .Then(this.IShouldHaveMyMethodGenerated)
                 .ExecuteWithReport();
         }
 
         [TestMethod]
         public void GeneratingTestMethodsAndStepStubs()
         {
-            Scenario
-                .Given(ThatIHaveStoryAndScenarioText)
-                .When(ISetTheOutputTypeTo_, GenerationLevel.TestMethodAndStepStubs)
-                .Then(IShouldHaveMyMethodAndStepsGenerated)
+            this.Scenario
+                .Given(this.ThatIHaveStoryAndScenarioText)
+                .When(this.ISetTheOutputTypeTo_, GenerationLevel.TestMethodAndStepStubs)
+                .Then(this.IShouldHaveMyMethodAndStepsGenerated)
                 .ExecuteWithReport();
         }
 
         [TestMethod]
         public void GeneratingEntireClasses()
         {
-            Scenario
-                .Given(ThatIHaveStoryAndScenarioText)
-                .When(ISetTheOutputTypeTo_, GenerationLevel.Class)
-                .Then(IShouldHaveMyClassGenerated)
+            this.Scenario
+                .Given(this.ThatIHaveStoryAndScenarioText)
+                .When(this.ISetTheOutputTypeTo_, GenerationLevel.Class)
+                .Then(this.IShouldHaveMyClassGenerated)
                 .ExecuteWithReport();
         }
 
@@ -133,16 +133,16 @@ namespace StoryQ.Converter.Wpf.Specifications
                 .IWant("to convert plain text stories into entire C# files")
 
                 .WithScenario("generating classes for NUnit")
-                .Given(ThatIHaveStoryAndScenarioText)
-                .When(ISetTheOutputTypeTo_, GenerationLevel.Class)
-                .And(ISetTheTestFrameworkTo, TestFramework.NUnit)
-                .Then(IShouldHaveMyNUnitClassGenerated)
+                .Given(this.ThatIHaveStoryAndScenarioText)
+                .When(this.ISetTheOutputTypeTo_, GenerationLevel.Class)
+                .And(this.ISetTheTestFrameworkTo, TestFramework.NUnit)
+                .Then(this.IShouldHaveMyNUnitClassGenerated)
 
                 .WithScenario("generating classes for MSTest")
-                .Given(ThatIHaveStoryAndScenarioText)
-                .When(ISetTheOutputTypeTo_, GenerationLevel.Class)
-                .And(ISetTheTestFrameworkTo, TestFramework.MSTest)
-                .Then(IShouldHaveMyMSTestClassGenerated)
+                .Given(this.ThatIHaveStoryAndScenarioText)
+                .When(this.ISetTheOutputTypeTo_, GenerationLevel.Class)
+                .And(this.ISetTheTestFrameworkTo, TestFramework.MSTest)
+                .Then(this.IShouldHaveMyMSTestClassGenerated)
 
              .ExecuteWithReport();
         }
@@ -153,18 +153,18 @@ namespace StoryQ.Converter.Wpf.Specifications
 
         private void ThatIHaveLaunchedStoryq()
         {
-            fileSavingService = new Mock<IFileSavingService>();
-            languagePackProvider = new Mock<ILanguagePackProvider>();
+            this.fileSavingService = new Mock<IFileSavingService>();
+            this.languagePackProvider = new Mock<ILanguagePackProvider>();
             var languagePack = new Mock<ILocalLanguagePack>();
             languagePack.Setup(x => x.ParserEntryPoint).Returns(new StoryQEntryPoints());
-            languagePackProvider.Setup(x => x.GetLocalLanguagePacks()).Returns(new[] { languagePack.Object });
-            converter = new vm.Converter(fileSavingService.Object, languagePackProvider.Object);
+            this.languagePackProvider.Setup(x => x.GetLocalLanguagePacks()).Returns(new[] { languagePack.Object });
+            this.converter = new vm.Converter(this.fileSavingService.Object, this.languagePackProvider.Object);
         }
 
 
         private void IShouldHaveMyMSTestClassGenerated()
         {
-            Expect(
+            this.Expect(
                 @"using System;
 using StoryQ;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -206,17 +206,17 @@ public class StoryQTestClass
 
         private void IShouldHaveMyNUnitClassGenerated()
         {
-            IShouldHaveMyClassGenerated();
+            this.IShouldHaveMyClassGenerated();
         }
 
         private void ISetTheTestFrameworkTo(TestFramework testFramework)
         {
-            converter.Settings.TargetTestFramework = testFramework;
+            this.converter.Settings.TargetTestFramework = testFramework;
         }
 
         private void IShouldHaveMyMethodGenerated()
         {
-            Expect(@"[Test]
+            this.Expect(@"[Test]
 public void StoryName()
 {
     new Story(""story name"")
@@ -234,7 +234,7 @@ public void StoryName()
 
         private void IShouldHaveMyMethodAndStepsGenerated()
         {
-            Expect(@"[Test]
+            this.Expect(@"[Test]
 public void StoryName()
 {
     new Story(""story name"")
@@ -268,7 +268,7 @@ private void IShouldGetAResult()
 
         private void IShouldHaveMyClassGenerated()
         {
-            Expect(@"using System;
+            this.Expect(@"using System;
 using StoryQ;
 using NUnit.Framework;
 
@@ -310,21 +310,21 @@ public class StoryQTestClass
 
         private void ISetTheOutputTypeTo_(GenerationLevel level)
         {
-            converter.Settings.Level = level;
+            this.converter.Settings.Level = level;
         }
 
         private void ThatIHaveStoryAndScenarioText()
         {
-            ThatIHaveLaunchedStoryq();
-            ITypeInSomeStoryText();
-            ITypeInSomeScenarioText();
+            this.ThatIHaveLaunchedStoryq();
+            this.ITypeInSomeStoryText();
+            this.ITypeInSomeScenarioText();
         }
 
 
        
         private void ITypeInSomeStoryText()
         {
-            converter.PlainText +=
+            this.converter.PlainText +=
 @"story is story name
 in order to get some benefit
 as a person in some role
@@ -333,7 +333,7 @@ i want to use some software function";
 
         private void ITypeInSomeStoryTextWithAliases()
         {
-            converter.PlainText +=
+            this.converter.PlainText +=
 @"feature:story name
 in order to get some benefit
 as a person in some role
@@ -342,7 +342,7 @@ i want to use some software function";
 
         private void ITypeInSomeScenarioText()
         {
-            converter.PlainText +=
+            this.converter.PlainText +=
 @"
 with scenario scenario name
 given that I have some initial state
@@ -352,7 +352,7 @@ then I should get a result";
 
         private void ITypeInSomeScenarioTextWithAliases()
         {
-            converter.PlainText +=
+            this.converter.PlainText +=
 @"
 scenario: scenario name
 given that I have some initial state
@@ -363,7 +363,7 @@ then I should get a result";
         private void ITypeInSomeScenarioTextWithADollarSymbolBeforeANumberOrWord()
         {
 
-            converter.PlainText +=
+            this.converter.PlainText +=
                 @"
 with scenario scenario name
 given that I have some initial state
@@ -375,7 +375,7 @@ then I should get a $result";
 	private void ITypeInSomeScenarioTextWithANegativeInteger()
         {
 
-            converter.PlainText +=
+            this.converter.PlainText +=
                 @"
 with scenario scenario name
 given that I have some initial state
@@ -387,7 +387,7 @@ then I should get a {-1}";
 	private void ITypeInSomeScenarioTextWithANegativeDouble()
         {
 
-            converter.PlainText +=
+            this.converter.PlainText +=
                 @"
 with scenario scenario name
 given that I have some initial state
@@ -399,7 +399,7 @@ then I should get a {-1.5}";
         private void ITypeInSomeScenarioTextWithDatesAndStringsInCurlyBraces()
         {
 
-            converter.PlainText +=
+            this.converter.PlainText +=
                 @"
 with scenario scenario name
 given that I have some initial state
@@ -410,7 +410,7 @@ then I should get a {nice result}";
 
         private void IShouldSeeThatTextConvertedIntoMixedStoryqCalls()
         {
-            Expect(@"new Story(""story name"")
+            this.Expect(@"new Story(""story name"")
     .InOrderTo(""get some benefit"")
     .AsA(""person in some role"")
     .IWant(""to use some software function"")
@@ -425,7 +425,7 @@ then I should get a {nice result}";
 
         private void IShouldSeeTheNumbersAndWordsPassedAsParametersToTheStoryqMethod()
         {
-            Expect(
+            this.Expect(
                 @"new Story(""story name"")
     .InOrderTo(""get some benefit"")
     .AsA(""person in some role"")
@@ -440,7 +440,7 @@ then I should get a {nice result}";
 	
         private void IShouldSeeTheIntegerPassedAsAIntegerParameterToTheStoryqMethod()
         {
-            Expect(
+            this.Expect(
                 @"new Story(""story name"")
     .InOrderTo(""get some benefit"")
     .AsA(""person in some role"")
@@ -455,7 +455,7 @@ then I should get a {nice result}";
 
 	private void IShouldSeeTheDoublePassedAsADoubleParameterToTheStoryqMethod()
         {
-            Expect(
+            this.Expect(
                 @"new Story(""story name"")
     .InOrderTo(""get some benefit"")
     .AsA(""person in some role"")
@@ -469,7 +469,7 @@ then I should get a {nice result}";
         }
         private void IShouldSeeTheDatesAndWordsPassedAsParametersToTheStoryqMethod()
         {
-            Expect(
+            this.Expect(
                 @"new Story(""story name"")
     .InOrderTo(""get some benefit"")
     .AsA(""person in some role"")
@@ -484,7 +484,7 @@ then I should get a {nice result}";
 
         private void Expect(string expected)
         {
-            Assert.AreEqual(expected.Trim(), converter.ConvertedText.Trim());
+            Assert.AreEqual(expected.Trim(), this.converter.ConvertedText.Trim());
         }
 
     }

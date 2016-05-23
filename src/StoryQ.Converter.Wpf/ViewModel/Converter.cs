@@ -31,48 +31,48 @@
         {
             this.fileSavingService = fileSavingService;
             this.languagePackProvider = languagePackProvider;
-            Transitions = new ObservableCollection<Transition>();
-            Settings = new ConversionSettings();
-            SaveLibrariesCommand = new DelegateCommand(SaveLibraries);
+            this.Transitions = new ObservableCollection<Transition>();
+            this.Settings = new ConversionSettings();
+            this.SaveLibrariesCommand = new DelegateCommand(this.SaveLibraries);
 
-            LanguagePacks = new ObservableCollection<LanguagePack>();
+            this.LanguagePacks = new ObservableCollection<LanguagePack>();
 
             foreach (var pack in languagePackProvider.GetLocalLanguagePacks())
             {
-                LanguagePacks.Add(new LanguagePack(this, pack));
+                this.LanguagePacks.Add(new LanguagePack(this, pack));
             }
 
-            CurrentLanguagePack = LanguagePacks.First();
+            this.CurrentLanguagePack = this.LanguagePacks.First();
 
             foreach (var pack in languagePackProvider.GetRemoteLanguagePacks())
             {
-                LanguagePacks.Add(new LanguagePack(this, pack));
+                this.LanguagePacks.Add(new LanguagePack(this, pack));
             }
 
 
-            Convert();
+            this.Convert();
         }
 
         public LanguagePack CurrentLanguagePack
         {
             get
             {
-                return currentLanguagePack;
+                return this.currentLanguagePack;
             }
             set
             {
-                currentLanguagePack = value;
-                currentLanguagePack.SetCurrent();
-                FirePropertyChanged("CurrentLanguagePack");
+                this.currentLanguagePack = value;
+                this.currentLanguagePack.SetCurrent();
+                this.FirePropertyChanged("CurrentLanguagePack");
             }
         }
 
         private void SaveLibraries()
         {
-            string directory = fileSavingService.PromptForDirectory("Where you would like to save the StoryQ files?");
+            string directory = this.fileSavingService.PromptForDirectory("Where you would like to save the StoryQ files?");
             if (directory != null)
             {
-                fileSavingService.CopyLibFiles(directory);
+                this.fileSavingService.CopyLibFiles(directory);
             }
         }
 
@@ -80,13 +80,13 @@
         {
             get
             {
-                return plainText;
+                return this.plainText;
             }
             set
             {
-                plainText = value;
-                FirePropertyChanged("PlainText");
-                Convert();
+                this.plainText = value;
+                this.FirePropertyChanged("PlainText");
+                this.Convert();
             }
         }
 
@@ -95,12 +95,12 @@
         {
             get
             {
-                return convertedText;
+                return this.convertedText;
             }
             set
             {
-                convertedText = value;
-                FirePropertyChanged("ConvertedText");
+                this.convertedText = value;
+                this.FirePropertyChanged("ConvertedText");
             }
         }
 
@@ -110,21 +110,21 @@
         {
             get
             {
-                return settings;
+                return this.settings;
             }
             set
             {
-                if (settings != null)
+                if (this.settings != null)
                 {
-                    settings.PropertyChanged -= SettingsOnPropertyChanged;
+                    this.settings.PropertyChanged -= this.SettingsOnPropertyChanged;
                 }
-                settings = value;
-                if (settings != null)
+                this.settings = value;
+                if (this.settings != null)
                 {
-                    settings.PropertyChanged += SettingsOnPropertyChanged;
+                    this.settings.PropertyChanged += this.SettingsOnPropertyChanged;
                 }
-                Convert();
-                FirePropertyChanged("Settings");
+                this.Convert();
+                this.FirePropertyChanged("Settings");
             }
         }
 
@@ -136,86 +136,86 @@
         {
             get
             {
-                return currentParserEntryPoint;
+                return this.currentParserEntryPoint;
             }
             internal set
             {
-                currentParserEntryPoint = value;
-                Convert();
+                this.currentParserEntryPoint = value;
+                this.Convert();
             }
         }
 
         private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            Convert();
+            this.Convert();
         }
 
         private void Convert()
         {
-            Transitions.Clear();
+            this.Transitions.Clear();
 
-            if (CurrentParserEntryPoint == null)
+            if (this.CurrentParserEntryPoint == null)
             {
-                ConvertedText = "Please wait while your language pack is retrieved";
+                this.ConvertedText = "Please wait while your language pack is retrieved";
                 return;
             }
 
             try
             {
-                //ignore anything after "=>", make all whitespace a single space
-                var lines = PlainText
+                // ignore anything after "=>", make all whitespace a single space
+                var lines = this.PlainText
                     .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
                     .Select(x => x.Split(new[] { "=>" }, StringSplitOptions.RemoveEmptyEntries).First())
                     .Select(x => Regex.Replace(x, "\\s+", " ").Trim());
 
-                //todo
+                // todo
 
-                object parsed = Parser.Parse(lines, CurrentParserEntryPoint);
+                object parsed = Parser.Parse(lines, this.CurrentParserEntryPoint);
                 if (parsed is IStepContainer)
                 {
-                    ConvertedText = Code((IStepContainer)parsed);
+                    this.ConvertedText = this.Code((IStepContainer)parsed);
                 }
                 else
                 {
-                    ConvertedText = "Awaiting content";
+                    this.ConvertedText = "Awaiting content";
                 }
 
 
                 foreach (MethodInfo info in Parser.GetMethods(parsed))
                 {
-                    Transitions.Add(new Transition(info, this));
+                    this.Transitions.Add(new Transition(info, this));
                 }
             }
             catch (Exception ex)
             {
-                ConvertedText = ex.Message;
+                this.ConvertedText = ex.Message;
             }
         }
 
         private string Code(IStepContainer b)
         {
             CodeWriter writer = new CodeWriter();
-            Settings.GetCodeGenerator().Generate(b.SelfAndAncestors().Reverse().ToList(), writer);
+            this.Settings.GetCodeGenerator().Generate(b.SelfAndAncestors().Reverse().ToList(), writer);
             return writer.ToString();
         }
 
         internal void ApplyTransition(MethodInfo info)
         {
-            var s = PlainText.Trim();
+            var s = this.PlainText.Trim();
             if (s != "")
             {
                 s += Environment.NewLine;
             }
             s += info.Name.UnCamel() + " ";
-            PlainText = s;
+            this.PlainText = s;
 
-            Transitions.Clear();
-            InvokeTransitionApplied();
+            this.Transitions.Clear();
+            this.InvokeTransitionApplied();
         }
 
         private void InvokeTransitionApplied()
         {
-            EventHandler h = TransitionApplied;
+            EventHandler h = this.TransitionApplied;
             if (h != null)
             {
                 h(this, EventArgs.Empty);

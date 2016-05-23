@@ -7,11 +7,11 @@
     using System.Text;
     using System.Windows.Data;
 
-    public class StringFormatConverter:IValueConverter
+    public class StringFormatConverter : IValueConverter
     {
         public string Format { get; set; }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => string.Format(Format, value, culture);
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => string.Format(this.Format, value, culture);
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
     }

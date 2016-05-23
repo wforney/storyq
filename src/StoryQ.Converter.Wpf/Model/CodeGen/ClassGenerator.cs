@@ -20,17 +20,17 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
 
         public void Generate(IEnumerable<IStepContainer> fragments, CodeWriter writer)
         {
-            var imports = new[] { "System", "StoryQ" }.Concat(testFrameworkData.Imports);
+            var imports = new[] { "System", "StoryQ" }.Concat(this.testFrameworkData.Imports);
             foreach (var import in imports)
             {
                 writer.WriteLine("using " + import + ";");
             }
             writer.WriteLine("");
-            writer.WriteLine("[" + testFrameworkData.TestClassAttribute + "]");
+            writer.WriteLine("[" + this.testFrameworkData.TestClassAttribute + "]");
             writer.WriteLine("public class StoryQTestClass");
             using (writer.CodeBlock())
             {
-                child.Generate(fragments, writer);
+                this.child.Generate(fragments, writer);
             }
 
         }

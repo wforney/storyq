@@ -19,28 +19,28 @@ namespace StoryQ.Demo
         [Test]
         public void PassingExample()
         {
-            //these steps all take strings because they are NEVER for execution
-            story
+            // these steps all take strings because they are NEVER for execution
+            this.story
                 .WithScenario("Passing shopping cart example")
-                //these steps all take Methods because they are meant to be exectuable. Steps that don't throw exceptions will pass
-                .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
-                .When(IClickThe_Button, "Buy")
-                .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
-                .Then(TheForm_BePostedOverHttps, true).Tag("sprint 1")
+                // these steps all take Methods because they are meant to be exectuable. Steps that don't throw exceptions will pass
+                .Given(this.IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
+                .When(this.IClickThe_Button, "Buy")
+                .And(this.TheBrowserPostsMyCreditCardNumberOverTheInternet)
+                .Then(this.TheForm_BePostedOverHttps, true).Tag("sprint 1")
                 .ExecuteWithReport(MethodBase.GetCurrentMethod());
         }
 
         [Test]
         public void PendingExample()
         {
-            story
+            this.story
                 .WithScenario("Pending shopping cart example")
-                .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
-                .When(IClickThe_Button, "Buy")
-                .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
+                .Given(this.IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
+                .When(this.IClickThe_Button, "Buy")
+                .And(this.TheBrowserPostsMyCreditCardNumberOverTheInternet)
 
                 // because the following method throws NotImplementedException, this step counts as pending:
-                .Then(TheForm_BePostedOverHttpsPending, true).Tag("this one ought to pend")
+                .Then(this.TheForm_BePostedOverHttpsPending, true).Tag("this one ought to pend")
                 .ExecuteWithReport(MethodBase.GetCurrentMethod());
 
         }
@@ -48,11 +48,11 @@ namespace StoryQ.Demo
         [Test]
         public void PendingDueToStringExample()
         {
-            story
+            this.story
                 .WithScenario("Pending shopping cart example")
-                .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
-                .When(IClickThe_Button, "Buy")
-                .And(TheBrowserPostsMyCreditCardNumberOverTheInternet)
+                .Given(this.IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
+                .When(this.IClickThe_Button, "Buy")
+                .And(this.TheBrowserPostsMyCreditCardNumberOverTheInternet)
 
                 // because it's passing a string into an excecutable step (which normallly expects a method is expected), this step counts as pending:
                 .Then("The form should be posted over https").Tag("this one ought to pend")
@@ -63,14 +63,14 @@ namespace StoryQ.Demo
         [Test]
         public void FailingExample()
         {
-            story
+            this.story
                 .WithScenario("Failing shopping cart example")
-                .Given(IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
+                .Given(this.IHaveTypedMyCreditCardNumberIntoTheCheckoutPage)
 
                 // because it throws an exception, this step counts as a failure
-                .When(IClickThe_Button, "non existent").Tag("this one should fail")
-                .And(TheBrowserPostsMyCreditCardNumberOverTheInternet).Tag("sprint 1")
-                .Then(TheForm_BePostedOverHttps, true).Tag("Nice formatting").Tag("sprint 1")
+                .When(this.IClickThe_Button, "non existent").Tag("this one should fail")
+                .And(this.TheBrowserPostsMyCreditCardNumberOverTheInternet).Tag("sprint 1")
+                .Then(this.TheForm_BePostedOverHttps, true).Tag("Nice formatting").Tag("sprint 1")
                 .ExecuteWithReport(MethodBase.GetCurrentMethod());
         }
 

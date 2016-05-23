@@ -29,12 +29,12 @@
         {
             get
             {
-                return level;
+                return this.level;
             }
             set
             {
-                level = value;
-                FirePropertyChanged("Level");
+                this.level = value;
+                this.FirePropertyChanged("Level");
             }
         }
 
@@ -42,12 +42,12 @@
         {
             get
             {
-                return targetTestFramework;
+                return this.targetTestFramework;
             }
             set
             {
-                targetTestFramework = value;
-                FirePropertyChanged("TargetTestFramework");
+                this.targetTestFramework = value;
+                this.FirePropertyChanged("TargetTestFramework");
             }
         }
 
@@ -55,28 +55,28 @@
         {
             get
             {
-                return specialIndentation;
+                return this.specialIndentation;
             }
             set
             {
-                specialIndentation = value;
-                FirePropertyChanged("SpecialIndentation");
+                this.specialIndentation = value;
+                this.FirePropertyChanged("SpecialIndentation");
             }
         }
 
         internal ICodeGenerator GetCodeGenerator()
         {
-            ICodeGenerator gen = new StoryCodeGenerator(SpecialIndentation);
-            TestFrameworkData testFramework = testFrameworks[TargetTestFramework];
-            if (Level >= GenerationLevel.TestMethod)
+            ICodeGenerator gen = new StoryCodeGenerator(this.SpecialIndentation);
+            TestFrameworkData testFramework = this.testFrameworks[this.TargetTestFramework];
+            if (this.Level >= GenerationLevel.TestMethod)
             {
                 gen = new TestMethodGenerator(gen, testFramework);
             }
-            if (Level >= GenerationLevel.TestMethodAndStepStubs)
+            if (this.Level >= GenerationLevel.TestMethodAndStepStubs)
             {
                 gen = new AggregateCodeGenerator(gen, new StepMethodsGenerator());
             }
-            if (Level >= GenerationLevel.Class)
+            if (this.Level >= GenerationLevel.Class)
             {
                 gen = new ClassGenerator(gen, testFramework);
             }

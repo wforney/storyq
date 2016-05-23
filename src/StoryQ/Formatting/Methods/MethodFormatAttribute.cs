@@ -19,11 +19,11 @@
         /// </summary>
         private static readonly Dictionary<string, string> CommonStringReplacements = new Dictionary<string, string>
             {
-                {" i ", " I " },
-                {" cant ", " can't " },
-                {" wont ", " won't " },
-                {" shouldnt ", " shouldn't " },
-                {" mustnt ", " mustn't " },
+                { " i ", " I " },
+                { " cant ", " can't " },
+                { " wont ", " won't " },
+                { " shouldnt ", " shouldn't " },
+                { " mustnt ", " mustn't " },
             };
 
 

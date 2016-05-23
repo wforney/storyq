@@ -1,17 +1,30 @@
+// ***********************************************************************
+// Assembly         : StoryQ
+// Last Modified By : William Forney
+// Last Modified On : 05-22-2016
+// ***********************************************************************
+// <copyright file="OverrideMethodFormatAttribute.cs" company="">
+//     2010 robfe and toddb
+// </copyright>
+// ***********************************************************************
 namespace StoryQ.Formatting.Methods
 {
     using System.Collections.Generic;
     using System.Reflection;
 
-    ///<summary>
+    /// <summary>
     /// Lets you specify how you want a method formatted with a literal string
-    ///</summary>
+    /// </summary>
+    /// <seealso cref="StoryQ.Formatting.Methods.MethodFormatAttribute" />
     public class OverrideMethodFormatAttribute : MethodFormatAttribute
     {
+        /// <summary>
+        /// The text
+        /// </summary>
         private readonly string text;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OverrideMethodFormatAttribute"/> class.
+        /// Initializes a new instance of the <see cref="OverrideMethodFormatAttribute" /> class.
         /// </summary>
         /// <param name="text">The text.</param>
         public OverrideMethodFormatAttribute(string text)

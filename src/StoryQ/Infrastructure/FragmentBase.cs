@@ -147,19 +147,6 @@ namespace StoryQ.Infrastructure
         /// <summary>
         /// Converts a method into text
         /// </summary>
-        /// <param name="method"></param>
-        /// <param name="arguments"></param>
-        /// <returns></returns>
-        /// <summary>
-        /// Methods to text.
-        /// </summary>
-        /// <param name="method">The method.</param>
-        /// <param name="arguments">The arguments.</param>
-        /// <returns>System.String.</returns>
-        /// <exception cref="System.ArgumentException">Could not generate a name from special method:  + method.Method;method</exception>
-        /// <summary>
-        /// Methods to text.
-        /// </summary>
         /// <param name="method">The method.</param>
         /// <param name="arguments">The arguments.</param>
         /// <returns>System.String.</returns>
@@ -170,6 +157,7 @@ namespace StoryQ.Infrastructure
             {
                 throw new ArgumentException("Could not generate a name from special method: " + method.Method, "method");
             }
+
             return Formatter.FormatMethod(method, arguments);
         }
 

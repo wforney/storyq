@@ -22,7 +22,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             {
                 var first = f.Parent == null;
 
-                var indentLevel = indentSteps ? f.Step.IndentLevel : (first ? 0 : 1);
+                var indentLevel = this.indentSteps ? f.Step.IndentLevel : (first ? 0 : 1);
                 
                 if (indentLevel == 3)
                 {

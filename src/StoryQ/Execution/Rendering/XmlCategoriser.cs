@@ -30,10 +30,10 @@ namespace StoryQ.Execution.Rendering
         /// </summary>
         private static readonly Dictionary<string, Func<MethodBase, string>> chain = new Dictionary<string, Func<MethodBase, string>>
             {
-                {"Project", info => info.DeclaringType.Assembly.GetName().Name},
-                {"Namespace", info => info.DeclaringType.Namespace},
-                {"Class", info => info.DeclaringType.Name},
-                {"Method", info => info.Name},
+                { "Project", info => info.DeclaringType.Assembly.GetName().Name},
+                { "Namespace", info => info.DeclaringType.Namespace},
+                { "Class", info => info.DeclaringType.Name},
+                { "Method", info => info.Name},
             };
 
         /// <summary>

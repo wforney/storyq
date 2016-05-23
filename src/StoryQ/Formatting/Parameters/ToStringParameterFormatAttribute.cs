@@ -12,15 +12,15 @@ namespace StoryQ.Formatting.Parameters
         /// <summary>
         /// Formats the parameter using its toString
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value of the parameter</param>
+        /// <returns>A custom description of that parameter's value</returns>
         public override string Format(object value)
         {
             if (value is IEnumerable && !(value is string))
-			{
-			    var enumerable = (IEnumerable)value;
-			    return string.Format("[{0}]", enumerable.Cast<object>().Select(x => this.Format(x)).Join(", "));
-			}
+            {
+                var enumerable = (IEnumerable)value;
+                return string.Format("[{0}]", enumerable.Cast<object>().Select(x => this.Format(x)).Join(", "));
+            }
 
             if (value == null)
             {
@@ -34,12 +34,13 @@ namespace StoryQ.Formatting.Parameters
                 {
                     return "\"\"";
                 }
+
                 if (s.Trim().Length == 0)
                 {
                     return "\" \"";
                 }
             }
-            
+
             return value.ToString();
         }
     }

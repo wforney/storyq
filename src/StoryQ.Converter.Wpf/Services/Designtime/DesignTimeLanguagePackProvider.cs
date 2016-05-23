@@ -22,8 +22,8 @@
         {
             public DesigntimeLanguagePack(string name, params string[] countryCodes)
             {
-                Name = name;
-                CountryCodes = countryCodes;
+                this.Name = name;
+                this.CountryCodes = countryCodes;
             }
 
             public string Name { get; set; }

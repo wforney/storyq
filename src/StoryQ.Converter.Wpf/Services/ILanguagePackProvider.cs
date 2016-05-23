@@ -20,7 +20,7 @@
         object ParserEntryPoint { get; }
     }
 
-    public interface IRemoteLanguagePack:ILanguagePack
+    public interface IRemoteLanguagePack : ILanguagePack
     {
         void BeginDownloadAsync(Action<double> downloadProgress, Action<ILocalLanguagePack> downloadComplete);
     }

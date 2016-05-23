@@ -14,12 +14,12 @@ namespace StoryQ.Converter.Wpf.ViewModel
 
         public void Execute(object parameter)
         {
-            action();
+            this.action();
         }
 
         public bool CanExecute(object parameter) => true;
 
-        //no-op
+        // no-op
         public event EventHandler CanExecuteChanged{add{}remove{}}
     }
 }

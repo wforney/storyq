@@ -15,12 +15,12 @@
 
         protected SpecificationBase()
         {
-            Story s = new Story(GetType().Name.UnCamel());
-            feature = DescribeStory(s);
+            Story s = new Story(this.GetType().Name.UnCamel());
+            this.feature = this.DescribeStory(s);
         }
 
         protected abstract Feature DescribeStory(Story story);
 
-        protected Scenario Scenario => feature.WithScenario(new StackFrame(1).GetMethod().Name.UnCamel());
+        protected Scenario Scenario => this.feature.WithScenario(new StackFrame(1).GetMethod().Name.UnCamel());
     }
 }

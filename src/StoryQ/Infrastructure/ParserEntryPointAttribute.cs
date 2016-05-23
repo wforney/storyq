@@ -5,11 +5,11 @@
     using System.Linq;
     using System.Text;
 
-    ///<summary>
+    /// <summary>
     /// Tells the parser which class in this assembly is the right entrypoint class
-    ///</summary>
+    /// </summary>
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = false)]
-    public class ParserEntryPointAttribute:Attribute
+    public class ParserEntryPointAttribute : Attribute
     {
         /// <summary>
         /// Constructs a ParserEntryPointAttribute

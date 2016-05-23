@@ -20,8 +20,8 @@
             // TODO: add xunit and mbunit
                         var config = new[]
                              {
-                                 new {Class="Microsoft.VisualStudio.TestTools.UnitTesting.AssertInconclusiveException", Assembly="Microsoft.VisualStudio.QualityTools.UnitTestFramework"},
-                                 new {Class="NUnit.Framework.IgnoreException", Assembly="nunit.framework"},
+                                 new { Class="Microsoft.VisualStudio.TestTools.UnitTesting.AssertInconclusiveException", Assembly="Microsoft.VisualStudio.QualityTools.UnitTestFramework"},
+                                 new { Class="NUnit.Framework.IgnoreException", Assembly="nunit.framework"},
                              };
 
             foreach (var v in config)

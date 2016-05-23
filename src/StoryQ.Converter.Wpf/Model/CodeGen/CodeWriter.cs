@@ -12,7 +12,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
 
         public CodeWriter()
         {
-            IndentText = "    ";
+            this.IndentText = "    ";
         }
 
         public string IndentText { get; set; }
@@ -23,32 +23,32 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
         {
             if (string.IsNullOrEmpty(s))
             {
-                sb.AppendLine();
+                this.sb.AppendLine();
                 return;
             }
-            for (int i = 0; i < IndentLevel; i++)
+            for (int i = 0; i < this.IndentLevel; i++)
             {
-                sb.Append(IndentText);
+                this.sb.Append(this.IndentText);
             }
-            sb.AppendLine(s);
+            this.sb.AppendLine(s);
         }
 
         public IDisposable IncreaseIndent(int level)
         {
-            IndentLevel += level;
-            return new ActionDisposable(() => IndentLevel -= level);
+            this.IndentLevel += level;
+            return new ActionDisposable(() => this.IndentLevel -= level);
         }
 
         public IDisposable CodeBlock()
         {
-            WriteLine("{");
-            IndentLevel++;
-            return new ActionDisposable(() => { IndentLevel--; WriteLine("}"); });
+            this.WriteLine("{");
+            this.IndentLevel++;
+            return new ActionDisposable(() => { this.IndentLevel--; this.WriteLine("}"); });
         }
 
-        public override string ToString() => sb.ToString();
+        public override string ToString() => this.sb.ToString();
 
-        private class ActionDisposable:IDisposable
+        private class ActionDisposable : IDisposable
         {
             private readonly Action action;
 
@@ -59,7 +59,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
 
             public void Dispose()
             {
-                action();
+                this.action();
             }
         }
     }

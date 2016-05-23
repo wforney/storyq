@@ -25,11 +25,11 @@
             {
                 if (d.IsFileGroupDownloaded(g))
                 {
-                    locals.Add(new AssemblyFileLanguagePack(GroupNameToDllLocation(g)));
+                    this.locals.Add(new AssemblyFileLanguagePack(GroupNameToDllLocation(g)));
                 }
                 else
                 {
-                    remotes.Add(new RemotePack(g));
+                    this.remotes.Add(new RemotePack(g));
                 }
             }
         }
@@ -39,13 +39,13 @@
         public IEnumerable<ILocalLanguagePack> GetLocalLanguagePacks()
         {
             yield return new EnglishLanguagePack();
-            foreach (var localProvider in locals)
+            foreach (var localProvider in this.locals)
             {
                 yield return localProvider;
             }
         }
 
-        public IEnumerable<IRemoteLanguagePack> GetRemoteLanguagePacks() => remotes.Cast<IRemoteLanguagePack>();
+        public IEnumerable<IRemoteLanguagePack> GetRemoteLanguagePacks() => this.remotes.Cast<IRemoteLanguagePack>();
 
         private class RemotePack : IRemoteLanguagePack
         {
@@ -57,18 +57,18 @@
                 this.groupName = groupName;
             }
 
-            public string Name => groupName;
+            public string Name => this.groupName;
 
             public IEnumerable<string> CountryCodes
             {
-                get { yield return Name.Split('-').Last(); }
+                get { yield return this.Name.Split('-').Last(); }
             }
 
             public void BeginDownloadAsync(Action<double> downloadProgress, Action<ILocalLanguagePack> downloadComplete)
             {
-                if (downloader == null)
+                if (this.downloader == null)
                 {
-                    downloader = new Downloader(groupName, downloadProgress, downloadComplete);
+                    this.downloader = new Downloader(this.groupName, downloadProgress, downloadComplete);
                 }
             }
 
@@ -85,27 +85,27 @@
                     this.downloadComplete = downloadComplete;
 
                     var d = ApplicationDeployment.CurrentDeployment;
-                    d.DownloadFileGroupProgressChanged += CurrentDeploymentOnDownloadFileGroupProgressChanged;
-                    d.DownloadFileGroupCompleted += CurrentDeploymentOnDownloadFileGroupCompleted;
+                    d.DownloadFileGroupProgressChanged += this.CurrentDeploymentOnDownloadFileGroupProgressChanged;
+                    d.DownloadFileGroupCompleted += this.CurrentDeploymentOnDownloadFileGroupCompleted;
                     d.DownloadFileGroupAsync(groupName);
                 }
 
                 private void CurrentDeploymentOnDownloadFileGroupCompleted(object sender, DownloadFileGroupCompletedEventArgs args)
                 {
-                    if (args.Group == groupName)
+                    if (args.Group == this.groupName)
                     {
-                        downloadComplete(new AssemblyFileLanguagePack(GroupNameToDllLocation(groupName)));
+                        this.downloadComplete(new AssemblyFileLanguagePack(GroupNameToDllLocation(this.groupName)));
                     }
                     var d = ApplicationDeployment.CurrentDeployment;
-                    d.DownloadFileGroupProgressChanged -= CurrentDeploymentOnDownloadFileGroupProgressChanged;
-                    d.DownloadFileGroupCompleted -= CurrentDeploymentOnDownloadFileGroupCompleted;
+                    d.DownloadFileGroupProgressChanged -= this.CurrentDeploymentOnDownloadFileGroupProgressChanged;
+                    d.DownloadFileGroupCompleted -= this.CurrentDeploymentOnDownloadFileGroupCompleted;
                 }
 
                 private void CurrentDeploymentOnDownloadFileGroupProgressChanged(object sender, DeploymentProgressChangedEventArgs args)
                 {
-                    if (args.Group == groupName)
+                    if (args.Group == this.groupName)
                     {
-                        downloadProgress((double)args.BytesCompleted / args.BytesTotal);
+                        this.downloadProgress((double)args.BytesCompleted / args.BytesTotal);
                     }
                 }
             }

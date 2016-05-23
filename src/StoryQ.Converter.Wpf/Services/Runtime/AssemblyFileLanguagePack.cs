@@ -18,19 +18,19 @@
             this.file = file;
         }
 
-        public string Name => Enumerable.Last<string>(Path.GetFileNameWithoutExtension(file).Split('.'));
+        public string Name => Enumerable.Last<string>(Path.GetFileNameWithoutExtension(this.file).Split('.'));
 
         public IEnumerable<string> CountryCodes
         {
-            get { yield return Name.Split('-').Last(); }
+            get { yield return this.Name.Split('-').Last(); }
         }
 
-        public object ParserEntryPoint => parserEntryPoint ?? (parserEntryPoint = BuildEntryPoint());
+        public object ParserEntryPoint => this.parserEntryPoint ?? (this.parserEntryPoint = this.BuildEntryPoint());
 
         private object BuildEntryPoint()
         {
 
-            var type = Utilities.GetCustomAttribute<ParserEntryPointAttribute>(Assembly.LoadFile(Path.GetFullPath(file))).Target;
+            var type = Utilities.GetCustomAttribute<ParserEntryPointAttribute>(Assembly.LoadFile(Path.GetFullPath(this.file))).Target;
             return Activator.CreateInstance(type);
         }
     }
