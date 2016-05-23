@@ -8,7 +8,7 @@
 
     /// <summary>
     /// A MethodFormatAttribute can be used to provide a custom format of a StoryQ test method.
-    /// Existing MethodFormatAttributes include the default formatters 
+    /// Existing MethodFormatAttributes include the default formatters
     /// <see cref="ParametersInlineMethodFormatAttribute"/>, and <see cref="ParameterSuffixedMethodFormatAttribute"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
@@ -33,7 +33,7 @@
         public abstract string Format(MethodInfo method, IEnumerable<string> parameters);
 
         /// <summary>
-        /// Turns "SomeMethodName" into "Some method name". 
+        /// Turns "SomeMethodName" into "Some method name".
         /// </summary>
         /// <param name="camelText"></param>
         /// <returns></returns>

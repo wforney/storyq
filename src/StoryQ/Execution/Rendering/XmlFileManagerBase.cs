@@ -1,4 +1,13 @@
-﻿namespace StoryQ.Execution.Rendering
+﻿// ***********************************************************************
+// Assembly         : StoryQ
+// Last Modified By : William Forney
+// Last Modified On : 05-22-2016
+// ***********************************************************************
+// <copyright file="XmlFileManagerBase.cs" company="">
+//     2010 robfe and toddb
+// </copyright>
+// ***********************************************************************
+namespace StoryQ.Execution.Rendering
 {
     using System;
     using System.IO;
@@ -9,8 +18,16 @@
     /// </summary>
     internal abstract class XmlFileManagerBase
     {
+        /// <summary>
+        /// The output directory
+        /// </summary>
         private const string OutputDirectory = "StoryQ_Report";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XmlFileManagerBase"/> class.
+        /// </summary>
+        /// <param name="xmlFileName">Name of the XML file.</param>
+        /// <param name="styleSheetFileName">Name of the style sheet file.</param>
         protected XmlFileManagerBase(string xmlFileName, string styleSheetFileName)
         {
             var outputDir = new DirectoryInfo(OutputDirectory);
@@ -36,8 +53,16 @@
             this.Categoriser = new XmlCategoriser(doc.Root);
         }
 
+        /// <summary>
+        /// Gets the categoriser.
+        /// </summary>
+        /// <value>The categoriser.</value>
         public XmlCategoriser Categoriser { get; private set; }
 
+        /// <summary>
+        /// Writes the dependant files.
+        /// </summary>
+        /// <param name="directory">The directory.</param>
         protected abstract void WriteDependantFiles(string directory);
     }
 }
