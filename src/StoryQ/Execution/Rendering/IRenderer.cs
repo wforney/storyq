@@ -4,7 +4,7 @@
 // Last Modified On : 05-22-2016
 // ***********************************************************************
 // <copyright file="IRenderer.cs" company="">
-//     2010 robfe & toddb
+//     2010 robfe and toddb
 // </copyright>
 // ***********************************************************************
 namespace StoryQ.Execution.Rendering
