@@ -1,4 +1,13 @@
-﻿namespace StoryQ.Formatting
+﻿// ***********************************************************************
+// Assembly         : StoryQ
+// Last Modified By : William Forney
+// Last Modified On : 05-22-2016
+// ***********************************************************************
+// <copyright file="Formatter.cs" company="">
+//     2010 robfe and toddb
+// </copyright>
+// ***********************************************************************
+namespace StoryQ.Formatting
 {
     using System;
     using System.Diagnostics;
@@ -35,8 +44,19 @@
             return formatter.Format(method.Method, argsAsStrings);
         }
 
+        /// <summary>
+        /// Gets the formatter.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>MethodFormatAttribute.</returns>
         private static MethodFormatAttribute GetFormatter(Delegate method) => method.Method.GetCustomAttribute<MethodFormatAttribute>() ?? StoryQSettings.DefaultMethodFormatSelector(method.Method);
 
+        /// <summary>
+        /// Formats the parameter.
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>System.String.</returns>
         private static string FormatParameter(ParameterInfo info, object value)
         {
             var a = info.GetCustomAttribute<ParameterFormatAttribute>() ?? StoryQSettings.DefaultParameterFormatter(info);

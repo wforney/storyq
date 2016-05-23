@@ -7,7 +7,7 @@
     using System.Text.RegularExpressions;
 
     /// <summary>
-    /// Describes a method by un camel-casing the method, then replacing each 
+    /// Describes a method by un camel-casing the method, then replacing each
     /// underscore in the method name with each parameter value, in sequential order.
     /// </summary>
     public class ParametersInlineMethodFormatAttribute : MethodFormatAttribute
@@ -17,7 +17,8 @@
         /// </summary>
         /// <param name="method">The method to describe</param>
         /// <param name="parameters">the parameters currently being passed to the method</param>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
+        /// <exception cref="ArgumentException"></exception>
         public override string Format(MethodInfo method, IEnumerable<string> parameters)
         {
             var argStrings = new Queue<string>(parameters);
@@ -26,9 +27,7 @@
             var underscoreCount = s.Count(x => x == '_');
             if (underscoreCount != argStrings.Count)
             {
-                var message = String.Format(
-                    "If you use {0} underscores in your method name, make sure there's {0} arguments (found {1})",
-                    underscoreCount, argStrings.Count);
+                var message = $"If you use {underscoreCount} underscores in your method name, make sure there's {underscoreCount} arguments (found {argStrings.Count})";
                 throw new ArgumentException(message);
             }
 

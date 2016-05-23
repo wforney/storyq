@@ -21,7 +21,7 @@
         public override string Format(MethodInfo method, IEnumerable<string> parameters)
         {
             var s = parameters.Join(", ");
-            if (!String.IsNullOrEmpty(s))
+            if (!string.IsNullOrEmpty(s))
             {
                 s = string.Format("({0})", s);
             }

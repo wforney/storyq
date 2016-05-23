@@ -1,4 +1,16 @@
-﻿namespace StoryQ.Infrastructure
+﻿// ***********************************************************************
+// Assembly         : StoryQ
+// Author           : William Forney
+// Created          : 05-22-2016
+//
+// Last Modified By : William Forney
+// Last Modified On : 05-22-2016
+// ***********************************************************************
+// <copyright file="Utilities.cs" company="">
+//     2010 robfe and toddb
+// </copyright>
+// ***********************************************************************
+namespace StoryQ.Infrastructure
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +27,7 @@
         /// Camel-cases the specified input.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns>Camel case => CamelCase</returns>
+        /// <returns>Camel case =&gt; CamelCase</returns>
         public static string Camel(this string input) => Regex.Replace(" " + input, " \\w|_", match => match.Value.Trim().ToUpperInvariant());
 
         /// <summary>
@@ -36,6 +48,11 @@
         /// <summary>
         /// Finds and returns an attribute on a MemberInfo, Type or Assembly
         /// </summary>
-        public static T GetCustomAttribute<T>(this ICustomAttributeProvider attributeProvider) where T : Attribute => attributeProvider.GetCustomAttributes(true).OfType<T>().FirstOrDefault();
+        /// <typeparam name="T">The type of the attribute.</typeparam>
+        /// <param name="attributeProvider">The attribute provider.</param>
+        /// <returns>T.</returns>
+        public static T GetCustomAttribute<T>(this ICustomAttributeProvider attributeProvider)
+            where T : Attribute
+            => attributeProvider.GetCustomAttributes(true).OfType<T>().FirstOrDefault();
     }
 }
