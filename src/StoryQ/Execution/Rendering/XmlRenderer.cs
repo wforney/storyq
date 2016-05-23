@@ -42,9 +42,6 @@
             this.receptacle.Add(new XElement("Story", new XAttribute("Name", results.First().Text), v));
         }
 
-        public static Func<int> AutoIncrementFrom(int start)
-        {
-            return () => start++;
-        }
+        public static Func<int> AutoIncrementFrom(int start) => () => start++;
     }
 }

@@ -52,7 +52,7 @@ namespace StoryQ.Demo
             }
         }
 
-        void TheMethodToCall()
+        private void TheMethodToCall()
         {
 
         }

@@ -10,9 +10,6 @@
         /// </summary>
         /// <param name="value">The value of the parameter</param>
         /// <returns>An empty string</returns>
-        public override string Format(object value)
-        {
-            return string.Empty;
-        }
+        public override string Format(object value) => string.Empty;
     }
 }

@@ -1,3 +1,12 @@
+// ***********************************************************************
+// Assembly         : StoryQ
+// Last Modified By : William Forney
+// Last Modified On : 05-22-2016
+// ***********************************************************************
+// <copyright file="ResultType.cs" company="">
+//     2010 robfe & toddb
+// </copyright>
+// ***********************************************************************
 namespace StoryQ.Execution
 {
     /// <summary>

@@ -7,7 +7,7 @@
     /// <summary>
     /// Looks after writing out an XML file, post testrun
     /// </summary>
-    abstract class XmlFileManagerBase
+    internal abstract class XmlFileManagerBase
     {
         private const string OutputDirectory = "StoryQ_Report";
 

@@ -8,36 +8,26 @@
     using StoryQ.Infrastructure;
     using Enumerable = System.Linq.Enumerable;
 
-    class AssemblyFileLanguagePack : ILocalLanguagePack
+    internal class AssemblyFileLanguagePack : ILocalLanguagePack
     {
-        readonly string file;
-        object parserEntryPoint;
+        private readonly string file;
+        private object parserEntryPoint;
 
         public AssemblyFileLanguagePack(string file)
         {
             this.file = file;
         }
 
-        public string Name
-        {
-            get { return Enumerable.Last<string>(Path.GetFileNameWithoutExtension(file).Split('.')); }
-        }
+        public string Name => Enumerable.Last<string>(Path.GetFileNameWithoutExtension(file).Split('.'));
 
         public IEnumerable<string> CountryCodes
         {
             get { yield return Name.Split('-').Last(); }
         }
 
-        public object ParserEntryPoint
-        {
-            get
-            {
-                //lazy for launch speed
-                return parserEntryPoint ?? (parserEntryPoint = BuildEntryPoint());
-            }
-        }
+        public object ParserEntryPoint => parserEntryPoint ?? (parserEntryPoint = BuildEntryPoint());
 
-        object BuildEntryPoint()
+        private object BuildEntryPoint()
         {
 
             var type = Utilities.GetCustomAttribute<ParserEntryPointAttribute>(Assembly.LoadFile(Path.GetFullPath(file))).Target;

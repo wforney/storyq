@@ -21,14 +21,10 @@ namespace StoryQ.Converter.Wpf.Specifications
     [TestClass]
     public class ConvertingTextIntoCode : SpecificationBase
     {
-        protected override Feature DescribeStory(Story story)
-        {
-            return story
+        protected override Feature DescribeStory(Story story) => story
                 .InOrderTo("create executable tests from plain text")
                 .AsA("developer")
                 .IWant("to use the converter to change text stories into C# StoryQ code");
-        }
-
 
         [TestMethod]
         public void ConvertingLinesIntoStringCallsAndCode()
@@ -152,8 +148,8 @@ namespace StoryQ.Converter.Wpf.Specifications
         }
 
         private ViewModel.Converter converter;
-        Mock<IFileSavingService> fileSavingService;
-        Mock<ILanguagePackProvider> languagePackProvider;
+        private Mock<IFileSavingService> fileSavingService;
+        private Mock<ILanguagePackProvider> languagePackProvider;
 
         private void ThatIHaveLaunchedStoryq()
         {

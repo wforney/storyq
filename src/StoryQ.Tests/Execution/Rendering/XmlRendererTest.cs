@@ -96,7 +96,7 @@ namespace StoryQ.Tests.Execution.Rendering
     }
 }
 
-class NoNamespace
+internal class NoNamespace
 {
     public void FooFoo() { }
 }

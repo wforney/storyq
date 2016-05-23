@@ -23,7 +23,7 @@
             var argStrings = new Queue<string>(parameters);
             var s = UnCamel(method.Name);
 
-            int underscoreCount = s.Count(x => x == '_');
+            var underscoreCount = s.Count(x => x == '_');
             if (underscoreCount != argStrings.Count)
             {
                 var message = String.Format(

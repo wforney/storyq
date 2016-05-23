@@ -8,15 +8,9 @@
     /// </summary>
     public class Result
     {
-        internal static Result ForResultType(string prefix, int indentLevel, string text, IEnumerable<string> tags, ResultType type)
-        {
-            return new Result(prefix, indentLevel, text, type, tags, null);
-        }
+        internal static Result ForResultType(string prefix, int indentLevel, string text, IEnumerable<string> tags, ResultType type) => new Result(prefix, indentLevel, text, type, tags, null);
 
-        internal static Result ForException(string prefix, int indentLevel, string text, IEnumerable<string> tags, Exception exception, bool isPending)
-        {
-            return new Result(prefix, indentLevel, text, isPending ? ResultType.Pending : ResultType.Failed, tags, exception);
-        }
+        internal static Result ForException(string prefix, int indentLevel, string text, IEnumerable<string> tags, Exception exception, bool isPending) => new Result(prefix, indentLevel, text, isPending ? ResultType.Pending : ResultType.Failed, tags, exception);
 
         private Result(string prefix, int indentLevel, string text, ResultType type, IEnumerable<string> tags, Exception exception)
         {

@@ -28,7 +28,7 @@
         /// <returns></returns>
         public override string Format(object value)
         {
-            bool boolean = Convert.ToBoolean(value);
+            var boolean = Convert.ToBoolean(value);
             return boolean ? this.trueValue : this.falseValue;
         }
     }

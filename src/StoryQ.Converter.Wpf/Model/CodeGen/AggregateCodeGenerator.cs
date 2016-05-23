@@ -7,9 +7,9 @@
     /// <summary>
     /// Calls each child generator
     /// </summary>
-    class AggregateCodeGenerator : ICodeGenerator
+    internal class AggregateCodeGenerator : ICodeGenerator
     {
-        readonly IEnumerable<ICodeGenerator> children;
+        private readonly IEnumerable<ICodeGenerator> children;
 
         public AggregateCodeGenerator(params ICodeGenerator[] children)
             : this(children.AsEnumerable())

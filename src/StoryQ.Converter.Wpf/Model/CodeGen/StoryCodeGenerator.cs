@@ -7,7 +7,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
     /// <summary>
     /// Generates the code that constructs a StoryQ story
     /// </summary>
-    class StoryCodeGenerator : ICodeGenerator
+    internal class StoryCodeGenerator : ICodeGenerator
     {
         private readonly bool indentSteps;
 
@@ -20,7 +20,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
         {
             foreach (IStepContainer f in fragments)
             {
-                bool first = f.Parent == null;
+                var first = f.Parent == null;
 
                 var indentLevel = indentSteps ? f.Step.IndentLevel : (first ? 0 : 1);
                 
@@ -44,14 +44,8 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             }
         }
 
-        private static string CreateStepArgs(Step n)
-        {
-            return n.IsExecutable ? StringToMethodCall(n.Text) : '"' + n.Text + '"';
-        }
+        private static string CreateStepArgs(Step n) => n.IsExecutable ? StringToMethodCall(n.Text) : '"' + n.Text + '"';
 
-        private static string StringToMethodCall(string text)
-        {
-            return MethodBuilder.ParseMethodDeclaration(text).ToStepParameters();
-        }
+        private static string StringToMethodCall(string text) => MethodBuilder.ParseMethodDeclaration(text).ToStepParameters();
     }
 }

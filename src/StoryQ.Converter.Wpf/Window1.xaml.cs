@@ -13,7 +13,7 @@
     /// </summary>
     public partial class Window1 : Window
     {
-        static readonly XmlSerializer settingsSerialiser = new XmlSerializer(typeof(ConversionSettings));
+        private static readonly XmlSerializer settingsSerialiser = new XmlSerializer(typeof(ConversionSettings));
 
         public Window1()
         {

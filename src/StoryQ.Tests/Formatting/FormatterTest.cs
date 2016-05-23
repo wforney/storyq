@@ -200,10 +200,7 @@ namespace StoryQ.Tests.Formatting
 
         private class MyMethodFormatAttribute : MethodFormatAttribute
         {
-            public override string Format(MethodInfo method, IEnumerable<string> parameters)
-            {
-                return "4"; //randomly chosen via dice roll
-            }
+            public override string Format(MethodInfo method, IEnumerable<string> parameters) => "4";
         }
     }
 }

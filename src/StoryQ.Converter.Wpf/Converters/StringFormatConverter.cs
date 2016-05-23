@@ -11,14 +11,8 @@
     {
         public string Format { get; set; }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return string.Format(Format, value, culture);
-        }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => string.Format(Format, value, culture);
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return Binding.DoNothing;
-        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
     }
 }

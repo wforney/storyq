@@ -46,12 +46,9 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             return new ActionDisposable(() => { IndentLevel--; WriteLine("}"); });
         }
 
-        public override string ToString()
-        {
-            return sb.ToString();
-        }
+        public override string ToString() => sb.ToString();
 
-        class ActionDisposable:IDisposable
+        private class ActionDisposable:IDisposable
         {
             private readonly Action action;
 

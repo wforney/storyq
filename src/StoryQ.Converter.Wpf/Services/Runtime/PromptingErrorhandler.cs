@@ -3,7 +3,7 @@
     using System;
     using System.Windows;
 
-    class PromptingErrorhandler : IErrorhandler
+    internal class PromptingErrorhandler : IErrorhandler
     {
         public void HandleExpectedError(Exception e)
         {

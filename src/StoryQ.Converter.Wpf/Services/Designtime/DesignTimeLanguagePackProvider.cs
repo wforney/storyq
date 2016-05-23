@@ -5,26 +5,19 @@
     using System.Linq;
     using System.Text;
 
-    class DesigntimeLanguagePackProvider : ILanguagePackProvider
+    internal class DesigntimeLanguagePackProvider : ILanguagePackProvider
     {
-        public IEnumerable<ILocalLanguagePack> GetLocalLanguagePacks()
-        {
-            return new[]
+        public IEnumerable<ILocalLanguagePack> GetLocalLanguagePacks() => new[]
                        {
                            new DesigntimeLanguagePack("English", "GB", "US", "NZ"),
                            new DesigntimeLanguagePack("Brazil", "BR"),
                        };
-        }
 
-        public IEnumerable<IRemoteLanguagePack> GetRemoteLanguagePacks()
-        {
-            return new[]
+        public IEnumerable<IRemoteLanguagePack> GetRemoteLanguagePacks() => new[]
                        {
                            new DesigntimeLanguagePack("South African", "ZA")
                        };
-        }
 
-     
         internal class DesigntimeLanguagePack : ILocalLanguagePack, IRemoteLanguagePack
         {
             public DesigntimeLanguagePack(string name, params string[] countryCodes)
@@ -42,10 +35,7 @@
                 downloadComplete(this);
             }
 
-            public object ParserEntryPoint
-            {
-                get { return new object(); }
-            }
+            public object ParserEntryPoint => new object();
         }
     }
 }

@@ -8,10 +8,10 @@
     using System.Windows;
     using System.Windows.Forms;
 
-    class FileSavingService : IFileSavingService
+    internal class FileSavingService : IFileSavingService
     {
-        readonly IErrorhandler errorhandler;
-        FolderBrowserDialog dialog;
+        private readonly IErrorhandler errorhandler;
+        private FolderBrowserDialog dialog;
 
         public FileSavingService(IErrorhandler errorhandler)
         {
@@ -52,12 +52,9 @@
             }
         }
 
-        static IEnumerable<string> SearchForFiles(string searchPattern)
-        {
-            return Directory.GetFiles(Environment.CurrentDirectory, searchPattern, SearchOption.AllDirectories);
-        }
+        private static IEnumerable<string> SearchForFiles(string searchPattern) => Directory.GetFiles(Environment.CurrentDirectory, searchPattern, SearchOption.AllDirectories);
 
-        class OldWindow : IWin32Window
+        private class OldWindow : IWin32Window
         {
             public OldWindow(IntPtr handle)
             {

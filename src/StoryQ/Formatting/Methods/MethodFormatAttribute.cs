@@ -14,7 +14,7 @@
     [AttributeUsage(AttributeTargets.Method)]
     public abstract class MethodFormatAttribute : Attribute
     {
-        static readonly Dictionary<string, string> commonStringReplacements = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> commonStringReplacements = new Dictionary<string, string>
             {
                 {" i ", " I "},
                 {" cant ", " can't "},
@@ -37,13 +37,10 @@
         /// </summary>
         /// <param name="camelText"></param>
         /// <returns></returns>
-        protected static string UnCamel(string camelText)
-        {
-            return commonStringReplacements
+        protected static string UnCamel(string camelText) => commonStringReplacements
                 .Aggregate(
-                    " " + camelText.UnCamel() + " ", 
+                    " " + camelText.UnCamel() + " ",
                     (current, p) => current.Replace(p.Key, p.Value))
                 .Trim();
-        }
     }
 }

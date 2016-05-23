@@ -30,8 +30,8 @@ namespace StoryQ.Converter.Wpf.ViewModel
         private static int GetUniqueCharIndex(string s, IEnumerable<string> others)
         {
             var taken = others.Select(x => x.SkipWhile(c => c != '_').Skip(1).FirstOrDefault());
-            char first = s.Except(taken).FirstOrDefault();
-            int i = s.IndexOf(first);
+            var first = s.Except(taken).FirstOrDefault();
+            var i = s.IndexOf(first);
             return Math.Max(0, i);
         }
 

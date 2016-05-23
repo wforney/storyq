@@ -61,10 +61,7 @@
         /// <summary>
         /// Gets the list of tags that have been applied to this step
         /// </summary>
-        public List<string> Tags
-        {
-            get { return this.tags ?? (this.tags = new List<string>()); }
-        }
+        public List<string> Tags => this.tags ?? (this.tags = new List<string>());
 
 
         /// <summary>
@@ -107,9 +104,6 @@
         /// <value>
         /// 	<c>true</c> if this instance is executable; otherwise, <c>false</c>.
         /// </value>
-        public bool IsExecutable
-        {
-            get { return this.Action != DoNothing; }
-        }
+        public bool IsExecutable => this.Action != DoNothing;
     }
 }

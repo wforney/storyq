@@ -6,7 +6,7 @@
     /// <summary>
     /// Implementing classes will be capable of generating code from a collection of FragmentBases
     /// </summary>
-    interface ICodeGenerator
+    internal interface ICodeGenerator
     {
         void Generate(IEnumerable<IStepContainer> fragments, CodeWriter writer);
     }

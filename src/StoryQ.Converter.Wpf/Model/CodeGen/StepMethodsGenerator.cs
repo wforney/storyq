@@ -7,7 +7,7 @@
     /// <summary>
     /// Generates the step methods for this story
     /// </summary>
-    class StepMethodsGenerator : ICodeGenerator
+    internal class StepMethodsGenerator : ICodeGenerator
     {
         
         public void Generate(IEnumerable<IStepContainer> fragments, CodeWriter writer)
@@ -30,9 +30,6 @@
             }
         }
 
-        private static string GetMethodDeclaration(Step step)
-        {
-            return MethodBuilder.ParseMethodDeclaration(step.Text).ToMethodDeclaration();
-        }
+        private static string GetMethodDeclaration(Step step) => MethodBuilder.ParseMethodDeclaration(step.Text).ToMethodDeclaration();
     }
 }

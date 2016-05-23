@@ -13,7 +13,7 @@
 
         public static object Parse(IEnumerable<string> lines, object root)
         {
-            int lineNumber = 1;
+            var lineNumber = 1;
             foreach (string untrimmedLine in lines)
             {
                 string line = untrimmedLine.Trim();
@@ -43,7 +43,7 @@
             return root;
         }
 
-        static IEnumerable<string> GetNames(MethodInfo methodInfo)
+        private static IEnumerable<string> GetNames(MethodInfo methodInfo)
         {
             yield return methodInfo.Name.UnCamel();
             foreach (var a in Attribute.GetCustomAttributes(methodInfo).OfType<AliasAttribute>())
@@ -52,15 +52,12 @@
             }
         }
 
-        public static IEnumerable<MethodInfo> GetMethods(object o)
-        {
-            return from m in o.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                   where m.ReturnType != typeof(void)
-                   where m.GetCustomAttribute<DescriptionAttribute>() != null
-                   where m.GetParameters().Select(x => x.ParameterType).SequenceEqual(new[] { typeof(string) })
-                   orderby m.Name.Length descending
-                   select m;
-        }
+        public static IEnumerable<MethodInfo> GetMethods(object o) => from m in o.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+                                                                      where m.ReturnType != typeof(void)
+                                                                      where m.GetCustomAttribute<DescriptionAttribute>() != null
+                                                                      where m.GetParameters().Select(x => x.ParameterType).SequenceEqual(new[] { typeof(string) })
+                                                                      orderby m.Name.Length descending
+                                                                      select m;
 
         public class ParseException : ArgumentException
         {

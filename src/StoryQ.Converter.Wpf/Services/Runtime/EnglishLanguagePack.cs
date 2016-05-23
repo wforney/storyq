@@ -3,21 +3,12 @@
     using System.Collections.Generic;
     using StoryQ.Infrastructure;
 
-    class EnglishLanguagePack : ILocalLanguagePack
+    internal class EnglishLanguagePack : ILocalLanguagePack
     {
-        public string Name
-        {
-            get { return "English"; }
-        }
+        public string Name => "English";
 
-        public IEnumerable<string> CountryCodes
-        {
-            get { return "GB,US,NZ,AU,CA,IE,PH,TT,ZA".Split(','); }
-        }
+        public IEnumerable<string> CountryCodes => "GB,US,NZ,AU,CA,IE,PH,TT,ZA".Split(',');
 
-        public object ParserEntryPoint
-        {
-            get { return new StoryQEntryPoints(); }
-        }
+        public object ParserEntryPoint => new StoryQEntryPoints();
     }
 }

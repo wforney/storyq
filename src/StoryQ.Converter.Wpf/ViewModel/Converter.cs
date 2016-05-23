@@ -14,16 +14,16 @@
 
     public class Converter : ViewModelBase
     {
-        readonly IFileSavingService fileSavingService;
-        readonly ILanguagePackProvider languagePackProvider;
+        private readonly IFileSavingService fileSavingService;
+        private readonly ILanguagePackProvider languagePackProvider;
         public event EventHandler TransitionApplied;
 
         private string plainText = "";
         private string convertedText;
 
         private ConversionSettings settings;
-        LanguagePack currentLanguagePack;
-        object currentParserEntryPoint;
+        private LanguagePack currentLanguagePack;
+        private object currentParserEntryPoint;
 
         public Converter() : this(ServiceLocator.Resolve<IFileSavingService>(), ServiceLocator.Resolve<ILanguagePackProvider>()) { }
 
@@ -67,7 +67,7 @@
             }
         }
 
-        void SaveLibraries()
+        private void SaveLibraries()
         {
             string directory = fileSavingService.PromptForDirectory("Where you would like to save the StoryQ files?");
             if (directory != null)

@@ -7,10 +7,10 @@
     using System.Reflection;
     using System.Xml.Linq;
 
-    class ClickOnceLanguagePackProvider : ILanguagePackProvider
+    internal class ClickOnceLanguagePackProvider : ILanguagePackProvider
     {
-        List<AssemblyFileLanguagePack> locals = new List<AssemblyFileLanguagePack>();
-        List<RemotePack> remotes = new List<RemotePack>();
+        private List<AssemblyFileLanguagePack> locals = new List<AssemblyFileLanguagePack>();
+        private List<RemotePack> remotes = new List<RemotePack>();
         
         public ClickOnceLanguagePackProvider()
         {
@@ -34,10 +34,7 @@
             }
         }
 
-        static string GroupNameToDllLocation(string group)
-        {
-            return string.Format("LanguagePacks\\StoryQ.{0}.dll", group);
-        }
+        private static string GroupNameToDllLocation(string group) => string.Format("LanguagePacks\\StoryQ.{0}.dll", group);
 
         public IEnumerable<ILocalLanguagePack> GetLocalLanguagePacks()
         {
@@ -48,26 +45,19 @@
             }
         }
 
-        public IEnumerable<IRemoteLanguagePack> GetRemoteLanguagePacks()
-        {
-            return remotes.Cast<IRemoteLanguagePack>();
-        }
+        public IEnumerable<IRemoteLanguagePack> GetRemoteLanguagePacks() => remotes.Cast<IRemoteLanguagePack>();
 
-        
-        class RemotePack : IRemoteLanguagePack
+        private class RemotePack : IRemoteLanguagePack
         {
-            readonly string groupName;
-            Downloader downloader;
+            private readonly string groupName;
+            private Downloader downloader;
 
             public RemotePack(string groupName)
             {
                 this.groupName = groupName;
             }
 
-            public string Name
-            {
-                get { return groupName; }
-            }
+            public string Name => groupName;
 
             public IEnumerable<string> CountryCodes
             {
@@ -82,11 +72,11 @@
                 }
             }
 
-            class Downloader
+            private class Downloader
             {
-                readonly string groupName;
-                readonly Action<double> downloadProgress;
-                readonly Action<ILocalLanguagePack> downloadComplete;
+                private readonly string groupName;
+                private readonly Action<double> downloadProgress;
+                private readonly Action<ILocalLanguagePack> downloadComplete;
 
                 public Downloader(string groupName, Action<double> downloadProgress, Action<ILocalLanguagePack> downloadComplete)
                 {
@@ -100,7 +90,7 @@
                     d.DownloadFileGroupAsync(groupName);
                 }
 
-                void CurrentDeploymentOnDownloadFileGroupCompleted(object sender, DownloadFileGroupCompletedEventArgs args)
+                private void CurrentDeploymentOnDownloadFileGroupCompleted(object sender, DownloadFileGroupCompletedEventArgs args)
                 {
                     if (args.Group == groupName)
                     {
@@ -111,7 +101,7 @@
                     d.DownloadFileGroupCompleted -= CurrentDeploymentOnDownloadFileGroupCompleted;
                 }
 
-                void CurrentDeploymentOnDownloadFileGroupProgressChanged(object sender, DeploymentProgressChangedEventArgs args)
+                private void CurrentDeploymentOnDownloadFileGroupProgressChanged(object sender, DeploymentProgressChangedEventArgs args)
                 {
                     if (args.Group == groupName)
                     {

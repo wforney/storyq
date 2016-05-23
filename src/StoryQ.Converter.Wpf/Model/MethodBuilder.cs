@@ -64,15 +64,9 @@
             public string Name { get; private set; }
             public IEnumerable<Parameter> Parameters { get; private set; }
 
-            public string ToMethodDeclaration()
-            {
-                return Name.Camel() + "(" + Parameters.Select(x => x.Type + " " + x.Name).Join(", ") + ")";
-            }
+            public string ToMethodDeclaration() => Name.Camel() + "(" + Parameters.Select(x => x.Type + " " + x.Name).Join(", ") + ")";
 
-            public string ToStepParameters()
-            {
-                return Name.Camel() + Parameters.Select(x => ", " + x.LiteralValue).Join("");
-            }
+            public string ToStepParameters() => Name.Camel() + Parameters.Select(x => ", " + x.LiteralValue).Join("");
         }
 
         public class Parameter

@@ -21,13 +21,6 @@
 
         protected abstract Feature DescribeStory(Story story);
 
-        protected Scenario Scenario
-        {
-            [MethodImpl(MethodImplOptions.NoInlining)]
-            get
-            {
-                return feature.WithScenario(new StackFrame(1).GetMethod().Name.UnCamel());
-            }
-        }
+        protected Scenario Scenario => feature.WithScenario(new StackFrame(1).GetMethod().Name.UnCamel());
     }
 }

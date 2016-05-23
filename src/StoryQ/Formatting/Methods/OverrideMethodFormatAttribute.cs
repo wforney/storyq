@@ -25,9 +25,6 @@ namespace StoryQ.Formatting.Methods
         /// <param name="method">The method to describe</param>
         /// <param name="parameters">the parameters currently being passed to the method</param>
         /// <returns>the overidden text</returns>
-        public override string Format(MethodInfo method, IEnumerable<string> parameters)
-        {
-            return this.text;
-        }
+        public override string Format(MethodInfo method, IEnumerable<string> parameters) => this.text;
     }
 }

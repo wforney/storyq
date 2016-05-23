@@ -35,10 +35,7 @@
             return formatter.Format(method.Method, argsAsStrings);
         }
 
-        private static MethodFormatAttribute GetFormatter(Delegate method)
-        {
-            return method.Method.GetCustomAttribute<MethodFormatAttribute>() ?? StoryQSettings.DefaultMethodFormatSelector(method.Method);
-        }
+        private static MethodFormatAttribute GetFormatter(Delegate method) => method.Method.GetCustomAttribute<MethodFormatAttribute>() ?? StoryQSettings.DefaultMethodFormatSelector(method.Method);
 
         private static string FormatParameter(ParameterInfo info, object value)
         {

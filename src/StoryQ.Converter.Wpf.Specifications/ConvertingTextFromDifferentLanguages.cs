@@ -11,14 +11,11 @@ namespace StoryQ.Converter.Wpf.Specifications
     [TestFixture]
     public class ConvertingTextFromDifferentLanguages : SpecificationBase
     {
-        protected override Feature DescribeStory(Story story)
-        {
-            return story
+        protected override Feature DescribeStory(Story story) => story
                 .InOrderTo("be able to write storyq test specifications")
                 .AsA("clickonce user")
                 .IWant("to be able to save the storyq dll directly from the converter ui")
                 .And("to be able to pick up language packs via clickonce via the StoryQ Converter UI");
-        }
 
         [Test]
         public void SavingTheStoryQDllFromTheConverter()
@@ -62,11 +59,11 @@ namespace StoryQ.Converter.Wpf.Specifications
         }
 
         private ViewModel.Converter converter;
-        Mock<IFileSavingService> fileSavingService;
-        Mock<ILanguagePackProvider> languagePackProvider;
-        List<Mock<ILocalLanguagePack>> localLanguagePacks;
-        List<Mock<IRemoteLanguagePack>> remoteLanguagePacks;
-        string expectedEntryPoint;
+        private Mock<IFileSavingService> fileSavingService;
+        private Mock<ILanguagePackProvider> languagePackProvider;
+        private List<Mock<ILocalLanguagePack>> localLanguagePacks;
+        private List<Mock<IRemoteLanguagePack>> remoteLanguagePacks;
+        private string expectedEntryPoint;
 
         private void ThatIHaveLaunchedStoryq()
         {
@@ -76,24 +73,24 @@ namespace StoryQ.Converter.Wpf.Specifications
             converter = new ViewModel.Converter(fileSavingService.Object, languagePackProvider.Object);
         }
 
-        void TheStoryQDllShouldBeSavedIntoTheDirectoryIChoose()
+        private void TheStoryQDllShouldBeSavedIntoTheDirectoryIChoose()
         {
             fileSavingService.Verify(x => x.CopyLibFiles("directory"));
         }
 
-        void IClickTheSaveLibrariesButton()
+        private void IClickTheSaveLibrariesButton()
         {
             fileSavingService.Setup(x => x.PromptForDirectory(It.IsAny<string>())).Returns("directory");
 
             converter.SaveLibrariesCommand.Execute(null);
         }
 
-        void TheConverterShouldDownloadTheNewLanguagePack()
+        private void TheConverterShouldDownloadTheNewLanguagePack()
         {
             remoteLanguagePacks[0].Verify(x => x.BeginDownloadAsync(It.IsAny<Action<double>>(), It.IsAny<Action<ILocalLanguagePack>>()));
         }
 
-        void ISelectANewRemoteLanguagePack()
+        private void ISelectANewRemoteLanguagePack()
         {
             var newLocal = new Mock<ILocalLanguagePack>();
             newLocal.Setup(x => x.ParserEntryPoint).Returns("newLocal");
@@ -110,25 +107,25 @@ namespace StoryQ.Converter.Wpf.Specifications
             converter.CurrentLanguagePack = converter.LanguagePacks[3];
         }
 
-        void TheConverterShouldWorkWithTheNewLanguagePack()
+        private void TheConverterShouldWorkWithTheNewLanguagePack()
         {
             Assert.AreEqual(expectedEntryPoint, converter.CurrentParserEntryPoint);
         }
 
-        void ISelectANewLocalLanguagePack()
+        private void ISelectANewLocalLanguagePack()
         {
             converter.CurrentLanguagePack = converter.LanguagePacks[1];
             expectedEntryPoint = "pack 2";
         }
 
-        void ThereAreLanguagePacksInAList()
+        private void ThereAreLanguagePacksInAList()
         {
             ThatIHaveLaunchedStoryq();
             ThereAreLanguagePacksAvailable();
             IShouldSeeTheLanguagePacksInAList();
         }
 
-        void IShouldSeeTheLanguagePacksInAList()
+        private void IShouldSeeTheLanguagePacksInAList()
         {
             Assert.AreEqual(6, converter.LanguagePacks.Count);
             Assert.AreEqual("pack 1", converter.LanguagePacks.First().Text);
@@ -137,7 +134,7 @@ namespace StoryQ.Converter.Wpf.Specifications
             Assert.IsFalse(converter.LanguagePacks.ElementAt(3).IsDownloaded);
         }
 
-        void ThereAreLanguagePacksAvailable()
+        private void ThereAreLanguagePacksAvailable()
         {
 
             localLanguagePacks = new List<Mock<ILocalLanguagePack>>

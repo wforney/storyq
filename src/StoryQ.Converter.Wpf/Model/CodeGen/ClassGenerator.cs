@@ -7,7 +7,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
     /// <summary>
     /// Generates the class definition
     /// </summary>
-    class ClassGenerator : ICodeGenerator
+    internal class ClassGenerator : ICodeGenerator
     {
         private readonly ICodeGenerator child;
         private readonly TestFrameworkData testFrameworkData;

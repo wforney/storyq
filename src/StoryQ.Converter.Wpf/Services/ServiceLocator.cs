@@ -15,7 +15,7 @@
     /// </summary>
     public class ServiceLocator
     {
-        static readonly Container container;
+        private static readonly Container container;
 
         static ServiceLocator()
         {
@@ -45,33 +45,21 @@
            
         }
 
-        public static T Resolve<T>() where T : class
-        {
-            return container.Resolve<T>();
-        }
+        public static T Resolve<T>() where T : class => container.Resolve<T>();
 
-        public static T Resolve<T>(string name) where T : class
-        {
-            return container.Resolve<T>(name);
-        }
+        public static T Resolve<T>(string name) where T : class => container.Resolve<T>(name);
 
         /// <summary>
         /// See http://www.robfe.com/2008/09/build-yourself-a-portable-dependency-injection-container/
         /// </summary>
         public class Container
         {
-            readonly Dictionary<string, Func<object>> services = new Dictionary<string, Func<object>>();
-            readonly Dictionary<Type, string> serviceNames = new Dictionary<Type, string>();
+            private readonly Dictionary<string, Func<object>> services = new Dictionary<string, Func<object>>();
+            private readonly Dictionary<Type, string> serviceNames = new Dictionary<Type, string>();
 
-            public DependencyManager RegisterSelf<T>()
-            {
-                return Register<T, T>();
-            }
+            public DependencyManager RegisterSelf<T>() => Register<T, T>();
 
-            public DependencyManager Register<S, C>() where C : S
-            {
-                return Register<S, C>(Guid.NewGuid().ToString());
-            }
+            public DependencyManager Register<S, C>() where C : S => Register<S, C>(Guid.NewGuid().ToString());
 
             public DependencyManager Register<S, C>(string name) where C : S
             {
@@ -82,15 +70,9 @@
                 return new DependencyManager(this, name, typeof(C));
             }
 
-            public T Resolve<T>(string name) where T : class
-            {
-                return (T)services[name]();
-            }
+            public T Resolve<T>(string name) where T : class => (T)services[name]();
 
-            public T Resolve<T>() where T : class
-            {
-                return Resolve<T>(serviceNames[typeof(T)]);
-            }
+            public T Resolve<T>() where T : class => Resolve<T>(serviceNames[typeof(T)]);
 
             public class DependencyManager
             {

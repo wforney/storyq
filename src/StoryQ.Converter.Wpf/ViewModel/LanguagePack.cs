@@ -6,10 +6,10 @@
 
     public class LanguagePack : ViewModelBase
     {
-        double downloadProgress;
-        readonly Converter converter;
-        readonly IRemoteLanguagePack remoteLanguagePack;
-        ILocalLanguagePack localLanguagePack;
+        private double downloadProgress;
+        private readonly Converter converter;
+        private readonly IRemoteLanguagePack remoteLanguagePack;
+        private ILocalLanguagePack localLanguagePack;
 
         public LanguagePack(Converter converter, ILocalLanguagePack localLanguagePack)
         {
@@ -33,13 +33,7 @@
 
         public string Text { get; private set; }
 
-        public bool IsDownloaded
-        {
-            get
-            {
-                return localLanguagePack != null;
-            }
-        }
+        public bool IsDownloaded => localLanguagePack != null;
 
         public double DownloadProgress
         {
@@ -64,7 +58,7 @@
             }
         }
 
-        void DownloadComplete(ILocalLanguagePack download)
+        private void DownloadComplete(ILocalLanguagePack download)
         {
             localLanguagePack = download;
             if (converter.CurrentLanguagePack == this)

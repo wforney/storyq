@@ -9,7 +9,7 @@ namespace StoryQ.Demo
     [TestFixture]
     public class MethodPerScenarioDemoTest
     {
-        Feature story = new Story("demonstrating splitting scenarios across methods")
+        private Feature story = new Story("demonstrating splitting scenarios across methods")
             .InOrderTo("see more granularity in my test runner")
             .AsA("developer")
             .IWant("to share the same story, but have different scenarios in each test method");

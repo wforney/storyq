@@ -8,7 +8,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
     /// <summary>
     /// Generates the test method
     /// </summary>
-    class TestMethodGenerator : ICodeGenerator
+    internal class TestMethodGenerator : ICodeGenerator
     {
         private readonly ICodeGenerator child;
         private readonly TestFrameworkData testFrameworkData;

@@ -4,7 +4,7 @@
     using System.IO;
     using System.Linq;
 
-    class LocalLanguagePackProvider : ILanguagePackProvider
+    internal class LocalLanguagePackProvider : ILanguagePackProvider
     {
         public IEnumerable<ILocalLanguagePack> GetLocalLanguagePacks()
         {
@@ -15,9 +15,6 @@
             }
         }
 
-        public IEnumerable<IRemoteLanguagePack> GetRemoteLanguagePacks()
-        {
-            return Enumerable.Empty<IRemoteLanguagePack>();
-        }
+        public IEnumerable<IRemoteLanguagePack> GetRemoteLanguagePacks() => Enumerable.Empty<IRemoteLanguagePack>();
     }
 }
