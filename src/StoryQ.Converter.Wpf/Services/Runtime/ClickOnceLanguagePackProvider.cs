@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Deployment.Application;
-using System.Linq;
-using System.Reflection;
-using System.Xml.Linq;
-
-namespace StoryQ.Converter.Wpf.Services.Runtime
+﻿namespace StoryQ.Converter.Wpf.Services.Runtime
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Deployment.Application;
+    using System.Linq;
+    using System.Reflection;
+    using System.Xml.Linq;
+
     class ClickOnceLanguagePackProvider : ILanguagePackProvider
     {
         List<AssemblyFileLanguagePack> locals = new List<AssemblyFileLanguagePack>();
@@ -19,11 +19,11 @@ namespace StoryQ.Converter.Wpf.Services.Runtime
             var doc = XDocument.Load(Assembly.GetEntryAssembly().Location + ".manifest");
             var ns = XNamespace.Get("urn:schemas-microsoft-com:asm.v2");
             var files = doc.Root.Descendants(ns + "file");
-            var groups = files.Where(x=>x.Attribute("group") != null).Select(x => x.Attribute("group").Value).Distinct().OrderBy(x => x.ToLowerInvariant());
+            var groups = files.Where(x => x.Attribute("group") != null).Select(x => x.Attribute("group").Value).Distinct().OrderBy(x => x.ToLowerInvariant());
 
             foreach (var g in groups)
             {
-                if(d.IsFileGroupDownloaded(g))
+                if (d.IsFileGroupDownloaded(g))
                 {
                     locals.Add(new AssemblyFileLanguagePack(GroupNameToDllLocation(g)));
                 }
@@ -102,7 +102,7 @@ namespace StoryQ.Converter.Wpf.Services.Runtime
 
                 void CurrentDeploymentOnDownloadFileGroupCompleted(object sender, DownloadFileGroupCompletedEventArgs args)
                 {
-                    if(args.Group == groupName)
+                    if (args.Group == groupName)
                     {
                         downloadComplete(new AssemblyFileLanguagePack(GroupNameToDllLocation(groupName)));
                     }
@@ -113,9 +113,9 @@ namespace StoryQ.Converter.Wpf.Services.Runtime
 
                 void CurrentDeploymentOnDownloadFileGroupProgressChanged(object sender, DeploymentProgressChangedEventArgs args)
                 {
-                    if(args.Group == groupName)
+                    if (args.Group == groupName)
                     {
-                        downloadProgress((double) args.BytesCompleted/args.BytesTotal);
+                        downloadProgress((double)args.BytesCompleted / args.BytesTotal);
                     }
                 }
             }

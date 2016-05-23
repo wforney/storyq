@@ -1,9 +1,4 @@
-﻿using Moq;
-using StoryQ.Converter.Wpf.Services;
-using StoryQ.Converter.Wpf.ViewModel;
-using StoryQ.Infrastructure;
-using vm = StoryQ.Converter.Wpf.ViewModel;
-
+﻿
 #if NUNIT
 using NUnit.Framework;
 using TestClass = NUnit.Framework.TestFixtureAttribute;
@@ -17,6 +12,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 namespace StoryQ.Converter.Wpf.Specifications
 {
+    using Moq;
+    using StoryQ.Converter.Wpf.Services;
+    using StoryQ.Converter.Wpf.ViewModel;
+    using StoryQ.Infrastructure;
+    using vm = StoryQ.Converter.Wpf.ViewModel;
+
     [TestClass]
     public class ConvertingTextIntoCode : SpecificationBase
     {

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using StoryQ.Infrastructure;
-using Enumerable = System.Linq.Enumerable;
-
-namespace StoryQ.Converter.Wpf.Services.Runtime
+﻿namespace StoryQ.Converter.Wpf.Services.Runtime
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using StoryQ.Infrastructure;
+    using Enumerable = System.Linq.Enumerable;
+
     class AssemblyFileLanguagePack : ILocalLanguagePack
     {
         readonly string file;

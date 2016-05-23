@@ -1,11 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-
-using StoryQ.Infrastructure;
-
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using StoryQ.Infrastructure;
+
     /// <summary>
     /// Generates the test method
     /// </summary>
@@ -24,9 +23,9 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
         {
             IStepContainer first = fragments.First();
             string s = Regex.Replace(" " + first.Step.Text, " \\w|_", match => match.Value.Trim().ToUpperInvariant());
-            writer.WriteLine("["+testFrameworkData.TestMethodAttribute+"]");
-            writer.WriteLine("public void "+s+"()");
-            using(writer.CodeBlock())
+            writer.WriteLine("[" + testFrameworkData.TestMethodAttribute + "]");
+            writer.WriteLine("public void " + s + "()");
+            using (writer.CodeBlock())
             {
                 child.Generate(fragments, writer);
             }

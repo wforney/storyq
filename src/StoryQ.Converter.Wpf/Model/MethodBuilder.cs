@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-
-using StoryQ.Infrastructure;
-
-namespace StoryQ.Converter.Wpf.Model
+﻿namespace StoryQ.Converter.Wpf.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using StoryQ.Infrastructure;
+
     public static class MethodBuilder
     {
         private static readonly Dictionary<string, string> literalTypes = new Dictionary<string, string>
@@ -23,7 +22,7 @@ namespace StoryQ.Converter.Wpf.Model
             {
                 string value = match.Groups["value"].Value;
                 string name = match.Groups["name"].Value;
-                if(string.IsNullOrEmpty(name))
+                if (string.IsNullOrEmpty(name))
                 {
                     name = "arg" + (args.Count + 1);
                 }
@@ -44,7 +43,7 @@ namespace StoryQ.Converter.Wpf.Model
                 }
             }
             DateTime result;
-            if(DateTime.TryParse(value, out result))
+            if (DateTime.TryParse(value, out result))
             {
                 value = "DateTime.Parse(\"" + value + "\")";
 

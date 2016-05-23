@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Deployment.Application;
-using System.Linq;
-using System.Reflection;
-using System.Windows;
-using StoryQ.Converter.Wpf.Services.Designtime;
-using StoryQ.Converter.Wpf.Services.Runtime;
-
-namespace StoryQ.Converter.Wpf.Services
+﻿namespace StoryQ.Converter.Wpf.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Deployment.Application;
+    using System.Linq;
+    using System.Reflection;
+    using System.Windows;
+    using StoryQ.Converter.Wpf.Services.Designtime;
+    using StoryQ.Converter.Wpf.Services.Runtime;
+
     /// <summary>
     /// Looks up services (powered by a mini DI container)
     /// </summary>

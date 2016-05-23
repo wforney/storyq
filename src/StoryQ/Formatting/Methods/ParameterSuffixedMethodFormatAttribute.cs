@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-
-using StoryQ.Infrastructure;
-
-namespace StoryQ.Formatting.Methods
+﻿namespace StoryQ.Formatting.Methods
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using StoryQ.Infrastructure;
+
     /// <summary>
     /// Describes a method by un camel-casing the method, then putting the parameters at the end (like a method call)
     /// Used by default when a method's name contains no underscores
@@ -21,7 +20,7 @@ namespace StoryQ.Formatting.Methods
         /// <returns></returns>
         public override string Format(MethodInfo method, IEnumerable<string> parameters)
         {
-            string s = parameters.Join(", ");
+            var s = parameters.Join(", ");
             if (!String.IsNullOrEmpty(s))
             {
                 s = string.Format("({0})", s);

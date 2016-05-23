@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-
-using StoryQ.Infrastructure;
-
-namespace StoryQ.Formatting.Methods
+﻿namespace StoryQ.Formatting.Methods
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using StoryQ.Infrastructure;
+
     /// <summary>
     /// A MethodFormatAttribute can be used to provide a custom format of a StoryQ test method.
     /// Existing MethodFormatAttributes include the default formatters 

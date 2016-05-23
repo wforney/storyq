@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace StoryQ.Converter.Wpf.Services.Designtime
+﻿namespace StoryQ.Converter.Wpf.Services.Designtime
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
     class DesigntimeLanguagePackProvider : ILanguagePackProvider
     {
         public IEnumerable<ILocalLanguagePack> GetLocalLanguagePacks()

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using StoryQ.Infrastructure;
-
-namespace StoryQ.Converter.Wpf.Model.CodeGen
+﻿namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using StoryQ.Infrastructure;
+
     /// <summary>
     /// Generates the step methods for this story
     /// </summary>
@@ -23,7 +23,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             {
                 writer.WriteLine("");
                 writer.WriteLine("private void " + step);
-                using(writer.CodeBlock())
+                using (writer.CodeBlock())
                 {
                     writer.WriteLine("throw new NotImplementedException();");
                 }

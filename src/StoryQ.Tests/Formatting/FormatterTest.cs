@@ -1,10 +1,4 @@
-﻿using System;
-using StoryQ.Formatting;
-using StoryQ.Formatting.Methods;
-using StoryQ.Formatting.Parameters;
-using System.Collections.Generic;
-using System.Reflection;
-
+﻿
 #if NUNIT
 using NUnit.Framework;
 using TestClass = NUnit.Framework.TestFixtureAttribute;
@@ -19,6 +13,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace StoryQ.Tests.Formatting
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using StoryQ.Formatting;
+    using StoryQ.Formatting.Methods;
+    using StoryQ.Formatting.Parameters;
+
     /// <summary>
     /// Summary description for UnitTest1
     /// </summary>

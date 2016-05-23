@@ -1,14 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Windows;
-using System.Xml;
-using System.Xml.Serialization;
-
-using StoryQ.Converter.Wpf.Properties;
-using StoryQ.Converter.Wpf.ViewModel;
-
-namespace StoryQ.Converter.Wpf
+﻿namespace StoryQ.Converter.Wpf
 {
+    using System;
+    using System.IO;
+    using System.Windows;
+    using System.Xml;
+    using System.Xml.Serialization;
+    using StoryQ.Converter.Wpf.Properties;
+    using StoryQ.Converter.Wpf.ViewModel;
+
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>

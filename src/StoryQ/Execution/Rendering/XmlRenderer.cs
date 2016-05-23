@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-
-namespace StoryQ.Execution.Rendering
+﻿namespace StoryQ.Execution.Rendering
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Xml.Linq;
+
     internal class XmlRenderer : IRenderer
     {
         private readonly XElement receptacle;
@@ -29,7 +29,7 @@ namespace StoryQ.Execution.Rendering
                     select new XElement("Result",
                                         x.Exception != null && x.Type == ResultType.Failed
                                             ? new XElement("Exception",
-                                                           new XAttribute("ID", idSource()),
+                                                           new XAttribute("ID", this.idSource()),
                                                            new XAttribute("Message", x.Exception.Message),
                                                            new XCData(x.Exception.ToString()))
                                             : null,
@@ -39,7 +39,7 @@ namespace StoryQ.Execution.Rendering
                                         new XAttribute("Type", x.Type),
                                         x.Tags.Select(tag => new XElement("Tag", tag)));
 
-            receptacle.Add(new XElement("Story", new XAttribute("Name", results.First().Text), v));
+            this.receptacle.Add(new XElement("Story", new XAttribute("Name", results.First().Text), v));
         }
 
         public static Func<int> AutoIncrementFrom(int start)

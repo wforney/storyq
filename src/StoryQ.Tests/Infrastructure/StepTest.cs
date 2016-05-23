@@ -1,6 +1,4 @@
-﻿using StoryQ.Execution;
-using StoryQ.Infrastructure;
-
+﻿
 #if NUNIT
 using NUnit.Framework;
 
@@ -14,11 +12,13 @@ using ClassInitialize = NUnit.Framework.TestFixtureSetUpAttribute;
 #else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-
 #endif
 
 namespace StoryQ.Tests.Infrastructure
 {
+    using StoryQ.Execution;
+    using StoryQ.Infrastructure;
+
     [TestClass]
     public class StepTest
     {

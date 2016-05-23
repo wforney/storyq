@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace StoryQ.Execution
+﻿namespace StoryQ.Execution
 {
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
     /// The result or outcome of a step being executed
     /// </summary>
@@ -20,12 +20,12 @@ namespace StoryQ.Execution
 
         private Result(string prefix, int indentLevel, string text, ResultType type, IEnumerable<string> tags, Exception exception)
         {
-            Prefix = prefix;
-            Text = text;
-            Type = type;
-            Exception = exception;
-            IndentLevel = indentLevel;
-            Tags = tags;
+            this.Prefix = prefix;
+            this.Text = text;
+            this.Type = type;
+            this.Exception = exception;
+            this.IndentLevel = indentLevel;
+            this.Tags = tags;
         }
 
         /// <summary>

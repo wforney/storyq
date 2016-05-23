@@ -20,7 +20,7 @@
     ParseTree tree = compiler.Parse(System.IO.File.ReadAllText(Host.ResolvePath(inputFile)));
     ParseTreeNode node = tree.Root;
     Graph graph = node.AstNode as Graph;
-    
+
 #>
 using System;
 using System.ComponentModel;
@@ -61,7 +61,7 @@ namespace <#=nameSpace#>
             var text = GetAliases(state.GenericAttributes).FirstOrDefault()??state.Label.Name;
 #>
         /// <summary>
-        /// Starts a new StoryQ <#=state.Label.Name#>. 
+        /// Starts a new StoryQ <#=state.Label.Name#>.
         /// </summary>
         /// <param name="text">The name of the new <#=state.Label.Name#></param>
 
@@ -105,8 +105,8 @@ namespace <#=nameSpace#>
                 {
 #>
         /// <param name="<#= "arg"+j #>">The <#= numberths[j] #> argument to be passed to <paramref name="descriptiveAction"/></param>
-<# 
-                } 
+<#
+                }
 #>
         /// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
         [Description("<#=Tooltip(exit)#>")]
@@ -189,12 +189,12 @@ namespace <#=nameSpace#>
             /// </summary>
             /// <param name="parent">this</param>
             /// <param name="text">
-            /// A textual description of the step. 
+            /// A textual description of the step.
             /// </param>
             /// <returns>The next fragment of your story, a <see cref="<#=target.Label.Name#>"/></returns>
-            [Description("<#=Tooltip(exit)#>")]        
+            [Description("<#=Tooltip(exit)#>")]
             public static <#=target.Label.Name#> <#=exit.Label.Name#>(this <#=exit.FromState.Label.Name#> parent, string text)
-            {				
+            {
                 Step s = new Step("<#=prefix#>", <#=Indent(exit)#>, text, () => { throw new StringBasedExecutableStepException(text); });
                 return new <#=target.Label.Name#>(s, parent);
             }
@@ -254,7 +254,7 @@ namespace <#=nameSpace#>
     {
         return state.GenericAttributes.ContainsKey("shape") &&  state.GenericAttributes["shape"]=="doublecircle";
     }
-    
+
     public IEnumerable<string> GetAliases(Dictionary<string, string> genericAttributes)
     {
         return genericAttributes.ContainsKey("aliases") ? genericAttributes["aliases"].Split(',').Select(x=>x.Trim()) : Enumerable.Empty<string>();
@@ -264,7 +264,7 @@ namespace <#=nameSpace#>
     {
         return Tooltip(t.GenericAttributes);
     }
-    
+
     public int Indent(Transition t)
     {
         Dictionary<string, string> attributes = t.GenericAttributes;
@@ -296,10 +296,10 @@ namespace <#=nameSpace#>
     {
         return string.Join(seperator, strings.ToArray());
     }
-    
+
     public string GetParameter(string name, string fallback)
     {
-        var s = Host.ResolveParameterValue(" ", " ", name);    
+        var s = Host.ResolveParameterValue(" ", " ", name);
         return string.IsNullOrEmpty(s) ? fallback : s;
     }
 

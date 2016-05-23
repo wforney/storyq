@@ -1,7 +1,16 @@
-using System.Collections.Generic;
-
+// ***********************************************************************
+// Assembly         : StoryQ
+// Last Modified By : William Forney
+// Last Modified On : 05-22-2016
+// ***********************************************************************
+// <copyright file="IRenderer.cs" company="">
+//     2010 robfe & toddb
+// </copyright>
+// ***********************************************************************
 namespace StoryQ.Execution.Rendering
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Something that can render results
     /// </summary>

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Windows.Input;
-using StoryQ.Converter.Wpf.Model;
-using StoryQ.Converter.Wpf.Model.CodeGen;
-using StoryQ.Converter.Wpf.Services;
-using StoryQ.Infrastructure;
-
-namespace StoryQ.Converter.Wpf.ViewModel
+﻿namespace StoryQ.Converter.Wpf.ViewModel
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text.RegularExpressions;
+    using System.Windows.Input;
+    using StoryQ.Converter.Wpf.Model;
+    using StoryQ.Converter.Wpf.Model.CodeGen;
+    using StoryQ.Converter.Wpf.Services;
+    using StoryQ.Infrastructure;
+
     public class Converter : ViewModelBase
     {
         readonly IFileSavingService fileSavingService;

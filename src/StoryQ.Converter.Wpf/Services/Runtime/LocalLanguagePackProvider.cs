@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace StoryQ.Converter.Wpf.Services.Runtime
+﻿namespace StoryQ.Converter.Wpf.Services.Runtime
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+
     class LocalLanguagePackProvider : ILanguagePackProvider
     {
         public IEnumerable<ILocalLanguagePack> GetLocalLanguagePacks()

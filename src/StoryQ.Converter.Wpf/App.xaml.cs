@@ -1,7 +1,7 @@
-﻿using System.Windows;
-
-namespace StoryQ.Converter.Wpf
+﻿namespace StoryQ.Converter.Wpf
 {
+    using System.Windows;
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

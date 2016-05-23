@@ -1,11 +1,11 @@
-using System;
-using System.Reflection;
-using NUnit.Framework;
-using StoryQ.TextualSteps;
-using StoryQ.Formatting.Parameters;
-
 namespace StoryQ.Demo
 {
+    using System;
+    using System.Reflection;
+    using NUnit.Framework;
+    using StoryQ.Formatting.Parameters;
+    using StoryQ.TextualSteps;
+
     [TestFixture]
     public class MethodPerScenarioDemoTest
     {

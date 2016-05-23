@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows;
-
-namespace StoryQ.Converter.Wpf.Services.Runtime
+﻿namespace StoryQ.Converter.Wpf.Services.Runtime
 {
+    using System;
+    using System.Windows;
+
     class PromptingErrorhandler : IErrorhandler
     {
         public void HandleExpectedError(Exception e)

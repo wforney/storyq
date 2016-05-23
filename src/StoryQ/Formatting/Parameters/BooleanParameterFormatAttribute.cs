@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace StoryQ.Formatting.Parameters
+﻿namespace StoryQ.Formatting.Parameters
 {
+    using System;
+
     /// <summary>
     /// Lets you provide alternative descriptions of "true" and "false" when formatting a StoryQ test method
     /// </summary>
@@ -29,7 +29,7 @@ namespace StoryQ.Formatting.Parameters
         public override string Format(object value)
         {
             bool boolean = Convert.ToBoolean(value);
-            return boolean ? trueValue : falseValue;
+            return boolean ? this.trueValue : this.falseValue;
         }
     }
 }

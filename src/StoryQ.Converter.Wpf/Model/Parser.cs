@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using StoryQ.Infrastructure;
-
-namespace StoryQ.Converter.Wpf.Model
+﻿namespace StoryQ.Converter.Wpf.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Reflection;
+    using StoryQ.Infrastructure;
+
     public static class Parser
     {
         private const StringComparison IgnoreCase = StringComparison.InvariantCultureIgnoreCase;

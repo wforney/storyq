@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Linq;
-
-using StoryQ.Infrastructure;
-
 namespace StoryQ.Formatting.Parameters
 {
+    using System.Collections;
+    using System.Linq;
+    using StoryQ.Infrastructure;
+
     /// <summary>
     /// Formats a parameter by calling "toString" on it (nulls are formatter as {NULL}, for visibility)
     /// </summary>
@@ -20,7 +19,7 @@ namespace StoryQ.Formatting.Parameters
             if (value is IEnumerable && !(value is string))
 			{
 			    var enumerable = (IEnumerable)value;
-			    return string.Format("[{0}]", enumerable.Cast<object>().Select(x => Format(x)).Join(", "));
+			    return string.Format("[{0}]", enumerable.Cast<object>().Select(x => this.Format(x)).Join(", "));
 			}
 
             if (value == null)
@@ -28,14 +27,14 @@ namespace StoryQ.Formatting.Parameters
                 return "{NULL}";
             }
 
-            if(value is string)
+            if (value is string)
             {
-                var s = (string) value;
-                if(s.Length == 0)
+                var s = (string)value;
+                if (s.Length == 0)
                 {
                     return "\"\"";
                 }
-                if(s.Trim().Length == 0)
+                if (s.Trim().Length == 0)
                 {
                     return "\" \"";
                 }

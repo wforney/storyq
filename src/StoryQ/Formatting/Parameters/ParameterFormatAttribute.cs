@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace StoryQ.Formatting.Parameters
+﻿namespace StoryQ.Formatting.Parameters
 {
+    using System;
+
     /// <summary>
     /// Allows you to override the formatting of a parameter to a StoryQ method.
     /// </summary>

@@ -1,8 +1,8 @@
-﻿using System.IO;
-using System.Text;
-
-namespace StoryQ.Execution.Rendering.SimpleHtml
+﻿namespace StoryQ.Execution.Rendering.SimpleHtml
 {
+    using System.IO;
+    using System.Text;
+
     internal class SimpleHtmlFileManager : XmlFileManagerBase
     {
         private const string StyleSheetFileName = "StoryQ-SimpleHtml.xslt";

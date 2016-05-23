@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using StoryQ.Execution;
-
-namespace StoryQ.Infrastructure
+﻿namespace StoryQ.Infrastructure
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using StoryQ.Execution;
+
     /// <summary>
     ///  A StoryQ infrastructure class that represents single a line of a story. Some steps can be executed, while others are just descriptive
     /// </summary>
@@ -28,10 +28,10 @@ namespace StoryQ.Infrastructure
         /// <param name="action">The action.</param>
         public Step(string prefix, int indentLevel, string text, Action action)
         {
-            Prefix = prefix;
-            IndentLevel = indentLevel;
-            Text = text;
-            Action = action;
+            this.Prefix = prefix;
+            this.IndentLevel = indentLevel;
+            this.Text = text;
+            this.Action = action;
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace StoryQ.Infrastructure
         /// </summary>
         public List<string> Tags
         {
-            get { return tags ?? (tags = new List<string>()); }
+            get { return this.tags ?? (this.tags = new List<string>()); }
         }
 
 
@@ -73,31 +73,31 @@ namespace StoryQ.Infrastructure
         /// <returns>the resulting result</returns>
         public Result Execute()
         {
-            IEnumerable<string> t = tags ?? Enumerable.Empty<string>();
+            var t = this.tags ?? Enumerable.Empty<string>();
 
-            if (!IsExecutable)
+            if (!this.IsExecutable)
             {
-                return Result.ForResultType(Prefix, IndentLevel, Text, t, ResultType.NotExecutable);
+                return Result.ForResultType(this.Prefix, this.IndentLevel, this.Text, t, ResultType.NotExecutable);
             }
 
             try
             {
-                Action();
-                return Result.ForResultType(Prefix, IndentLevel, Text, t, ResultType.Passed);
+                this.Action();
+                return Result.ForResultType(this.Prefix, this.IndentLevel, this.Text, t, ResultType.Passed);
             }
             catch (NotImplementedException ex)
             {
                 //transform any NotImplementedException into a unit test specific "pending" exception
-                string message = ex.Message == StepPendingMessage
+                var message = ex.Message == StepPendingMessage
                                      ? "Pending"
                                      : "Pending due to " + Environment.NewLine + ex;
 
                 var pex = StoryQSettings.PendingExceptionBuilder(message, ex);
-                return Result.ForException(Prefix, IndentLevel, Text, t, pex, true);
+                return Result.ForException(this.Prefix, this.IndentLevel, this.Text, t, pex, true);
             }
             catch (Exception ex)
             {
-                return Result.ForException(Prefix, IndentLevel, Text, t, ex, false);
+                return Result.ForException(this.Prefix, this.IndentLevel, this.Text, t, ex, false);
             }
         }
 
@@ -109,7 +109,7 @@ namespace StoryQ.Infrastructure
         /// </value>
         public bool IsExecutable
         {
-            get { return Action != DoNothing; }
+            get { return this.Action != DoNothing; }
         }
     }
 }

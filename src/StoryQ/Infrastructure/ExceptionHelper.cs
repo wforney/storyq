@@ -1,25 +1,24 @@
-﻿using System;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Linq;
-
-namespace StoryQ.Infrastructure
+﻿namespace StoryQ.Infrastructure
 {
+    using System;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Reflection;
+
     /// <summary>
     /// Exception-related operations for StoryQ.
     /// </summary>
     internal static class ExceptionHelper
     {
         /// <summary>
-        /// Tries to build an "exception builder" by scanning through the list of configured "pending exceptions" and creating a 
+        /// Tries to build an "exception builder" by scanning through the list of configured "pending exceptions" and creating a
         /// Func out of the constructor
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Func&lt;System.String, Exception, Exception&gt;.</returns>
         internal static Func<string, Exception, Exception> CreateExceptionBuilder()
         {
-            //todo: add xunit and mbunit
-
-            var config = new[]
+            // TODO: add xunit and mbunit
+                        var config = new[]
                              {
                                  new {Class="Microsoft.VisualStudio.TestTools.UnitTesting.AssertInconclusiveException", Assembly="Microsoft.VisualStudio.QualityTools.UnitTestFramework"},
                                  new {Class="NUnit.Framework.IgnoreException", Assembly="nunit.framework"},
@@ -27,13 +26,24 @@ namespace StoryQ.Infrastructure
 
             foreach (var v in config)
             {
-                var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x=>x.GetName().Name==v.Assembly);
-                if(assembly == null) continue;
+                var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == v.Assembly);
+                if (assembly == null)
+                {
+                    continue;
+                }
 
-                Type type = assembly.GetType(v.Class);
-                if (type == null) continue;
+                var type = assembly.GetType(v.Class);
+                if (type == null)
+                {
+                    continue;
+                }
+
                 var c = type.GetConstructor(new[] { typeof(string), typeof(Exception) });
-                if (c == null) continue;
+                if (c == null)
+                {
+                    continue;
+                }
+
                 var pm = Expression.Parameter(typeof(string), "message");
                 var pe = Expression.Parameter(typeof(Exception), "exception");
                 var e = Expression.New(c, pm, pe);
@@ -52,10 +62,10 @@ namespace StoryQ.Infrastructure
         {
             try
             {
-                FieldInfo remoteStackTraceString = typeof(Exception).GetField("_remoteStackTraceString", BindingFlags.Instance | BindingFlags.NonPublic);
+                var remoteStackTraceString = typeof(Exception).GetField("_remoteStackTraceString", BindingFlags.Instance | BindingFlags.NonPublic);
                 if (remoteStackTraceString != null)
                 {
-                    string nl = Environment.NewLine;
+                    var nl = Environment.NewLine;
                     remoteStackTraceString.SetValue(ex, ex.StackTrace + nl + nl + separator + nl + nl);
                 }
             }

@@ -18,11 +18,11 @@ namespace StoryQ
     public class Story : FragmentBase
     {
         /// <summary>
-        /// Starts a new StoryQ Story. 
+        /// Starts a new StoryQ Story.
         /// </summary>
         /// <param name="text">The name of the new Story</param>
 
-        public Story(string text):base(new Step("story is", 0, text, Step.DoNothing), null){}
+        public Story(string text) : base(new Step("story is", 0, text, Step.DoNothing), null){}
 
         /// <summary>
         /// in order to [Benefit].
@@ -62,7 +62,7 @@ namespace StoryQ
     /// </summary>
     public class Benefit : FragmentBase
     {
-        internal Benefit(Step step, IStepContainer parent):base(step, parent){}
+        internal Benefit(Step step, IStepContainer parent) : base(step, parent){}
 
         /// <summary>
         /// and [Benefit].
@@ -118,7 +118,7 @@ namespace StoryQ
     /// </summary>
     public class Role : FragmentBase
     {
-        internal Role(Step step, IStepContainer parent):base(step, parent){}
+        internal Role(Step step, IStepContainer parent) : base(step, parent){}
 
         /// <summary>
         /// or as a [Role].
@@ -174,7 +174,7 @@ namespace StoryQ
     /// </summary>
     public class Feature : FragmentBase
     {
-        internal Feature(Step step, IStepContainer parent):base(step, parent){}
+        internal Feature(Step step, IStepContainer parent) : base(step, parent){}
 
         /// <summary>
         /// and [Feature].
@@ -230,7 +230,7 @@ namespace StoryQ
     /// </summary>
     public class Scenario : FragmentBase
     {
-        internal Scenario(Step step, IStepContainer parent):base(step, parent){}
+        internal Scenario(Step step, IStepContainer parent) : base(step, parent){}
 
         /// <summary>
         /// given [Condition].
@@ -375,7 +375,7 @@ namespace StoryQ
     /// </summary>
     public class Condition : FragmentBase
     {
-        internal Condition(Step step, IStepContainer parent):base(step, parent){}
+        internal Condition(Step step, IStepContainer parent) : base(step, parent){}
 
         /// <summary>
         /// and [Condition].
@@ -641,7 +641,7 @@ namespace StoryQ
     /// </summary>
     public class Operation : FragmentBase
     {
-        internal Operation(Step step, IStepContainer parent):base(step, parent){}
+        internal Operation(Step step, IStepContainer parent) : base(step, parent){}
 
         /// <summary>
         /// and [Operation].
@@ -907,7 +907,7 @@ namespace StoryQ
     /// </summary>
     public class Outcome : FragmentBase
     {
-        internal Outcome(Step step, IStepContainer parent):base(step, parent){}
+        internal Outcome(Step step, IStepContainer parent) : base(step, parent){}
 
         /// <summary>
         /// and [Outcome].
@@ -1073,12 +1073,12 @@ namespace StoryQ
             /// </summary>
             /// <param name="parent">this</param>
             /// <param name="text">
-            /// A textual description of the step. 
+            /// A textual description of the step.
             /// </param>
             /// <returns>The next fragment of your story, a <see cref="Condition"/></returns>
-            [Description("Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state")]        
+            [Description("Provide the initial context to the scenario. Try not to describe behaviour or actions, this step describes and sets up initial state")]
             public static Condition Given(this Scenario parent, string text)
-            {				
+            {
                 Step s = new Step("given", 4, text, () => { throw new StringBasedExecutableStepException(text); });
                 return new Condition(s, parent);
             }
@@ -1090,12 +1090,12 @@ namespace StoryQ
             /// </summary>
             /// <param name="parent">this</param>
             /// <param name="text">
-            /// A textual description of the step. 
+            /// A textual description of the step.
             /// </param>
             /// <returns>The next fragment of your story, a <see cref="Condition"/></returns>
-            [Description("Provide another precondition to describe our scenario's initial state")]        
+            [Description("Provide another precondition to describe our scenario's initial state")]
             public static Condition And(this Condition parent, string text)
-            {				
+            {
                 Step s = new Step("and", 5, text, () => { throw new StringBasedExecutableStepException(text); });
                 return new Condition(s, parent);
             }
@@ -1107,12 +1107,12 @@ namespace StoryQ
             /// </summary>
             /// <param name="parent">this</param>
             /// <param name="text">
-            /// A textual description of the step. 
+            /// A textual description of the step.
             /// </param>
             /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
-            [Description("Describe the actions that are done to the system under test. '")]        
+            [Description("Describe the actions that are done to the system under test. '")]
             public static Operation When(this Condition parent, string text)
-            {				
+            {
                 Step s = new Step("when", 4, text, () => { throw new StringBasedExecutableStepException(text); });
                 return new Operation(s, parent);
             }
@@ -1124,12 +1124,12 @@ namespace StoryQ
             /// </summary>
             /// <param name="parent">this</param>
             /// <param name="text">
-            /// A textual description of the step. 
+            /// A textual description of the step.
             /// </param>
             /// <returns>The next fragment of your story, a <see cref="Operation"/></returns>
-            [Description("Provide another action that is to be performed on the system, prior to our check for behaviour ('then')")]        
+            [Description("Provide another action that is to be performed on the system, prior to our check for behaviour ('then')")]
             public static Operation And(this Operation parent, string text)
-            {				
+            {
                 Step s = new Step("and", 5, text, () => { throw new StringBasedExecutableStepException(text); });
                 return new Operation(s, parent);
             }
@@ -1141,12 +1141,12 @@ namespace StoryQ
             /// </summary>
             /// <param name="parent">this</param>
             /// <param name="text">
-            /// A textual description of the step. 
+            /// A textual description of the step.
             /// </param>
             /// <returns>The next fragment of your story, a <see cref="Outcome"/></returns>
-            [Description("Describe the system's behaviour that the prior state and actions should elicit")]        
+            [Description("Describe the system's behaviour that the prior state and actions should elicit")]
             public static Outcome Then(this Operation parent, string text)
-            {				
+            {
                 Step s = new Step("then", 4, text, () => { throw new StringBasedExecutableStepException(text); });
                 return new Outcome(s, parent);
             }
@@ -1158,12 +1158,12 @@ namespace StoryQ
             /// </summary>
             /// <param name="parent">this</param>
             /// <param name="text">
-            /// A textual description of the step. 
+            /// A textual description of the step.
             /// </param>
             /// <returns>The next fragment of your story, a <see cref="Outcome"/></returns>
-            [Description("Provide another resultant behaviour to check for")]        
+            [Description("Provide another resultant behaviour to check for")]
             public static Outcome And(this Outcome parent, string text)
-            {				
+            {
                 Step s = new Step("and", 5, text, () => { throw new StringBasedExecutableStepException(text); });
                 return new Outcome(s, parent);
             }

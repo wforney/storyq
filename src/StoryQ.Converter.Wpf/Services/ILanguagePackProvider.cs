@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace StoryQ.Converter.Wpf.Services
+﻿namespace StoryQ.Converter.Wpf.Services
 {
+    using System;
+    using System.Collections.Generic;
+
     public interface ILanguagePackProvider
     {
         IEnumerable<ILocalLanguagePack> GetLocalLanguagePacks();

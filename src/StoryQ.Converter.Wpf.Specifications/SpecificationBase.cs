@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using StoryQ.Infrastructure;
-
-namespace StoryQ.Converter.Wpf.Specifications
+﻿namespace StoryQ.Converter.Wpf.Specifications
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Runtime.CompilerServices;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using StoryQ.Infrastructure;
+
     public abstract class SpecificationBase
     {
         private Feature feature;

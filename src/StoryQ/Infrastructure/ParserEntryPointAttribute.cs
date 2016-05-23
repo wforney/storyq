@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace StoryQ.Infrastructure
+﻿namespace StoryQ.Infrastructure
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
     ///<summary>
     /// Tells the parser which class in this assembly is the right entrypoint class
     ///</summary>
@@ -16,7 +16,7 @@ namespace StoryQ.Infrastructure
         /// </summary>
         public ParserEntryPointAttribute(Type target)
         {
-            Target = target;
+            this.Target = target;
         }
 
         /// <summary>

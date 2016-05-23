@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ComponentModel;
-using System.Reflection;
-using System.Windows.Input;
-using StoryQ.Infrastructure;
-
 namespace StoryQ.Converter.Wpf.ViewModel
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Reflection;
+    using System.Windows.Input;
+    using StoryQ.Infrastructure;
+
     public class Transition : ViewModelBase
     {
 
@@ -19,7 +19,7 @@ namespace StoryQ.Converter.Wpf.ViewModel
             Apply = new DelegateCommand(() => parent.ApplyTransition(method));
 
             string s = method.Name.UnCamel();
-            Text = s.Insert(GetUniqueCharIndex(s, parent.Transitions.Select(x=>x.Text)), "_");
+            Text = s.Insert(GetUniqueCharIndex(s, parent.Transitions.Select(x => x.Text)), "_");
             DescriptionAttribute attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(method, typeof(DescriptionAttribute));
             if (attribute != null)
             {

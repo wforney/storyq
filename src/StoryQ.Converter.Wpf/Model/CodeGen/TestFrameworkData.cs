@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// stores the appropriate strings for each test framework
     /// </summary>

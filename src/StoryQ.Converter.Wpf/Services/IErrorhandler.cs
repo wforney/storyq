@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace StoryQ.Converter.Wpf.Services
+﻿namespace StoryQ.Converter.Wpf.Services
 {
+    using System;
+
     public interface IErrorhandler
     {
         /// <summary>

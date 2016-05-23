@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Xml.Linq;
-
-namespace StoryQ.Execution.Rendering
+﻿namespace StoryQ.Execution.Rendering
 {
+    using System;
+    using System.IO;
+    using System.Xml.Linq;
+
     /// <summary>
     /// Looks after writing out an XML file, post testrun
     /// </summary>
@@ -13,27 +13,27 @@ namespace StoryQ.Execution.Rendering
 
         protected XmlFileManagerBase(string xmlFileName, string styleSheetFileName)
         {
-            DirectoryInfo outputDir = new DirectoryInfo(OutputDirectory);
+            var outputDir = new DirectoryInfo(OutputDirectory);
             outputDir.Create();
-            string fullPath = outputDir.FullName;
+            var fullPath = outputDir.FullName;
 
             XProcessingInstruction instruction = null;
             if (styleSheetFileName != null)
             {
-                string stylesheet = string.Format("href=\"{0}\" type=\"text/xsl\"", styleSheetFileName);
+                var stylesheet = string.Format("href=\"{0}\" type=\"text/xsl\"", styleSheetFileName);
                 instruction = new XProcessingInstruction("xml-stylesheet", stylesheet);
             }
 
-            XDocument doc = new XDocument(instruction, new XElement("StoryQRun"));
+            var doc = new XDocument(instruction, new XElement("StoryQRun"));
 
             AppDomain.CurrentDomain.DomainUnload += (sender, args) =>
             {
                 Directory.CreateDirectory(fullPath);
                 doc.Save(Path.Combine(fullPath, xmlFileName));
-                WriteDependantFiles(fullPath);
+                this.WriteDependantFiles(fullPath);
             };
 
-            Categoriser = new XmlCategoriser(doc.Root);
+            this.Categoriser = new XmlCategoriser(doc.Root);
         }
 
         public XmlCategoriser Categoriser { get; private set; }

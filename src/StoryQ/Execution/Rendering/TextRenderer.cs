@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-using StoryQ.Infrastructure;
-
-namespace StoryQ.Execution.Rendering
+﻿namespace StoryQ.Execution.Rendering
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using StoryQ.Infrastructure;
+
     internal class TextRenderer : IRenderer
     {
         readonly TextWriter output;
@@ -19,8 +18,8 @@ namespace StoryQ.Execution.Rendering
 
         public void Render(IEnumerable<Result> results)
         {
-            StringWriter buffer = new StringWriter();
-            List<Exception> exceptionTable = results.Where(x => x.Type == ResultType.Failed).Select(x => x.Exception).ToList();
+            var buffer = new StringWriter();
+            var exceptionTable = results.Where(x => x.Type == ResultType.Failed).Select(x => x.Exception).ToList();
             var messages = results.Select(r => new
                             {
                                 Result = r,
@@ -31,9 +30,9 @@ namespace StoryQ.Execution.Rendering
 
             foreach (var m in messages)
             {
-                Result r = m.Result;
+                var r = m.Result;
 
-                if (shouldPutNewlineBefore(r))
+                if (this.shouldPutNewlineBefore(r))
                 {
                     buffer.WriteLine();
                 }
@@ -46,7 +45,7 @@ namespace StoryQ.Execution.Rendering
                     buffer.Write(new string(' ', messageLength - m.Description.Length));
                     buffer.Write(" => ");
                     buffer.Write(r.Type);
-                    if(r.Type == ResultType.Pending)
+                    if (r.Type == ResultType.Pending)
                     {
                         buffer.Write(" !!");
                     }
@@ -61,7 +60,7 @@ namespace StoryQ.Execution.Rendering
                 }
 
                 var tags = r.Tags.Select(x => "#" + x).Join(", ");
-                if(!string.IsNullOrEmpty(tags))
+                if (!string.IsNullOrEmpty(tags))
                 {
                     buffer.Write(" => (");
                     buffer.Write(tags);
@@ -86,7 +85,7 @@ namespace StoryQ.Execution.Rendering
                 }
             }
 
-            output.Write(buffer.ToString());
+            this.output.Write(buffer.ToString());
         }
 
         protected virtual bool shouldPutNewlineBefore(Result r)

@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Linq;
-using StoryQ.Infrastructure;
-
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using StoryQ.Infrastructure;
+
     /// <summary>
     /// Generates the class definition
     /// </summary>
@@ -23,12 +23,12 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
             var imports = new[] { "System", "StoryQ" }.Concat(testFrameworkData.Imports);
             foreach (var import in imports)
             {
-                writer.WriteLine("using "+import+";");
+                writer.WriteLine("using " + import + ";");
             }
             writer.WriteLine("");
-            writer.WriteLine("["+testFrameworkData.TestClassAttribute+"]");
+            writer.WriteLine("[" + testFrameworkData.TestClassAttribute + "]");
             writer.WriteLine("public class StoryQTestClass");
-            using(writer.CodeBlock())
+            using (writer.CodeBlock())
             {
                 child.Generate(fragments, writer);
             }

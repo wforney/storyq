@@ -1,8 +1,8 @@
-using System;
-using System.Text;
-
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
+    using System;
+    using System.Text;
+
     /// <summary>
     /// Helper class to print indented code to a stringbuilder
     /// </summary>
@@ -21,7 +21,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
 
         public void WriteLine(string s)
         {
-            if(string.IsNullOrEmpty(s))
+            if (string.IsNullOrEmpty(s))
             {
                 sb.AppendLine();
                 return;

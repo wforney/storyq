@@ -1,8 +1,4 @@
-﻿using System;
-using System.Reflection;
-using StoryQ.Formatting.Parameters;
-using StoryQ.TextualSteps;
-
+﻿
 #if NUNIT
 using TestClass = NUnit.Framework.TestFixtureAttribute;
 using TestMethod = NUnit.Framework.TestAttribute;
@@ -16,6 +12,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace StoryQ.Demo
 {
+    using System;
+    using System.Reflection;
+    using StoryQ.Formatting.Parameters;
+    using StoryQ.TextualSteps;
+
     [TestClass]
     public class DemoTest
     {

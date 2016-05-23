@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Windows;
-using System.Windows.Forms;
-using System.Linq;
-
-namespace StoryQ.Converter.Wpf.Services.Runtime
+﻿namespace StoryQ.Converter.Wpf.Services.Runtime
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Forms;
+
     class FileSavingService : IFileSavingService
     {
         readonly IErrorhandler errorhandler;

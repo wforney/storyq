@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using StoryQ.Converter.Wpf.Services;
-
-namespace StoryQ.Converter.Wpf.ViewModel
+﻿namespace StoryQ.Converter.Wpf.ViewModel
 {
+    using System;
+    using System.Collections.Generic;
+    using StoryQ.Converter.Wpf.Services;
+
     public class LanguagePack : ViewModelBase
     {
         double downloadProgress;
@@ -60,14 +60,14 @@ namespace StoryQ.Converter.Wpf.ViewModel
             else
             {
                 converter.CurrentParserEntryPoint = null;
-                remoteLanguagePack.BeginDownloadAsync(x => DownloadProgress=x, DownloadComplete);
+                remoteLanguagePack.BeginDownloadAsync(x => DownloadProgress = x, DownloadComplete);
             }
         }
 
         void DownloadComplete(ILocalLanguagePack download)
         {
             localLanguagePack = download;
-            if(converter.CurrentLanguagePack == this)
+            if (converter.CurrentLanguagePack == this)
             {
                 converter.CurrentParserEntryPoint = download.ParserEntryPoint;
             }

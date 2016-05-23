@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Moq;
-using NUnit.Framework;
-using StoryQ.Converter.Wpf.Services;
-using StoryQ.Converter.Wpf.ViewModel;
-
 namespace StoryQ.Converter.Wpf.Specifications
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Moq;
+    using NUnit.Framework;
+    using StoryQ.Converter.Wpf.Services;
+    using StoryQ.Converter.Wpf.ViewModel;
+
     [TestFixture]
     public class ConvertingTextFromDifferentLanguages : SpecificationBase
     {

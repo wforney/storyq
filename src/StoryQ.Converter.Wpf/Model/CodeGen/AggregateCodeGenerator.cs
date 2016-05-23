@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using StoryQ.Infrastructure;
-
-namespace StoryQ.Converter.Wpf.Model.CodeGen
+﻿namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using StoryQ.Infrastructure;
+
     /// <summary>
     /// Calls each child generator
     /// </summary>

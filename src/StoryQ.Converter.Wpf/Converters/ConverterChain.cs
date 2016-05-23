@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Windows.Data;
-using System.Windows.Markup;
-
 namespace StoryQ.Converter.Wpf.Converters
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Windows.Data;
+    using System.Windows.Markup;
+
     [ContentProperty("Converters")]
     public class ConverterChain : IValueConverter
     {

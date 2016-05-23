@@ -1,7 +1,7 @@
-using System.ComponentModel;
-
 namespace StoryQ.Converter.Wpf.ViewModel
 {
+    using System.ComponentModel;
+
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

@@ -1,10 +1,10 @@
-using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using System.Windows.Data;
-
 namespace StoryQ.Converter.Wpf.Converters
 {
+    using System;
+    using System.Globalization;
+    using System.Text.RegularExpressions;
+    using System.Windows.Data;
+
     [ValueConversion(typeof(string), typeof(string))]
     public class UnCamelConverter:IValueConverter
     {

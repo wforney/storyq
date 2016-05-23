@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-
-namespace StoryQ.Formatting.Methods
+﻿namespace StoryQ.Formatting.Methods
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text.RegularExpressions;
+
     /// <summary>
     /// Describes a method by un camel-casing the method, then replacing each 
     /// underscore in the method name with each parameter value, in sequential order.
@@ -20,13 +20,13 @@ namespace StoryQ.Formatting.Methods
         /// <returns></returns>
         public override string Format(MethodInfo method, IEnumerable<string> parameters)
         {
-            Queue<string> argStrings = new Queue<string>(parameters);
-            string s = UnCamel(method.Name);
+            var argStrings = new Queue<string>(parameters);
+            var s = UnCamel(method.Name);
 
             int underscoreCount = s.Count(x => x == '_');
             if (underscoreCount != argStrings.Count)
             {
-                string message = String.Format(
+                var message = String.Format(
                     "If you use {0} underscores in your method name, make sure there's {0} arguments (found {1})",
                     underscoreCount, argStrings.Count);
                 throw new ArgumentException(message);

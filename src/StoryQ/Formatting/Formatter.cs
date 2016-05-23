@@ -1,13 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using StoryQ.Formatting.Methods;
-using StoryQ.Formatting.Parameters;
-using StoryQ.Infrastructure;
-
-namespace StoryQ.Formatting
+﻿namespace StoryQ.Formatting
 {
+    using System;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Reflection;
+    using StoryQ.Formatting.Methods;
+    using StoryQ.Formatting.Parameters;
+    using StoryQ.Infrastructure;
+
     /// <summary>
     /// A StoryQ infrastructure class that can format a given StoryQ Test method into a human-friendly (even if the human
     /// in question isn't a developer!) string
@@ -22,16 +22,16 @@ namespace StoryQ.Formatting
         /// <returns>a string representing the method's description</returns>
         public static string FormatMethod(Delegate method, params object[] arguments)
         {
-            ParameterInfo[] parameterInfos = method.Method.GetParameters();
+            var parameterInfos = method.Method.GetParameters();
             Debug.Assert(parameterInfos.Length == arguments.Length, "Wrong number of parameters supplied to FormatMethod");
 
             var argsAsStrings = from i in Enumerable.Range(0, arguments.Length)
                                 let p = parameterInfos[i]
                                 let a = arguments[i]
-                                where !p.IsDefined(typeof (SilentAttribute), true)
+                                where !p.IsDefined(typeof(SilentAttribute), true)
                                 select FormatParameter(parameterInfos[i], a);
 
-            MethodFormatAttribute formatter = GetFormatter(method);
+            var formatter = GetFormatter(method);
             return formatter.Format(method.Method, argsAsStrings);
         }
 

@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Reflection;
-
 namespace StoryQ.Formatting.Methods
 {
+    using System.Collections.Generic;
+    using System.Reflection;
+
     ///<summary>
     /// Lets you specify how you want a method formatted with a literal string
     ///</summary>
@@ -27,7 +27,7 @@ namespace StoryQ.Formatting.Methods
         /// <returns>the overidden text</returns>
         public override string Format(MethodInfo method, IEnumerable<string> parameters)
         {
-            return text;
+            return this.text;
         }
     }
 }

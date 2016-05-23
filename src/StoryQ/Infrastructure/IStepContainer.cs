@@ -1,9 +1,8 @@
-using System.Collections.Generic;
-
-using StoryQ.Execution.Rendering;
-
 namespace StoryQ.Infrastructure
 {
+    using System.Collections.Generic;
+    using StoryQ.Execution.Rendering;
+
     ///<summary>
     /// Something that holds steps
     ///</summary>

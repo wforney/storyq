@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Xml.Linq;
-
-namespace StoryQ.Execution.Rendering
+﻿namespace StoryQ.Execution.Rendering
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Xml.Linq;
+
     internal class XmlCategoriser
     {
         private const string AttributeName = "Name";
@@ -30,14 +30,14 @@ namespace StoryQ.Execution.Rendering
 
         public XElement GetOrCreateElementForMethodInfo(MethodBase categoriser)
         {
-            XElement e = rootElement;
+            var e = this.rootElement;
             foreach (var pair in chain)
             {
-                string value = pair.Value(categoriser);
-                XElement match = e.Elements(pair.Key).SingleOrDefault(x => value == (string)x.Attribute(AttributeName));
+                var value = pair.Value(categoriser);
+                var match = e.Elements(pair.Key).SingleOrDefault(x => value == (string)x.Attribute(AttributeName));
                 if (match == null)
                 {
-                    match = new XElement(pair.Key, new XAttribute(AttributeName, value ?? ""));
+                    match = new XElement(pair.Key, new XAttribute(AttributeName, value ?? string.Empty));
                     e.Add(match);
                 }
                 e = match;
@@ -47,13 +47,13 @@ namespace StoryQ.Execution.Rendering
 
         public XmlRenderer GetRenderer(MethodBase categoriser)
         {
-            XElement element = GetOrCreateElementForMethodInfo(categoriser);
-            return new XmlRenderer(element, CreateExceptionID);
+            var element = this.GetOrCreateElementForMethodInfo(categoriser);
+            return new XmlRenderer(element, this.CreateExceptionID);
         }
 
         private int CreateExceptionID()
         {
-            return exceptionID++;
+            return this.exceptionID++;
         }
     }
 }

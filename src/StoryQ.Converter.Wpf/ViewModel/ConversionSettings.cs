@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-
-using StoryQ.Converter.Wpf.Model.CodeGen;
-
-namespace StoryQ.Converter.Wpf.ViewModel
+﻿namespace StoryQ.Converter.Wpf.ViewModel
 {
+    using System.Collections.Generic;
+    using StoryQ.Converter.Wpf.Model.CodeGen;
+
     public class ConversionSettings : ViewModelBase
     {
         private GenerationLevel level = GenerationLevel.Story;

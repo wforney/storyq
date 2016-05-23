@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Windows.Data;
-
-namespace StoryQ.Converter.Wpf.Converters
+﻿namespace StoryQ.Converter.Wpf.Converters
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text;
+    using System.Windows.Data;
+
     public class StringFormatConverter:IValueConverter
     {
         public string Format { get; set; }

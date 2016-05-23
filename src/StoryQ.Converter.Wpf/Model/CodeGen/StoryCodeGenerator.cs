@@ -1,10 +1,9 @@
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-
-using StoryQ.Infrastructure;
-
 namespace StoryQ.Converter.Wpf.Model.CodeGen
 {
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
+    using StoryQ.Infrastructure;
+
     /// <summary>
     /// Generates the code that constructs a StoryQ story
     /// </summary>
@@ -30,7 +29,7 @@ namespace StoryQ.Converter.Wpf.Model.CodeGen
                     writer.WriteLine("");
                 }
 
-                using(writer.IncreaseIndent(indentLevel))
+                using (writer.IncreaseIndent(indentLevel))
                 {
                     string s = first
                                    ? string.Format("new {0}({1})", f.GetType().Name, CreateStepArgs(f.Step))
