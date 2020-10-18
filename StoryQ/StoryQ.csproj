@@ -1,0 +1,85 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/wforney/storyq</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/wforney/storyq</PackageProjectUrl>
+    <Description>StoryQ is a portable (single dll), embedded BDD framework for .NET 3.5. It runs within your existing test runner and helps produce human-friendly test output (html or text). StoryQ's fluent interface adds strong typing, intellisense and documentation to your BDD grammar.</Description>
+    <PackageReleaseNotes>Saved from the CodePlex archive, updated for .NET Standard 2.1</PackageReleaseNotes>
+    <PackageTags>BDD</PackageTags>
+    <Copyright>Copyright © 2010 robfe and toddb</Copyright>
+    <Company />
+    <Authors>robfe, toddb, and William Forney</Authors>
+    <Version>2.0.5.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Code\storyq\StoryQ\StoryQ\StoryQ.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\Code\storyq\StoryQ\StoryQ\StoryQ.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Execution\Rendering\RichHtml\Dependencies.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Dependencies.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Execution\Rendering\SimpleHtml\SimpleHtmlDependencies.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SimpleHtmlDependencies.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="StoryQ.flit.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StoryQ.flit.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Execution\Rendering\RichHtml\Dependencies.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Dependencies.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Execution\Rendering\SimpleHtml\SimpleHtmlDependencies.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SimpleHtmlDependencies.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="StoryQ.flit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>StoryQ.flit.g.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+</Project>
